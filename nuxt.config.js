@@ -29,6 +29,8 @@ export default {
   buildModules: [
     // https://go.nuxtjs.dev/typescript
     '@nuxt/typescript-build',
+    '@nuxtjs/tailwindcss',
+    '@nuxtjs/fontawesome'
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -39,6 +41,7 @@ export default {
     '@nuxtjs/pwa',
     // https://go.nuxtjs.dev/content
     '@nuxt/content',
+
     // '@nuxtjs/meta',
   ],
 
@@ -69,4 +72,12 @@ export default {
       },
     },
   },
+  fontawesome: {
+    component: 'fa',
+    suffix: false,
+    icons: {
+      solid: true,
+      brands: true,
+    },
+},
 }

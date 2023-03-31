@@ -1,8 +1,24 @@
+// eslint-disable-next-line no-irregular-whitespace
 <template>
   <div>
     <h1>
-      Oops, something went wrong !
+      error
     </h1>
-    <p>The page you are looking for cannot be found</p>
+    <button @click="goHome">
+      Go Home
+    </button>
   </div>
 </template>
+
+// eslint-disable-next-line no-irregular-whitespace
+<script>
+  export default {
+    props: ['error'],
+    methods: {
+      goHome() {
+        this.$router.push({ path: '/'})
+      }
+    },
+    layout: 'DefaultLayout'
+  }
+</script>
