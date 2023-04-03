@@ -1,5 +1,5 @@
 <template>
-  <div class="absolute flex flex-col items-center justify-center h-full gap-10">
+  <div class="flex flex-col items-center justify-between h-full gap-10">
     <DefaultLayout />
     <div class="text-blue-700 font-semibold">
       Xin chào !

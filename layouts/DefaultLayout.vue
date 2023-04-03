@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-yellow-200">
+  <div class="items-center">
     <navigation-brand />
     <nuxt />
   </div>

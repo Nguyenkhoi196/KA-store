@@ -1,7 +1,7 @@
 <template>
-  <div class="flex">
-    <div class="text-center mx-auto">
-      <img :src="require('~/assets/images/logo.png')" alt="logo" class="w-full" />
+  <div class="flex mx-auto">
+    <div class="text-center rounded-1/2 border-blue-600">
+      <img :src="require('~/assets/images/logo.png')" alt="logo" class="w-1/5 items-center mx-auto" />
     </div>
   </div>
 </template>
