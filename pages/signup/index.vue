@@ -6,9 +6,9 @@
       >
         <div class="row">
           <label class="flex flex-col" for="fullName">
-            <span class="font-semibold">Full Name</span>
+            <span class="font-semibold">fullName</span>
             <input
-
+              v-model="fullName"
               class="px-4 py-3 rounded-lg border border-gray-900 bg-gray-400/10 text-black mt-1"
               type="text"
               placeholder="KhoiNguyen"
@@ -19,6 +19,7 @@
           <label class="flex flex-col" for="email">
             <span class="font-semibold">Email</span>
             <input
+              v-model="email"
               class="px-4 py-3 rounded-lg border border-gray-900 bg-gray-400/10 text-black mt-1"
               type="text"
               placeholder="@gmail.com"
@@ -30,6 +31,7 @@
           <label class="flex flex-col" for="password">
             <span class="font-semibold">Password</span>
             <input
+              v-model="password"
               class="px-4 py-3 rounded-lg border border-gray-900 bg-gray-400/10 text-black mt-1"
               type="text"
               placeholder="password"
@@ -37,29 +39,29 @@
           </label>
         </div>
         <div class="row">
-          <!-- v-if="!isPending" -->
           <button
+            v-if="!isPending"
             type="submit"
             class="font-semibold w-full px-4 py-3 rounded-lg border border-gray-900 text-yellow bg-white mt-1 text-center hover:bg-yellow hover:text-white"
+            @submit.prevent="onSubmit"
           >
             Sign Up
-          <!-- </button>
-          v-else
+          </button>
           <button
+            v-else
             type="button"
             class="cursor-not-allowed font-semibold w-full px-4 py-3 rounded-lg border border-gray-900 text-yellow bg-gray-300 mt-1 text-center hover:bg-yellow hover:text-white"
-            disabled
-          > -->
-            <!-- Loading... -->
+            disabled>
+          Loading...
           </button>
         </div>
       </form>
       <!-- Start-err -->
-      <!-- <div v-if="error" class="text-left text-yellow mt-4">
+      <div v-if="error" class="text-left text-yellow mt-4">
         <span>
           {{ error }}
         </span>
-      </div> -->
+      </div>
       <!-- Star--direction -->
 
       <div class="w-full text-center mt-6">
@@ -71,3 +73,66 @@
     </div>
   </div>
 </template>
+<script lang="ts">
+import { ref } from 'vue';
+import { useRouter } from 'vue-router/types/composables';
+import store from '~/store';
+
+// export default {
+//   setup() {
+//     const fullName = ref<string>('');
+//     const email = ref<string>('');
+//     const password = ref<string>('');
+//     const isPending = ref<boolean>(false);
+//     // const { error, isPending, signin } = useSignIn();
+//     async function onSubmit() {
+//       await signup(fullName.value, email.value, password.value);
+//       if (!error.value) {
+//         this.$router.push({ name: "profile", param: {} });
+//       }
+//     }
+//     return {
+//       fullName,
+//       email,
+//       password,
+//       isPending,
+//       error,
+//     }
+//   },
+// }
+export default {
+  setup() {
+    const fullName = ref<string>('');
+    const email = ref<string>('');
+    const password = ref<string>('');
+    const isPending = ref<boolean>(false);
+    const error = ref<any>(null);
+    const router = useRouter();
+
+    const onSubmit = async()=> {
+      try {
+        await store.dispatch('signup', {
+          fullName: fullName.value,
+          email: email.value,
+          password: password.value,
+        });
+      } catch (e: any) {
+        error.value = e.message;
+        console.log(e)
+      }
+      if (!error.value) {
+        router.push({ name: "profile"});
+      }
+    }
+    console.log(email,password);
+  return {
+    fullName,
+    email,
+    password,
+    isPending,
+    error,
+    onSubmit,
+    }
+  }
+}
+</script>

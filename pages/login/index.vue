@@ -32,6 +32,7 @@
             v-if="!isPending"
             type="submit"
             class="font-semibold w-full px-4 py-3 rounded-lg border border-gray-900 text-yellow mt-1 text-center hover:text-white"
+            @submit.prevent="onSubmit"
           >
             LogIn
           </button>
@@ -62,19 +63,33 @@
     </div>
   </div>
 </template>
-<script>
+<script lang="ts">
 import { ref } from 'vue';
+import { useRouter } from 'vue-router/types/composables';
 import store from "~/store";
 export default {
   setup() {
     const email = ref<string>('');
     const password = ref<string>('');
     const isPending = ref<boolean>(false);
-    const error = ref('error');
+    const error = ref<any>(null);
+    const router = useRouter();
 
-    function onSubmit() {
-
+    const onSubmit = async()=> {
+      try {
+        await store.dispatch('login', {
+          email: email.value,
+          password: password.value,
+        });
+      } catch (e: any) {
+        error.value = e.message;
+        console.log(e)
+      }
+      if (!error.value) {
+        router.push({ name: "profile" });
+      }
     }
+    console.log(email,password);
   return {
     email,
     password,
@@ -82,6 +97,6 @@ export default {
     error,
     onSubmit,
     }
-  },
+  }
 }
 </script>
