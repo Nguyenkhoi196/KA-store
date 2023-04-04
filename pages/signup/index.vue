@@ -75,31 +75,9 @@
 </template>
 <script lang="ts">
 import { ref } from 'vue';
-import { useRouter } from 'vue-router/types/composables';
-import store from '~/store';
+import { useRouter } from '@nuxtjs/composition-api';
+import { store } from "../../store/index";
 
-// export default {
-//   setup() {
-//     const fullName = ref<string>('');
-//     const email = ref<string>('');
-//     const password = ref<string>('');
-//     const isPending = ref<boolean>(false);
-//     // const { error, isPending, signin } = useSignIn();
-//     async function onSubmit() {
-//       await signup(fullName.value, email.value, password.value);
-//       if (!error.value) {
-//         this.$router.push({ name: "profile", param: {} });
-//       }
-//     }
-//     return {
-//       fullName,
-//       email,
-//       password,
-//       isPending,
-//       error,
-//     }
-//   },
-// }
 export default {
   setup() {
     const fullName = ref<string>('');
@@ -118,20 +96,19 @@ export default {
         });
       } catch (e: any) {
         error.value = e.message;
-        console.log(e)
+
       }
       if (!error.value) {
-        router.push({ name: "profile"});
+        router.push({ path: "/profile"});
       }
     }
-    console.log(email,password);
   return {
     fullName,
     email,
     password,
-    isPending,
     error,
     onSubmit,
+    isPending
     }
   }
 }

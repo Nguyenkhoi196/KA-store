@@ -27,7 +27,7 @@
             />
           </label>
         </div>
-        <div class="row">
+        <!-- <div class="row">
           <button
             v-if="!isPending"
             type="submit"
@@ -44,7 +44,7 @@
           >
             Loading...
           </button>
-        </div>
+        </div> -->
       </form>
       <!-- Start-err -->
       <div v-if="error" class="text-left text-yellow mt-4">
@@ -65,13 +65,12 @@
 </template>
 <script lang="ts">
 import { ref } from 'vue';
-import { useRouter } from 'vue-router/types/composables';
-import store from "~/store";
+import { useRouter } from '@nuxtjs/composition-api';
+import { store } from "../../store/index";
 export default {
   setup() {
     const email = ref<string>('');
     const password = ref<string>('');
-    const isPending = ref<boolean>(false);
     const error = ref<any>(null);
     const router = useRouter();
 
@@ -81,19 +80,17 @@ export default {
           email: email.value,
           password: password.value,
         });
-      } catch (e: any) {
-        error.value = e.message;
-        console.log(e)
+      } catch (e) {
+        error.value = e.message
       }
       if (!error.value) {
-        router.push({ name: "profile" });
+        router.push({ path: "/profile" });
       }
     }
-    console.log(email,password);
+
   return {
     email,
     password,
-    isPending,
     error,
     onSubmit,
     }

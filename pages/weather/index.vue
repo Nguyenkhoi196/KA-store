@@ -1,4 +1,4 @@
-<script lang="ts">
+<!-- <script lang="ts">
 
 import { ref } from 'vue'
 
@@ -67,4 +67,4 @@ export default {
     <button @click="fetchWeather">Fetch</button>
   </div>
 </template>
-
+ -->
