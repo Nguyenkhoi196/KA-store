@@ -1,5 +1,6 @@
 <template>
-  <div class="mt-8" >
+  <div class="mt-8 flex flex-col" >
+    <DefaultLayout />
     <div class="container mx-auto px-8">
       <form
         class="flex flex-col space-y-6 justify-start"
@@ -10,7 +11,7 @@
             <input
               v-model="email"
               class="px-4 py-3 rounded-lg border border-gray-900 bg-gray-400/10 text-black mt-1"
-              type="text"
+              type="email"
               placeholder="@gmail.com"
               autocomplete="username"
             />
@@ -22,16 +23,16 @@
             <input
               v-model="password"
               class="px-4 py-3 rounded-lg border border-gray-900 bg-gray-400/10 text-black mt-1"
-              type="text"
+              type="password"
               placeholder="password"
             />
           </label>
         </div>
-        <!-- <div class="row">
+        <div class="row">
           <button
             v-if="!isPending"
             type="submit"
-            class="font-semibold w-full px-4 py-3 rounded-lg border border-gray-900 text-yellow mt-1 text-center hover:text-white"
+            class="font-semibold w-full px-4 py-3 rounded-lg border border-gray-900 text-yellow mt-1 text-center hover:bg-slate-500"
             @submit.prevent="onSubmit"
           >
             LogIn
@@ -39,12 +40,12 @@
           <button
             v-else
             type="button"
-            class="cursor-not-allowed font-semibold w-full px-4 py-3 rounded-lg border border-gray-900 text-yellow bg-gray-300 mt-1 text-center hover:bg-yellow hover:text-white"
+            class="cursor-not-allowed font-semibold w-full px-4 py-3 rounded-lg border border-gray-900 text-yellow bg-gray-300 mt-1 text-center"
             disabled
           >
             Loading...
           </button>
-        </div> -->
+        </div>
       </form>
       <!-- Start-err -->
       <div v-if="error" class="text-left text-yellow mt-4">
@@ -66,11 +67,17 @@
 <script lang="ts">
 import { ref } from 'vue';
 import { useRouter } from '@nuxtjs/composition-api';
-import { store } from "../../store/index";
+import { store } from "../../store";
+import DefaultLayout from '~/layouts/DefaultLayout.vue';
+
 export default {
+  components: {
+    DefaultLayout
+  },
   setup() {
     const email = ref<string>('');
     const password = ref<string>('');
+    const isPending = ref<boolean>(false);
     const error = ref<any>(null);
     const router = useRouter();
 
@@ -80,11 +87,14 @@ export default {
           email: email.value,
           password: password.value,
         });
-      } catch (e) {
-        error.value = e.message
+      }
+
+      catch (e: any) {
+        error.value = e.message;
+        console.log(error.value);
       }
       if (!error.value) {
-        router.push({ path: "/profile" });
+        router.push("/profile");
       }
     }
 
@@ -93,6 +103,7 @@ export default {
     password,
     error,
     onSubmit,
+    isPending,
     }
   }
 }

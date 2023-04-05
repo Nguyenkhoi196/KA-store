@@ -1,5 +1,6 @@
 <template>
-  <div class="mt-8" >
+  <div class="mt-8 flex flex-col" >
+    <DefaultLayout />
     <div class="container mx-auto px-8">
       <form
         class="flex flex-col space-y-6 justify-start"
@@ -21,7 +22,7 @@
             <input
               v-model="email"
               class="px-4 py-3 rounded-lg border border-gray-900 bg-gray-400/10 text-black mt-1"
-              type="text"
+              type="email"
               placeholder="@gmail.com"
               autocomplete="username"
             />
@@ -33,7 +34,7 @@
             <input
               v-model="password"
               class="px-4 py-3 rounded-lg border border-gray-900 bg-gray-400/10 text-black mt-1"
-              type="text"
+              type="password"
               placeholder="password"
             />
           </label>
@@ -42,7 +43,7 @@
           <button
             v-if="!isPending"
             type="submit"
-            class="font-semibold w-full px-4 py-3 rounded-lg border border-gray-900 text-yellow bg-white mt-1 text-center hover:bg-yellow hover:text-white"
+            class="font-semibold w-full px-4 py-3 rounded-lg border border-gray-900 text-yellow bg-white mt-1 text-center hover:bg-slate-500"
             @submit.prevent="onSubmit"
           >
             Sign Up
@@ -50,7 +51,7 @@
           <button
             v-else
             type="button"
-            class="cursor-not-allowed font-semibold w-full px-4 py-3 rounded-lg border border-gray-900 text-yellow bg-gray-300 mt-1 text-center hover:bg-yellow hover:text-white"
+            class="cursor-not-allowed font-semibold w-full px-4 py-3 rounded-lg border border-gray-900 text-yellow bg-gray-300 mt-1 text-center"
             disabled>
           Loading...
           </button>
@@ -66,7 +67,7 @@
 
       <div class="w-full text-center mt-6">
         <span class="font-semibold"> I'm ready a member. </span>
-        <span class="ml-1 font-extrabold text-yellow hover:text-white">
+        <span class="ml-1 font-extrabold">
           <nuxt-link to="/login">LogIn</nuxt-link>
         </span>
       </div>
@@ -76,9 +77,13 @@
 <script lang="ts">
 import { ref } from 'vue';
 import { useRouter } from '@nuxtjs/composition-api';
-import { store } from "../../store/index";
+import { store } from "../../store";
+import DefaultLayout from '~/layouts/DefaultLayout.vue'
 
 export default {
+  components: {
+    DefaultLayout
+  },
   setup() {
     const fullName = ref<string>('');
     const email = ref<string>('');
@@ -96,10 +101,10 @@ export default {
         });
       } catch (e: any) {
         error.value = e.message;
-
+        console.log(error.value);
       }
       if (!error.value) {
-        router.push({ path: "/profile"});
+        router.push("/profile");
       }
     }
   return {
@@ -108,7 +113,7 @@ export default {
     password,
     error,
     onSubmit,
-    isPending
+    isPending,
     }
   }
 }

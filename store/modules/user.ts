@@ -14,6 +14,12 @@ export const user = new Vuex.Store({
       login: false
     }
   },
+  // getters: {
+  //   user(state: any) {
+  //     console.log(state.user.data)
+  //     return state.user.data;
+  //   }
+  // },
   mutations: {
     SET_LOGIN(state: any, value: any) {
       state.user.login = true;
@@ -62,9 +68,5 @@ export const user = new Vuex.Store({
     // }
   },
   // ở đây
-    // getters: {
-    //   user: (state: any) => {
-    //     return state.user.data;
-    //   }
-    // }
+
 });

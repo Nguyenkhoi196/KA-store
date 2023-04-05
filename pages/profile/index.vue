@@ -6,11 +6,11 @@
       <div class="container mx-auto">
         <div class="text-center">
           <div class="w-24 h-24 overflow-hidden mx-auto">
-
+            Avatar
           </div>
           <div class="font-semibold font-mono text-2xl text-yellow mt3">
           </div>
-          <p class="font-mono text-xs text-blue-600">nguyenkhoi196@gmail.com</p>
+          <p class="font-mono text-xs text-blue-600">userName</p>
         </div>
       </div>
     </div>
