@@ -2,7 +2,7 @@
   <div class="mt-8 flex flex-col" >
     <DefaultLayout />
     <div class="container mx-auto px-8">
-      <form
+      <div
         class="flex flex-col space-y-6 justify-start"
       >
         <div class="row">
@@ -33,7 +33,7 @@
             v-if="!isPending"
             type="submit"
             class="font-semibold w-full px-4 py-3 rounded-lg border border-gray-900 text-yellow mt-1 text-center hover:bg-slate-500"
-            @submit.prevent="onSubmit"
+            @click="onSubmit"
           >
             LogIn
           </button>
@@ -46,7 +46,7 @@
             Loading...
           </button>
         </div>
-      </form>
+      </div>
       <!-- Start-err -->
       <div v-if="error" class="text-left text-yellow mt-4">
         <span>
@@ -62,6 +62,8 @@
         </span>
       </div>
     </div>
+    <p>{{ email }}</p>
+    <p>{{ password }}</p>
   </div>
 </template>
 <script lang="ts">
@@ -87,11 +89,12 @@ export default {
           email: email.value,
           password: password.value,
         });
+        console.log(email.value);
       }
-
       catch (e: any) {
         error.value = e.message;
         console.log(error.value);
+        return false
       }
       if (!error.value) {
         router.push("/profile");

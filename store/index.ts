@@ -17,7 +17,6 @@ export const store = new Vuex.Store({
   },
   getters: {
     user(state: any) {
-      console.log(state.user.data)
       return state.user.data;
     }
   },
@@ -33,34 +32,29 @@ export const store = new Vuex.Store({
   },
   actions: {
     async signup(context: any, {email, password}: {email:string, password:string}){
-      await auth.createUserWithEmailAndPassword(auth.getAuth(), email, password)
-      .then((data) =>
-      {
+      console.log({email, password})
+      const data = await auth.createUserWithEmailAndPassword(auth.getAuth(), email, password)
+      console.log( 'skajnfj', data)
+      try {
         context.commit('SET_LOGIN', data.user)
         const user: any = auth.getAuth().currentUser;
         console.log(user)
-
-        return true;
-      })
-      .catch((error) =>{
-        const message: string = error.message;
-        const code: number = error.code;
-        alert({message, code})
-      })
+      } catch (error) {
+        console.log(error)
+      }
     },
 
     async login(context: any, {email, password}: {email:string, password:string}) {
+      console.log({email, password})
       await auth.signInWithEmailAndPassword(auth.getAuth(), email, password)
-      .then((data: { user: any }) => {
+      .then((data) => {
           context.commit('SET_LOGIN', data.user);
-          console.log(data.user)
-          console.log('Login Successfully!');
-
         })
       .catch((error) =>{
-        const message: string = error.message;
-        const code: number = error.code;
-        alert({message, code})
+        console.log(error.message)
+        if(!error.message){
+          router.push('/profile')
+        }
       })
       // .finally{
       //   isPending.value = false;
