@@ -1,9 +1,12 @@
 <template>
-  <div class="mt-8 flex flex-col" >
+  <div class="flex flex-col items-center justify-between h-full gap-10" >
     <DefaultLayout />
     <div class="container mx-auto px-8">
-      <div
+      <!-- ở đây
+      đúng như không log ra lỗi, nó chỉ báo lỗi trên phần DOM-->
+      <form
         class="flex flex-col space-y-6 justify-start"
+        @submit.prevent="onSubmit"
       >
         <div class="row">
           <label class="flex flex-col" for="fullName">
@@ -44,7 +47,6 @@
             v-if="!isPending"
             type="submit"
             class="font-semibold w-full px-4 py-3 rounded-lg border border-gray-900 text-yellow bg-white mt-1 text-center hover:bg-slate-500"
-            @click="onSubmit"
           >
             Sign Up
           </button>
@@ -56,7 +58,7 @@
           Loading...
           </button>
         </div>
-      </div>
+      </form>
       <!-- Start-err -->
       <div v-if="error" class="text-left text-yellow mt-4">
         <span>
@@ -76,7 +78,7 @@
 </template>
 <script lang="ts">
 import { ref } from 'vue';
-import { useRouter } from '@nuxtjs/composition-api';
+// import { useRouter } from '@nuxtjs/composition-api';
 import { store } from "../../store";
 import DefaultLayout from '~/layouts/DefaultLayout.vue'
 
@@ -84,13 +86,17 @@ export default {
   components: {
     DefaultLayout
   },
+  transition: 'slide-right',
+  meta: {
+    requireAuth: true
+  },
   setup() {
     const fullName = ref<string>('');
     const email = ref<string>('');
     const password = ref<string>('');
     const isPending = ref<boolean>(false);
     const error = ref<any>(null);
-    const router = useRouter();
+    // const router = useRouter();
 
     const onSubmit = async()=> {
       try {
@@ -98,15 +104,16 @@ export default {
           fullName: fullName.value,
           email: email.value,
           password: password.value,
+          url: "/login"
         });
       } catch (e: any) {
         error.value = e.message;
-        // console.log(error.value);
       }
-      if (!error.value) {
-        router.push("/login");
-      }
+      // if (!error.value) {
+      //   router.push("/login");
+      // }
     }
+
   return {
     fullName,
     email,
@@ -118,3 +125,13 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.slide-right-enter-active, .slide-right-leave-active {
+  transition: transform .2s ease-in-out;
+}
+
+.slide-right-enter, .slide-right-leave-to {
+  transform: translateX(100%);
+}
+</style>

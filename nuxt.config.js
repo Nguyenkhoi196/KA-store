@@ -44,7 +44,9 @@ export default {
     // https://go.nuxtjs.dev/content
     '@nuxt/content',
     // '@nuxtjs/meta',
+    // firebase
     '@nuxtjs/firebase',
+    '@nuxtjs/router'
   ],
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
@@ -58,6 +60,9 @@ export default {
       lang: 'en',
     },
   },
+  dirs: [
+    'composables'
+  ],
 
   // Content module configuration: https://go.nuxtjs.dev/config-content
   content: {},
@@ -92,7 +97,7 @@ export default {
       storageBucket: "pk21032023.appspot.com",
       messagingSenderId: "41324712247",
       appId: "1:41324712247:web:1731838d313bed498b0ab2",
-      measurementId: "G-FL6DDYPRW9"
+      measurementId: "G-FL6DDYPRW9",
     },
     services: {
       auth: true,
