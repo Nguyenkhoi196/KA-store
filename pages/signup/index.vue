@@ -2,8 +2,6 @@
   <div class="flex flex-col items-center justify-between h-full gap-10" >
     <DefaultLayout />
     <div class="container mx-auto px-8">
-      <!-- ở đây
-      đúng như không log ra lỗi, nó chỉ báo lỗi trên phần DOM-->
       <form
         class="flex flex-col space-y-6 justify-start"
         @submit.prevent="onSubmit"
@@ -78,7 +76,7 @@
 </template>
 <script lang="ts">
 import { ref } from 'vue';
-// import { useRouter } from '@nuxtjs/composition-api';
+import { useRouter } from '@nuxtjs/composition-api';
 import { store } from "../../store";
 import DefaultLayout from '~/layouts/DefaultLayout.vue'
 
@@ -96,7 +94,7 @@ export default {
     const password = ref<string>('');
     const isPending = ref<boolean>(false);
     const error = ref<any>(null);
-    // const router = useRouter();
+    const router = useRouter();
 
     const onSubmit = async()=> {
       try {
@@ -108,10 +106,13 @@ export default {
         });
       } catch (e: any) {
         error.value = e.message;
+        console.log('error 111', error.value);
+
       }
-      // if (!error.value) {
-      //   router.push("/login");
-      // }
+      if (!error.value) {
+        console.log('check error',error.value);
+        router.push("/login");
+      }
     }
 
   return {

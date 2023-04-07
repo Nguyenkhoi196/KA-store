@@ -31,10 +31,6 @@
           </label>
         </div>
         <div class="row">
-          <!-- ở đây
-          đã chuyển @click lên thẻ form và dùng @submit.prevent bên phải
-          bị lỗi khi nhập sai . khi nhập đúng thì k router.push
-          -->
           <button
             v-if="!isPending"
             type="submit"
@@ -71,7 +67,7 @@
 </template>
 <script lang="ts">
 import { ref } from 'vue';
-// import { useRouter } from '@nuxtjs/composition-api';
+import { useRouter } from '@nuxtjs/composition-api';
 import { store } from "../../store";
 import DefaultLayout from '~/layouts/DefaultLayout.vue';
 
@@ -85,7 +81,7 @@ export default {
     const password = ref<string>('');
     const isPending = ref<boolean>(false);
     const error = ref<any>(null);
-    // const router = useRouter();
+    const router = useRouter();
 
     const onSubmit = async()=> {
       try {
@@ -97,10 +93,13 @@ export default {
       }
       catch (e: any) {
         error.value = e.message;
+        console.log('error 111', error.value);
+
       }
-      // if (!error.value) {
-      //   router.push("/profile");
-      // }
+      if (!error.value) {
+        console.log('check error',error.value);
+        router.push("/profile");
+      }
     }
 
   return {
