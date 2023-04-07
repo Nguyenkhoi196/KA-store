@@ -66,7 +66,7 @@
   </div>
 </template>
 <script lang="ts">
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 import { useRouter } from '@nuxtjs/composition-api';
 import { store } from "../../store";
 import DefaultLayout from '~/layouts/DefaultLayout.vue';
@@ -80,15 +80,20 @@ export default {
     const email = ref<string>('');
     const password = ref<string>('');
     const isPending = ref<boolean>(false);
-    const error = ref<any>(null);
+    const error = ref<any>('');
     const router = useRouter();
+    console.log('err',error);
+
+
+    watch([email, password],() => {
+      error.value = ''
+    })
 
     const onSubmit = async()=> {
       try {
         await store.dispatch('login', {
           email: email.value,
           password: password.value,
-          url: '/profile'
         });
       }
       catch (e: any) {
@@ -97,10 +102,10 @@ export default {
 
       }
       if (!error.value) {
-        console.log('check error',error.value);
+        console.log('login success');
         router.push("/profile");
       }
-    }
+    };
 
   return {
     email,

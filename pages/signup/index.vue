@@ -42,7 +42,7 @@
         </div>
         <div class="row">
           <button
-            v-if="!isPending"
+          v-if="!isPending"
             type="submit"
             class="font-semibold w-full px-4 py-3 rounded-lg border border-gray-900 text-yellow bg-white mt-1 text-center hover:bg-slate-500"
           >
@@ -75,10 +75,11 @@
   </div>
 </template>
 <script lang="ts">
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 import { useRouter } from '@nuxtjs/composition-api';
 import { store } from "../../store";
 import DefaultLayout from '~/layouts/DefaultLayout.vue'
+import { log } from 'console';
 
 export default {
   components: {
@@ -93,8 +94,16 @@ export default {
     const email = ref<string>('');
     const password = ref<string>('');
     const isPending = ref<boolean>(false);
-    const error = ref<any>(null);
+    const error = ref<any>('');
     const router = useRouter();
+    console.log('fullName',fullName);
+
+    watch([email, password],() => {
+      console.log(error.value);
+
+      error.value = ''
+    })
+
 
     const onSubmit = async()=> {
       try {
@@ -102,7 +111,6 @@ export default {
           fullName: fullName.value,
           email: email.value,
           password: password.value,
-          url: "/login"
         });
       } catch (e: any) {
         error.value = e.message;
@@ -110,10 +118,10 @@ export default {
 
       }
       if (!error.value) {
-        console.log('check error',error.value);
+        console.log('signup success !');
         router.push("/login");
       }
-    }
+    };
 
   return {
     fullName,

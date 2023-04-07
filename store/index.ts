@@ -37,20 +37,17 @@ export const store = new Vuex.Store({
   },
 
   actions: {
-    signup(context: any, {email, password, displayName}: {email:string, password:string, displayName: string ,url:any}) {
+    signup(context: any, {email, password}: {email:string, password:string, displayName: string }) {
       return new Promise((resolve, reject) => {
         auth.createUserWithEmailAndPassword(auth.getAuth(), email, password)
           .then((data) => {
             context.commit('SET_LOGIN', data.user)
             const user: any = auth.getAuth().currentUser;
             console.log(user);
-            if (user) {
-              auth.updateProfile(user, {
-                  displayName
-              });
-          }
-          // if (url) {
-          //     Vue.prototype.router.push(url)
+          //   if (user) {
+          //     auth.updateProfile(user, {
+          //         displayName
+          //     });
           // }
             resolve(user);
           })
@@ -66,16 +63,14 @@ export const store = new Vuex.Store({
       context.commit('SET_LOGOUT', null)
     },
 
-    login(context: any, {email, password}: {email:string, password:string ,url: any}) {
+    login(context: any, {email, password}: {email:string, password:string}) {
       return new Promise((resolve, reject) => {
         auth.signInWithEmailAndPassword(auth.getAuth(), email, password)
         .then((data) => {
             context.commit('SET_LOGIN', data.user);
             const user: any = auth.getAuth().currentUser;
             console.log(user);
-          //   if (url) {
-          //     Vue.prototype.router.push(url)
-          // }
+
             resolve(user)
           })
         .catch((error) =>{
