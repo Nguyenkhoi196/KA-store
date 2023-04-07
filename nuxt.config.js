@@ -47,7 +47,14 @@ export default {
     // '@nuxtjs/meta',
     // firebase
     '@nuxtjs/firebase',
-    '@nuxtjs/router'
+    '@nuxtjs/router',
+    // 'cookie-universal-nuxt',
+    // '@nuxtjs/auth-next',
+    // '@nuxtjs/moment',
+    // '@nuxtjs/toast',
+    // '@nuxtjs/proxy',
+    // '@nuxtjs/style-resources',
+    // '@nuxtjs/dotenv',
   ],
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {

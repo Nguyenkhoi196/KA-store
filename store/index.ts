@@ -15,7 +15,8 @@ export const store = new Vuex.Store({
   state: {
     user :{
       data: null,
-      login: false
+      login: false,
+      token: null
     }
   },
 
@@ -29,10 +30,12 @@ export const store = new Vuex.Store({
     SET_LOGIN(state: any, value: any) {
       state.user.login = true;
       state.user.data = value;
+      // state.user.token = token;
     },
     SET_LOGOUT(state: any) {
       state.user.login = false;
       state.user.data = null;
+      state.user.token = null;
     }
   },
 
@@ -52,7 +55,6 @@ export const store = new Vuex.Store({
             resolve(user);
           })
           .catch((error) => {
-            // console.log('FIREBASE ERROR:',error.message)
             reject(error)
           })
       })
@@ -67,6 +69,10 @@ export const store = new Vuex.Store({
       return new Promise((resolve, reject) => {
         auth.signInWithEmailAndPassword(auth.getAuth(), email, password)
         .then((data) => {
+            data.user.getIdToken().then((token) => {
+              context.commit('SET_LOGIN', data.user, token)
+              console.log(token);
+            })
             context.commit('SET_LOGIN', data.user);
             const user: any = auth.getAuth().currentUser;
             console.log(user);
@@ -74,7 +80,6 @@ export const store = new Vuex.Store({
             resolve(user)
           })
         .catch((error) =>{
-          // console.log('FIREBASE ERROR:',error.message)
           reject(error)
         })
       })

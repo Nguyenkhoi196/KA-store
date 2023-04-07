@@ -10,7 +10,7 @@
           </div>
           <div class="font-semibold font-mono text-2xl text-yellow mt3">
           </div>
-          <p class="font-mono text-xs text-blue-600">userName</p>
+          <p class="font-mono text-xs text-blue-600">{{ userEmail }}</p>
         </div>
       </div>
     </div>
@@ -63,3 +63,22 @@
     </div>
   </div>
 </template>
+<script lang="ts">
+
+import { ref } from 'vue';
+// import * as firestore from "firebase/firestore";
+import { store } from "../../store";
+
+export default{
+  setup() {
+    // const db = firestore.getFirestore();
+    const userEmail: any = ref('')
+    userEmail.value = store.getters.user.email;
+    console.log(store.getters.user.email);
+    // console.log(db)
+    return {
+      userEmail,
+    }
+  }
+}
+</script>
