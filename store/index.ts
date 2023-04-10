@@ -1,42 +1,47 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import * as auth from "firebase/auth"
-// import  Router  from '@nuxtjs/router'
-// import Route from '@nuxt/types'
 
 Vue.use(Vuex)
-// declare module '@nuxtjs/router' {
-//   interface Router {
-//     push(to: Route['path']): Promise<Route>
-//   }
-// }
 
 export const store = new Vuex.Store({
   state: {
     user :{
       data: null,
       login: false,
-      token: null
+      token: ''
     }
   },
 
   getters: {
     user(state: any) {
       return state.user.data;
-    }
+    },
+    isAuthenticated(state) {
+      console.log('kiểm tra stata.token',!!state.token);
+      return !!state.token
+    },
   },
 
   mutations: {
-    SET_LOGIN(state: any, value: any) {
+    SET_LOGIN(state: any, payload: any) {
       state.user.login = true;
-      state.user.data = value;
-      // state.user.token = token;
+      state.user.data = payload.value;
+      state.user.token = payload.token;
     },
     SET_LOGOUT(state: any) {
       state.user.login = false;
       state.user.data = null;
       state.user.token = null;
-    }
+    },
+    SET_TOKEN(state: any, token: string) {
+      state.token = token
+      localStorage.setItem('token', token)
+    },
+    REMOVE_TOKEN(state: any, token: string) {
+      state.token = null
+      localStorage.removeItem(token)
+    },
   },
 
   actions: {
@@ -46,7 +51,6 @@ export const store = new Vuex.Store({
           .then((data) => {
             context.commit('SET_LOGIN', data.user)
             const user: any = auth.getAuth().currentUser;
-            console.log(user);
           //   if (user) {
           //     auth.updateProfile(user, {
           //         displayName
@@ -70,12 +74,21 @@ export const store = new Vuex.Store({
         auth.signInWithEmailAndPassword(auth.getAuth(), email, password)
         .then((data) => {
             data.user.getIdToken().then((token) => {
-              context.commit('SET_LOGIN', data.user, token)
-              console.log(token);
+              localStorage.setItem('user', JSON.stringify(data.user.reloadUserInfo));
+              localStorage.setItem('token', token)
+
+              context.commit('SET_LOGIN', data.user)
+              context.commit('SET_TOKEN', token)
+
+              console.log(localStorage);
+              // console.log('string',JSON.stringify(data.user));
+              console.log('user', data.user.reloadUserInfo);
+              console.log('luu token',token);
+
             })
-            context.commit('SET_LOGIN', data.user);
+            // context.commit('SET_LOGIN', data.user);
             const user: any = auth.getAuth().currentUser;
-            console.log(user);
+            // console.log(user);
 
             resolve(user)
           })

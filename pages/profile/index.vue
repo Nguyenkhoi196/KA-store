@@ -65,17 +65,20 @@
 </template>
 <script lang="ts">
 
-import { ref } from 'vue';
+// import { ref } from 'vue';
 // import * as firestore from "firebase/firestore";
-import { store } from "../../store";
+// import { store } from "../../store";
+// import auth  from '@firebase/auth';
 
 export default{
   setup() {
     // const db = firestore.getFirestore();
-    const userEmail: any = ref('')
-    userEmail.value = store.getters.user.email;
-    console.log(store.getters.user.email);
-    // console.log(db)
+    // const userEmail: any = ref('')
+     const userEmail = localStorage.getItem('user');
+     console.log(userEmail);
+    //  const Email = userEmail;
+    // const userEmail: string = auth.$storage.getState(user.email)
+    // console.log(store.getters.isAuthenticated);
     return {
       userEmail,
     }
