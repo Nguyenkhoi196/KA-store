@@ -10,7 +10,7 @@
           </div>
           <div class="font-semibold font-mono text-2xl text-yellow mt3">
           </div>
-          <p class="font-mono text-xs text-blue-600">{{ user.email }}</p>
+          <p v-if="user" class="font-mono text-xs text-blue-600">{{ user.providerData[0].uid }}</p>
         </div>
       </div>
     </div>
@@ -75,11 +75,9 @@ export default {
       if (process.browser) {
         userStr.value = localStorage.getItem('user');
         user.value = userStr.value ? JSON.parse(userStr.value) : {};
-        console.log(user.value);
-        if (user.value.email) {
-          console.log(user.value.email);
-    }
       }
+      console.log(user.value);
+
     });
 
     return {

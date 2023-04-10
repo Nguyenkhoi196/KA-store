@@ -99,8 +99,6 @@ export default {
     const isPending = ref<boolean>(false);
     const error = ref<any>('');
     const router = useRouter();
-    console.log('fullName',fullName);
-
     watch([email, password],() => {
       error.value = ''
     })
@@ -115,7 +113,6 @@ export default {
         });
       } catch (e: any) {
         error.value = e.message;
-        console.log('error 111', error.value);
 
       }
       if (!error.value) {
