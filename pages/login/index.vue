@@ -102,7 +102,6 @@ export default {
         error.value = e.message;
       }
       if (!error.value) {
-        console.log('login success');
         router.push("/profile");
       }
     };

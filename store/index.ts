@@ -36,7 +36,6 @@ export const store = new Vuex.Store({
     },
     SET_TOKEN(state: any, token: string) {
       state.token = token
-      // localStorage.setItem('token', token)
     },
     REMOVE_TOKEN(state: any, token: string) {
       state.token = null
@@ -80,10 +79,10 @@ export const store = new Vuex.Store({
               context.commit('SET_LOGIN', data.user)
               context.commit('SET_TOKEN', token)
 
-              console.log(localStorage);
-              console.log('string',JSON.stringify(data.user));
+              // console.log(localStorage);
+              // console.log('string',JSON.stringify(data.user));
               // console.log('user', JSON.stringify(data.user.reloadUserInfo));
-              console.log('luu token',token);
+              // console.log('luu token',token);
 
             })
             // context.commit('SET_LOGIN', data.user);

@@ -70,16 +70,17 @@ import { ref, onMounted } from 'vue';
 export default {
   setup() {
     const userStr: any = ref(null);
+    const user: any = ref(null);
     onMounted(() => {
       if (process.browser) {
         userStr.value = localStorage.getItem('user');
-        console.log('value', JSON.parse(userStr.value));
-
+        user.value = JSON.parse(userStr.value);
+        console.log('bb', user.value);
       }
     });
 
     return {
-      user: JSON.parse(userStr.value),
+      user
     };
   },
 };
