@@ -10,7 +10,7 @@
           </div>
           <div class="font-semibold font-mono text-2xl text-yellow mt3">
           </div>
-          <p class="font-mono text-xs text-blue-600">{{ user }}</p>
+          <p class="font-mono text-xs text-blue-600">{{ user.email }}</p>
         </div>
       </div>
     </div>
@@ -69,13 +69,16 @@ import { ref, onMounted } from 'vue';
 
 export default {
   setup() {
-    const userStr: any = ref(null);
-    const user: any = ref(null);
+    const userStr: any = ref('');
+    const user: any = ref('');
     onMounted(() => {
       if (process.browser) {
         userStr.value = localStorage.getItem('user');
-        user.value = JSON.parse(userStr.value);
-        console.log('bb', user.value);
+        user.value = userStr.value ? JSON.parse(userStr.value) : {};
+        console.log(user.value);
+        if (user.value.email) {
+          console.log(user.value.email);
+    }
       }
     });
 
