@@ -10,7 +10,7 @@
           </div>
           <div class="font-semibold font-mono text-2xl text-yellow mt3">
           </div>
-          <p class="font-mono text-xs text-blue-600">{{ userEmail }}</p>
+          <p class="font-mono text-xs text-blue-600">{{ user }}</p>
         </div>
       </div>
     </div>
@@ -65,23 +65,22 @@
 </template>
 <script lang="ts">
 
-// import { ref } from 'vue';
-// import * as firestore from "firebase/firestore";
-// import { store } from "../../store";
-// import auth  from '@firebase/auth';
+import { ref, onMounted } from 'vue';
 
-export default{
+export default {
   setup() {
-    // const db = firestore.getFirestore();
-    // const userEmail: any = ref('')
-     const userEmail = localStorage.getItem('user');
-     console.log(userEmail);
-    //  const Email = userEmail;
-    // const userEmail: string = auth.$storage.getState(user.email)
-    // console.log(store.getters.isAuthenticated);
+    const userStr: any = ref(null);
+    onMounted(() => {
+      if (process.browser) {
+        userStr.value = localStorage.getItem('user');
+        console.log('value', JSON.parse(userStr.value));
+
+      }
+    });
+
     return {
-      userEmail,
-    }
-  }
-}
+      user: JSON.parse(userStr.value),
+    };
+  },
+};
 </script>

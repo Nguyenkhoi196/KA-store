@@ -55,6 +55,8 @@ export default {
     // '@nuxtjs/proxy',
     // '@nuxtjs/style-resources',
     // '@nuxtjs/dotenv',
+    '@nuxtjs/universal-storage'
+
   ],
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {

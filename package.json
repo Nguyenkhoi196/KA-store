@@ -19,10 +19,13 @@
     "@nuxtjs/firebase": "^8.2.2",
     "@nuxtjs/pwa": "^3.3.5",
     "@nuxtjs/router": "^1.7.0",
+    "@nuxtjs/universal-storage": "^0.5.9",
     "core-js": "^3.25.3",
     "firebase": "^9.19.1",
     "nuxt": "^2.15.8",
     "nuxt-icons": "^3.1.0",
+    "nuxt-vuex-localstorage-sync": "^1.0.3",
+    "universal-cookie": "^4.0.4",
     "vue": "^2.7.10",
     "vue-server-renderer": "^2.7.10",
     "vue-template-compiler": "^2.7.10"
