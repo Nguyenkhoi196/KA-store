@@ -50,9 +50,8 @@
           <nuxt-link to="/chat">
             <div class=" mx-auto p-4 border-2 bg-white rounded-md">
               <div class="flex flex-row items-center gap-2 text-yellow-600">
-
-                  <fa :icon="['fas', 'comment']" />
-                  <h3 class="font-bold">Trả hàng</h3>
+                <fa :icon="['fas', 'arrow-right']" />
+                 <h3 class="font-bold">Trả hàng</h3>
               </div>
             </div>
           </nuxt-link>
