@@ -37,9 +37,8 @@ export const store = new Vuex.Store({
     SET_TOKEN(state: any, token: string) {
       state.token = token
     },
-    REMOVE_TOKEN(state: any, token: string) {
+    REMOVE_TOKEN(state: any) {
       state.token = null
-      localStorage.removeItem(token)
     },
   },
 
@@ -63,9 +62,21 @@ export const store = new Vuex.Store({
       })
     },
 
-    async logout(context: any) {
-      await auth.signOut(auth.getAuth())
-      context.commit('SET_LOGOUT', null)
+    logout(context: any) {
+      return new Promise((resolve, reject) => {
+        auth.signOut(auth.getAuth())
+          .then((user) => {
+            // Xóa token từ localStorage
+            localStorage.removeItem('user');
+            localStorage.removeItem('token');
+
+            context.commit('SET_LOGOUT'); // Gọi mutation để đặt trạng thái logout
+            resolve(user);
+          })
+          .catch((error) => {
+            reject(error);
+          });
+      });
     },
 
     login(context: any, {email, password}: {email:string, password:string}) {
@@ -78,17 +89,8 @@ export const store = new Vuex.Store({
 
               context.commit('SET_LOGIN', data.user)
               context.commit('SET_TOKEN', token)
-
-              // console.log(localStorage);
-              // console.log('string',JSON.stringify(data.user));
-              // console.log('user', JSON.stringify(data.user.reloadUserInfo));
-              // console.log('luu token',token);
-
             })
-            // context.commit('SET_LOGIN', data.user);
             const user: any = auth.getAuth().currentUser;
-            // console.log(user);
-
             resolve(user)
           })
         .catch((error) =>{

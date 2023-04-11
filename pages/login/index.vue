@@ -1,6 +1,5 @@
 <template>
   <div class="flex flex-col items-center justify-between h-full gap-10" >
-    <DefaultLayout />
     <div class="container mx-auto px-8">
       <!-- ở đây -->
       <form
@@ -73,12 +72,10 @@
 import { ref, watch } from 'vue';
 import { useRouter } from '@nuxtjs/composition-api';
 import { store } from "../../store";
-import DefaultLayout from '~/layouts/DefaultLayout.vue';
+// import DefaultLayout from '~/layouts/DefaultLayout.vue';
 
 export default {
-  components: {
-    DefaultLayout
-  },
+  layout: "DefaultLayout",
   transition: 'slide-left',
   setup() {
     const email = ref<string>('');
@@ -120,7 +117,6 @@ export default {
 .slide-left-enter-active, .slide-left-leave-active {
   transition: transform .2s ease-in-out;
 }
-
 .slide-left-enter, .slide-left-leave-to {
   transform: translateX(-100%);
 }

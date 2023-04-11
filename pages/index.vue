@@ -15,10 +15,8 @@
   </div>
 </template>
 <script lang='ts'>
-import DefaultLayout from '~/layouts/DefaultLayout.vue'
+// import DefaultLayout from '~/layouts/DefaultLayout.vue';
 export default {
-  components: {
-    DefaultLayout
-  }
+  layout: "DefaultLayout",
 }
 </script>

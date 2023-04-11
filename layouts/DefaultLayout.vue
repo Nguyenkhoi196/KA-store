@@ -1,5 +1,5 @@
 <template>
-  <div class="items-center">
+  <div>
     <navigation-brand />
     <nuxt />
   </div>
@@ -9,6 +9,7 @@
 <script>
 import NavigationBrand from "~/components/NavigationBrand.vue";
 export default {
+  name: 'DefaultLayout',
   components: { NavigationBrand },
 };
 </script>

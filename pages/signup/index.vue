@@ -1,6 +1,5 @@
 <template>
   <div class="flex flex-col items-center justify-between h-full gap-10" >
-    <DefaultLayout />
     <div class="container mx-auto px-8">
       <form
         class="flex flex-col space-y-6 justify-start"
@@ -82,12 +81,9 @@
 import { ref, watch } from 'vue';
 import { useRouter } from '@nuxtjs/composition-api';
 import { store } from "../../store";
-import DefaultLayout from '~/layouts/DefaultLayout.vue'
 
 export default {
-  components: {
-    DefaultLayout
-  },
+  layout: "DefaultLayout",
   transition: 'slide-right',
   meta: {
     requireAuth: true
