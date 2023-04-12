@@ -1,38 +1,37 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import * as auth from "firebase/auth"
+import * as auth from 'firebase/auth'
 
 Vue.use(Vuex)
 
 export const store = new Vuex.Store({
   state: {
-    user :{
+    user: {
       data: null,
       login: false,
-      token: ''
-    }
+      token: '',
+    },
   },
 
   getters: {
     user(state: any) {
-      return state.user.data;
+      return state.user.data
     },
     isAuthenticated(state) {
-      console.log('kiểm tra stata.token',!!state.token);
       return !!state.token
     },
   },
 
   mutations: {
     SET_LOGIN(state: any, payload: any) {
-      state.user.login = true;
-      state.user.data = payload.value;
-      state.user.token = payload.token;
+      state.user.login = true
+      state.user.data = payload.value
+      state.user.token = payload.token
     },
     SET_LOGOUT(state: any) {
-      state.user.login = false;
-      state.user.data = null;
-      state.user.token = null;
+      state.user.login = false
+      state.user.data = null
+      state.user.token = null
     },
     SET_TOKEN(state: any, token: string) {
       state.token = token
@@ -43,18 +42,25 @@ export const store = new Vuex.Store({
   },
 
   actions: {
-    signup(context: any, {email, password}: {email:string, password:string, displayName: string }) {
+    signup(
+      context: any,
+      {
+        email,
+        password,
+      }: { email: string; password: string; displayName: string }
+    ) {
       return new Promise((resolve, reject) => {
-        auth.createUserWithEmailAndPassword(auth.getAuth(), email, password)
+        auth
+          .createUserWithEmailAndPassword(auth.getAuth(), email, password)
           .then((data) => {
             context.commit('SET_LOGIN', data.user)
-            const user: any = auth.getAuth().currentUser;
-          //   if (user) {
-          //     auth.updateProfile(user, {
-          //         displayName
-          //     });
-          // }
-            resolve(user);
+            const user: any = auth.getAuth().currentUser
+            //   if (user) {
+            //     auth.updateProfile(user, {
+            //         displayName
+            //     });
+            // }
+            resolve(user)
           })
           .catch((error) => {
             reject(error)
@@ -64,38 +70,43 @@ export const store = new Vuex.Store({
 
     logout(context: any) {
       return new Promise((resolve, reject) => {
-        auth.signOut(auth.getAuth())
+        auth
+          .signOut(auth.getAuth())
           .then((user) => {
             // Xóa token từ localStorage
-            localStorage.removeItem('user');
-            localStorage.removeItem('token');
+            localStorage.removeItem('user')
+            localStorage.removeItem('token')
 
-            context.commit('SET_LOGOUT'); // Gọi mutation để đặt trạng thái logout
-            resolve(user);
+            context.commit('SET_LOGOUT') // Gọi mutation để đặt trạng thái logout
+            resolve(user)
           })
           .catch((error) => {
-            reject(error);
-          });
-      });
+            reject(error)
+          })
+      })
     },
 
-    login(context: any, {email, password}: {email:string, password:string}) {
+    login(
+      context: any,
+      { email, password }: { email: string; password: string }
+    ) {
       return new Promise((resolve, reject) => {
-        auth.signInWithEmailAndPassword(auth.getAuth(), email, password)
-        .then((data) => {
+        auth
+          .signInWithEmailAndPassword(auth.getAuth(), email, password)
+          .then((data) => {
             data.user.getIdToken().then((token) => {
-              localStorage.setItem('user', JSON.stringify(data.user));
+              localStorage.setItem('user', JSON.stringify(data.user))
               localStorage.setItem('token', JSON.stringify(token))
 
               context.commit('SET_LOGIN', data.user)
               context.commit('SET_TOKEN', token)
             })
-            const user: any = auth.getAuth().currentUser;
+            const user: any = auth.getAuth().currentUser
             resolve(user)
           })
-        .catch((error) =>{
-          reject(error)
-        })
+          .catch((error) => {
+            reject(error)
+          })
       })
     },
 
@@ -104,6 +115,5 @@ export const store = new Vuex.Store({
     // }
   },
 
-  modules: {
-  }
+  modules: {},
 })
