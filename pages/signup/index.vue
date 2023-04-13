@@ -10,7 +10,7 @@
             <span class="font-semibold">fullName</span>
             <input
               v-model="fullName"
-              class="px-4 py-3 rounded-lg border border-gray-900 bg-gray-400/10 text-black mt-1"
+              class="px-4 py-3 rounded-lg border-[1px] ring-2 ring-secondary border-tertiary bg-gray-400/10 text-black mt-1"
               type="text"
               placeholder="KhoiNguyen"
             />
@@ -21,7 +21,7 @@
             <span class="font-semibold">Email</span>
             <input
               v-model="email"
-              class="px-4 py-3 rounded-lg border border-gray-900 bg-gray-400/10 text-black mt-1"
+              class="px-4 py-3 rounded-lg border-[1px] ring-2 ring-secondary border-tertiary bg-gray-400/10 text-black mt-1"
               type="email"
               placeholder="@gmail.com"
               autocomplete="username"
@@ -33,7 +33,7 @@
             <span class="font-semibold">Password</span>
             <input
               v-model="password"
-              class="px-4 py-3 rounded-lg border border-gray-900 bg-gray-400/10 text-black mt-1"
+              class="px-4 py-3 rounded-lg border-[1px] ring-2 ring-secondary border-tertiary bg-gray-400/10 text-black mt-1"
               type="password"
               placeholder="password"
             />
@@ -43,14 +43,14 @@
           <button
           v-if="!isPending"
             type="submit"
-            class="font-semibold w-full px-4 py-3 rounded-lg border border-gray-900 text-yellow bg-white mt-1 text-center hover:bg-slate-500"
+            class="font-semibold w-full px-4 py-3 rounded-lg border-[1px] ring-2 ring-secondary border-tertiary text-yellow bg-secondary mt-1 text-center hover:bg-tertiary"
           >
             Sign Up
           </button>
           <button
             v-else
             type="button"
-            class="cursor-not-allowed font-semibold w-full px-4 py-3 rounded-lg border border-gray-900 text-yellow bg-gray-300 mt-1 text-center"
+            class="cursor-not-allowed font-semibold w-full px-4 py-3 rounded-lg border-[1px] ring-2 ring-secondary border-tertiary text-yellow bg-secondary mt-1 text-center"
             disabled>
           Loading...
           </button>
@@ -89,9 +89,9 @@ export default {
     requireAuth: true
   },
   setup() {
-    const fullName = ref<string>('');
-    const email = ref<string>('');
-    const password = ref<string>('');
+    const fullName = ref<any>(null);
+    const email = ref<any>(null);
+    const password = ref<any>(null);
     const isPending = ref<boolean>(false);
     const error = ref<any>('');
     const router = useRouter();
@@ -107,6 +107,7 @@ export default {
           email: email.value,
           password: password.value,
         });
+        console.log(fullName.value);
       } catch (e: any) {
         error.value = e.message;
 
