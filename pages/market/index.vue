@@ -7,14 +7,23 @@ import ModalProduct from '~/components/Modal.vue';
 export default {
   components: { ModalProduct } ,
   setup() {
-    const isModalVisible = ref(true); // Sử dụng ref để gắn biến reactive
-    const showModal = () => {
-      isModalVisible.value = !isModalVisible.value; // Truy cập giá trị của ref thông qua .value
+    const isModalVisible = ref(false); // Sử dụng ref để gắn biến reactive
+    const setShowModal = (value: boolean) => {
+      isModalVisible.value = value; // Truy cập giá trị của ref thông qua .value
     }
+    // if (process.client) {
+    //     userStr.value = localStorage.getItem('user')
+    //     user.value = userStr.value ? JSON.parse(userStr.value) : {}
+    //   }
+    // const sendModal = (user) => {
+
+
+    // }
 
     return {
-      showModal,
-      isModalVisible
+      setShowModal,
+      isModalVisible,
+
     };
   },
 };
@@ -46,21 +55,21 @@ export default {
 //   }, -->
 
 <template>
-  <div>
+  <div class="bg-tertiary/10 h-screen">
     <!-- Modal toggle -->
-    <div class="flex justify-center m-5">
+    <div class="flex justify-center p-5">
       <button
       id="defaultModalButton"
         data-modal-toggle="defaultModal"
         class="block text-primary bg-secondary font-medium rounded-lg text-sm px-5 py-2.5 text-center"
         type="button"
-        @click="showModal"
+        @click="setShowModal(true)"
       >
         Create product
       </button>
     </div>
 
     <!-- Main modal -->
-    <ModalProduct v-show="isModalVisible"/>
+    <ModalProduct v-show="isModalVisible" :set-show-modal="setShowModal" :is-modal-visible="isModalVisible" class="relative h-screen"/>
   </div>
 </template>

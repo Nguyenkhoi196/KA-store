@@ -139,7 +139,7 @@
           </nuxt-link>
           <nuxt-link to="">
             <div
-              class="flex flex-row text-tertiary gap-2 px-4 py-2 border-t border-gray-200"
+              class="flex flex-row text-tertiary gap-2 px-4 py-2 border-t border-secondary"
             >
               <span>
                 <fa :icon="['fas', 'phone']" />
@@ -149,7 +149,7 @@
           </nuxt-link>
           <nuxt-link to="">
             <div
-              class="flex flex-row text-tertiary gap-2 px-4 py-2 border-t border-gray-200"
+              class="flex flex-row text-tertiary gap-2 px-4 py-2 border-t border-secondary"
             >
               <span>
                 <fa :icon="['fas', 'circle-info']" />
@@ -159,7 +159,7 @@
           </nuxt-link>
           <button @click="logOut">
             <div
-              class="flex flex-row gap-2 px-4 py-2 text-red-500 border-t border-gray-200"
+              class="flex flex-row gap-2 px-4 py-2 text-red-500 border-t border-secondary"
             >
               <span>
                 <fa :icon="['fas', 'right-to-bracket']" />

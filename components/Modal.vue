@@ -8,18 +8,19 @@
     >
       <div class="relative p-4 w-full h-full md:h-auto">
         <!-- Modal content -->
-        <div class="relative p-2 bg-secondary rounded-lg shadow-sm shadow-current">
+        <div class="relative p-2 bg-secondary/20 rounded-lg shadow-sm hover:shadow-none shadow-current">
           <!-- Modal header -->
           <div
             class="flex justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5 dark:border-gray-600"
           >
             <h3 class="text-lg font-semibold text-primary">Add Product</h3>
             <button
-              type="button"
+            type="button"
               class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-primary rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
               data-modal-toggle="defaultModal"
+              @click="setShowModal(false)"
             >
-              <span class="sr-only">Close modal</span>
+              <span class="">Close modal</span>
             </button>
           </div>
           <!-- Modal body -->
@@ -93,7 +94,7 @@
                 <textarea
                   id="description"
                   rows="4"
-                  class="block p-2.5 w-full text-sm text-primary bg-primary rounded-lg border border-grasecondarycus:ring-primary-500 focus:border-primary-500 "
+                  class="block p-2.5 w-full text-sm text-secondary bg-primary rounded-lg border border-grasecondarycus:ring-primary-500 focus:border-primary-500 "
                   placeholder="Write product description here"
                 ></textarea>
               </div>
@@ -108,11 +109,22 @@
         </div>
       </div>
     </div>
+
   </div>
 </template>
 
-<script>
+<script lang="ts">
 export default {
   name: 'ModalProduct',
+  props: ['setShowModal', 'isModalVisible'],
+  setup(){
+    // const closeModal =() => {
+    //   isModalVisible
+    // }
+    return {
+      // isModalVisible,
+      // closeModal
+    }
+  }
 }
 </script>

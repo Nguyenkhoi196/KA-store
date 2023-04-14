@@ -1,5 +1,5 @@
 <template>
-  <div class="h-screen bg-primary p-2 sm:p-2 ">
+  <div class="h-screen bg-primary p-2 sm:p-2">
     <form @submit.prevent="submit">
       <div class="">
         <div class="border-b border-gray-900/10 pb-6">
@@ -8,7 +8,7 @@
           >
             Profile
             <div>
-              <p v-if="user" class="font-mono text-tertiary" >
+              <p v-if="user" class="font-mono text-tertiary">
                 {{ user.providerData[0].uid }}
               </p>
             </div>
@@ -25,7 +25,7 @@
                   class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600"
                 >
                   <input
-                    v-bind="name"
+                    v-model="name"
                     id="username"
                     type="text"
                     name="username"
@@ -123,93 +123,72 @@
 </template>
 
 <script lang="ts">
+import { getDatabase, ref as sRef, set, onValue } from 'firebase/database'
+// import { onMounted } from 'vue';
 import { ref, onMounted } from 'vue'
-import { getDatabase, ref as dbRef, set } from 'firebase/database'
 
 export default {
   setup() {
-    const user:any = ref('')
-    const userStr:any = ref('')
+    const user = ref<any>('')
+    const userStr = ref<any>('')
     const name = ref<string>('')
-    const imageUrl = 'images/'
+    const imageUrl = ref<string>('')
     const userUid = ref<string>('')
 
     // Lấy thông tin người dùng từ localStorage khi component được khởi tạo trên client
     onMounted(() => {
       if (process.client) {
         userStr.value = localStorage.getItem('user')
-        user.value = JSON.parse(userStr.value)
-        // Gán giá trị ref userUid = user.value.uid
+        user.value = userStr.value ? JSON.parse(userStr.value) : {}
+        // Gán giá trị user.uid cho userUid
         userUid.value = user.value.uid
+        // readUserData(userUid.value, getDatabase())
+        // console.log('mounted userUid', userUid.value.name);
+
       }
     })
 
     const submit = async () => {
       try {
-        const db:any = getDatabase()
+        const db = getDatabase()
+        // Kiểm tra và gán giá trị cho name.value
+        const nameValue = name.value ? name.value : ''
+        // Kiểm tra và gán giá trị cho imageUrl.value
+        const imageUrlValue = imageUrl.value ? imageUrl.value : ''
         // Gọi hàm writeUserData với các đối số cần thiết
-        await writeUserData(userUid.value, name.value, imageUrl, db)
+        await writeUserData(userUid.value, nameValue, imageUrlValue, db)
       } catch (error) {
         console.error('Error writing data: ', error)
       }
     }
 
-    const writeUserData = async (userUid, name, imageUrl, db:any) => {
+    const writeUserData = async (userUid, name, imageUrl, db) => {
       // Tạo đường dẫn đến nút trong Realtime Database dạng 'users/uid'
       const dbPath = `users/${userUid}`
       // Lưu dữ liệu vào Realtime Database
-      await set(dbRef(db, dbPath), {
+      await set(sRef(db, dbPath), {
         userUid,
-        name,
-        profileImage: imageUrl,
+        name, // Sử dụng giá trị đã kiểm tra của biến name
+        profile_picture: imageUrl, // Sử dụng giá trị đã kiểm tra của biến imageUrl
       })
-        console.log('successfully')
+      console.log('Data has been written successfully')
+      console.log(name)
     }
-
+    const readUserData = async (userUid, db) => {
+      // Tạo đường dẫn đến nút trong Realtime Database dạng 'users/uid'
+      const dbPath = `users/${userUid}`
+      // Sử dụng hàm onValue để lắng nghe sự thay đổi dữ liệu tại đường dẫn đã chỉ định
+      await onValue(sRef(db, dbPath), (snapshot) => {
+        // Lấy dữ liệu từ snapshot
+        const data = snapshot.val()
+        console.log('Read data:', data)
+      })
+    }
     return {
       user,
       submit,
       name,
     }
-  },
+  }
 }
-
-// import { updateProfile } from '@firebase/auth'
-// import { getDatabase, ref, set, onValue } from 'firebase/database'
-// // import { getStorage, ref as storageRef, uploadBytes, getDownloadURL } from 'firebase/storage'
-
-// export default {
-//   setup() {
-//     // const avatar_path = ref('')
-//     const database = getDatabase()
-//     // const storage = getStorage()
-//     const photoUrl = ref(null)
-//     const username = ref<string>('')
-//     // const mountainImagesRef = ref(storage, 'user/avatars/z4198208572413_39ac81cab3c20816eebadb028edfd56e.jpg')
-//     console.log(mountainImagesRef);
-//       // const updateProfile = async () => {
-//       // const fileInput = document.getElementById('file-upload')
-//       // const file = fileInput.files[0]
-//       // const storageRef = storage.ref('user/avatars/' + file.name)
-//       // await uploadBytes(storageRef, file)
-
-//       // const downloadURL = await getDownloadURL(storageRef)
-
-//       // await set(ref(db, 'user/avatarUrl'), downloadURL)
-
-//       // photoUrl.value = downloadURL
-//       // }
-//       const writeUserData = (userId, name, imageUrl) => {
-//       set(ref(database, 'users/' + userId), {
-//         username: name,
-//         photoUrl: imageUrl
-//       })
-//     }
-//     return {
-//       photoUrl,
-//       username,
-//       writeUserData
-//     }
-//   },
-// }
 </script>
