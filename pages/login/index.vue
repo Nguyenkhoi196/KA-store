@@ -11,7 +11,7 @@
             <span class="font-semibold">Email</span>
             <input
               v-model="email"
-              class="px-4 py-3 rounded-lg border-[1px] ring-2 ring-secondary border-tertiary bg-gray-400/10 text-black mt-1"
+              class="px-4 py-3 rounded-lg border-[1px] ring-2 ring-secondary border-tertiary text-black mt-1"
               type="email"
               placeholder="@gmail.com"
               autocomplete="username"
@@ -23,7 +23,7 @@
             <span class="font-semibold">Password</span>
             <input
               v-model="password"
-              class="px-4 py-3 rounded-lg border-[1px] ring-2 ring-secondary border-tertiary bg-gray-400/10 text-black mt-1"
+              class="px-4 py-3 rounded-lg border-[1px] ring-2 ring-secondary border-tertiary text-black mt-1"
               type="password"
               placeholder="password"
             />
@@ -33,14 +33,14 @@
           <button
             v-if="!isPending"
             type="submit"
-            class="font-semibold w-full px-4 py-3 rounded-lg border-[1px] ring-2 ring-secondary border-tertiary text-yellow bg-secondary mt-1 text-center hover:bg-tertiary"
+            class="font-semibold w-full px-4 py-3 rounded-lg border-[1px] ring-2 ring-secondary hover:border-tertiary text-yellow bg-secondary mt-1 text-center "
           >
             LogIn
           </button>
           <button
             v-else
             type="button"
-            class="cursor-not-allowed font-semibold w-full px-4 py-3 rounded-lg border-[1px] ring-2 ring-secondary border-tertiary text-yellow bg-secondary mt-1 text-center hover:bg-tertiary"
+            class="cursor-not-allowed font-semibold w-full px-4 py-3 rounded-lg border-[1px] ring-2 ring-secondary hover:border-tertiary text-yellow bg-secondary mt-1 text-center "
             disabled
           >
             Loading...

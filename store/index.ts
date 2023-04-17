@@ -55,11 +55,6 @@ export const store = new Vuex.Store({
           .then((data) => {
             context.commit('SET_LOGIN', data.user)
             const user: any = auth.getAuth().currentUser
-            //   if (user) {
-            //     auth.updateProfile(user, {
-            //         displayName
-            //     });
-            // }
             resolve(user)
           })
           .catch((error) => {

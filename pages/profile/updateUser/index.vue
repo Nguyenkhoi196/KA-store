@@ -25,13 +25,34 @@
                   class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600"
                 >
                   <input
-                    v-model="name"
                     id="username"
+                    v-model="name"
                     type="text"
                     name="username"
                     autocomplete="username"
                     class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-secondary placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-                    placeholder="userName"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div class="">
+              <label
+                for="numberPhone"
+                class="block text-sm font-medium leading-6 text-secondary"
+                >Phone Number</label
+              >
+              <div class="mt-2">
+                <div
+                  class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600"
+                >
+                  <input
+                    id="numberPhone"
+                    v-model="phoneNumber"
+                    type="text"
+                    name="numberPhone"
+                    autocomplete="numberPhone"
+                    class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-secondary placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
                   />
                 </div>
               </div>
@@ -67,39 +88,7 @@
                 <fa :icon="['fas', 'user']" class="w-40" />
               </div>
             </div>
-
-            <div class="col-span-full">
-              <label
-                for="cover-photo"
-                class="block text-sm font-medium leading-6 text-secondary"
-                >Upload photo</label
-              >
-              <div
-                class="mt-2 flex justify-center rounded-lg border border-dashed border-blue-900/25 px-6 py-10"
-              >
-                <div class="text-center">
-                  <fa :icon="['fas', 'camera']" class="w-40" />
-                  <div class="mt-4 flex text-sm leading-6 text-gray-600">
-                    <label
-                      for="file-upload"
-                      class="relative cursor-pointer rounded-md bg-white font-semibold text-secondary focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-tertiary"
-                    >
-                      <span>Upload a file</span>
-                      <input
-                        id="file-upload"
-                        name="file-upload"
-                        type="file"
-                        class="sr-only"
-                      />
-                    </label>
-                    <p class="pl-1">or drag and drop</p>
-                  </div>
-                  <p class="text-xs leading-5 text-gray-600">
-                    PNG, JPG, GIF up to 10MB
-                  </p>
-                </div>
-              </div>
-            </div>
+            <upload-photo />
           </div>
         </div>
       </div>
@@ -123,57 +112,96 @@
 </template>
 
 <script lang="ts">
-import { getDatabase, ref as sRef, set, onValue } from 'firebase/database'
-// import { onMounted } from 'vue';
+import {
+  getDatabase,
+  ref as sRef,
+  set,
+  onValue,
+} from 'firebase/database'
+import {
+  getFirestore,
+  collection,
+  addDoc
+} from 'firebase/firestore'
+
 import { ref, onMounted } from 'vue'
+import { User } from '~/types/User'
+import UploadPhoto from '~/components/UploadPhoto.vue'
 
 export default {
+  components: { UploadPhoto },
   setup() {
     const user = ref<any>('')
     const userStr = ref<any>('')
-    const name = ref<string>('')
-    const imageUrl = ref<string>('')
-    const userUid = ref<string>('')
+    const name = ref<User>('')
+    const imageUrl = ref<User>('')
+    const userUid = ref<User>('')
+    const phoneNumber = ref<User>('')
+    const db = getDatabase()
+    const fs = getFirestore()
 
     // Lấy thông tin người dùng từ localStorage khi component được khởi tạo trên client
     onMounted(() => {
       if (process.client) {
         userStr.value = localStorage.getItem('user')
         user.value = userStr.value ? JSON.parse(userStr.value) : {}
-        // Gán giá trị user.uid cho userUid
+        // Gán giá trị user.uid cho userUid để read database
         userUid.value = user.value.uid
         // readUserData(userUid.value, getDatabase())
-        // console.log('mounted userUid', userUid.value.name);
-
+        // downloadStorage(imageUrl.value, getStorage())
       }
     })
 
     const submit = async () => {
       try {
-        const db = getDatabase()
         // Kiểm tra và gán giá trị cho name.value
         const nameValue = name.value ? name.value : ''
+        const phoneValue = phoneNumber.value ? phoneNumber.value : ''
+
         // Kiểm tra và gán giá trị cho imageUrl.value
         const imageUrlValue = imageUrl.value ? imageUrl.value : ''
         // Gọi hàm writeUserData với các đối số cần thiết
-        await writeUserData(userUid.value, nameValue, imageUrlValue, db)
+        await writeUserData(
+          userUid.value,
+          nameValue,
+          phoneValue,
+          imageUrlValue,
+          db
+        )
+        console.log('write userUid into FS', userUid.value, nameValue, phoneValue)
+        await writeUserDataIntoDB(userUid.value, nameValue, phoneValue, fs)
+        console.log('write userUid into DB', userUid.value, nameValue);
+
       } catch (error) {
         console.error('Error writing data: ', error)
       }
     }
 
-    const writeUserData = async (userUid, name, imageUrl, db) => {
+    const writeUserData = async (userUid, name, phoneNumber, imageUrl, db) => {
       // Tạo đường dẫn đến nút trong Realtime Database dạng 'users/uid'
       const dbPath = `users/${userUid}`
       // Lưu dữ liệu vào Realtime Database
       await set(sRef(db, dbPath), {
         userUid,
-        name, // Sử dụng giá trị đã kiểm tra của biến name
-        profile_picture: imageUrl, // Sử dụng giá trị đã kiểm tra của biến imageUrl
+        name,
+        phoneNumber,
+        imageUrl,
       })
-      console.log('Data has been written successfully')
-      console.log(name)
     }
+
+    const writeUserDataIntoDB = async (userUid, name, phoneNumber, fs) => {
+      try{
+        const fsUser = collection(fs, 'user')
+        console.log('collection',fsUser);
+        const allUserInfor =  await addDoc(fsUser, {userUid, name, phoneNumber})
+        console.log('addDoc',allUserInfor);
+      }
+      catch (e) {
+        console.log(e);
+
+      }
+    }
+
     const readUserData = async (userUid, db) => {
       // Tạo đường dẫn đến nút trong Realtime Database dạng 'users/uid'
       const dbPath = `users/${userUid}`
@@ -181,14 +209,18 @@ export default {
       await onValue(sRef(db, dbPath), (snapshot) => {
         // Lấy dữ liệu từ snapshot
         const data = snapshot.val()
-        console.log('Read data:', data)
+        console.log('data_name', data.name)
       })
     }
+
+
     return {
       user,
-      submit,
       name,
+      phoneNumber,
+      imageUrl,
+      submit,
     }
-  }
+  },
 }
 </script>

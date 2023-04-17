@@ -38,11 +38,14 @@ export default {
         user.value = userStr.value ? JSON.parse(userStr.value) : {}
         // Gán giá trị user.uid cho userUid
         userUid.value = user.value.uid
-        readUserData(userUid.value, getDatabase())
-        console.log('name',userUid);
+        readUserData(user.value.phoneNumber, getDatabase())
+        console.log(user.value.phoneNumbe);
+
       }
     })
-    onUpdated(() => {})
+    onUpdated(() => {
+
+    })
 
     const submit = async () => {
       try {
@@ -91,5 +94,4 @@ export default {
 
 <style lang="scss" scoped></style>
 
-function readUserData(value: string, arg1: Database) { throw new Error('Function
-not implemented.'); }
+

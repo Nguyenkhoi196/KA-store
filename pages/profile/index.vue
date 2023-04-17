@@ -86,7 +86,7 @@
               </div>
             </div>
           </nuxt-link>
-          <nuxt-link to="/update">
+          <nuxt-link to="/warehouse">
             <div class="button bg-primary hover:bg-tertiary/10">
               <div class="flex flex-row items-center gap-2 text-secondary">
                 <fa :icon="['fas', 'check-to-slot']" />
