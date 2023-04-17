@@ -114,10 +114,5 @@ export default {
 }
 </script>
 <style scoped>
-.slide-left-enter-active, .slide-left-leave-active {
-  transition: transform .2s ease-in-out;
-}
-.slide-left-enter, .slide-left-leave-to {
-  transform: translateX(-100%);
-}
+@import '~/assets/css/pageTransiton.css'
 </style>

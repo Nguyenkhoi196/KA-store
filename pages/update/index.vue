@@ -18,6 +18,7 @@
 </template>
 <script>
 export default {
+  layout: 'AuthLayout',
   asyncData() {
     return {
       rendering: process.server ? 'server' : 'client'

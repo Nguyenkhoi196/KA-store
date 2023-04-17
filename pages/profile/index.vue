@@ -130,7 +130,7 @@
         <!-- footer -->
         <div class="flex flex-col content-center mx-2 rounded-md text-base">
           <nuxt-link to="">
-            <div class="flex flex-row text-tertiary gap-2 px-4 py-2">
+            <div class="flex flex-row text-tertiary gap-2 px-4 py-2 hover:text-opacity-70">
               <span>
                 <fa :icon="['fas', 'gear']" />
               </span>
@@ -139,7 +139,7 @@
           </nuxt-link>
           <nuxt-link to="">
             <div
-              class="flex flex-row text-tertiary gap-2 px-4 py-2 border-t border-secondary"
+              class="flex flex-row text-tertiary gap-2 px-4 py-2 border-t border-secondary hover:text-opacity-70"
             >
               <span>
                 <fa :icon="['fas', 'phone']" />
@@ -149,7 +149,7 @@
           </nuxt-link>
           <nuxt-link to="">
             <div
-              class="flex flex-row text-tertiary gap-2 px-4 py-2 border-t border-secondary"
+              class="flex flex-row text-tertiary gap-2 px-4 py-2 border-t border-secondary hover:text-opacity-70"
             >
               <span>
                 <fa :icon="['fas', 'circle-info']" />
@@ -159,7 +159,7 @@
           </nuxt-link>
           <button @click="logOut">
             <div
-              class="flex flex-row gap-2 px-4 py-2 text-red-500 border-t border-secondary"
+              class="flex flex-row gap-2 px-4 py-2 text-red-500 border-t border-secondary hover:text-opacity-70"
             >
               <span>
                 <fa :icon="['fas', 'right-to-bracket']" />
@@ -181,7 +181,8 @@ import { store } from '../../store'
 
 export default {
   layout: 'AuthLayout',
-  setup() {
+  transition: 'slide-left',
+    setup() {
     const userStr: any = ref('')
     const user: any = ref('')
     const router = useRouter()
@@ -213,12 +214,6 @@ export default {
 }
 </script>
 <style>
-.button {
-  margin-left: auto;
-  margin-right: auto;
-  padding: 1rem;
-  align-items: center;
-  border-width: 2px;
-  border-radius: 0.375rem;
-}
+@import '~/assets/css/pageTransiton.css';
+@import '~/assets/css/button.css'
 </style>

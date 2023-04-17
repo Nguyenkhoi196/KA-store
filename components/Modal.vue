@@ -13,12 +13,12 @@
         >
           <!-- Modal header -->
           <div
-            class="flex justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5 dark:border-gray-600"
+            class="flex justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5 "
           >
             <h3 class="text-lg font-semibold text-primary">Add Product</h3>
             <button
               type="button"
-              class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-primary rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
+              class="text-secondary hover:text-opacity-70 bg-transparent rounded-lg text-sm p-1.5 ml-auto inline-flex items-cente"
               data-modal-toggle="defaultModal"
               @click="setShowModal(false)"
             >
@@ -89,7 +89,7 @@
                   v-model="category"
                   id="category"
                   required
-                  class="bg-primary border border-gray-300 text-secondary text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                  class="bg-primary border border-gray-300 text-secondary text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5  dark:placeholder-gray-400dark:focus:ring-primary-500 dark:focus:border-primary-500"
                 >
                   <option selected="">Select category</option>
                   <option value="Sắt">Sắt</option>
@@ -115,7 +115,7 @@
             </div>
             <button
               type="submit"
-              class="text-white inline-flex items-center bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+              class="text-secondary hover:text-opacity-70 inline-flex items-center bg-transparent focus:ring-4 focus:outline-none focus:ring-secondary font-medium rounded-lg text-sm px-5 py-2.5 text-center"
             >
               Add new product
             </button>
@@ -151,13 +151,7 @@ export default {
         description.value,
         fs
       )
-      console.log(
-        name.value,
-        brand.value,
-        category.value,
-        price.value,
-        description.value
-      )
+
     }
 
     const addProduct = async (
@@ -170,7 +164,6 @@ export default {
     ) => {
       try {
         const fsProduct = collection(fs, 'products')
-        console.log('collection', fsProduct)
         const allProductInfor = await addDoc(fsProduct, {
           name,
           brand,
@@ -178,9 +171,7 @@ export default {
           price,
           description,
         })
-        console.log('addDoc'), allProductInfor
       } catch (e) {
-        console.log(e)
       }
     }
 

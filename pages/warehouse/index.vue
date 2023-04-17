@@ -26,6 +26,8 @@ import ModalProduct from '~/components/Modal.vue';
 
 export default {
   components: { ModalProduct } ,
+  layout: 'AuthLayout',
+  transition: 'slide-left',
   setup() {
     const isModalVisible = ref(false); // Sử dụng ref để gắn biến reactive
     const setShowModal = (value: boolean) => {
@@ -63,4 +65,6 @@ export default {
 //       console.error('Lỗi khi lấy dữ liệu từ Firestore:', e)
 //     }
 //   }, -->
-
+<style>
+@import '~/assets/css/pageTransiton.css'
+</style>

@@ -1,30 +1,33 @@
 <template>
-<div>
-  <nuxt/>
+  <div>
+    <nuxt />
 
-  <div class="fixed bottom-0 left-0 z-50 w-full h-16 bg-secondary border-t border-gray-200">
-    <div class="grid h-full max-w-lg grid-cols-4 mx-auto text-2xl">
-        <button type="button" class="inline-flex flex-col items-center justify-center px-5 text-primary hover:text-tertiary hover:border-x-2 hover:border-tertiary">
+    <div
+      class="fixed bottom-0 left-0 z-50 w-full h-16 bg-secondary border-t border-gray-200"
+    >
+      <div class="grid h-full max-w-lg grid-cols-4 mx-auto text-2xl">
+        <nuxt-link to="/market" class="button-menu">
           <fa :icon="['fas', 'chart-simple']" />
-        </button>
-        <button type="button" class="inline-flex flex-col items-center justify-center px-5 text-primary hover:text-tertiary hover:border-x-2 hover:border-tertiary">
+        </nuxt-link>
+        <nuxt-link to="/update" class="button-menu">
           <fa :icon="['fas', 'file-invoice']" />
-        </button>
-        <button type="button" class="inline-flex flex-col items-center justify-center px-5 text-primary hover:text-tertiary hover:border-x-2 hover:border-tertiary">
+        </nuxt-link>
+        <nuxt-link to="/warehouse" class="button-menu">
           <fa :icon="['fas', 'box-archive']" />
-        </button>
-        <button type="button" class="inline-flex flex-col items-center justify-center px-5 text-primary hover:text-tertiary hover:border-x-2 hover:border-tertiary">
+        </nuxt-link>
+        <nuxt-link to="/profile" class="button-menu">
           <fa :icon="['fas', 'circle-user']" />
-        </button>
+        </nuxt-link>
+      </div>
     </div>
-</div>
-
-</div>
-
+  </div>
 </template>
 <script>
-
 export default {
-  name: "AuthLayout"
+  name: 'AuthLayout',
 }
 </script>
+
+<style>
+@import '~/assets/css/button.css';
+</style>

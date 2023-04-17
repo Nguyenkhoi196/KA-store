@@ -1,0 +1,15 @@
+/* slide-left */
+.slide-left-enter-active, .slide-left-leave-active {
+  transition: transform .1s linear;
+}
+.slide-left-enter, .slide-left-leave-to {
+  transform: translateX(-100%);
+}
+/* slide-right */
+.slide-right-enter-active, .slide-right-leave-active {
+  transition: transform .1s linear;
+}
+
+.slide-right-enter, .slide-right-leave-to {
+  transform: translateX(100%);
+}
