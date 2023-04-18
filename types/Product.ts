@@ -4,4 +4,5 @@ export interface Product {
   price? : number;
   description? : any;
   image? : any;
+  inventory? : number;
 }

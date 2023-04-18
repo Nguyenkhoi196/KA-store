@@ -20,8 +20,7 @@
 
 <script lang="ts">
 import { ref } from 'vue';
-// import { onMounted } from 'vue'
-// import { getFirestore, collection, getDocs } from 'firebase/firestore'
+
 import ModalProduct from '~/components/Modal.vue';
 
 export default {
@@ -41,30 +40,6 @@ export default {
 };
 </script>
 
-<!-- //   async mounted() {
-//     try {
-//       const fs = getFirestore()
-
-//       // Lấy tất cả các collection id trong Firestore
-//       const collectionsSnapshot = await getDocs(collection(fs, 'product'))
-//       collectionsSnapshot.forEach(async (collectionDoc) => {
-//         const collectionId = collectionDoc.id
-//         console.log('Collection:', collectionId)
-
-//         // Lấy tất cả các document trong collection hiện tại
-//         const documentsSnapshot = await getDocs(collection(fs, collectionId))
-//         const data = []
-//         documentsSnapshot.forEach((doc) => {
-//           const docId = doc.id
-//           const docData = doc.data().name
-//           data.push(docData, docId)
-//         })
-//         console.log(data)
-//       })
-//     } catch (e) {
-//       console.error('Lỗi khi lấy dữ liệu từ Firestore:', e)
-//     }
-//   }, -->
 <style>
 @import '~/assets/css/pageTransiton.css'
 </style>

@@ -99,18 +99,20 @@
               </div>
               <div class="sm:col-span-2">
                 <label
-                  for="description"
+                  for="inventory"
                   class="block mb-2 text-sm font-medium text-primary"
-                  >Description</label
+                  >Inventory</label
                 >
 
-                <textarea
-                  id="description"
-                  v-model="description"
+                <input
+                  id="inventory"
+                  v-model="inventory"
                   rows="4"
                   class="block p-2.5 w-full text-sm text-secondary bg-primary rounded-lg border border-grasecondarycus:ring-primary-500 focus:border-primary-500"
-                  placeholder="Write product description here"
-                ></textarea>
+                  placeholder="Inventory"
+                  required
+                  type="number"
+                ></input>
               </div>
             </div>
             <button
@@ -129,6 +131,7 @@
 <script lang="ts">
 import { ref } from 'vue'
 import { addDoc, collection, getFirestore } from 'firebase/firestore'
+
 import { Product } from '~/types/Product'
 
 export default {
@@ -138,7 +141,7 @@ export default {
     const name = ref<Product>('')
     const brand = ref<Product>('')
     const price = ref<Product>('')
-    const description = ref<Product>('')
+    const inventory = ref<Product>('')
     const category = ref<Product>('')
     const fs = getFirestore()
 
@@ -148,7 +151,7 @@ export default {
         brand.value,
         category.value,
         price.value,
-        description.value,
+        inventory.value,
         fs
       )
 
@@ -159,7 +162,7 @@ export default {
       brand,
       category,
       price,
-      description,
+      inventory,
       fs
     ) => {
       try {
@@ -169,7 +172,7 @@ export default {
           brand,
           category,
           price,
-          description,
+          inventory,
         })
       } catch (e) {
       }
@@ -180,7 +183,7 @@ export default {
       brand,
       price,
       category,
-      description,
+      inventory,
       submit,
       addProduct,
     }

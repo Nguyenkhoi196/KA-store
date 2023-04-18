@@ -1,18 +1,19 @@
 <template>
   <div>
-    <ul>
-      <!-- <li v-for="product in products" :key="product.id"> -->
-      <ShowProducts
-      v-for="product in products"
-        :key="product.id"
-        class=" grid grid-cols-2 grid-flow-row justify-between gap-3 content-center"
-        :name="product.name"
-        :price="product.price"
-        :brand="product.brand"
-        :category="product.category"
-      />
-      <!-- </li> -->
-    </ul>
+    <HeaderMarket/>
+      <ul class="mt-[100px]">
+        <ShowProducts
+        v-for="product in products"
+          :key="product.id"
+          class=" grid grid-cols-2 grid-flow-row justify-between gap-3 content-center"
+          :name="product.name"
+          :price="product.price"
+          :brand="product.brand"
+          :inventory="product.inventory"
+          :category="product.category"
+        />
+      </ul>
+
   </div>
 </template>
 
@@ -21,10 +22,12 @@ import { getFirestore, collection, getDocs } from 'firebase/firestore'
 import { reactive, ref } from 'vue'
 
 import ShowProducts from '~/components/ShowProducts.vue'
+import HeaderMarket from '~/components/HeaderMarket.vue'
 
 export default {
-  components: { ShowProducts },
+  components: { ShowProducts, HeaderMarket },
   layout: 'AuthLayout',
+  transition: 'slide-left',
   setup() {
     const fs = getFirestore()
     const products = reactive([]) // Khởi tạo biến reactive để lưu trữ danh sách sản phẩm
