@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import * as auth from 'firebase/auth'
+import products from './modules/products'
 
 Vue.use(Vuex)
 
@@ -110,5 +111,7 @@ export const store = new Vuex.Store({
     // }
   },
 
-  modules: {},
+  modules: {
+    products
+  },
 })

@@ -19,14 +19,25 @@
       </div>
     </div>
     <div class="border-t-[1px] border-primary py-1 px-4 text-gray-500">
-      Tồn kho:...
+      Tồn kho: {{  }}
     </div>
   </div>
 </template>
 
 <script>
+import { computed } from 'vue'
+import { store } from '~/store'
 export default {
   name: 'HeaderMarket',
+  setup() {
+    computed: {
+      productCount() {
+        const inventory =store.getters.totalProduct
+        return inventory
+      }
+    }
+    return productCount
+  }
 }
 </script>
 
