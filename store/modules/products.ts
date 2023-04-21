@@ -1,51 +1,40 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
-import {
-  getFirestore,
-  collection,
-  getDoc,
-  doc
-} from 'firebase/firestore'
-Vue.use(Vuex)
+import Vue from 'vue';
+import Vuex from 'vuex';
+import { getFirestore, collection, getDocs } from 'firebase/firestore'; // Import các hàm từ module firestore
 
-const products = new Vuex.Store ({
+Vue.use(Vuex);
+
+const products = new Vuex.Store({
   state: {
-  product: [],
-  quantity: 0,
-  totalQuantity: 0
-},
-  getters:{
-    totalProduct : state => state.totalQuantity,
+    totalQuantity: 0
   },
   mutations: {
-    // incrementItemCount(state, count) {
-    //   state.totalQuantity = count
-    // },
-    setTotalProduct(state, payload) {
-      state.totalQuantity = payload.totalQuantity;
-    },
+    setTotalQuantity(state, totalQuantity) {
+      state.totalQuantity = totalQuantity;
+    }
   },
   actions: {
-    async incrementItemCount({commit}){
-      try{
+    async fetchTotalQuantity({ commit }) {
+      try {
         const fs = getFirestore();
-        const fsProduct = collection(fs, 'products')
-        const productSnapshot = await getDoc(fsProduct)
+        const fsProducts = collection(fs, 'products');
+        const productSnapshots = await getDocs(fsProducts);
         let totalQuantity = 0;
-        // query products
-        productSnapshot.forEach((doc) => {
-          const product = doc.data()
-          totalQuantity += product.inventory
-          console.log('product',product);
-        })
-        // dang ky mutation : setToTalProduct voi payload co field totalQuantity
-        commit('setTotalProduct', totalQuantity)
-      }
-      catch(e){
-        console.log('error',e);
 
+        productSnapshots.forEach((doc) => {
+          const product = doc.data();
+          console.log(product);
+          totalQuantity += product.inventory;
+          console.log(totalQuantity);
+
+        });
+
+        commit('setTotalQuantity', totalQuantity);
+      } catch (error) {
+        console.error('Error fetching total quantity:', error);
       }
     }
   }
-})
+});
+
 export default products;

@@ -7,40 +7,35 @@
     >
       <h1 class="font-bold text-2xl">Hàng Hóa</h1>
       <div class="flex flex-row gap-4 text-base">
-        <button class="button-icon ">
+        <button class="button-icon">
           <fa :icon="['fas', 'magnifying-glass']" />
         </button>
-        <button class="button-icon ">
+        <button class="button-icon">
           <fa :icon="['fas', 'filter']" />
         </button>
-        <button class="button-icon ">
+        <button class="button-icon">
           <fa :icon="['fas', 'ellipsis-vertical']" />
         </button>
       </div>
     </div>
     <div class="border-t-[1px] border-primary py-1 px-4 text-gray-500">
-      Tồn kho: {{  }}
+      Tồn kho: {{ quantity }}
     </div>
   </div>
 </template>
 
 <script>
-import { computed } from 'vue'
+// import { computed } from 'vue'
+import { ref } from 'vue';
 import { store } from '~/store'
+
 export default {
   name: 'HeaderMarket',
-  setup() {
-    computed: {
-      productCount() {
-        const inventory =store.getters.totalProduct
-        return inventory
-      }
-    }
-    return productCount
-  }
+  props: ['quantity'],
+  setup(){}
 }
 </script>
 
-<style >
+<style>
 @import '~/assets/css/button.css';
 </style>

@@ -36,6 +36,8 @@
 export default {
   name: 'ShowProducts',
   props: ['name', 'price', 'brand', 'category', 'inventory'],
-  setup() {},
+  setup() {
+
+  },
 }
 </script>

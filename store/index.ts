@@ -65,7 +65,7 @@ export const store = new Vuex.Store({
       })
     },
 
-    logout(context: any) {
+    logout({commit}) {
       return new Promise((resolve, reject) => {
         auth
           .signOut(auth.getAuth())
@@ -74,7 +74,7 @@ export const store = new Vuex.Store({
             localStorage.removeItem('user')
             localStorage.removeItem('token')
 
-            context.commit('SET_LOGOUT') // Gọi mutation để đặt trạng thái logout
+            commit('SET_LOGOUT') // Gọi mutation để đặt trạng thái logout
             resolve(user)
           })
           .catch((error) => {
@@ -94,11 +94,12 @@ export const store = new Vuex.Store({
             data.user.getIdToken().then((token) => {
               localStorage.setItem('user', JSON.stringify(data.user))
               localStorage.setItem('token', JSON.stringify(token))
-
               context.commit('SET_LOGIN', data.user)
               context.commit('SET_TOKEN', token)
             })
             const user: any = auth.getAuth().currentUser
+            console.log(user);
+
             resolve(user)
           })
           .catch((error) => {
