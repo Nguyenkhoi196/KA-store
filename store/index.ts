@@ -54,6 +54,7 @@ export const store = new Vuex.Store({
         auth
           .createUserWithEmailAndPassword(auth.getAuth(), email, password)
           .then((data) => {
+            // dang ky mutations set_login = field data.user
             context.commit('SET_LOGIN', data.user)
             const user: any = auth.getAuth().currentUser
             resolve(user)
@@ -112,6 +113,6 @@ export const store = new Vuex.Store({
   },
 
   modules: {
-    products
+    products,
   },
 })
