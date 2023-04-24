@@ -86,8 +86,8 @@
                   >Category</label
                 >
                 <select
-                  v-model="category"
                   id="category"
+                  v-model="category"
                   required
                   class="bg-primary border border-gray-300 text-secondary text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5  dark:placeholder-gray-400dark:focus:ring-primary-500 dark:focus:border-primary-500"
                 >
@@ -116,8 +116,9 @@
               </div>
             </div>
             <button
-              type="submit"
+            type="submit"
               class="text-secondary hover:text-opacity-70 inline-flex items-center bg-transparent focus:ring-4 focus:outline-none focus:ring-secondary font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+              @click="setShowModal(false)"
             >
               Add new product
             </button>

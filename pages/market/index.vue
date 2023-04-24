@@ -1,17 +1,24 @@
 <template>
   <div>
-    <HeaderMarket :quantity="quantity" />
-    <ul class="mt-[100px]">
-      <ShowProducts
-        v-for="product in products"
-        :key="product.id"
-        class="grid grid-cols-2 grid-flow-row justify-between gap-3 content-center"
-        :name="product.name"
-        :price="product.price"
-        :brand="product.brand"
-        :inventory="product.inventory"
-        :category="product.category"
-      />
+    <HeaderMarket :quantity="quantity" :products="products.length"/>
+    <ul class="my-[100px]">
+        <li
+          v-for="product in products"
+          :key="product.id"
+          class="grid grid-cols-2 grid-flow-row justify-between gap-3 content-center"
+          >
+          <show-products
+          :productId="product.id"
+          :name="product.name"
+          :price="product.price"
+          :brand="product.brand"
+          :inventory="product.inventory"
+          :category="product.category"
+          />
+        </li>
+
+
+
     </ul>
   </div>
 </template>
@@ -22,6 +29,7 @@ import { reactive, ref } from 'vue'
 
 import ShowProducts from '~/components/ShowProducts.vue'
 import HeaderMarket from '~/components/HeaderMarket.vue'
+import { Product } from '~/types/Product'
 
 export default {
   components: { ShowProducts, HeaderMarket },
@@ -36,12 +44,12 @@ export default {
       const querySnapshot = await getDocs(fsProduct)
       products.length = 0 // Xóa các phần tử cũ trong mảng reactive
       querySnapshot.forEach((doc) => {
-        const data = doc.data()
+        const data:Product = doc.data()
         products.push({ id: doc.id, ...data })
+        console.log({id: doc.id, ...data});
         quantity.value += +data.inventory
-        // console.log(quantity.value);
+        console.log(quantity.value);
       })
-      return quantity
     }
     readData()
     return {

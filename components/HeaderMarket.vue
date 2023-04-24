@@ -19,19 +19,16 @@
       </div>
     </div>
     <div class="border-t-[1px] border-primary py-1 px-4 text-gray-500">
+      {{ products }} Hàng hóa -
       Tồn kho: {{ quantity }}
     </div>
   </div>
 </template>
 
 <script>
-// import { computed } from 'vue'
-import { ref } from 'vue';
-import { store } from '~/store'
-
 export default {
   name: 'HeaderMarket',
-  props: ['quantity'],
+  props: ['quantity', 'products'],
   setup(){}
 }
 </script>
