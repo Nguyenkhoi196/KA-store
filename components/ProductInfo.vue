@@ -1,16 +1,14 @@
 <!-- <template>
-  <div>
-      <div class="z-50 ">
-        {{ product-id }}
-      </div>
-  </div>
+  <div></div>
 </template>
 <script>
+import { getFirestore, collection, getDocs } from 'firebase/firestore'
+import { reactive, ref } from 'vue'
 
 export default {
-  props: ['product-id'],
   setup() {
-
+    const productId = $router.id
+    console.log(productId)
   },
 }
 </script> -->

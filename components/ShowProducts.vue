@@ -1,8 +1,6 @@
 <template>
-
   <div>
-    <nuxt-link :to="'/market/'+ id">
-
+    <nuxt-link :to="'/market/' + product.id">
       <div
         class="rounded-md shadow-lg lg:hover:scale-105 transition duration-500 cursor-pointer w-screen"
       >
@@ -14,18 +12,18 @@
           />
           <div class="flex-1 min-w-0">
             <p class="text-base font-medium text-tertiary truncate">
-              {{ name }}
+              {{ product.name }}
             </p>
             <p class="text-sm text-gray-500 truncate">
-              {{ category }}
+              {{ product.category }}
             </p>
           </div>
           <div class="flex-end">
             <p class="text-base font-medium text-tertiary truncate">
-              {{ price }} &#8363;
+              {{ product.price }} &#8363;
             </p>
             <p class="text-sm text-gray-500 truncate">
-              {{ inventory }}
+              {{ product.inventory }}
             </p>
           </div>
         </div>
@@ -37,8 +35,7 @@
 <script>
 import { ref } from 'vue'
 export default {
-  // eslint-disable-next-line vue/require-prop-types
-  props: ['id', 'name', 'price', 'brand', 'category', 'inventory'],
+  props: ['product'],
   setup() {
     const showModal = ref(false)
     let timer = null
