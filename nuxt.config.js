@@ -113,5 +113,15 @@ export default {
       auth: true,
       firestore: true,
     }
-  }
+  },
+
+  router: {
+    extendRoutes(routes, resolve) {
+      routes.push({
+        name: 'product-detail',
+        path: '/market/:id',
+        component: resolve(__dirname, 'pages/market/_id.vue'), // Đường dẫn tới component chi tiết sản phẩm
+      });
+    },
+  },
 }

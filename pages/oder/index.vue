@@ -39,8 +39,7 @@ export default {
         // Gán giá trị user.uid cho userUid
         userUid.value = user.value.uid
         readUserData(user.value.phoneNumber, getDatabase())
-        console.log(user.value.phoneNumbe);
-
+        console.log(user.value.phoneNumber);
       }
     })
     onUpdated(() => {

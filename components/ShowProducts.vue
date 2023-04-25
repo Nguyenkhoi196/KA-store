@@ -1,6 +1,8 @@
 <template>
-  <div class="">
-    <nuxt-link to="'/market/' + productId">
+
+  <div>
+    <nuxt-link :to="'/market/'+ id">
+
       <div
         class="rounded-md shadow-lg lg:hover:scale-105 transition duration-500 cursor-pointer w-screen"
       >
@@ -29,11 +31,34 @@
         </div>
       </div>
     </nuxt-link>
+    <product-info v-if="showModal" />
   </div>
 </template>
-<script lang="ts">
+<script>
+import { ref } from 'vue'
 export default {
-  props: ['productId' ,'name', 'price', 'brand', 'category', 'inventory', ],
-  setup() {},
+  // eslint-disable-next-line vue/require-prop-types
+  props: ['id', 'name', 'price', 'brand', 'category', 'inventory'],
+  setup() {
+    const showModal = ref(false)
+    let timer = null
+
+    const startTimer = () => {
+      timer = setTimeout(() => {
+        showModal.value = true
+      }, 1000)
+    }
+
+    const clearTimer = () => {
+      clearTimeout(timer)
+      showModal.value = false
+    }
+
+    return {
+      startTimer,
+      clearTimer,
+      showModal,
+    }
+  },
 }
 </script>

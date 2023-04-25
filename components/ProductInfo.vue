@@ -1,19 +1,16 @@
 <!-- <template>
   <div>
-
+      <div class="z-50 ">
+        {{ product-id }}
+      </div>
   </div>
 </template>
+<script>
 
-<script lang="ts">
-import { collection, getDocs, getFirestore } from 'firebase/firestore'
-import { Product } from '~/types/Product'
-  export default {
-    setup() {
+export default {
+  props: ['product-id'],
+  setup() {
 
-    }
-  }
-</script>
-
-<style lang="scss" scoped>
-
-</style> -->
+  },
+}
+</script> -->

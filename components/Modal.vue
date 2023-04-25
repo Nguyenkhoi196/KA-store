@@ -155,7 +155,6 @@ export default {
         inventory.value,
         fs
       )
-
     }
 
     const addProduct = async (

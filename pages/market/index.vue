@@ -8,7 +8,7 @@
           class="grid grid-cols-2 grid-flow-row justify-between gap-3 content-center"
           >
           <show-products
-          :productId="product.id"
+          :id="product.id"
           :name="product.name"
           :price="product.price"
           :brand="product.brand"
@@ -16,9 +16,6 @@
           :category="product.category"
           />
         </li>
-
-
-
     </ul>
   </div>
 </template>
@@ -32,7 +29,7 @@ import HeaderMarket from '~/components/HeaderMarket.vue'
 import { Product } from '~/types/Product'
 
 export default {
-  components: { ShowProducts, HeaderMarket },
+  components: { ShowProducts, HeaderMarket},
   layout: 'AuthLayout',
   transition: 'slide-left',
   setup() {
@@ -46,9 +43,7 @@ export default {
       querySnapshot.forEach((doc) => {
         const data:Product = doc.data()
         products.push({ id: doc.id, ...data })
-        console.log({id: doc.id, ...data});
         quantity.value += +data.inventory
-        console.log(quantity.value);
       })
     }
     readData()
