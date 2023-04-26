@@ -8,8 +8,8 @@
     <ul class="my-[100px]">
       <li
         v-for="productSearched in productSearcheds"
-        :key="productSearched.id"
-        :attrs="productSearched"
+        :key="productSearcheds.id"
+        :attrs="productSearcheds"
       >
         <show-products :product="productSearched" />
       </li>
@@ -35,19 +35,19 @@ export default {
     const fs = getFirestore()
     const products = reactive([]) // Khởi tạo biến reactive để lưu trữ danh sách sản phẩm
     const quantity = ref(0)
-    const searchProduct = ref(null)
+    const searchProduct = ref('')
     const productSearcheds = reactive([])
     const readData = async () => {
       const fsProduct = collection(fs, 'products')
       const querySnapshot = await getDocs(fsProduct)
       products.length = 0 // Xóa các phần tử cũ trong mảng reactive
+      console.log('read data')
       querySnapshot.forEach((doc) => {
         const data: Product = doc.data()
         products.push({ id: doc.id, ...data })
         quantity.value += +data.inventory
       })
     }
-    readData()
     const filteredProduct = (text: any) => {
       // productSearched.values= products.values
       searchProduct.value = text
@@ -62,6 +62,9 @@ export default {
       console.log(productSearcheds.length)
       console.log(productSearcheds)
     }
+    readData().then(() => {
+      filteredProduct('')
+    })
     return {
       products,
       quantity,

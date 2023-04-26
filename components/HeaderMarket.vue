@@ -14,7 +14,7 @@
         class="searchBox-input"
         autofocus
         placeholder="Tên hàng hóa"
-        @keyup="searchChange"
+        @keydown="searchChange"
       />
       <div class="flex flex-row gap-4 text-base pl-4">
         <button class="button-icon" @click="setAcitve">
