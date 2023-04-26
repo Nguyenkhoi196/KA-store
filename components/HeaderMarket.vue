@@ -8,13 +8,13 @@
       <h1 v-show="!isActive" class="font-bold text-2xl">Hàng Hóa</h1>
       <!-- tìm sản phẩm -->
       <input
-        v-model="search"
-        @keyup="searchChange"
         v-show="isActive"
+        v-model="search"
         type="text"
         class="searchBox-input"
         autofocus
         placeholder="Tên hàng hóa"
+        @keyup="searchChange"
       />
       <div class="flex flex-row gap-4 text-base pl-4">
         <button class="button-icon" @click="setAcitve">
@@ -35,7 +35,6 @@
 </template>
 
 <script lang="ts">
-import { emit } from 'process'
 import { ref, watch } from 'vue'
 export default {
   name: 'HeaderMarket',

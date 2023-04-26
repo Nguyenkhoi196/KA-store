@@ -2,12 +2,16 @@
   <div>
     <HeaderMarket
       :quantity="quantity"
-      :products="products.length"
+      :products="productSearcheds.length"
       @filter="filteredProduct"
     />
     <ul class="my-[100px]">
-      <li v-for="product in products" :key="product.id" :attrs="product">
-        <show-products :product="product" />
+      <li
+        v-for="productSearched in productSearcheds"
+        :key="productSearched.id"
+        :attrs="productSearched"
+      >
+        <show-products :product="productSearched" />
       </li>
     </ul>
   </div>
@@ -15,7 +19,7 @@
 
 <script lang="ts">
 import { getFirestore, collection, getDocs } from 'firebase/firestore'
-import { reactive, ref } from 'vue'
+import { computed, reactive, ref } from 'vue'
 
 import ShowProducts from '~/components/ShowProducts.vue'
 import HeaderMarket from '~/components/HeaderMarket.vue'
@@ -31,8 +35,8 @@ export default {
     const fs = getFirestore()
     const products = reactive([]) // Khởi tạo biến reactive để lưu trữ danh sách sản phẩm
     const quantity = ref(0)
-    const searchProduct = ref('')
-    const productSearched = reactive([])
+    const searchProduct = ref(null)
+    const productSearcheds = reactive([])
     const readData = async () => {
       const fsProduct = collection(fs, 'products')
       const querySnapshot = await getDocs(fsProduct)
@@ -44,21 +48,25 @@ export default {
       })
     }
     readData()
-
     const filteredProduct = (text: any) => {
+      // productSearched.values= products.values
       searchProduct.value = text
-      console.log(products)
-
       console.log(searchProduct.value)
-      productSearched = products.filter((product) =>
-        product.name.includes(text)
+
+      productSearcheds.length = 0 // Xóa các phần tử cũ trong mảng reactive
+      productSearcheds.push(
+        ...products.filter((product) =>
+          product.name.toLowerCase().includes(text.toLowerCase())
+        )
       )
-      console.log(productSearched)
+      console.log(productSearcheds.length)
+      console.log(productSearcheds)
     }
     return {
       products,
       quantity,
       searchProduct,
+      productSearcheds,
       readData,
       filteredProduct,
     }
