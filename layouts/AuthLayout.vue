@@ -29,5 +29,5 @@ export default {
 </script>
 
 <style>
-@import '~/assets/css/button.css';
+@import '../assets/scss/components/_button.scss';
 </style>

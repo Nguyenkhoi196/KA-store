@@ -27,20 +27,19 @@
           </div>
           <!-- Modal body -->
           <form @submit.prevent="submit">
-            <div class="grid gap-4 mb-4 sm:grid-cols-2">
+            <div class="modal-container">
               <div>
                 <label
                   for="name"
-                  class="block mb-2 text-sm font-medium text-primary"
+                  class="modal-label"
                   >Name</label
                 >
                 <input
                   id="name"
                   v-model="name"
-                  value="{name}"
                   type="text"
                   name="name"
-                  class="bg-primary text-secondary text-sm rounded-lg focus:ring-primary block w-full p-2.5"
+                  class="modal-input"
                   placeholder="Type product name"
                   required
 
@@ -49,7 +48,7 @@
               <div>
                 <label
                   for="brand"
-                  class="block mb-2 text-sm font-medium text-primary"
+                  class="modal-label"
                   >Brand</label
                 >
                 <input
@@ -57,7 +56,7 @@
                   v-model="brand"
                   type="text"
                   name="brand"
-                  class="bg-primary text-secondary text-sm rounded-lg focus:ring-primary block w-full p-2.5"
+                  class="modal-input"
                   placeholder="Product brand"
                   required
                 />
@@ -65,7 +64,7 @@
               <div>
                 <label
                   for="price"
-                  class="block mb-2 text-sm font-medium text-primary"
+                  class="modal-label"
                   >Price</label
                 >
                 <input
@@ -73,7 +72,7 @@
                   v-model="price"
                   type="number"
                   name="price"
-                  class="bg-primary text-secondary text-sm rounded-lg focus:ring-primary block w-full p-2.5"
+                  class="modal-input"
                   placeholder="$2999"
                   required
                   oninvalid=""
@@ -82,14 +81,14 @@
               <div>
                 <label
                   for="category"
-                  class="block mb-2 text-sm font-medium text-primary"
+                  class="modal-label"
                   >Category</label
                 >
                 <select
                   id="category"
                   v-model="category"
                   required
-                  class="bg-primary border border-gray-300 text-secondary text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5  dark:placeholder-gray-400dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                  class="modal-input"
                 >
                   <option selected="">Select category</option>
                   <option value="Sắt">Sắt</option>
@@ -100,7 +99,7 @@
               <div class="sm:col-span-2">
                 <label
                   for="inventory"
-                  class="block mb-2 text-sm font-medium text-primary"
+                  class="modal-label"
                   >Inventory</label
                 >
 
@@ -108,7 +107,7 @@
                   id="inventory"
                   v-model="inventory"
                   rows="4"
-                  class="block p-2.5 w-full text-sm text-secondary bg-primary rounded-lg border border-grasecondarycus:ring-primary-500 focus:border-primary-500"
+                  class="modal-input"
                   placeholder="Inventory"
                   required
                   type="number"
@@ -117,7 +116,7 @@
             </div>
             <button
             type="submit"
-              class="text-secondary hover:text-opacity-70 inline-flex items-center bg-transparent focus:ring-4 focus:outline-none focus:ring-secondary font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+              class="button-submit text-primary"
               @click="setShowModal(false)"
             >
               Add new product
@@ -190,3 +189,8 @@ export default {
   },
 }
 </script>
+
+<style>
+@import '../assets/scss/components/_modal.scss';
+@import '../assets/scss/components/_button.scss'
+</style>

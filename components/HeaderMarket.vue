@@ -5,9 +5,19 @@
     <div
       class="flex flex-row items-center justify-between h-16 px-4 w-screen bg-secondary text-tertiary"
     >
-      <h1 class="font-bold text-2xl">Hàng Hóa</h1>
-      <div class="flex flex-row gap-4 text-base">
-        <button class="button-icon">
+      <h1 v-show="!isActive" class="font-bold text-2xl">Hàng Hóa</h1>
+      <!-- tìm sản phẩm -->
+      <input
+        v-model="search"
+        @keyup="searchChange"
+        v-show="isActive"
+        type="text"
+        class="searchBox-input"
+        autofocus
+        placeholder="Tên hàng hóa"
+      />
+      <div class="flex flex-row gap-4 text-base pl-4">
+        <button class="button-icon" @click="setAcitve">
           <fa :icon="['fas', 'magnifying-glass']" />
         </button>
         <button class="button-icon">
@@ -19,20 +29,39 @@
       </div>
     </div>
     <div class="border-t-[1px] border-primary py-1 px-4 text-gray-500">
-      {{ products }} Hàng hóa -
-      Tồn kho: {{ quantity }}
+      {{ products }} Hàng hóa - Tồn kho: {{ quantity }}
     </div>
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import { emit } from 'process'
+import { ref, watch } from 'vue'
 export default {
   name: 'HeaderMarket',
   props: ['quantity', 'products'],
-  setup(){}
+  emits: ['filter'],
+
+  setup(props, context) {
+    const search = ref('')
+    const isActive = ref<boolean>(false)
+    const setAcitve = () => {
+      isActive.value = !isActive.value
+    }
+    const searchChange = () => {
+      context.emit('filter', search.value)
+    }
+    return {
+      isActive,
+      search,
+      searchChange,
+      setAcitve,
+    }
+  },
 }
 </script>
 
-<style>
-@import '~/assets/css/button.css';
+<style lang="scss">
+@import '../assets/scss/components/button';
+@import '../assets/scss/components/searchBox';
 </style>

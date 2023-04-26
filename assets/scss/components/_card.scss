@@ -1,0 +1,21 @@
+.card-container {
+  @apply rounded-md shadow-lg lg:hover:scale-105 transition duration-500 cursor-pointer w-screen;
+}
+
+.card-bg {
+  @apply p-3 bg-primary flex flex-row gap-3 lg:px-14;
+}
+
+.card-img {
+  @apply rounded-lg overflow-hidden h-12 border-2 border-secondary;
+}
+
+.card-name,
+.card-price {
+  @apply text-base font-medium text-tertiary truncate;
+}
+
+.card-caterogy,
+.card-inventory {
+  @apply text-sm text-gray-500 truncate;
+}

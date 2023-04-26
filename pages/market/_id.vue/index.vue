@@ -1,11 +1,17 @@
 <template>
-  <div class="bg-secondary h-screen">
+  <div class="bg-primary h-screen p-2 gap-4">
+    <button
+    class="button-icon text-tertiary"
+    @click="goBack"
+    >
+    <fa :icon="['fas', 'angle-left']" />
+    {{ product.name }}</button>
     <form @submit.prevent="submit">
-            <div class="grid gap-4 mb-4 sm:grid-cols-2">
+            <div class="modal-container">
               <div>
                 <label
                   for="name"
-                  class="block mb-2 text-sm font-medium text-primary"
+                  class="modal-label"
                   >Name</label
                 >
                 <input
@@ -14,16 +20,15 @@
                   value="{name}"
                   type="text"
                   name="name"
-                  class="bg-primary text-secondary text-sm rounded-lg focus:ring-primary block w-full p-2.5"
+                  class="modal-input"
                   :placeholder="product.name"
                   required
-
                 />
               </div>
               <div>
                 <label
                   for="brand"
-                  class="block mb-2 text-sm font-medium text-primary"
+                  class="modal-label"
                   >Brand</label
                 >
                 <input
@@ -31,7 +36,7 @@
                   v-model="brand"
                   type="text"
                   name="brand"
-                  class="bg-primary text-secondary text-sm rounded-lg focus:ring-primary block w-full p-2.5"
+                  class="modal-input"
                   :placeholder=" product.brand"
                   required
                 />
@@ -39,7 +44,7 @@
               <div>
                 <label
                   for="price"
-                  class="block mb-2 text-sm font-medium text-primary"
+                  class="modal-label"
                   >Price</label
                 >
                 <input
@@ -47,7 +52,7 @@
                   v-model="price"
                   type="number"
                   name="price"
-                  class="bg-primary text-secondary text-sm rounded-lg focus:ring-primary block w-full p-2.5"
+                  class="modal-input"
                   :placeholder="product.price"
                   required
                   oninvalid=""
@@ -56,16 +61,16 @@
               <div>
                 <label
                   for="category"
-                  class="block mb-2 text-sm font-medium text-primary"
+                  class="modal-label"
                   >Category</label
                 >
                 <select
                   id="category"
                   v-model="category"
                   required
-                  class="bg-primary border border-gray-300 text-secondary text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5  dark:placeholder-gray-400dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                  class="modal-input"
                 >
-                  <option selected=""> {{ product.category }}</option>
+                  <option :selected="product.category"> {{ product.category }}</option>
                   <option value="Sắt">Sắt</option>
                   <option value="Nhôm">Nhôm</option>
                   <option value="Tôn">Tôn</option>
@@ -74,7 +79,7 @@
               <div class="sm:col-span-2">
                 <label
                   for="inventory"
-                  class="block mb-2 text-sm font-medium text-primary"
+                  class="modal-label"
                   >Inventory</label
                 >
 
@@ -82,7 +87,7 @@
                   id="inventory"
                   v-model="inventory"
                   rows="4"
-                  class="block p-2.5 w-full text-sm text-secondary bg-primary rounded-lg border border-grasecondarycus:ring-primary-500 focus:border-primary-500"
+                  class="modal-input"
                   :placeholder="product.inventory"
                   required
                   type="number"
@@ -91,23 +96,28 @@
             </div>
             <button
             type="submit"
-              class="text-secondary hover:text-opacity-70 inline-flex items-center bg-transparent focus:ring-4 focus:outline-none focus:ring-secondary font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+              class="button-submit text-secondary"
             >
               Update new product
             </button>
-          </form>
+    </form>
   </div>
 </template>
 <script>
 import { ref } from 'vue'
-import { useRoute } from '@nuxtjs/composition-api'
+import { useRoute, useRouter } from '@nuxtjs/composition-api'
 import { getFirestore, collection, getDoc, doc } from 'firebase/firestore'
 
 export default {
+  layout: 'AuthLayout',
   setup() {
     const product = ref('')
     const route = useRoute()
+    const router = useRouter()
     const productId = route.value.params.id
+    const goBack = () => {
+      router.back()
+    }
     const readData = async () => {
       const fs = getFirestore()
       const docRef = doc(fs, 'products', productId)
@@ -115,13 +125,19 @@ export default {
       const productData = productSnapshot.data()
       console.log(productData);
       product.value = productData
-    }
+    };
     console.log(product.value);
-    readData()
+      readData();
     return {
       readData,
+      goBack,
       product
     }
   },
 }
 </script>
+
+<style lang="scss">
+@import '../../../assets/scss/components/button';
+@import '../../../assets/scss/components/modal'
+</style>

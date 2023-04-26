@@ -1,0 +1,11 @@
+.modal-container {
+  @apply grid gap-4 mb-4 sm:grid-cols-2;
+}
+
+.modal-label {
+  @apply block mb-2 text-sm font-medium text-tertiary;
+}
+
+.modal-input {
+  @apply bg-primary text-secondary text-sm rounded-lg focus:border-tertiary block w-full p-2.5 border-2 border-secondary w-full;
+}

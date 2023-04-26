@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col items-center justify-between h-full gap-10" >
+  <div class="flex flex-col items-center justify-between h-full gap-10">
     <div class="container mx-auto px-8">
       <!-- ở đây -->
       <form
@@ -33,14 +33,14 @@
           <button
             v-if="!isPending"
             type="submit"
-            class="font-semibold w-full px-4 py-3 rounded-lg border-[1px] ring-2 ring-secondary hover:border-tertiary text-yellow bg-secondary mt-1 text-center "
+            class="font-semibold w-full px-4 py-3 rounded-lg border-[1px] ring-2 ring-secondary hover:border-tertiary text-yellow bg-secondary mt-1 text-center"
           >
             LogIn
           </button>
           <button
             v-else
             type="button"
-            class="cursor-not-allowed font-semibold w-full px-4 py-3 rounded-lg border-[1px] ring-2 ring-secondary hover:border-tertiary text-yellow bg-secondary mt-1 text-center "
+            class="cursor-not-allowed font-semibold w-full px-4 py-3 rounded-lg border-[1px] ring-2 ring-secondary hover:border-tertiary text-yellow bg-secondary mt-1 text-center"
             disabled
           >
             Loading...
@@ -49,11 +49,24 @@
       </form>
       <!-- Start-err -->
       <div v-if="error" class="text-left text-yellow mt-4">
-        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+        <div
+          class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
+          role="alert"
+        >
           <strong class="font-bold">Error!</strong>
           <span class="block sm:inline">{{ error }}</span>
           <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
-            <svg class="fill-current h-6 w-6 text-red-500" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><title>Close</title><path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"/></svg>
+            <svg
+              class="fill-current h-6 w-6 text-red-500"
+              role="button"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 20 20"
+            >
+              <title>Close</title>
+              <path
+                d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"
+              />
+            </svg>
           </span>
         </div>
       </div>
@@ -69,50 +82,49 @@
   </div>
 </template>
 <script lang="ts">
-import { ref, watch } from 'vue';
-import { useRouter } from '@nuxtjs/composition-api';
-import { store } from "../../store";
+import { ref, watch } from 'vue'
+import { useRouter } from '@nuxtjs/composition-api'
+import { store } from '../../store'
 // import DefaultLayout from '~/layouts/DefaultLayout.vue';
 
 export default {
-  layout: "DefaultLayout",
+  layout: 'DefaultLayout',
   transition: 'slide-left',
   setup() {
-    const email = ref<any>(null);
-    const password = ref<any>(null);
-    const isPending = ref<boolean>(false);
-    const error = ref<any>('');
-    const router = useRouter();
+    const email = ref<any>(null)
+    const password = ref<any>(null)
+    const isPending = ref<boolean>(false)
+    const error = ref<any>('')
+    const router = useRouter()
 
-    watch([email, password],() => {
+    watch([email, password], () => {
       error.value = ''
     })
 
-    const onSubmit = async()=> {
+    const onSubmit = async () => {
       try {
         await store.dispatch('login', {
           email: email.value,
           password: password.value,
-        });
-      }
-      catch (e: any) {
-        error.value = e.message;
+        })
+      } catch (e: any) {
+        error.value = e.message
       }
       if (!error.value) {
-        router.push("/profile");
+        router.push('/profile')
       }
-    };
-
-  return {
-    email,
-    password,
-    error,
-    onSubmit,
-    isPending,
     }
-  }
+
+    return {
+      email,
+      password,
+      error,
+      onSubmit,
+      isPending,
+    }
+  },
 }
 </script>
-<style scoped>
-@import '~/assets/css/pageTransiton.css'
+<style lang="scss" scoped>
+@import '../../assets/scss/components/pageTransition';
 </style>

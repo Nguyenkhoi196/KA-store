@@ -1,0 +1,11 @@
+.searchBox {
+  @apply relative items-center justify-center;
+}
+
+.searchBox-input {
+  @apply relative flex w-full h-8 border-none rounded-lg pl-4;
+}
+
+// .searchBox-input::placeholder {
+//   @apply ;
+// }

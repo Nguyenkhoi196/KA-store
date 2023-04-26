@@ -1,28 +1,20 @@
 <template>
   <div>
     <nuxt-link :to="'/market/' + product.id">
-      <div
-        class="rounded-md shadow-lg lg:hover:scale-105 transition duration-500 cursor-pointer w-screen"
-      >
-        <div class="p-3 bg-primary flex flex-row gap-3 lg:px-14">
-          <img
-            src="~/assets/images/logo.png"
-            alt=""
-            class="rounded-lg overflow-hidden h-12 border-2 border-secondary"
-          />
+      <div class="card-container">
+        <div class="card-bg">
+          <img src="~/assets/images/logo.png" alt="" class="card-img" />
           <div class="flex-1 min-w-0">
-            <p class="text-base font-medium text-tertiary truncate">
+            <p class="card-name">
               {{ product.name }}
             </p>
-            <p class="text-sm text-gray-500 truncate">
+            <p class="card-category">
               {{ product.category }}
             </p>
           </div>
           <div class="flex-end">
-            <p class="text-base font-medium text-tertiary truncate">
-              {{ product.price }} &#8363;
-            </p>
-            <p class="text-sm text-gray-500 truncate">
+            <p class="card-price">{{ product.price }} &#8363;</p>
+            <p class="card-inventory">
               {{ product.inventory }}
             </p>
           </div>
@@ -59,3 +51,7 @@ export default {
   },
 }
 </script>
+
+<style lang="scss" scoped>
+@import '../assets/scss/components/card';
+</style>

@@ -1,13 +1,12 @@
 <template>
   <div>
-    <HeaderMarket :quantity="quantity" :products="products.length" />
+    <HeaderMarket
+      :quantity="quantity"
+      :products="products.length"
+      @filter="filteredProduct"
+    />
     <ul class="my-[100px]">
-      <li
-        v-for="product in products"
-        :key="product.id"
-        :attrs="product"
-        class="grid grid-cols-2 grid-flow-row justify-between gap-3 content-center"
-      >
+      <li v-for="product in products" :key="product.id" :attrs="product">
         <show-products :product="product" />
       </li>
     </ul>
@@ -20,16 +19,20 @@ import { reactive, ref } from 'vue'
 
 import ShowProducts from '~/components/ShowProducts.vue'
 import HeaderMarket from '~/components/HeaderMarket.vue'
+
 import { Product } from '~/types/Product'
 
 export default {
   components: { ShowProducts, HeaderMarket },
   layout: 'AuthLayout',
   transition: 'slide-left',
+
   setup() {
     const fs = getFirestore()
     const products = reactive([]) // Khởi tạo biến reactive để lưu trữ danh sách sản phẩm
     const quantity = ref(0)
+    const searchProduct = ref('')
+    const productSearched = reactive([])
     const readData = async () => {
       const fsProduct = collection(fs, 'products')
       const querySnapshot = await getDocs(fsProduct)
@@ -41,13 +44,26 @@ export default {
       })
     }
     readData()
+
+    const filteredProduct = (text: any) => {
+      searchProduct.value = text
+      console.log(products)
+
+      console.log(searchProduct.value)
+      productSearched = products.filter((product) =>
+        product.name.includes(text)
+      )
+      console.log(productSearched)
+    }
     return {
-      products, // Trả về biến reactive products
-      readData,
+      products,
       quantity,
+      searchProduct,
+      readData,
+      filteredProduct,
     }
   },
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style></style>

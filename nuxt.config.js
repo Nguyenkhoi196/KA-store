@@ -15,7 +15,7 @@ export default {
 
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
-    '@/assets/css/main.css',
+    '@/assets/scss/main.scss',
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
@@ -99,7 +99,7 @@ export default {
   },
   // firebase
   firebase: {
-    config:{
+    config: {
       apiKey: "AIzaSyD_PnQ0ONY4hiKHtp7iGSwnxJfxFY4G3iI",
       authDomain: "pk21032023.firebaseapp.com",
       databaseURL: "https://pk21032023-default-rtdb.asia-southeast1.firebasedatabase.app",

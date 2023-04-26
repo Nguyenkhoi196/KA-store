@@ -130,7 +130,9 @@
         <!-- footer -->
         <div class="flex flex-col content-center mx-2 rounded-md text-base">
           <nuxt-link to="">
-            <div class="flex flex-row text-tertiary gap-2 px-4 py-2 hover:text-opacity-70">
+            <div
+              class="flex flex-row text-tertiary gap-2 px-4 py-2 hover:text-opacity-70"
+            >
               <span>
                 <fa :icon="['fas', 'gear']" />
               </span>
@@ -182,7 +184,7 @@ import { store } from '../../store'
 export default {
   layout: 'AuthLayout',
   transition: 'slide-left',
-    setup() {
+  setup() {
     const userStr: any = ref('')
     const user: any = ref('')
     const router = useRouter()
@@ -214,6 +216,6 @@ export default {
 }
 </script>
 <style>
-@import '~/assets/css/pageTransiton.css';
-@import '~/assets/css/button.css'
+@import '../../assets/scss/components/_pageTransition.scss';
+@import '../../assets/scss/components/_button.scss';
 </style>
