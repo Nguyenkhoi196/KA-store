@@ -1,6 +1,6 @@
 <template>
   <div
-    class="bg-tertiary h-screen after:contents after:opacity-50 after:top-0 after:left-0 after:z-10 after:w-full after:h-full"
+    class="bg-primary h-screen after:contents after:opacity-50 after:top-0 after:left-0 after:z-10 after:w-full after:h-full"
   >
     <!-- Modal toggle -->
     <div class="flex justify-center p-5">

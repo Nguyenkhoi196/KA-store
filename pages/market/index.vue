@@ -41,11 +41,12 @@ export default {
       const fsProduct = collection(fs, 'products')
       const querySnapshot = await getDocs(fsProduct)
       products.length = 0 // Xóa các phần tử cũ trong mảng reactive
-      console.log('read data')
       querySnapshot.forEach((doc) => {
         const data: Product = doc.data()
         products.push({ id: doc.id, ...data })
-        quantity.value += +data.inventory
+        // console.log(data)
+
+        // quantity.value += +data.inventory
       })
     }
     const filteredProduct = (text: any) => {
@@ -59,8 +60,7 @@ export default {
           product.name.toLowerCase().includes(text.toLowerCase())
         )
       )
-      console.log(productSearcheds.length)
-      console.log(productSearcheds)
+      console.log(productSearcheds[1])
     }
     readData().then(() => {
       filteredProduct('')
