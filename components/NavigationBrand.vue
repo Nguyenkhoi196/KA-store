@@ -1,7 +1,7 @@
 <template>
-  <div class="w-screen pt-1">
+  <div class="w-screen py-4">
 
-    <div class="w-32 mx-auto ring-2 ring-secondary rounded-md border-2 border-tertiary overflow-hidden">
+    <div class="w-32 mx-auto  rounded-3xl  overflow-hidden drop-shadow-md backdrop-opacity-50">
       <img :src="require('~/assets/images/logo.png')" alt="logo" class=""/>
     </div>
   </div>

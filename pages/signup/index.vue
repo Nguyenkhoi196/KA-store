@@ -5,47 +5,28 @@
         class="flex flex-col space-y-6 justify-start"
         @submit.prevent="onSubmit"
       >
-        <div class="row">
-          <label class="flex flex-col" for="fullName">
-            <span class="font-semibold">fullName</span>
-            <input
-              v-model="fullName"
-              class="px-4 py-3 rounded-lg border-[1px] ring-2 ring-secondary border-tertiary bg-gray-400/10 text-black mt-1"
-              type="text"
-              placeholder="KhoiNguyen"
-            />
+        <div class="row relative">
+          <label class="form-label" for="fullName">
+            <!-- flex flex-col font-semibold translate-y-10 transform active:translate-y-0 transition-transform -->
+            Tên đăng nhập
           </label>
+          <input v-model="fullName" class="form-input" type="text" />
         </div>
         <div class="row">
           <label class="flex flex-col" for="email">
             <span class="font-semibold">Email</span>
-            <input
-              v-model="email"
-              class="px-4 py-3 rounded-lg border-[1px] ring-2 ring-secondary border-tertiary bg-gray-400/10 text-black mt-1"
-              type="email"
-              placeholder="@gmail.com"
-              autocomplete="username"
-            />
+            <input v-model="email" class="form-input" type="email" />
           </label>
         </div>
         <div class="row">
           <label class="flex flex-col" for="password">
-            <span class="font-semibold">Password</span>
-            <input
-              v-model="password"
-              class="px-4 py-3 rounded-lg border-[1px] ring-2 ring-secondary border-tertiary bg-gray-400/10 text-black mt-1"
-              type="password"
-              placeholder="password"
-            />
+            <span class="font-semibold">Mật khẩu</span>
+            <input v-model="password" class="form-input" type="password" />
           </label>
         </div>
         <div class="row">
-          <button
-            v-if="!isPending"
-            type="submit"
-            class="font-semibold w-full px-4 py-3 rounded-lg border-[1px] ring-2 ring-secondary hover:border-tertiary text-black bg-secondary mt-1 text-center"
-          >
-            Sign Up
+          <button v-if="!isPending" type="submit" class="form-button">
+            Đăng ký
           </button>
           <button
             v-else
@@ -63,29 +44,16 @@
           class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
           role="alert"
         >
-          <strong class="font-bold">Holy smokes!</strong>
-          <span class="block sm:inline">Something seriously bad happened.</span>
-          <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
-            <svg
-              class="fill-current h-6 w-6 text-red-500"
-              role="button"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 20 20"
-            >
-              <title>Close</title>
-              <path
-                d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"
-              />
-            </svg>
-          </span>
+          <strong class="font-bold">Error</strong>
+          <span class="block sm:inline">{{ error }}</span>
         </div>
       </div>
       <!-- Star--direction -->
 
       <div class="w-full text-center mt-6">
-        <span class="font-semibold"> I'm ready a member. </span>
+        <span class="font-semibold">Bạn đã có tài khoản ?</span>
         <span class="ml-1 font-extrabold">
-          <nuxt-link to="/login">LogIn</nuxt-link>
+          <nuxt-link to="/login">Đăng nhập</nuxt-link>
         </span>
       </div>
     </div>
@@ -144,4 +112,29 @@ export default {
 
 <style lang="scss" scoped>
 @import '../../assets/scss/components/pageTransition';
+
+.form-input {
+  @apply px-4 py-3 rounded-lg text-black mt-1  shadow-[1px_0px_6px_rgba(0,0,0,0.25)] bg-transparent z-40 w-full
+  focus:shadow-[inset_2px_0px_6px_rgba(0,0,0,0.25)] focus:outline-none;
+}
+
+.form-label {
+  @apply flex left-4 top-2/3 px-2 text-tertiary cursor-text transition-all duration-200 ease-in bg-primary;
+  &::before {
+    @apply absolute left-0 -top-3 text-white text-xs transition-all duration-200 ease-in;
+  }
+}
+
+// .form-input:focus ~ .form-label,
+// .form-input:not(:placeholder-shown):not(:focus) ~ .form-label {
+//   @apply top-1/4 text-xs left-4;
+//   &::before {
+//     @apply -top-3 text-xs left-0;
+//   }
+// }
+
+.form-button {
+  @apply px-4 py-3 rounded-lg  text-black mt-1 shadow-[1px_0px_6px_rgba(0,0,0,0.25)] font-semibold w-full bg-opacity-70 text-center
+  active:shadow-[inset_2px_0px_6px_rgba(0,0,0,0.25)];
+}
 </style>

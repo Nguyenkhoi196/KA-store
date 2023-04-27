@@ -39,7 +39,7 @@
           class="grid grid-cols-2 grid-flow-row justify-between gap-3 content-center mx-2"
         >
           <nuxt-link to="/market">
-            <div class="button bg-primary hover:bg-tertiary/10">
+            <div class="button-menu">
               <div class="flex flex-row items-center gap-2 text-secondary">
                 <fa :icon="['fas', 'bag-shopping']" />
                 <h3 class="font-bold">Bán Hàng</h3>
@@ -47,7 +47,7 @@
             </div>
           </nuxt-link>
           <nuxt-link to="/oder">
-            <div class="button bg-primary hover:bg-tertiary/10">
+            <div class="button-menu">
               <div class="flex flex-row items-center gap-2 text-secondary">
                 <fa :icon="['fas', 'cart-shopping']" />
                 <h3 class="font-bold">Đặt Hàng</h3>
@@ -55,7 +55,7 @@
             </div>
           </nuxt-link>
           <nuxt-link to="/returnOder">
-            <div class="button bg-primary hover:bg-tertiary/10">
+            <div class="button-menu">
               <div class="flex flex-row items-center gap-2 text-secondary">
                 <fa :icon="['fas', 'arrow-right']" />
                 <h3 class="font-bold">Trả hàng</h3>
@@ -63,7 +63,7 @@
             </div>
           </nuxt-link>
           <nuxt-link to="/update">
-            <div class="button bg-primary hover:bg-tertiary/10">
+            <div class="button-menu">
               <div class="flex flex-row items-center gap-2 text-secondary">
                 <fa :icon="['fas', 'turn-down']" />
                 <h3 class="font-bold">Nhập hàng</h3>
@@ -71,7 +71,7 @@
             </div>
           </nuxt-link>
           <nuxt-link to="/update">
-            <div class="button bg-primary hover:bg-tertiary/10">
+            <div class="button-menu">
               <div class="flex flex-row items-center gap-2 text-secondary">
                 <fa :icon="['fas', 'turn-up']" />
                 <h3 class="font-bold">Trả hàng nhập</h3>
@@ -79,7 +79,7 @@
             </div>
           </nuxt-link>
           <nuxt-link to="/update">
-            <div class="button bg-primary hover:bg-tertiary/10">
+            <div class="button-menu">
               <div class="flex flex-row items-center gap-2 text-secondary">
                 <fa :icon="['fas', 'truck-fast']" />
                 <h3 class="font-bold">Chuyển hàng</h3>
@@ -87,7 +87,7 @@
             </div>
           </nuxt-link>
           <nuxt-link to="/warehouse">
-            <div class="button bg-primary hover:bg-tertiary/10">
+            <div class="button-menu">
               <div class="flex flex-row items-center gap-2 text-secondary">
                 <fa :icon="['fas', 'check-to-slot']" />
                 <h3 class="font-bold">Kiểm kho</h3>
@@ -95,7 +95,7 @@
             </div>
           </nuxt-link>
           <nuxt-link to="/update">
-            <div class="button bg-primary hover:bg-tertiary/10">
+            <div class="button-menu">
               <div class="flex flex-row items-center gap-2 text-secondary">
                 <fa :icon="['fas', 'right-to-bracket']" />
                 <h3 class="font-bold">Xuất hủy</h3>
@@ -103,7 +103,7 @@
             </div>
           </nuxt-link>
           <nuxt-link to="/update">
-            <div class="button bg-primary hover:bg-tertiary/10">
+            <div class="button-menu">
               <div class="flex flex-row items-center gap-2 text-secondary">
                 <fa :icon="['fas', 'user-group']" />
                 <h3 class="font-bold">Khách hàng</h3>
@@ -111,7 +111,7 @@
             </div>
           </nuxt-link>
           <nuxt-link to="/update">
-            <div class="button bg-primary hover:bg-tertiary/10">
+            <div class="button-menu">
               <div class="flex flex-row items-center gap-2 text-secondary">
                 <fa :icon="['fas', 'users']" />
                 <h3 class="font-bold">Nhà cung cấp</h3>
@@ -119,7 +119,7 @@
             </div>
           </nuxt-link>
           <nuxt-link to="/update">
-            <div class="button bg-primary hover:bg-tertiary/10">
+            <div class="button-menu">
               <div class="flex flex-row items-center gap-2 text-secondary">
                 <fa :icon="['fas', 'person']" />
                 <h3 class="font-bold">Nhân viên</h3>

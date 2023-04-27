@@ -9,33 +9,18 @@
         <div class="row">
           <label class="flex flex-col" for="email">
             <span class="font-semibold">Email</span>
-            <input
-              v-model="email"
-              class="px-4 py-3 rounded-lg border-[1px] ring-2 ring-secondary border-tertiary text-black mt-1"
-              type="email"
-              placeholder="@gmail.com"
-              autocomplete="username"
-            />
+            <input v-model="email" class="form-input" type="email" />
           </label>
         </div>
         <div class="row">
           <label class="flex flex-col" for="password">
-            <span class="font-semibold">Password</span>
-            <input
-              v-model="password"
-              class="px-4 py-3 rounded-lg border-[1px] ring-2 ring-secondary border-tertiary text-black mt-1"
-              type="password"
-              placeholder="password"
-            />
+            <span class="font-semibold">Mật khẩu</span>
+            <input v-model="password" class="form-input" type="password" />
           </label>
         </div>
         <div class="row">
-          <button
-            v-if="!isPending"
-            type="submit"
-            class="font-semibold w-full px-4 py-3 rounded-lg border-[1px] ring-2 ring-secondary hover:border-tertiary text-yellow bg-secondary mt-1 text-center"
-          >
-            LogIn
+          <button v-if="!isPending" type="submit" class="form-button">
+            Đăng nhập
           </button>
           <button
             v-else
@@ -55,27 +40,14 @@
         >
           <strong class="font-bold">Error!</strong>
           <span class="block sm:inline">{{ error }}</span>
-          <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
-            <svg
-              class="fill-current h-6 w-6 text-red-500"
-              role="button"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 20 20"
-            >
-              <title>Close</title>
-              <path
-                d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"
-              />
-            </svg>
-          </span>
         </div>
       </div>
       <!-- Star--direction -->
 
       <div class="w-full text-center mt-6">
-        <span class="font-semibold"> You are new member ? </span>
+        <span class="font-semibold"> Bạn chưa có tài khoản ? </span>
         <span class="ml-1 font-extrabold">
-          <nuxt-link to="/signup">SignUp</nuxt-link>
+          <nuxt-link to="/signup">Đăng ký</nuxt-link>
         </span>
       </div>
     </div>
@@ -127,4 +99,13 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import '../../assets/scss/components/pageTransition';
+.form-input {
+  @apply px-4 py-3 rounded-lg text-black mt-1  shadow-md bg-opacity-25
+  focus:shadow-[inset_0_2px_4px_rgba(0,0,0,0.2)] focus:outline-none;
+}
+
+.form-button {
+  @apply px-4 py-3 rounded-lg  text-black mt-1 shadow-md font-semibold w-full bg-opacity-70 text-center
+  active:shadow-[inset_0_2px_4px_rgba(0,0,0,0.2)];
+}
 </style>

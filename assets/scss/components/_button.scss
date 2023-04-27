@@ -3,8 +3,8 @@
 }
 
 .button-menu {
-  @apply inline-flex items-center flex-col justify-center px-2 text-tertiary
-    hover:border-x-2 hover:border-primary;
+  @apply inline-flex items-center flex-col justify-center p-2 text-tertiary rounded-lg  mt-1 shadow-[1px_0px_6px_rgba(0,0,0,0.25)] font-semibold w-full bg-primary text-center
+  hover:shadow-[1px_0px_4px_rgba(0,0,0,0.15)];
 }
 
 .button-icon {
