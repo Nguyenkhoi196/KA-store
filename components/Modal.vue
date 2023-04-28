@@ -15,12 +15,12 @@
           <div
             class="flex justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5 "
           >
-            <h3 class="text-lg font-semibold text-primary">Add Product</h3>
+            <h3 class="text-base font-semibold text-primary">Add Product</h3>
             <button
               type="button"
               class="text-secondary hover:text-opacity-70 bg-transparent rounded-lg text-sm p-1.5 ml-auto inline-flex items-cente"
               data-modal-toggle="defaultModal"
-              @click="setShowModal(false)"
+
             >
               <span class="">Close modal</span>
             </button>
@@ -40,6 +40,7 @@
                   type="text"
                   name="name"
                   class="form-input w-full"
+                  style="padding: 4px"
                   placeholder="Type product name"
                   required
 
@@ -57,6 +58,7 @@
                   type="text"
                   name="brand"
                   class="form-input w-full"
+                  style="padding: 4px"
                   placeholder="Product brand"
                   required
                 />
@@ -73,6 +75,7 @@
                   type="number"
                   name="price"
                   class="form-input w-full"
+                  style="padding: 4px"
                   placeholder="$2999"
                   required
                   oninvalid=""
@@ -89,6 +92,7 @@
                   v-model="category"
                   required
                   class="form-input w-full"
+                  style="padding: 4px"
                 >
                   <option selected="">Select category</option>
                   <option value="Sắt">Sắt</option>
@@ -108,6 +112,7 @@
                   v-model="inventory"
                   rows="4"
                   class="form-input w-full"
+                  style="padding: 4px"
                   placeholder="Inventory"
                   required
                   type="number"
@@ -117,7 +122,7 @@
             <button
             type="submit"
               class="form-button  w-1/2"
-              @click="setShowModal(false)"
+              style="font-size: 13px; padding: 5px"
             >
               Add new product
             </button>
@@ -136,7 +141,7 @@ import { Product } from '~/types/Product'
 
 export default {
   name: 'ModalProduct',
-  props: ['setShowModal', 'isModalVisible'],
+  // props: ['setShowModal', 'isModalVisible'],
   setup() {
     const name = ref<Product>('')
     const brand = ref<Product>('')

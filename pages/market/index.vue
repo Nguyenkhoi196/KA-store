@@ -21,13 +21,12 @@
 
 <script lang="ts">
 import { getFirestore, collection, getDocs } from 'firebase/firestore'
-import { computed, reactive, ref } from 'vue'
+import { reactive, ref } from 'vue'
 
 import ShowProducts from '~/components/ShowProducts.vue'
 import HeaderMarket from '~/components/HeaderMarket.vue'
 
 import { Product } from '~/types/Product'
-import products from '~/store/modules/products'
 
 export default {
   components: { ShowProducts, HeaderMarket },
@@ -55,7 +54,6 @@ export default {
       filterSelects.length = 0
       filterSelects.push(...new Set(filterCategory))
     }
-    console.log(filterSelects)
 
     const filteredProduct = (text: any) => {
       searchProduct.value = text

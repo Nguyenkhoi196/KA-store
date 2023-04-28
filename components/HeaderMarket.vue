@@ -10,8 +10,8 @@
         v-if="isActive.showInput"
         v-model="search"
         type="text"
-        class="form-input h-1/2"
-        autofocus
+        class="form-input h-1/2 w-full"
+        placeholder="Tìm kiếm"
         @keydown="searchChange"
       />
       <div class="flex flex-row gap-4 text-base pl-4">
@@ -26,8 +26,15 @@
         </button>
       </div>
     </div>
-    <div class="border-t-[1px] border-primary py-1 px-4 text-gray-500">
-      {{ totalProduct }} Hàng hóa - Tồn kho: {{ quantity }}
+    <div
+      class="border-t-[1px] border-primary py-1 px-4 justify-between flex flex-row items-center"
+    >
+      <p class="text-gray-500">
+        {{ totalProduct }} Hàng hóa - Tồn kho: {{ quantity }}
+      </p>
+      <button class="button-icon text-tertiary" @click="setActive(4, false)">
+        <fa :icon="['fas', 'plus']" />
+      </button>
     </div>
     <div
       v-if="isActive.showModal === 2"
@@ -37,13 +44,13 @@
         <label for="category" class="modal-label">Loại hàng</label>
         <select
           id="category"
-          v-model="category"
           required
           class="form-input w-1/2"
           style="padding: 4px"
         >
           <option
             v-for="(filterSelect, index) in filterSelects"
+            id="filterSelect"
             :key="index"
             value="filterSelect"
           >
@@ -65,14 +72,17 @@
       </button>
     </div>
     <div v-if="isActive.showModal === 3">modal3</div>
+    <modal-product v-if="isActive.showModal === 4" />
   </div>
 </template>
 
 <script lang="ts">
 import { reactive, ref, watch } from 'vue'
+import ModalProduct from '~/components/Modal.vue'
 export default {
+  components: { ModalProduct },
   name: 'HeaderMarket',
-  props: ['quantity', 'total-product', 'products', 'filter-selects'],
+  props: ['quantity', 'total-product', 'products', 'filterSelects'],
   emits: ['filter'],
 
   setup(props, context) {
