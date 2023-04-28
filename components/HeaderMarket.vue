@@ -67,7 +67,7 @@
           <label for="">Hết hàng</label>
         </div>
       </div>
-      <button class="form-button" style="font-size: 13px; padding: 5px">
+      <button class="form-button flex" style="font-size: 13px; padding: 5px">
         Lọc sản phầm
       </button>
     </div>
@@ -89,8 +89,16 @@ export default {
     const search = ref('')
     const isActive = reactive({ showModal: 0, showInput: false })
     const setActive = (numberModal, numberInput) => {
-      isActive.showModal = numberModal
-      isActive.showInput = numberInput
+      if (isActive.showModal === numberModal) {
+        isActive.showModal = 0
+      } else {
+        isActive.showModal = numberModal
+      }
+      if (numberModal === 1) {
+        isActive.showInput = !isActive.showInput
+      } else {
+        isActive.showInput = false
+      }
     }
     const searchChange = () => {
       context.emit('filter', search.value)

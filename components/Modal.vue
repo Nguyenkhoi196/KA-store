@@ -4,26 +4,18 @@
       id="defaultModal"
       tabindex="-1"
       aria-hidden="true"
-      class="overflow-y-auto overflow-x-hidden justify-center items-center w-full md:inset-0 h-modal"
+      class="overflow-y-auto overflow-x-hidden justify-center items-center w-full md:inset-0"
     >
       <div class="relative p-4 w-full h-full md:h-auto">
         <!-- Modal content -->
         <div
-          class="relative p-2 bg-secondary/20 rounded-lg shadow-sm hover:shadow-none shadow-current"
+          class="relative p-2 bg-secondary/20 rounded-lg hover:shadow-none"
         >
           <!-- Modal header -->
           <div
             class="flex justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5 "
           >
-            <h3 class="text-base font-semibold text-primary">Add Product</h3>
-            <button
-              type="button"
-              class="text-secondary hover:text-opacity-70 bg-transparent rounded-lg text-sm p-1.5 ml-auto inline-flex items-cente"
-              data-modal-toggle="defaultModal"
-
-            >
-              <span class="">Close modal</span>
-            </button>
+            <h3 class="text-base font-semibold text-primary">Thêm hàng hóa</h3>
           </div>
           <!-- Modal body -->
           <form @submit.prevent="submit">
@@ -32,7 +24,7 @@
                 <label
                   for="name"
                   class="modal-label"
-                  >Name</label
+                  >Tên mặt hàng</label
                 >
                 <input
                   id="name"
@@ -41,16 +33,14 @@
                   name="name"
                   class="form-input w-full"
                   style="padding: 4px"
-                  placeholder="Type product name"
                   required
-
                 />
               </div>
               <div>
                 <label
                   for="brand"
                   class="modal-label"
-                  >Brand</label
+                  >Nhãn hiệu</label
                 >
                 <input
                   id="brand"
@@ -59,7 +49,6 @@
                   name="brand"
                   class="form-input w-full"
                   style="padding: 4px"
-                  placeholder="Product brand"
                   required
                 />
               </div>
@@ -67,7 +56,7 @@
                 <label
                   for="price"
                   class="modal-label"
-                  >Price</label
+                  >Giá</label
                 >
                 <input
                   id="price"
@@ -76,7 +65,6 @@
                   name="price"
                   class="form-input w-full"
                   style="padding: 4px"
-                  placeholder="$2999"
                   required
                   oninvalid=""
                 />
@@ -85,7 +73,7 @@
                 <label
                   for="category"
                   class="modal-label"
-                  >Category</label
+                  >Phân loại</label
                 >
                 <select
                   id="category"
@@ -104,7 +92,7 @@
                 <label
                   for="inventory"
                   class="modal-label"
-                  >Inventory</label
+                  >Số lượng</label
                 >
 
                 <input
@@ -113,7 +101,7 @@
                   rows="4"
                   class="form-input w-full"
                   style="padding: 4px"
-                  placeholder="Inventory"
+
                   required
                   type="number"
                 ></input>
@@ -124,7 +112,7 @@
               class="form-button  w-1/2"
               style="font-size: 13px; padding: 5px"
             >
-              Add new product
+              Thêm sản phẩm
             </button>
           </form>
         </div>
@@ -141,7 +129,6 @@ import { Product } from '~/types/Product'
 
 export default {
   name: 'ModalProduct',
-  // props: ['setShowModal', 'isModalVisible'],
   setup() {
     const name = ref<Product>('')
     const brand = ref<Product>('')

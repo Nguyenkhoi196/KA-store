@@ -7,7 +7,7 @@
 }
 
 .card-img {
-  @apply rounded-lg overflow-hidden h-12 border-2 border-secondary;
+  @apply rounded-lg overflow-hidden h-12 drop-shadow-md;
 }
 
 .card-name,
@@ -17,5 +17,5 @@
 
 .card-caterogy,
 .card-inventory {
-  @apply text-sm text-gray-500 truncate;
+  @apply text-sm text-gray-500 truncate justify-end;
 }
