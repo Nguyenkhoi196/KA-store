@@ -2,7 +2,9 @@
   <div>
     <HeaderMarket
       :quantity="quantity"
-      :products="productSearcheds.length"
+      :total-product="productSearcheds.length"
+      :products="products"
+      :filter-selects="filterSelects"
       @filter="filteredProduct"
     />
     <ul class="my-[100px]">
@@ -25,6 +27,7 @@ import ShowProducts from '~/components/ShowProducts.vue'
 import HeaderMarket from '~/components/HeaderMarket.vue'
 
 import { Product } from '~/types/Product'
+import products from '~/store/modules/products'
 
 export default {
   components: { ShowProducts, HeaderMarket },
@@ -33,10 +36,13 @@ export default {
 
   setup() {
     const fs = getFirestore()
+
     const products = reactive([]) // Khởi tạo biến reactive để lưu trữ danh sách sản phẩm
-    const quantity = ref(0)
-    const searchProduct = ref('')
+    const filterCategory = reactive([])
     const productSearcheds = reactive([])
+    const filterSelects = reactive([])
+    const searchProduct = ref('')
+    const quantity = ref(0)
     const readData = async () => {
       const fsProduct = collection(fs, 'products')
       const querySnapshot = await getDocs(fsProduct)
@@ -44,24 +50,29 @@ export default {
       querySnapshot.forEach((doc) => {
         const data: Product = doc.data()
         products.push({ id: doc.id, ...data })
-        // console.log(data)
-
-        // quantity.value += +data.inventory
+        filterCategory.push(data.category)
       })
+      filterSelects.length = 0
+      filterSelects.push(...new Set(filterCategory))
     }
-    const filteredProduct = (text: any) => {
-      // productSearched.values= products.values
-      searchProduct.value = text
-      console.log(searchProduct.value)
+    console.log(filterSelects)
 
+    const filteredProduct = (text: any) => {
+      searchProduct.value = text
       productSearcheds.length = 0 // Xóa các phần tử cũ trong mảng reactive
       productSearcheds.push(
         ...products.filter((product) =>
           product.name.toLowerCase().includes(text.toLowerCase())
         )
       )
-      console.log(productSearcheds[1])
+      const sum = productSearcheds.reduce(
+        (accumulator, productSearched) =>
+          accumulator + Number(productSearched.inventory),
+        0
+      )
+      quantity.value = sum
     }
+
     readData().then(() => {
       filteredProduct('')
     })
@@ -70,6 +81,7 @@ export default {
       quantity,
       searchProduct,
       productSearcheds,
+      filterSelects,
       readData,
       filteredProduct,
     }
@@ -77,4 +89,6 @@ export default {
 }
 </script>
 
-<style></style>
+<style lang="scss" scoped>
+@import '../../assets/scss/components/modal';
+</style>

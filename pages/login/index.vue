@@ -99,13 +99,5 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import '../../assets/scss/components/pageTransition';
-.form-input {
-  @apply px-4 py-3 rounded-lg text-black mt-1  shadow-md bg-opacity-25
-  focus:shadow-[inset_0_2px_4px_rgba(0,0,0,0.2)] focus:outline-none;
-}
-
-.form-button {
-  @apply px-4 py-3 rounded-lg  text-black mt-1 shadow-md font-semibold w-full bg-opacity-70 text-center
-  active:shadow-[inset_0_2px_4px_rgba(0,0,0,0.2)];
-}
+@import '../../assets/scss/components/modal';
 </style>

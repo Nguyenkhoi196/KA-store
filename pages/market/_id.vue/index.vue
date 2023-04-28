@@ -20,7 +20,7 @@
                   value="{name}"
                   type="text"
                   name="name"
-                  class="modal-input"
+                  class="form-input w-full"
                   :placeholder="product.name"
                   required
                 />
@@ -36,7 +36,7 @@
                   v-model="brand"
                   type="text"
                   name="brand"
-                  class="modal-input"
+                  class="form-input w-full"
                   :placeholder=" product.brand"
                   required
                 />
@@ -52,7 +52,7 @@
                   v-model="price"
                   type="number"
                   name="price"
-                  class="modal-input"
+                  class="form-input w-full"
                   :placeholder="product.price"
                   required
                   oninvalid=""
@@ -68,7 +68,7 @@
                   id="category"
                   v-model="category"
                   required
-                  class="modal-input"
+                  class="form-input w-full"
                 >
                   <option :selected="product.category"> {{ product.category }}</option>
                   <option value="Sắt">Sắt</option>
@@ -87,7 +87,7 @@
                   id="inventory"
                   v-model="inventory"
                   rows="4"
-                  class="modal-input"
+                  class="form-input w-full"
                   :placeholder="product.inventory"
                   required
                   type="number"
@@ -96,7 +96,7 @@
             </div>
             <button
             type="submit"
-              class="button-submit text-secondary"
+              class="form-input text-secondary"
             >
               Update new product
             </button>
@@ -106,7 +106,7 @@
 <script>
 import { ref } from 'vue'
 import { useRoute, useRouter } from '@nuxtjs/composition-api'
-import { getFirestore, collection, getDoc, doc } from 'firebase/firestore'
+import { getFirestore, getDoc, doc } from 'firebase/firestore'
 
 export default {
   layout: 'AuthLayout',

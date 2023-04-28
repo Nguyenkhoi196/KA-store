@@ -14,3 +14,8 @@
 .button-submit {
   @apply inline-flex items-center bg-transparent hover:ring-2 hover:outline-none hover:ring-current font-medium rounded-lg text-sm px-5 py-2.5 text-center;
 }
+
+.form-button {
+  @apply px-4 py-3 rounded-lg  mt-1 shadow-md font-semibold bg-transparent/5 text-center
+  active:shadow-[inset_0_2px_4px_rgba(0,0,0,0.2)];
+}

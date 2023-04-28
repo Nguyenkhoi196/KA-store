@@ -1,5 +1,5 @@
 <template>
-  <div class="layout-container gap-2">
+  <div class="layout-container">
     <navigation-brand />
     <nuxt />
   </div>
@@ -14,6 +14,6 @@ export default {
 </script>
 <style scoped lang="scss">
 .layout-container {
-  @apply h-screen bg-gradient-to-br from-primary to-secondary from-30%;
+  @apply h-screen bg-gradient-to-t from-primary  via-secondary from-10%;
 }
 </style>

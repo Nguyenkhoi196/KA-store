@@ -5,12 +5,11 @@
         class="flex flex-col space-y-6 justify-start"
         @submit.prevent="onSubmit"
       >
-        <div class="row relative">
-          <label class="form-label" for="fullName">
-            <!-- flex flex-col font-semibold translate-y-10 transform active:translate-y-0 transition-transform -->
-            Tên đăng nhập
+        <div class="row">
+          <label class="flex flex-col" for="name">
+            <span class="font-semibold"> Tên đăng nhập </span>
+            <input v-model="fullName" class="form-input" type="text" />
           </label>
-          <input v-model="fullName" class="form-input" type="text" />
         </div>
         <div class="row">
           <label class="flex flex-col" for="email">
@@ -31,7 +30,7 @@
           <button
             v-else
             type="button"
-            class="cursor-not-allowed font-semibold w-full px-4 py-3 rounded-lg border-[1px] ring-2 ring-secondary hover:border-tertiary text-black bg-secondary mt-1 text-center"
+            class="cursor-not-allowed form-button"
             disabled
           >
             Loading...
@@ -112,29 +111,5 @@ export default {
 
 <style lang="scss" scoped>
 @import '../../assets/scss/components/pageTransition';
-
-.form-input {
-  @apply px-4 py-3 rounded-lg text-black mt-1  shadow-[1px_0px_6px_rgba(0,0,0,0.25)] bg-transparent z-40 w-full
-  focus:shadow-[inset_2px_0px_6px_rgba(0,0,0,0.25)] focus:outline-none;
-}
-
-.form-label {
-  @apply flex left-4 top-2/3 px-2 text-tertiary cursor-text transition-all duration-200 ease-in bg-primary;
-  &::before {
-    @apply absolute left-0 -top-3 text-white text-xs transition-all duration-200 ease-in;
-  }
-}
-
-// .form-input:focus ~ .form-label,
-// .form-input:not(:placeholder-shown):not(:focus) ~ .form-label {
-//   @apply top-1/4 text-xs left-4;
-//   &::before {
-//     @apply -top-3 text-xs left-0;
-//   }
-// }
-
-.form-button {
-  @apply px-4 py-3 rounded-lg  text-black mt-1 shadow-[1px_0px_6px_rgba(0,0,0,0.25)] font-semibold w-full bg-opacity-70 text-center
-  active:shadow-[inset_2px_0px_6px_rgba(0,0,0,0.25)];
-}
+@import '../../assets/scss/components/modal';
 </style>

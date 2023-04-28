@@ -39,7 +39,7 @@
                   v-model="name"
                   type="text"
                   name="name"
-                  class="modal-input"
+                  class="form-input w-full"
                   placeholder="Type product name"
                   required
 
@@ -56,7 +56,7 @@
                   v-model="brand"
                   type="text"
                   name="brand"
-                  class="modal-input"
+                  class="form-input w-full"
                   placeholder="Product brand"
                   required
                 />
@@ -72,7 +72,7 @@
                   v-model="price"
                   type="number"
                   name="price"
-                  class="modal-input"
+                  class="form-input w-full"
                   placeholder="$2999"
                   required
                   oninvalid=""
@@ -88,7 +88,7 @@
                   id="category"
                   v-model="category"
                   required
-                  class="modal-input"
+                  class="form-input w-full"
                 >
                   <option selected="">Select category</option>
                   <option value="Sắt">Sắt</option>
@@ -107,7 +107,7 @@
                   id="inventory"
                   v-model="inventory"
                   rows="4"
-                  class="modal-input"
+                  class="form-input w-full"
                   placeholder="Inventory"
                   required
                   type="number"
@@ -116,7 +116,7 @@
             </div>
             <button
             type="submit"
-              class="button-submit text-primary"
+              class="form-button  w-1/2"
               @click="setShowModal(false)"
             >
               Add new product
@@ -190,7 +190,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
 @import '../assets/scss/components/_modal.scss';
 @import '../assets/scss/components/_button.scss'
 </style>
