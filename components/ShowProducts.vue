@@ -12,7 +12,7 @@
               {{ product.category }}
             </p>
           </div>
-          <div class="flex-end">
+          <div class="flex text-end flex-col">
             <p class="card-price">{{ product.price }} &#8363;</p>
             <p class="card-inventory">
               {{ product.inventory }}
@@ -25,29 +25,10 @@
   </div>
 </template>
 <script>
-import { ref } from 'vue'
 export default {
   props: ['product'],
   setup() {
-    const showModal = ref(false)
-    let timer = null
-
-    const startTimer = () => {
-      timer = setTimeout(() => {
-        showModal.value = true
-      }, 1000)
-    }
-
-    const clearTimer = () => {
-      clearTimeout(timer)
-      showModal.value = false
-    }
-
-    return {
-      startTimer,
-      clearTimer,
-      showModal,
-    }
+    return {}
   },
 }
 </script>

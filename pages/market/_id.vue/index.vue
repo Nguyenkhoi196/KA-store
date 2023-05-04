@@ -6,7 +6,7 @@
     >
     <fa :icon="['fas', 'angle-left']" />
     {{ product.name }}</button>
-    <form @submit.prevent="submit">
+    <form>
             <div class="modal-container">
               <div>
                 <label
@@ -87,8 +87,9 @@
             </div>
             <div class="w-full flex flex-row gap-4 justify-end">
               <button
-              type="submit"
+              type="button"
               class="form-button text-red-500 "
+                @click="deleteData"
               >
               Xóa mặt hàng
               </button>
@@ -107,7 +108,7 @@
 <script>
 import { ref } from 'vue'
 import { useRoute, useRouter } from '@nuxtjs/composition-api'
-import { getFirestore, getDoc, doc, updateDoc } from 'firebase/firestore'
+import { getFirestore, getDoc, doc, updateDoc, deleteDoc } from 'firebase/firestore'
 
 export default {
   layout: 'AuthLayout',
@@ -127,24 +128,37 @@ export default {
     const readData = async () => {
       const productSnapshot = await getDoc(docRef)
       const productData = productSnapshot.data()
-      console.log(productData);
       product.value = productData
+
     };
 
     const updateData = async () => {
       try {
-        await updateDoc(docRef)
+        await updateDoc(docRef ,product.value)
         console.log('updated');
-        console.log(product.value);
       }
       catch(e){
       }
     }
+
+
+    const deleteData = async () => {
+      try {
+        await deleteDoc(docRef)
+        console.log('deleted');
+        router.push('/market')
+      }
+      catch(e){
+
+      }
+    }
+
     readData();
     return {
       readData,
       updateData,
       goBack,
+      deleteData,
       product
     }
   },

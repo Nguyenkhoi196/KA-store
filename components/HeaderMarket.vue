@@ -10,7 +10,7 @@
         v-if="isActive.showInput"
         v-model="search"
         type="text"
-        class="form-input h-1/2 w-full"
+        class="form-input h-1/2 w-full placeholder-primary"
         placeholder="Tìm kiếm"
         @keydown="searchChange"
       />
@@ -44,32 +44,55 @@
         <label for="category" class="modal-label">Loại hàng</label>
         <select
           id="category"
-          required
+          v-model="category"
           class="form-input w-1/2"
           style="padding: 4px"
         >
+          <option disabled value="">Chọn loại hàng</option>
           <option
             v-for="(filterSelect, index) in filterSelects"
             id="filterSelect"
             :key="index"
-            value="filterSelect"
+            :value="filterSelect"
           >
             {{ filterSelect }}
           </option>
         </select>
+        {{ category }}
       </div>
       <div>
         <label for="inventory" class="modal-label"> Tồn kho </label>
         <div>
-          <input type="checkbox" value="1" class="radio" />
+          <input
+            id="1"
+            v-model="stock"
+            type="radio"
+            value="inStock"
+            class="radio"
+            checked
+          />
           <label for="">Còn hàng</label>
-          <input type="checkbox" value="1" class="radio" />
+          <input
+            id="2"
+            v-model="stock"
+            type="radio"
+            value="outOfStock"
+            class="radio"
+          />
           <label for="">Hết hàng</label>
         </div>
+        {{ stock }}
       </div>
-      <button class="form-button flex" style="font-size: 13px; padding: 5px">
-        Lọc sản phầm
-      </button>
+      <div class="flex justify-end">
+        <button
+          class="form-button"
+          style="font-size: 13px; padding: 5px"
+          type="submit"
+          @click="filterChange"
+        >
+          Lọc sản phầm
+        </button>
+      </div>
     </div>
     <div v-if="isActive.showModal === 3">modal3</div>
     <modal-product v-if="isActive.showModal === 4" />
@@ -77,18 +100,21 @@
 </template>
 
 <script lang="ts">
-import { reactive, ref, watch } from 'vue'
+import { reactive, ref } from 'vue'
 import ModalProduct from '~/components/Modal.vue'
 export default {
-  components: { ModalProduct },
   name: 'HeaderMarket',
+  components: { ModalProduct },
   props: ['quantity', 'total-product', 'products', 'filterSelects'],
-  emits: ['filter'],
+  emits: ['filter', 'search'],
 
   setup(props, context) {
+    const stock = ref('')
+    const category = ref('')
     const search = ref('')
     const isActive = reactive({ showModal: 0, showInput: false })
-    const setActive = (numberModal, numberInput) => {
+
+    const setActive = (numberModal: any, showInput: boolean) => {
       if (isActive.showModal === numberModal) {
         isActive.showModal = 0
       } else {
@@ -100,14 +126,25 @@ export default {
         isActive.showInput = false
       }
     }
+
     const searchChange = () => {
-      context.emit('filter', search.value)
+      context.emit('search', search.value)
+      console.log(search.value)
     }
+
+    const filterChange = () => {
+      context.emit('filter', stock.value, category.value)
+      // console.log(stock.value, category.value)
+    }
+
     return {
       isActive,
       search,
+      stock,
+      category,
       searchChange,
       setActive,
+      filterChange,
     }
   },
 }

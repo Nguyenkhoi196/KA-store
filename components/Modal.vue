@@ -58,13 +58,12 @@
                 >
                 <input
                   id="price"
-                  v-model="price"
+                  v-model.number="price"
                   type="number"
                   name="price"
                   class="form-input w-full"
                   style="padding: 4px"
                   required
-                  oninvalid=""
                 />
               </div>
               <div>
@@ -76,12 +75,11 @@
                 <input
                   id="category"
                   v-model="category"
-                  type="number"
+                  type="text"
                   name="category"
                   class="form-input w-full"
                   style="padding: 4px"
                   required
-                  oninvalid=""
                 />
               </div>
               <div class="sm:col-span-2">
@@ -90,14 +88,11 @@
                   class="modal-label"
                   >Số lượng</label
                 >
-
                 <input
                   id="inventory"
-                  v-model="inventory"
-                  rows="4"
+                  v-model.number="inventory"
                   class="form-input w-full"
                   style="padding: 4px"
-
                   required
                   type="number"
                 ></input>
@@ -134,6 +129,7 @@ export default {
     const inventory = ref<Product>('')
     const category = ref<Product>('')
     const fs = getFirestore()
+    const fsProduct = collection(fs, 'products')
 
     const submit = async () => {
       await addProduct(
@@ -155,7 +151,6 @@ export default {
       fs
     ) => {
       try {
-        const fsProduct = collection(fs, 'products')
         await addDoc(fsProduct, {
           name,
           brand,
