@@ -19,7 +19,7 @@
           </label>
         </div>
         <div class="row">
-          <button v-if="!isPending" type="submit" class="form-button">
+          <button v-if="!isPending" type="submit" class="form-button w-full">
             Đăng nhập
           </button>
           <button

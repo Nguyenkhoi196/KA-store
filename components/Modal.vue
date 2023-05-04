@@ -8,9 +8,7 @@
     >
       <div class="relative p-4 w-full h-full md:h-auto">
         <!-- Modal content -->
-        <div
-          class="relative p-2 bg-secondary/20 rounded-lg hover:shadow-none"
-        >
+
           <!-- Modal header -->
           <div
             class="flex justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5 "
@@ -40,7 +38,7 @@
                 <label
                   for="brand"
                   class="modal-label"
-                  >Nhãn hiệu</label
+                  >Thương hiệu</label
                 >
                 <input
                   id="brand"
@@ -75,18 +73,16 @@
                   class="modal-label"
                   >Phân loại</label
                 >
-                <select
+                <input
                   id="category"
                   v-model="category"
-                  required
+                  type="number"
+                  name="category"
                   class="form-input w-full"
                   style="padding: 4px"
-                >
-                  <option selected="">Select category</option>
-                  <option value="Sắt">Sắt</option>
-                  <option value="Nhôm">Nhôm</option>
-                  <option value="Tôn">Tôn</option>
-                </select>
+                  required
+                  oninvalid=""
+                />
               </div>
               <div class="sm:col-span-2">
                 <label
@@ -107,15 +103,17 @@
                 ></input>
               </div>
             </div>
-            <button
-            type="submit"
-              class="form-button  w-1/2"
+            <div class="flex justify-end">
+              <button
+              type="submit"
+              class="form-button"
               style="font-size: 13px; padding: 5px"
-            >
-              Thêm sản phẩm
-            </button>
+              >
+                Thêm sản phẩm
+              </button>
+            </div>
           </form>
-        </div>
+
       </div>
     </div>
   </div>
@@ -158,7 +156,7 @@ export default {
     ) => {
       try {
         const fsProduct = collection(fs, 'products')
-        const allProductInfor = await addDoc(fsProduct, {
+        await addDoc(fsProduct, {
           name,
           brand,
           category,
@@ -184,5 +182,5 @@ export default {
 
 <style lang="scss" scoped>
 @import '../assets/scss/components/_modal.scss';
-@import '../assets/scss/components/_button.scss'
+@import '../assets/scss/components/_button.scss';
 </style>

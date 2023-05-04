@@ -128,7 +128,9 @@
           </nuxt-link>
         </div>
         <!-- footer -->
-        <div class="flex flex-col content-center mx-2 rounded-md text-base">
+        <div
+          class="flex flex-col content-center mx-2 rounded-md text-base pt-2"
+        >
           <nuxt-link to="">
             <div
               class="flex flex-row text-tertiary gap-2 px-4 py-2 hover:text-opacity-70"
