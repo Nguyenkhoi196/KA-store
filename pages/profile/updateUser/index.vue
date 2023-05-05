@@ -18,7 +18,7 @@
               <label
                 for="username"
                 class="block text-sm font-medium leading-6 text-secondary"
-                >Username</label
+                >Tài khoản</label
               >
               <div class="mt-2">
                 <div
@@ -30,7 +30,7 @@
                     type="text"
                     name="username"
                     autocomplete="username"
-                    class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-secondary placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+                    class="form-input"
                   />
                 </div>
               </div>
@@ -52,7 +52,7 @@
                     type="text"
                     name="numberPhone"
                     autocomplete="numberPhone"
-                    class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-secondary placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+                    class="form-inp"
                   />
                 </div>
               </div>
@@ -112,17 +112,8 @@
 </template>
 
 <script lang="ts">
-import {
-  getDatabase,
-  ref as sRef,
-  set,
-  onValue,
-} from 'firebase/database'
-import {
-  getFirestore,
-  collection,
-  addDoc
-} from 'firebase/firestore'
+import { getDatabase, ref as sRef, set, onValue } from 'firebase/database'
+import { getFirestore, collection, addDoc } from 'firebase/firestore'
 
 import { ref, onMounted } from 'vue'
 import { User } from '~/types/User'
@@ -168,10 +159,14 @@ export default {
           imageUrlValue,
           db
         )
-        console.log('write userUid into FS', userUid.value, nameValue, phoneValue)
+        console.log(
+          'write userUid into FS',
+          userUid.value,
+          nameValue,
+          phoneValue
+        )
         await writeUserDataIntoDB(userUid.value, nameValue, phoneValue, fs)
-        console.log('write userUid into DB', userUid.value, nameValue);
-
+        console.log('write userUid into DB', userUid.value, nameValue)
       } catch (error) {
         console.error('Error writing data: ', error)
       }
@@ -190,15 +185,17 @@ export default {
     }
 
     const writeUserDataIntoDB = async (userUid, name, phoneNumber, fs) => {
-      try{
+      try {
         const fsUser = collection(fs, 'user')
-        console.log('collection',fsUser);
-        const allUserInfor =  await addDoc(fsUser, {userUid, name, phoneNumber})
-        console.log('addDoc',allUserInfor);
-      }
-      catch (e) {
-        console.log(e);
-
+        console.log('collection', fsUser)
+        const allUserInfor = await addDoc(fsUser, {
+          userUid,
+          name,
+          phoneNumber,
+        })
+        console.log('addDoc', allUserInfor)
+      } catch (e) {
+        console.log(e)
       }
     }
 
@@ -213,7 +210,6 @@ export default {
       })
     }
 
-
     return {
       user,
       name,
@@ -224,3 +220,7 @@ export default {
   },
 }
 </script>
+<style lang="scss" scoped>
+@import '../../../assets/scss/components/button';
+@import '../../../assets/scss/components/modal';
+</style>

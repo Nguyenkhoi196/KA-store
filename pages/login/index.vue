@@ -57,6 +57,7 @@
 import { ref, watch } from 'vue'
 import { useRouter } from '@nuxtjs/composition-api'
 import { store } from '../../store'
+
 // import DefaultLayout from '~/layouts/DefaultLayout.vue';
 
 export default {

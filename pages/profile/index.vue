@@ -182,13 +182,14 @@
 import { ref, onMounted } from 'vue'
 import { useRouter } from '@nuxtjs/composition-api'
 import { store } from '../../store'
+import { User } from '~/types/User'
 
 export default {
   layout: 'AuthLayout',
   transition: 'slide-left',
   setup() {
     const userStr: any = ref('')
-    const user: any = ref('')
+    const user = ref<User>('')
     const router = useRouter()
     const error = ref<any>('')
 
@@ -217,7 +218,7 @@ export default {
   },
 }
 </script>
-<style>
+<style lang="scss" scoped>
 @import '../../assets/scss/components/_pageTransition.scss';
 @import '../../assets/scss/components/_button.scss';
 </style>
