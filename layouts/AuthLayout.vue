@@ -48,7 +48,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
 @import '../assets/scss/components/_button.scss';
 
 .nav-li {

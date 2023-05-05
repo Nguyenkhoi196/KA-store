@@ -190,7 +190,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
 @import '../assets/scss/components/_modal.scss';
 @import '../assets/scss/components/_button.scss'
 </style>
