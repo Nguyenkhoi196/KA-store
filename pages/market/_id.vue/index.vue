@@ -6,55 +6,52 @@
     >
     <fa :icon="['fas', 'angle-left']" />
     {{ product.name }}</button>
-    <form @submit.prevent="submit">
+    <form>
             <div class="modal-container">
               <div>
                 <label
                   for="name"
                   class="modal-label"
-                  >Name</label
+                  >Tên mặt hàng</label
                 >
                 <input
                   id="name"
-                  v-model="name"
+                  v-model="product.name"
                   value="{name}"
                   type="text"
                   name="name"
-                  class="modal-input"
+                  class="form-input placeholder-tertiary w-full"
                   :placeholder="product.name"
-                  required
-                />
+                ></input>
               </div>
               <div>
                 <label
                   for="brand"
                   class="modal-label"
-                  >Brand</label
+                  >Thương hiệu</label
                 >
                 <input
                   id="brand"
-                  v-model="brand"
+                  v-model="product.brand"
                   type="text"
                   name="brand"
-                  class="modal-input"
+                  class="form-input placeholder-tertiary w-full"
                   :placeholder=" product.brand"
-                  required
                 />
               </div>
               <div>
                 <label
                   for="price"
                   class="modal-label"
-                  >Price</label
+                  >Giá bán</label
                 >
                 <input
                   id="price"
-                  v-model="price"
+                  v-model="product.price"
                   type="number"
                   name="price"
-                  class="modal-input"
+                  class="form-input placeholder-tertiary w-full"
                   :placeholder="product.price"
-                  required
                   oninvalid=""
                 />
               </div>
@@ -62,82 +59,113 @@
                 <label
                   for="category"
                   class="modal-label"
-                  >Category</label
+                  >Phân loại</label
                 >
-                <select
-                  id="category"
-                  v-model="category"
-                  required
-                  class="modal-input"
-                >
-                  <option :selected="product.category"> {{ product.category }}</option>
-                  <option value="Sắt">Sắt</option>
-                  <option value="Nhôm">Nhôm</option>
-                  <option value="Tôn">Tôn</option>
-                </select>
+                <input
+                    id="category"
+                    v-model="product.category"
+                    class="form-input placeholder-tertiary w-full"
+                    :placeholder="product.category"
+                      type="text"
+                  ></input>
               </div>
               <div class="sm:col-span-2">
                 <label
                   for="inventory"
                   class="modal-label"
-                  >Inventory</label
+                  >Tồn kho</label
                 >
 
                 <input
                   id="inventory"
-                  v-model="inventory"
-                  rows="4"
-                  class="modal-input"
+                  v-model="product.inventory"
+                  class="form-input placeholder-tertiary w-full"
                   :placeholder="product.inventory"
-                  required
                   type="number"
                 ></input>
               </div>
             </div>
-            <button
-            type="submit"
-              class="button-submit text-secondary"
-            >
-              Update new product
+            <div class="w-full flex flex-row gap-4 justify-end">
+              <button
+              type="button"
+              class="form-button text-red-500 "
+                @click="deleteData"
+              >
+              Xóa mặt hàng
+              </button>
+              <button
+              type="submit"
+                class="form-button text-secondary"
+                @click="updateData"
+              >
+              Cập nhật
             </button>
+
+            </div>
     </form>
   </div>
 </template>
 <script>
 import { ref } from 'vue'
 import { useRoute, useRouter } from '@nuxtjs/composition-api'
-import { getFirestore, collection, getDoc, doc } from 'firebase/firestore'
+import { getFirestore, getDoc, doc, updateDoc, deleteDoc } from 'firebase/firestore'
 
 export default {
   layout: 'AuthLayout',
   setup() {
-    const product = ref('')
     const route = useRoute()
     const router = useRouter()
+
+    const product = ref('')
     const productId = route.value.params.id
+    const fs = getFirestore()
+    const docRef = doc(fs, 'products', productId)
+
     const goBack = () => {
       router.back()
     }
+
     const readData = async () => {
-      const fs = getFirestore()
-      const docRef = doc(fs, 'products', productId)
       const productSnapshot = await getDoc(docRef)
       const productData = productSnapshot.data()
-      console.log(productData);
       product.value = productData
+
     };
-    console.log(product.value);
-      readData();
+
+    const updateData = async () => {
+      try {
+        await updateDoc(docRef ,product.value)
+        console.log('updated');
+      }
+      catch(e){
+      }
+    }
+
+
+    const deleteData = async () => {
+      try {
+        await deleteDoc(docRef)
+        console.log('deleted');
+        router.push('/market')
+      }
+      catch(e){
+
+      }
+    }
+
+    readData();
     return {
       readData,
+      updateData,
       goBack,
+      deleteData,
       product
     }
   },
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import '../../../assets/scss/components/button';
 @import '../../../assets/scss/components/modal'
 </style>

@@ -4,26 +4,16 @@
       id="defaultModal"
       tabindex="-1"
       aria-hidden="true"
-      class="overflow-y-auto overflow-x-hidden justify-center items-center w-full md:inset-0 h-modal"
+      class="overflow-y-auto overflow-x-hidden justify-center items-center w-full md:inset-0"
     >
       <div class="relative p-4 w-full h-full md:h-auto">
         <!-- Modal content -->
-        <div
-          class="relative p-2 bg-secondary/20 rounded-lg shadow-sm hover:shadow-none shadow-current"
-        >
+
           <!-- Modal header -->
           <div
             class="flex justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5 "
           >
-            <h3 class="text-lg font-semibold text-primary">Add Product</h3>
-            <button
-              type="button"
-              class="text-secondary hover:text-opacity-70 bg-transparent rounded-lg text-sm p-1.5 ml-auto inline-flex items-cente"
-              data-modal-toggle="defaultModal"
-              @click="setShowModal(false)"
-            >
-              <span class="">Close modal</span>
-            </button>
+            <h3 class="text-base font-semibold text-primary">Thêm hàng hóa</h3>
           </div>
           <!-- Modal body -->
           <form @submit.prevent="submit">
@@ -32,32 +22,31 @@
                 <label
                   for="name"
                   class="modal-label"
-                  >Name</label
+                  >Tên mặt hàng</label
                 >
                 <input
                   id="name"
                   v-model="name"
                   type="text"
                   name="name"
-                  class="modal-input"
-                  placeholder="Type product name"
+                  class="form-input w-full"
+                  style="padding: 4px"
                   required
-
                 />
               </div>
               <div>
                 <label
                   for="brand"
                   class="modal-label"
-                  >Brand</label
+                  >Thương hiệu</label
                 >
                 <input
                   id="brand"
                   v-model="brand"
                   type="text"
                   name="brand"
-                  class="modal-input"
-                  placeholder="Product brand"
+                  class="form-input w-full"
+                  style="padding: 4px"
                   required
                 />
               </div>
@@ -65,64 +54,61 @@
                 <label
                   for="price"
                   class="modal-label"
-                  >Price</label
+                  >Giá</label
                 >
                 <input
                   id="price"
-                  v-model="price"
+                  v-model.number="price"
                   type="number"
                   name="price"
-                  class="modal-input"
-                  placeholder="$2999"
+                  class="form-input w-full"
+                  style="padding: 4px"
                   required
-                  oninvalid=""
                 />
               </div>
               <div>
                 <label
                   for="category"
                   class="modal-label"
-                  >Category</label
+                  >Phân loại</label
                 >
-                <select
+                <input
                   id="category"
                   v-model="category"
+                  type="text"
+                  name="category"
+                  class="form-input w-full"
+                  style="padding: 4px"
                   required
-                  class="modal-input"
-                >
-                  <option selected="">Select category</option>
-                  <option value="Sắt">Sắt</option>
-                  <option value="Nhôm">Nhôm</option>
-                  <option value="Tôn">Tôn</option>
-                </select>
+                />
               </div>
               <div class="sm:col-span-2">
                 <label
                   for="inventory"
                   class="modal-label"
-                  >Inventory</label
+                  >Số lượng</label
                 >
-
                 <input
                   id="inventory"
-                  v-model="inventory"
-                  rows="4"
-                  class="modal-input"
-                  placeholder="Inventory"
+                  v-model.number="inventory"
+                  class="form-input w-full"
+                  style="padding: 4px"
                   required
                   type="number"
                 ></input>
               </div>
             </div>
-            <button
-            type="submit"
-              class="button-submit text-primary"
-              @click="setShowModal(false)"
-            >
-              Add new product
-            </button>
+            <div class="flex justify-end">
+              <button
+              type="submit"
+              class="form-button"
+              style="font-size: 13px; padding: 5px"
+              >
+                Thêm sản phẩm
+              </button>
+            </div>
           </form>
-        </div>
+
       </div>
     </div>
   </div>
@@ -136,7 +122,6 @@ import { Product } from '~/types/Product'
 
 export default {
   name: 'ModalProduct',
-  props: ['setShowModal', 'isModalVisible'],
   setup() {
     const name = ref<Product>('')
     const brand = ref<Product>('')
@@ -144,6 +129,7 @@ export default {
     const inventory = ref<Product>('')
     const category = ref<Product>('')
     const fs = getFirestore()
+    const fsProduct = collection(fs, 'products')
 
     const submit = async () => {
       await addProduct(
@@ -165,8 +151,7 @@ export default {
       fs
     ) => {
       try {
-        const fsProduct = collection(fs, 'products')
-        const allProductInfor = await addDoc(fsProduct, {
+        await addDoc(fsProduct, {
           name,
           brand,
           category,
@@ -192,5 +177,5 @@ export default {
 
 <style lang="scss" scoped>
 @import '../assets/scss/components/_modal.scss';
-@import '../assets/scss/components/_button.scss'
+@import '../assets/scss/components/_button.scss';
 </style>

@@ -6,51 +6,31 @@
         @submit.prevent="onSubmit"
       >
         <div class="row">
-          <label class="flex flex-col" for="fullName">
-            <span class="font-semibold">fullName</span>
-            <input
-              v-model="fullName"
-              class="px-4 py-3 rounded-lg border-[1px] ring-2 ring-secondary border-tertiary bg-gray-400/10 text-black mt-1"
-              type="text"
-              placeholder="KhoiNguyen"
-            />
+          <label class="flex flex-col" for="name">
+            <span class="font-semibold"> Tên đăng nhập </span>
+            <input v-model="fullName" class="form-input" type="text" />
           </label>
         </div>
         <div class="row">
           <label class="flex flex-col" for="email">
             <span class="font-semibold">Email</span>
-            <input
-              v-model="email"
-              class="px-4 py-3 rounded-lg border-[1px] ring-2 ring-secondary border-tertiary bg-gray-400/10 text-black mt-1"
-              type="email"
-              placeholder="@gmail.com"
-              autocomplete="username"
-            />
+            <input v-model="email" class="form-input" type="email" />
           </label>
         </div>
         <div class="row">
           <label class="flex flex-col" for="password">
-            <span class="font-semibold">Password</span>
-            <input
-              v-model="password"
-              class="px-4 py-3 rounded-lg border-[1px] ring-2 ring-secondary border-tertiary bg-gray-400/10 text-black mt-1"
-              type="password"
-              placeholder="password"
-            />
+            <span class="font-semibold">Mật khẩu</span>
+            <input v-model="password" class="form-input" type="password" />
           </label>
         </div>
         <div class="row">
-          <button
-            v-if="!isPending"
-            type="submit"
-            class="font-semibold w-full px-4 py-3 rounded-lg border-[1px] ring-2 ring-secondary hover:border-tertiary text-black bg-secondary mt-1 text-center"
-          >
-            Sign Up
+          <button v-if="!isPending" type="submit" class="form-button w-full">
+            Đăng ký
           </button>
           <button
             v-else
             type="button"
-            class="cursor-not-allowed font-semibold w-full px-4 py-3 rounded-lg border-[1px] ring-2 ring-secondary hover:border-tertiary text-black bg-secondary mt-1 text-center"
+            class="cursor-not-allowed form-button"
             disabled
           >
             Loading...
@@ -63,19 +43,24 @@
           class="bg-red-200/75 border border-red-400 text-red-700 px-4 py-3 rounded relative"
           role="alert"
         >
+<<<<<<< HEAD
           <strong class="font-bold">Error !</strong>
           <span class="block sm:inline">{{ error }}</span>
           <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
            
           </span>
+=======
+          <strong class="font-bold">Error</strong>
+          <span class="block sm:inline">{{ error }}</span>
+>>>>>>> a4a9f0c0ff4a53d48e776ef404059345d05f2554
         </div>
       </div>
       <!-- Star--direction -->
 
       <div class="w-full text-center mt-6">
-        <span class="font-semibold"> I'm ready a member. </span>
+        <span class="font-semibold">Bạn đã có tài khoản ?</span>
         <span class="ml-1 font-extrabold">
-          <nuxt-link to="/login">LogIn</nuxt-link>
+          <nuxt-link to="/login">Đăng nhập</nuxt-link>
         </span>
       </div>
     </div>
@@ -134,4 +119,5 @@ export default {
 
 <style lang="scss" scoped>
 @import '../../assets/scss/components/pageTransition';
+@import '../../assets/scss/components/modal';
 </style>
