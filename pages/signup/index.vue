@@ -101,11 +101,19 @@
       <!-- Start-err -->
       <div v-if="error" class="text-left text-yellow mt-4">
         <div
-          class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
+          class="bg-red-200/75 border border-red-400 text-red-700 px-4 py-3 rounded relative"
           role="alert"
         >
+<<<<<<< HEAD
+          <strong class="font-bold">Error !</strong>
+          <span class="block sm:inline">{{ error }}</span>
+          <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
+           
+          </span>
+=======
           <strong class="font-bold">Error</strong>
           <span class="block sm:inline">{{ error }}</span>
+>>>>>>> a4a9f0c0ff4a53d48e776ef404059345d05f2554
         </div>
       </div>
     </div>

@@ -9,11 +9,39 @@
         <div class="row">
           <label class="flex flex-col" for="email">
             <span class="font-semibold">Email</span>
+<<<<<<< HEAD
+            <input
+              v-model="email"
+              class="modal-input"
+              type="email"
+              placeholder="@gmail.com"
+              autocomplete="username"
+            />
+=======
             <input v-model="email" class="form-input" type="email" />
+>>>>>>> a4a9f0c0ff4a53d48e776ef404059345d05f2554
           </label>
         </div>
         <div class="row">
           <label class="flex flex-col" for="password">
+<<<<<<< HEAD
+            <span class="font-semibold">Password</span>
+            <input
+              v-model="password"
+              class="modal-input"
+              type="password"
+              placeholder="password"
+            />
+          </label>
+        </div>
+        <div class="row">
+          <button
+            v-if="!isPending"
+            type="submit"
+            class="button-auth"
+          >
+            LogIn
+=======
             <span class="font-semibold">Mật khẩu</span>
             <input v-model="password" class="form-input" type="password" />
           </label>
@@ -21,6 +49,7 @@
         <div class="row">
           <button v-if="!isPending" type="submit" class="form-button w-full">
             Đăng nhập
+>>>>>>> a4a9f0c0ff4a53d48e776ef404059345d05f2554
           </button>
           <button
             v-else
@@ -40,6 +69,11 @@
         >
           <strong class="font-bold">Error!</strong>
           <span class="block sm:inline">{{ error }}</span>
+<<<<<<< HEAD
+          <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
+         </span>
+=======
+>>>>>>> a4a9f0c0ff4a53d48e776ef404059345d05f2554
         </div>
       </div>
       <!-- Star--direction -->
@@ -101,4 +135,8 @@ export default {
 <style lang="scss" scoped>
 @import '../../assets/scss/components/pageTransition';
 @import '../../assets/scss/components/modal';
+<<<<<<< HEAD
+@import '../../assets/scss/components/button'
+=======
+>>>>>>> a4a9f0c0ff4a53d48e776ef404059345d05f2554
 </style>
