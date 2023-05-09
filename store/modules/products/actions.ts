@@ -14,15 +14,23 @@ import { rootState } from '~/store/type'
 const actions: ActionTree<productState, rootState> = {
   async getAllProducts({ commit }) {
     const fs = getFirestore()
-    const products: any = []
     const fsProduct = collection(fs, 'products')
-    const querySnapshot = await getDocs(fsProduct)
-    querySnapshot.forEach((doc) => {
-      products.push({ id: doc.id, ...doc.data() })
-    })
-    localStorage.setItem('products', JSON.stringify(products))
-    console.log('store', products)
-    commit('LIST_PRODUCTS', products)
+    try {
+      const querySnapshot = await getDocs(fsProduct)
+      const products = []
+      querySnapshot.forEach((doc) => {
+        const product = {
+          id: doc.id,
+          ...doc.data(),
+        }
+        products.push(product)
+      })
+      localStorage.setItem('products', JSON.stringify(products))
+      console.log('store', products)
+      commit('LIST_PRODUCTS', products)
+    } catch (e) {
+      console.log(e)
+    }
   },
   // filterProducts ({commit}, fields){
   //   commit('FILTER_PRODUCTS', fields)
@@ -47,7 +55,7 @@ const actions: ActionTree<productState, rootState> = {
   async updateProduct({ commit }, product, value) {
     try {
       await updateDoc(product, value)
-      commit('UPDATE_PRODUCT', product, value)
+      commit('UPDATE_PRODUCTS', product, value)
     } catch (error) {
       console.log(error)
     }

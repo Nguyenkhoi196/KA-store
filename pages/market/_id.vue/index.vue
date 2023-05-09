@@ -78,7 +78,6 @@
 
                 <input
                   id="inventory"
-                  v-model="product.inventory"
                   class="form-input placeholder-tertiary w-full"
                   :placeholder="product.inventory"
                   type="number"
@@ -130,12 +129,12 @@ export default {
       const productSnapshot = await getDoc(docRef)
       const productData = productSnapshot.data()
       product.value = productData
-
     };
 
     const updateData = async () => {
       try {
         await store.dispatch('updateProduct' , docRef , product.value)
+        console.log(product.value);
         console.log('updated');
         router.push('/market')
       }
@@ -143,7 +142,6 @@ export default {
       }
     }
 
-      // ở đây//////////////////////////////////////////////////////////////
     const deleteData = async () => {
       try {
         await store.dispatch('deleteProduct', docRef)

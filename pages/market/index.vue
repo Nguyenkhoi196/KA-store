@@ -6,11 +6,7 @@
       @search="searchedProduct"
     />
     <ul class="my-[100px]">
-      <li
-        v-for="(product, index) in productsList"
-        :key="product.id"
-        :attrs="products"
-      >
+      <li v-for="(product, index) in productsList" :key="product.id">
         <show-products :product="product" />
       </li>
     </ul>
@@ -33,6 +29,7 @@ import { store } from '../../store'
 import ShowProducts from '~/components/ShowProducts.vue'
 import HeaderMarket from '~/components/HeaderMarket.vue'
 import { Product } from '~/types/Product'
+import state from '~/store/modules/users/state'
 
 export default {
   components: { ShowProducts, HeaderMarket },
@@ -123,14 +120,19 @@ export default {
     //   filteredProduct,
     // }
     const productsList = ref('')
-    store.dispatch('getAllProducts')
+    store.dispatch('getAllProducts', productsList)
+    productsList.value = store.state.products.products
 
-    productsList.value = JSON.parse(localStorage.getItem('products'))
-    console.log('getAllProduct', productsList.value)
+    // onMounted(() => {
+    //   productsList.value = JSON.parse(localStorage.getItem('products'))
+    //   console.log('getAllProduct', productsList.value)
+    // })
     // console.log('local', JSON.parse(localStorage.getItem('products')))
     const searchedProduct = async (word) => {
       // const products = await store.dispatch('searchProducts', word)
     }
+    console.log(productsList.value)
+
     return {
       productsList,
       searchedProduct,

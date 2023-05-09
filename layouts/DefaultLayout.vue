@@ -1,9 +1,5 @@
 <template>
-<<<<<<< HEAD
-  <div class="bg-auth ">
-=======
-  <div class="layout-container">
->>>>>>> a4a9f0c0ff4a53d48e776ef404059345d05f2554
+  <div class="bg-auth">
     <navigation-brand />
     <nuxt />
   </div>
@@ -16,16 +12,9 @@ export default {
   components: { NavigationBrand },
 }
 </script>
-<<<<<<< HEAD
 
 <style lang="scss" scoped>
- .bg-auth {
-  @apply bg-gradient-to-br from-primary to-secondary from-20% h-screen w-screen
- }
-=======
-<style scoped lang="scss">
-.layout-container {
-  @apply h-screen bg-gradient-to-t from-primary  via-secondary from-10%;
+.bg-auth {
+  @apply bg-gradient-to-b from-primary via-secondary to-secondary from-10% via-50% h-screen w-screen;
 }
->>>>>>> a4a9f0c0ff4a53d48e776ef404059345d05f2554
 </style>
