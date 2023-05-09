@@ -111,7 +111,7 @@ export default {
   setup(props, context) {
     const stock = ref('')
     const category = ref('')
-    const search = ref('')
+    const word = ref<string>('')
     const isActive = reactive({ showModal: 0, showInput: false })
 
     const setActive = (numberModal: any, showInput: boolean) => {
@@ -127,9 +127,9 @@ export default {
       }
     }
 
-    const searchChange = () => {
-      context.emit('search', search.value)
-      console.log(search.value)
+    const searchChange = (word) => {
+      context.emit('search', word.value)
+      console.log(word.value)
     }
 
     const filterChange = () => {
@@ -139,7 +139,7 @@ export default {
 
     return {
       isActive,
-      search,
+      word,
       stock,
       category,
       searchChange,

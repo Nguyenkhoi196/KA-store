@@ -1,13 +1,10 @@
 <template>
   <div>
-    <!-- <HeaderMarket
-      :quantity="quantity"
-      :total-product="productSearcheds.length"
-      :products="products"
-      :filter-selects="filterSelects"
+    <HeaderMarket
+      :total-product="productsList.length"
+      :products="productsList"
       @search="searchedProduct"
-      @filter="filteredProduct"
-    /> -->
+    />
     <ul class="my-[100px]">
       <li
         v-for="(product, index) in productsList"
@@ -17,6 +14,7 @@
         <show-products :product="product" />
       </li>
     </ul>
+    {{ productsList }}
   </div>
 </template>
 
@@ -28,12 +26,12 @@ import {
   query,
   where,
 } from 'firebase/firestore'
-import { computed, onMounted, reactive, ref } from 'vue'
+import { computed, onMounted, onUpdated, reactive, ref, watch } from 'vue'
 
 import { store } from '../../store'
+
 import ShowProducts from '~/components/ShowProducts.vue'
 import HeaderMarket from '~/components/HeaderMarket.vue'
-
 import { Product } from '~/types/Product'
 
 export default {
@@ -126,14 +124,16 @@ export default {
     // }
     const productsList = ref('')
     store.dispatch('getAllProducts')
-    onMounted(() => {
-      const products = computed(() => store.getters.getAllproducts)
-      productsList.value = store.state.products.products
-      console.log('getAllProduct', productsList)
-    })
 
+    productsList.value = JSON.parse(localStorage.getItem('products'))
+    console.log('getAllProduct', productsList.value)
+    // console.log('local', JSON.parse(localStorage.getItem('products')))
+    const searchedProduct = async (word) => {
+      // const products = await store.dispatch('searchProducts', word)
+    }
     return {
       productsList,
+      searchedProduct,
     }
   },
 }

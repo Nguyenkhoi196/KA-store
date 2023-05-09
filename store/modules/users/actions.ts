@@ -44,6 +44,8 @@ const actions: ActionTree<userState, rootState> = {
       auth
         .signInWithEmailAndPassword(auth.getAuth(), email, password)
         .then((data) => {
+          console.log('data', data)
+
           data.user.getIdToken().then((token) => {
             localStorage.setItem('user', JSON.stringify(data.user))
             localStorage.setItem('token', JSON.stringify(token))

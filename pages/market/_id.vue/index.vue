@@ -109,6 +109,7 @@
 import { ref } from 'vue'
 import { useRoute, useRouter } from '@nuxtjs/composition-api'
 import { getFirestore, getDoc, doc, updateDoc, deleteDoc } from 'firebase/firestore'
+import { store } from '~/store'
 
 export default {
   layout: 'AuthLayout',
@@ -134,22 +135,22 @@ export default {
 
     const updateData = async () => {
       try {
-        await updateDoc(docRef ,product.value)
+        await store.dispatch('updateProduct' , docRef , product.value)
         console.log('updated');
+        router.push('/market')
       }
       catch(e){
       }
     }
 
-
+      // ở đây//////////////////////////////////////////////////////////////
     const deleteData = async () => {
       try {
-        await deleteDoc(docRef)
+        await store.dispatch('deleteProduct', docRef)
         console.log('deleted');
         router.push('/market')
       }
       catch(e){
-
       }
     }
 

@@ -35,16 +35,16 @@ export default {
     onMounted(() => {
       if (process.client) {
         userStr.value = localStorage.getItem('user')
+        console.log(userStr.value)
+
         user.value = userStr.value ? JSON.parse(userStr.value) : {}
         // Gán giá trị user.uid cho userUid
         userUid.value = user.value.uid
         readUserData(user.value.phoneNumber, getDatabase())
-        console.log(user.value.phoneNumber);
+        console.log(user.value.phoneNumber)
       }
     })
-    onUpdated(() => {
-
-    })
+    onUpdated(() => {})
 
     const submit = async () => {
       try {
@@ -87,10 +87,8 @@ export default {
       submit,
       name,
     }
-  }
+  },
 }
 </script>
 
 <style lang="scss" scoped></style>
-
-
