@@ -6,7 +6,7 @@
       @search="searchedProduct"
     />
     <ul class="my-[100px]">
-      <li v-for="(product, index) in productsList" :key="product.id">
+      <li v-for="product in productsList" :key="product.id">
         <show-products :product="product" />
       </li>
     </ul>
@@ -15,21 +15,19 @@
 </template>
 
 <script lang="ts">
-import {
-  getFirestore,
-  collection,
-  getDocs,
-  query,
-  where,
-} from 'firebase/firestore'
-import { computed, onMounted, onUpdated, reactive, ref, watch } from 'vue'
+// import {
+//   getFirestore,
+//   collection,
+//   getDocs,
+//   query,
+//   where,
+// } from 'firebase/firestore'
+import { onUpdated, ref, onMounted, computed } from 'vue'
 
 import { store } from '../../store'
 
 import ShowProducts from '~/components/ShowProducts.vue'
 import HeaderMarket from '~/components/HeaderMarket.vue'
-import { Product } from '~/types/Product'
-import state from '~/store/modules/users/state'
 
 export default {
   components: { ShowProducts, HeaderMarket },
@@ -121,17 +119,11 @@ export default {
     // }
     const productsList = ref('')
     store.dispatch('getAllProducts', productsList)
-    productsList.value = store.state.products.products
+    productsList.value = computed(() => store.state.products.products).value
 
-    // onMounted(() => {
-    //   productsList.value = JSON.parse(localStorage.getItem('products'))
-    //   console.log('getAllProduct', productsList.value)
-    // })
-    // console.log('local', JSON.parse(localStorage.getItem('products')))
-    const searchedProduct = async (word) => {
-      // const products = await store.dispatch('searchProducts', word)
+    const searchedProduct = async (word: any) => {
+      await store.dispatch('searchProducts', word)
     }
-    console.log(productsList.value)
 
     return {
       productsList,
@@ -144,3 +136,8 @@ export default {
 <style lang="scss" scoped>
 @import '../../assets/scss/components/modal';
 </style>
+
+function beforeMount(arg0: () => void) { throw new Error('Function not
+implemented.') } function beforeMount(arg0: () => void) { throw new
+Error('Function not implemented.') } function beforeUpdated(arg0: () => void) {
+throw new Error('Function not implemented.') }

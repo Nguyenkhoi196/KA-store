@@ -2,7 +2,7 @@
 // import Vuex from 'vuex'
 // import { Product } from '../../../types/Product'
 
-import state from './state'
+import { state } from './state'
 import getters from './getters'
 import mutations from './muttations'
 import actions from './actions'

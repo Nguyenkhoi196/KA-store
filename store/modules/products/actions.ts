@@ -2,7 +2,6 @@ import {
   getDocs,
   collection,
   getFirestore,
-  doc,
   deleteDoc,
   updateDoc,
 } from 'firebase/firestore'
@@ -10,6 +9,7 @@ import {
 import { ActionTree } from 'vuex'
 import { productState } from './type'
 import { rootState } from '~/store/type'
+import { Product } from '~/types/Product'
 
 const actions: ActionTree<productState, rootState> = {
   async getAllProducts({ commit }) {
@@ -25,9 +25,9 @@ const actions: ActionTree<productState, rootState> = {
         }
         products.push(product)
       })
-      localStorage.setItem('products', JSON.stringify(products))
-      console.log('store', products)
       commit('LIST_PRODUCTS', products)
+      localStorage.setItem('products', JSON.stringify(products))
+      console.log('action setItem', products)
     } catch (e) {
       console.log(e)
     }
@@ -39,23 +39,21 @@ const actions: ActionTree<productState, rootState> = {
     commit('SEARCH_PRODUCTS', word)
   },
 
-  // ở đây //////////////////////////////////////////////////////////////////
   async deleteProduct({ commit }, id) {
     try {
       await deleteDoc(id)
-      const remove = localStorage.removeItem(`products/${id}`)
-      console.log(remove)
-
-      commit('DELETE_PRODUCTS', id)
+      localStorage.removeItem(`products/${id}`)
+      commit('DELETE_PRODUCT', id)
     } catch (e) {
       console.log(e)
     }
   },
 
-  async updateProduct({ commit }, product, value) {
+  async updateProduct({ commit }, { id, value }) {
     try {
-      await updateDoc(product, value)
-      commit('UPDATE_PRODUCTS', product, value)
+      const updated = await updateDoc(id, value)
+      commit('UPDATE_PRODUCT', { id, value: updated })
+      console.log(id, value)
     } catch (error) {
       console.log(error)
     }

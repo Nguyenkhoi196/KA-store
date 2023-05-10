@@ -1,11 +1,10 @@
 <template>
   <div class="bg-primary h-screen p-2 gap-4">
-    <button
-    class="button-icon text-tertiary"
-    @click="goBack"
-    >
-    <fa :icon="['fas', 'angle-left']" />
-    {{ product.name }}</button>
+    <nuxt-link to="/market" class="button-icon text-tertiary">
+      <fa :icon="['fas', 'angle-left']" />
+      {{ product.name }}
+    </nuxt-link>
+
     <form>
             <div class="modal-container">
               <div>
@@ -105,13 +104,14 @@
   </div>
 </template>
 <script>
-import { ref } from 'vue'
+import { onUpdated, ref } from 'vue'
 import { useRoute, useRouter } from '@nuxtjs/composition-api'
 import { getFirestore, getDoc, doc, updateDoc, deleteDoc } from 'firebase/firestore'
 import { store } from '~/store'
 
 export default {
   layout: 'AuthLayout',
+  emits: ['delete'],
   setup() {
     const route = useRoute()
     const router = useRouter()
@@ -121,9 +121,6 @@ export default {
     const fs = getFirestore()
     const docRef = doc(fs, 'products', productId)
 
-    const goBack = () => {
-      router.back()
-    }
 
     const readData = async () => {
       const productSnapshot = await getDoc(docRef)
@@ -133,10 +130,10 @@ export default {
 
     const updateData = async () => {
       try {
-        await store.dispatch('updateProduct' , docRef , product.value)
-        console.log(product.value);
+        await store.dispatch('updateProduct' , docRef, product.value )
+        console.log(docRef, product.value);
         console.log('updated');
-        router.push('/market')
+        // router.push('/market')
       }
       catch(e){
       }
@@ -145,7 +142,7 @@ export default {
     const deleteData = async () => {
       try {
         await store.dispatch('deleteProduct', docRef)
-        console.log('deleted');
+        console.log('deleted', docRef);
         router.push('/market')
       }
       catch(e){
@@ -156,7 +153,6 @@ export default {
     return {
       readData,
       updateData,
-      goBack,
       deleteData,
       product
     }
