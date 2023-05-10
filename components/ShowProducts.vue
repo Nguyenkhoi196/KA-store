@@ -21,7 +21,6 @@
         </div>
       </div>
     </nuxt-link>
-    <product-info v-if="showModal" />
   </div>
 </template>
 <script>

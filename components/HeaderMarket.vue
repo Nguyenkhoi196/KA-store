@@ -107,14 +107,13 @@ export default {
   components: { ModalProduct },
   props: ['quantity', 'total-product', 'products', 'filterSelects'],
   emits: ['filter', 'search'],
-
-  setup(props, context) {
+  setup(context) {
     const stock = ref('')
     const category = ref('')
     const word = ref<string>('')
     const isActive = reactive({ showModal: 0, showInput: false })
 
-    const setActive = (numberModal: any, showInput: boolean) => {
+    const setActive = (numberModal: any) => {
       if (isActive.showModal === numberModal) {
         isActive.showModal = 0
       } else {
@@ -127,9 +126,9 @@ export default {
       }
     }
 
-    const searchChange = (word) => {
-      context.emit('search', word.value)
-      console.log(word.value)
+    const searchChange = (word: string) => {
+      context.emit('search', word)
+      console.log(word)
     }
 
     const filterChange = () => {

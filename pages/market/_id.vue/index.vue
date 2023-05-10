@@ -6,107 +6,85 @@
     </nuxt-link>
 
     <form>
-            <div class="modal-container">
-              <div>
-                <label
-                  for="name"
-                  class="modal-label"
-                  >Tên mặt hàng</label
-                >
-                <input
-                  id="name"
-                  v-model="product.name"
-                  value="{name}"
-                  type="text"
-                  name="name"
-                  class="form-input placeholder-tertiary w-full"
-                  :placeholder="product.name"
-                ></input>
-              </div>
-              <div>
-                <label
-                  for="brand"
-                  class="modal-label"
-                  >Thương hiệu</label
-                >
-                <input
-                  id="brand"
-                  v-model="product.brand"
-                  type="text"
-                  name="brand"
-                  class="form-input placeholder-tertiary w-full"
-                  :placeholder=" product.brand"
-                />
-              </div>
-              <div>
-                <label
-                  for="price"
-                  class="modal-label"
-                  >Giá bán</label
-                >
-                <input
-                  id="price"
-                  v-model="product.price"
-                  type="number"
-                  name="price"
-                  class="form-input placeholder-tertiary w-full"
-                  :placeholder="product.price"
-                  oninvalid=""
-                />
-              </div>
-              <div>
-                <label
-                  for="category"
-                  class="modal-label"
-                  >Phân loại</label
-                >
-                <input
-                    id="category"
-                    v-model="product.category"
-                    class="form-input placeholder-tertiary w-full"
-                    :placeholder="product.category"
-                      type="text"
-                  ></input>
-              </div>
-              <div class="sm:col-span-2">
-                <label
-                  for="inventory"
-                  class="modal-label"
-                  >Tồn kho</label
-                >
-
-                <input
-                  id="inventory"
-                  class="form-input placeholder-tertiary w-full"
-                  :placeholder="product.inventory"
-                  type="number"
-                ></input>
-              </div>
-            </div>
-            <div class="w-full flex flex-row gap-4 justify-end">
-              <button
-              type="button"
-              class="form-button text-red-500 "
-                @click="deleteData"
-              >
-              Xóa mặt hàng
-              </button>
-              <button
-              type="submit"
-                class="form-button text-secondary"
-                @click="updateData"
-              >
-              Cập nhật
-            </button>
-
-            </div>
+      <div class="modal-container" style="color: black">
+        <div class="relative mb-4" data-te-input-wrapper-init>
+          <input
+            id="name"
+            v-model="product.name"
+            type="text"
+            name="name"
+            class="form-input peer"
+            :placeholder="product.name"
+          />
+          <label for="name" class="form-label">Tên mặt hàng</label>
+        </div>
+        <div class="relative mb-4" data-te-input-wrapper-init>
+          <input
+            id="brand"
+            v-model="product.brand"
+            type="text"
+            name="brand"
+            class="form-input peer"
+            :placeholder="product.brand"
+          />
+          <label for="brand" class="form-label">Thương hiệu</label>
+        </div>
+        <div class="relative mb-4" data-te-input-wrapper-init>
+          <input
+            id="price"
+            v-model="product.price"
+            type="number"
+            name="price"
+            class="form-input peer"
+            :placeholder="product.price"
+            oninvalid=""
+          />
+          <label for="price" class="form-label">Giá bán</label>
+        </div>
+        <div class="relative mb-4" data-te-input-wrapper-init>
+          <input
+            id="category"
+            v-model="product.category"
+            class="form-input peer"
+            :placeholder="product.category"
+            type="text"
+          />
+          <label for="category" class="form-label">Phân loại</label>
+        </div>
+        <div class="relative mb-4" data-te-input-wrapper-init>
+          <input
+            id="inventory"
+            v-model="product.inventory"
+            class="form-input peer"
+            :placeholder="product.inventory"
+            type="number"
+          />
+          <label for="inventory" class="form-label">Tồn kho</label>
+        </div>
+      </div>
+      <div class="w-full flex flex-row gap-4 justify-end">
+        <button
+          type="button"
+          class="form-button text-red-500"
+          @click="deleteData"
+        >
+          Xóa mặt hàng
+        </button>
+        <button
+          type="button"
+          class="form-button text-secondary"
+          @click="updateData"
+        >
+          Cập nhật
+        </button>
+      </div>
     </form>
   </div>
 </template>
 <script>
-import { onUpdated, ref } from 'vue'
+import { ref } from 'vue'
 import { useRoute, useRouter } from '@nuxtjs/composition-api'
-import { getFirestore, getDoc, doc, updateDoc, deleteDoc } from 'firebase/firestore'
+import { getFirestore, getDoc, doc } from 'firebase/firestore'
 import { store } from '~/store'
 
 export default {
@@ -121,40 +99,36 @@ export default {
     const fs = getFirestore()
     const docRef = doc(fs, 'products', productId)
 
-
     const readData = async () => {
       const productSnapshot = await getDoc(docRef)
       const productData = productSnapshot.data()
       product.value = productData
-    };
+    }
 
     const updateData = async () => {
       try {
-        await store.dispatch('updateProduct' , docRef, product.value )
-        console.log(docRef, product.value);
-        console.log('updated');
-        // router.push('/market')
-      }
-      catch(e){
-      }
+        await store.dispatch('updateProduct', {
+          docRef,
+          value: product.value,
+        })
+        router.push('/market')
+      } catch (e) {}
     }
 
     const deleteData = async () => {
       try {
         await store.dispatch('deleteProduct', docRef)
-        console.log('deleted', docRef);
+        console.log('deleted', docRef)
         router.push('/market')
-      }
-      catch(e){
-      }
+      } catch (e) {}
     }
 
-    readData();
+    readData()
     return {
       readData,
       updateData,
       deleteData,
-      product
+      product,
     }
   },
 }
@@ -162,5 +136,6 @@ export default {
 
 <style lang="scss" scoped>
 @import '../../../assets/scss/components/button';
-@import '../../../assets/scss/components/modal'
+@import '../../../assets/scss/components/form';
+@import '../../../assets/scss/components/modal';
 </style>

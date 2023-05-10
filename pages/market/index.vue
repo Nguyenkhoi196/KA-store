@@ -10,20 +10,11 @@
         <show-products :product="product" />
       </li>
     </ul>
-    {{ productsList }}
   </div>
 </template>
 
 <script lang="ts">
-// import {
-//   getFirestore,
-//   collection,
-//   getDocs,
-//   query,
-//   where,
-// } from 'firebase/firestore'
-import { onUpdated, ref, onMounted, computed } from 'vue'
-
+import { computed, onMounted } from 'vue'
 import { store } from '../../store'
 
 import ShowProducts from '~/components/ShowProducts.vue'
@@ -117,13 +108,22 @@ export default {
     //   searchedProduct,
     //   filteredProduct,
     // }
-    const productsList = ref('')
-    store.dispatch('getAllProducts', productsList)
-    productsList.value = computed(() => store.state.products.products).value
 
-    const searchedProduct = async (word: any) => {
+    store.dispatch('getAllProducts')
+    const productsList = computed(() => store.state.products.products)
+
+    const searchedProduct = async (word: string) => {
       await store.dispatch('searchProducts', word)
     }
+
+    const sum = productsList.value.reduce(
+      (total: number, currentValue: any) =>
+        total + Number(currentValue.inventory),
+      0
+    )
+    console.log(sum)
+
+    console.log('check', store.state.products.products)
 
     return {
       productsList,
@@ -136,8 +136,3 @@ export default {
 <style lang="scss" scoped>
 @import '../../assets/scss/components/modal';
 </style>
-
-function beforeMount(arg0: () => void) { throw new Error('Function not
-implemented.') } function beforeMount(arg0: () => void) { throw new
-Error('Function not implemented.') } function beforeUpdated(arg0: () => void) {
-throw new Error('Function not implemented.') }

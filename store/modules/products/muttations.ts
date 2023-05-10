@@ -5,13 +5,18 @@ const mutations: MutationTree<productState> = {
   LIST_PRODUCTS(state, products) {
     state.products = products
   },
+  ADD_PRODUCT(state, product) {
+    state.product = product
+  },
   DELETE_PRODUCT(state, products) {
-    const index = state.products.findIndex((product) => product.id === products)
+    const index = state.products.findIndex(
+      (product: { id: any }) => product.id === products
+    )
     state.products.splice(index, 1)
-    console.log('mutations', state.products)
   },
   UPDATE_PRODUCT(state, product) {
     state.product = product
+    console.log('mutation', product)
   },
   // FILTER_PRODUCTS(state, fields) {},
   SEARCH_PRODCUT(state, word) {
@@ -20,7 +25,7 @@ const mutations: MutationTree<productState> = {
       state.filterState = null
     } else {
       state.searchWords = word
-      state.filterState = state.products.filter((product) =>
+      state.filterState = state.products.filter((product: { name: string }) =>
         product.name.toLowerCase().includes(word.toLowerCase())
       )
     }

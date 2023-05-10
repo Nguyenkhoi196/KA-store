@@ -4,6 +4,7 @@ import {
   getFirestore,
   deleteDoc,
   updateDoc,
+  addDoc,
 } from 'firebase/firestore'
 
 import { ActionTree } from 'vuex'
@@ -17,7 +18,7 @@ const actions: ActionTree<productState, rootState> = {
     const fsProduct = collection(fs, 'products')
     try {
       const querySnapshot = await getDocs(fsProduct)
-      const products = []
+      const products: Array<Product> = []
       querySnapshot.forEach((doc) => {
         const product = {
           id: doc.id,
@@ -27,10 +28,19 @@ const actions: ActionTree<productState, rootState> = {
       })
       commit('LIST_PRODUCTS', products)
       localStorage.setItem('products', JSON.stringify(products))
-      console.log('action setItem', products)
     } catch (e) {
       console.log(e)
     }
+  },
+
+  async addProduct({ commit }, product) {
+    try {
+      const fs = getFirestore()
+      const fsProduct = collection(fs, 'products')
+      await addDoc(fsProduct, product)
+      commit('ADD_PRODUCT', product)
+      // dispatch('getAllProducts')
+    } catch (e) {}
   },
   // filterProducts ({commit}, fields){
   //   commit('FILTER_PRODUCTS', fields)
@@ -49,13 +59,12 @@ const actions: ActionTree<productState, rootState> = {
     }
   },
 
-  async updateProduct({ commit }, { id, value }) {
+  async updateProduct({ commit }, { docRef, value }) {
     try {
-      const updated = await updateDoc(id, value)
-      commit('UPDATE_PRODUCT', { id, value: updated })
-      console.log(id, value)
-    } catch (error) {
-      console.log(error)
+      await updateDoc(docRef, value)
+      commit('UPDATE_PRODUCT', value)
+    } catch (e) {
+      console.log(e)
     }
   },
 }
