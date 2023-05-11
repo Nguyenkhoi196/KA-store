@@ -4,7 +4,7 @@
       :total-product="productsList.length"
       :products="productsList"
       :total-quantity="total"
-      @search="searchedProduct"
+      @searched-product="searchedProduct"
     />
     <ul class="my-[100px]">
       <li v-for="product in productsList" :key="product.id">
@@ -110,21 +110,22 @@ export default {
     //   searchedProduct,
     //   filteredProduct,
     // }
-    const total = ref()
+    const total = ref(0)
+
     store.dispatch('getAllProducts')
     const productsList: ComputedRef<Product[]> = computed(
       () => store.state.products.products
     )
 
     watch(productsList, () => {
-      const totalInventory = computed(() => {
+      const totalInventory: ComputedRef<number> = computed(() => {
         return store.getters.getTotalInventory
       })
-      console.log(totalInventory.value)
-      total.value = totalInventory
+      total.value = totalInventory.value
     })
-    const searchedProduct = async (word: string) => {
-      await store.dispatch('searchProducts', word)
+    const searchedProduct = async (searchKeyword: string) => {
+      console.log('page', searchKeyword)
+      await store.dispatch('searchProducts', searchKeyword)
     }
     return {
       productsList,

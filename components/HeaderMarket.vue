@@ -8,11 +8,11 @@
       <h1 v-if="!isActive.showInput" class="font-bold text-2xl">Hàng Hóa</h1>
       <input
         v-if="isActive.showInput"
-        v-model="search"
+        v-model="searchKeyword"
         type="text"
         class="form-input h-1/2 w-full placeholder-primary"
         placeholder="Tìm kiếm"
-        @keydown="searchChange"
+        @input="searchedProduct"
       />
       <div class="flex flex-row gap-4 text-base pl-4">
         <button class="button-icon" @click="setActive(1, true)">
@@ -50,15 +50,14 @@
         >
           <option disabled value="">Chọn loại hàng</option>
           <option
-            v-for="(filterSelect, index) in filterSelects"
-            id="filterSelect"
+            v-for="(product, index) in products"
+            id="category"
             :key="index"
-            :value="filterSelect"
+            :value="product.category"
           >
-            {{ filterSelect }}
+            {{ product.category }}
           </option>
         </select>
-        {{ category }}
       </div>
       <div>
         <label for="inventory" class="modal-label"> Tồn kho </label>
@@ -100,7 +99,7 @@
 </template>
 
 <script lang="ts">
-import { reactive, ref, SetupContext } from 'vue'
+import { reactive, ref } from 'vue'
 import ModalProduct from '~/components/Modal.vue'
 import { Product } from '~/types/Product'
 
@@ -116,19 +115,16 @@ export default {
       type: Array as () => Product[],
       required: true,
     },
-    filterSelects: {
-      type: Object,
-      required: true,
-    },
     totalQuantity: {
       type: Number,
       required: true,
     },
   },
-  setup(context: SetupContext) {
+  emits: ['searched-product', 'filtered-product'],
+  setup(props, { emit }) {
     const stock = ref()
     const category = ref()
-    const word = ref<string>()
+    const searchKeyword = ref<string>()
     const isActive = reactive({ showModal: 0, showInput: false })
 
     const setActive = (numberModal: any) => {
@@ -144,21 +140,20 @@ export default {
       }
     }
 
-    const searchChange = (word) => {
-      context.emit('search', word)
-      console.log(word)
+    const searchedProduct = () => {
+      emit('searched-product', searchKeyword.value)
     }
 
     const filterChange = () => {
-      context.emit('filter', stock.value, category.value)
+      emit('filtered-product', stock.value, category.value)
     }
 
     return {
       isActive,
-      word,
+      searchKeyword,
       stock,
       category,
-      searchChange,
+      searchedProduct,
       setActive,
       filterChange,
     }

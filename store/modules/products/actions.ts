@@ -27,7 +27,7 @@ const actions: ActionTree<productState, rootState> = {
         products.push(product)
       })
       commit('LIST_PRODUCTS', products)
-      localStorage.setItem('products', JSON.stringify(products))
+      // localStorage.setItem('products', JSON.stringify(products))
     } catch (e) {
       console.log(e)
     }
@@ -46,27 +46,24 @@ const actions: ActionTree<productState, rootState> = {
   //   commit('FILTER_PRODUCTS', fields)
   // },
   searchProducts({ commit }, text) {
+    // commit('FILTER_PRODUCTS')
     commit('SEARCH_PRODUCTS', text)
+    console.log('action')
   },
 
   async deleteProduct({ commit }, id) {
     try {
       await deleteDoc(id)
-      localStorage.removeItem(`products/${id}`)
-      // dispatch('getAllProducts')
+      // localStorage.removeItem(`products/${id}`)
       commit('DELETE_PRODUCT', id)
-    } catch (e) {
-      console.log(e)
-    }
+    } catch (e) {}
   },
 
   async updateProduct({ commit }, { docRef, value }) {
     try {
       await updateDoc(docRef, value)
       commit('UPDATE_PRODUCT', value)
-    } catch (e) {
-      console.log(e)
-    }
+    } catch (e) {}
   },
 }
 
