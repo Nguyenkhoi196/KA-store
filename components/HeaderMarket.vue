@@ -30,7 +30,7 @@
       class="border-t-[1px] border-primary py-1 px-4 justify-between flex flex-row items-center"
     >
       <p class="text-gray-500">
-        {{ totalProduct }} Hàng hóa - Tồn kho: {{ quantity }}
+        {{ totalProduct }} Hàng hóa - Tồn kho: {{ totalQuantity }}
       </p>
       <button class="button-icon text-tertiary" @click="setActive(4, false)">
         <fa :icon="['fas', 'plus']" />
@@ -100,17 +100,35 @@
 </template>
 
 <script lang="ts">
-import { reactive, ref } from 'vue'
+import { reactive, ref, SetupContext } from 'vue'
 import ModalProduct from '~/components/Modal.vue'
+import { Product } from '~/types/Product'
+
 export default {
   name: 'HeaderMarket',
   components: { ModalProduct },
-  props: ['quantity', 'total-product', 'products', 'filterSelects'],
-  emits: ['filter', 'search'],
-  setup(context) {
-    const stock = ref('')
-    const category = ref('')
-    const word = ref<string>('')
+  props: {
+    totalProduct: {
+      type: Number,
+      required: true,
+    },
+    products: {
+      type: Array as () => Product[],
+      required: true,
+    },
+    filterSelects: {
+      type: Object,
+      required: true,
+    },
+    totalQuantity: {
+      type: Number,
+      required: true,
+    },
+  },
+  setup(context: SetupContext) {
+    const stock = ref()
+    const category = ref()
+    const word = ref<string>()
     const isActive = reactive({ showModal: 0, showInput: false })
 
     const setActive = (numberModal: any) => {
@@ -126,14 +144,13 @@ export default {
       }
     }
 
-    const searchChange = (word: string) => {
+    const searchChange = (word) => {
       context.emit('search', word)
       console.log(word)
     }
 
     const filterChange = () => {
       context.emit('filter', stock.value, category.value)
-      // console.log(stock.value, category.value)
     }
 
     return {

@@ -13,30 +13,22 @@
 </template>
 
 <script lang="ts">
-import {
-  Database,
-  getDatabase,
-  onValue,
-  ref as sRef,
-  set,
-} from 'firebase/database'
+import { getDatabase, onValue, ref as sRef, set } from 'firebase/database'
 // import { onMounted } from 'vue';
 import { ref, onMounted, onUpdated } from 'vue'
 
 export default {
   setup() {
-    const user = ref<any>('')
-    const userStr = ref<any>('')
-    const name = ref<string>('')
-    const imageUrl = ref<string>('')
-    const userUid = ref<string>('')
+    const user = ref()
+    const userStr = ref<any>()
+    const name = ref<string>()
+    const imageUrl = ref<string>()
+    const userUid = ref()
 
     // Lấy thông tin người dùng từ localStorage khi component được khởi tạo trên client
     onMounted(() => {
       if (process.client) {
         userStr.value = localStorage.getItem('user')
-        console.log(userStr.value)
-
         user.value = userStr.value ? JSON.parse(userStr.value) : {}
         // Gán giá trị user.uid cho userUid
         userUid.value = user.value.uid

@@ -45,14 +45,15 @@ const actions: ActionTree<productState, rootState> = {
   // filterProducts ({commit}, fields){
   //   commit('FILTER_PRODUCTS', fields)
   // },
-  searchProducts({ commit }, word) {
-    commit('SEARCH_PRODUCTS', word)
+  searchProducts({ commit }, text) {
+    commit('SEARCH_PRODUCTS', text)
   },
 
   async deleteProduct({ commit }, id) {
     try {
       await deleteDoc(id)
       localStorage.removeItem(`products/${id}`)
+      // dispatch('getAllProducts')
       commit('DELETE_PRODUCT', id)
     } catch (e) {
       console.log(e)

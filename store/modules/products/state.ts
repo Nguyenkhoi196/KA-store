@@ -4,6 +4,6 @@ export const state: productState = {
   products: [],
   product: {},
   totalQuantity: 0,
-  searchWords: null,
+  searchKeyword: null,
   filterState: null,
 }

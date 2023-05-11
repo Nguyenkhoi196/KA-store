@@ -3,6 +3,7 @@
     <HeaderMarket
       :total-product="productsList.length"
       :products="productsList"
+      :total-quantity="total"
       @search="searchedProduct"
     />
     <ul class="my-[100px]">
@@ -14,11 +15,12 @@
 </template>
 
 <script lang="ts">
-import { computed, onMounted } from 'vue'
+import { computed, ComputedRef, ref, watch } from 'vue'
 import { store } from '../../store'
 
 import ShowProducts from '~/components/ShowProducts.vue'
 import HeaderMarket from '~/components/HeaderMarket.vue'
+import { Product } from '~/types/Product'
 
 export default {
   components: { ShowProducts, HeaderMarket },
@@ -108,25 +110,25 @@ export default {
     //   searchedProduct,
     //   filteredProduct,
     // }
-
+    const total = ref()
     store.dispatch('getAllProducts')
-    const productsList = computed(() => store.state.products.products)
+    const productsList: ComputedRef<Product[]> = computed(
+      () => store.state.products.products
+    )
 
+    watch(productsList, () => {
+      const totalInventory = computed(() => {
+        return store.getters.getTotalInventory
+      })
+      console.log(totalInventory.value)
+      total.value = totalInventory
+    })
     const searchedProduct = async (word: string) => {
       await store.dispatch('searchProducts', word)
     }
-
-    const sum = productsList.value.reduce(
-      (total: number, currentValue: any) =>
-        total + Number(currentValue.inventory),
-      0
-    )
-    console.log(sum)
-
-    console.log('check', store.state.products.products)
-
     return {
       productsList,
+      total,
       searchedProduct,
     }
   },

@@ -1,5 +1,7 @@
-// import { GetterTree } from 'vueX'
-const getters = {
+import { GetterTree } from 'vueX'
+import { userState } from './type'
+import { rootState } from '~/store/type'
+const getters: GetterTree<userState, rootState> = {
   user(state) {
     return state.user.data
   },

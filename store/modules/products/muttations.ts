@@ -7,11 +7,10 @@ const mutations: MutationTree<productState> = {
   },
   ADD_PRODUCT(state, product) {
     state.product = product
+    state.products.push(product)
   },
   DELETE_PRODUCT(state, products) {
-    const index = state.products.findIndex(
-      (product: { id: any }) => product.id === products
-    )
+    const index = state.products.findIndex((product) => product.id === products)
     state.products.splice(index, 1)
   },
   UPDATE_PRODUCT(state, product) {
@@ -19,14 +18,14 @@ const mutations: MutationTree<productState> = {
     console.log('mutation', product)
   },
   // FILTER_PRODUCTS(state, fields) {},
-  SEARCH_PRODCUT(state, word) {
-    if (!word || word === '') {
-      state.searchWords = null
+  SEARCH_PRODUCTS(state, keyword) {
+    if (!keyword || keyword === '') {
+      state.searchKeyword = null
       state.filterState = null
     } else {
-      state.searchWords = word
-      state.filterState = state.products.filter((product: { name: string }) =>
-        product.name.toLowerCase().includes(word.toLowerCase())
+      state.searchKeyword = keyword
+      state.filterState = state.products.filter((product) =>
+        product.name.toLowerCase().includes(keyword.toLowerCase())
       )
     }
   },

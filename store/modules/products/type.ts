@@ -1,9 +1,9 @@
 import { Product } from '~/types/Product'
 
 export interface productState {
-  products: any
+  products: Product[]
   product: Product
   totalQuantity: number
-  searchWords: any
+  searchKeyword: string | null
   filterState: any
 }
