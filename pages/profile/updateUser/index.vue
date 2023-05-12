@@ -122,48 +122,35 @@ import UploadPhoto from '~/components/UploadPhoto.vue'
 export default {
   components: { UploadPhoto },
   setup() {
-    const user = ref<any>('')
-    const userStr = ref<any>('')
-    const name = ref<User>('')
-    const imageUrl = ref<User>('')
-    const userUid = ref<User>('')
-    const phoneNumber = ref<User>('')
+    const user = ref<any>()
+    const userStr = ref<any>()
+    const name = ref<User>()
+    const imageUrl = ref<User>()
+    const userUid = ref<User>()
+    const phoneNumber = ref<User>()
     const db = getDatabase()
     const fs = getFirestore()
 
-    // Lấy thông tin người dùng từ localStorage khi component được khởi tạo trên client
     onMounted(() => {
       if (process.client) {
         userStr.value = localStorage.getItem('user')
         user.value = userStr.value ? JSON.parse(userStr.value) : {}
-        // Gán giá trị user.uid cho userUid để read database
         userUid.value = user.value.uid
-        // readUserData(userUid.value, getDatabase())
-        // downloadStorage(imageUrl.value, getStorage())
       }
     })
 
     const submit = async () => {
       try {
-        // Kiểm tra và gán giá trị cho name.value
         const nameValue = name.value ? name.value : ''
         const phoneValue = phoneNumber.value ? phoneNumber.value : ''
 
-        // Kiểm tra và gán giá trị cho imageUrl.value
         const imageUrlValue = imageUrl.value ? imageUrl.value : ''
-        // Gọi hàm writeUserData với các đối số cần thiết
         await writeUserData(
           userUid.value,
           nameValue,
           phoneValue,
           imageUrlValue,
           db
-        )
-        console.log(
-          'write userUid into FS',
-          userUid.value,
-          nameValue,
-          phoneValue
         )
         await writeUserDataIntoDB(userUid.value, nameValue, phoneValue, fs)
         console.log('write userUid into DB', userUid.value, nameValue)
@@ -173,9 +160,7 @@ export default {
     }
 
     const writeUserData = async (userUid, name, phoneNumber, imageUrl, db) => {
-      // Tạo đường dẫn đến nút trong Realtime Database dạng 'users/uid'
       const dbPath = `users/${userUid}`
-      // Lưu dữ liệu vào Realtime Database
       await set(sRef(db, dbPath), {
         userUid,
         name,
@@ -193,20 +178,13 @@ export default {
           name,
           phoneNumber,
         })
-        console.log('addDoc', allUserInfor)
-      } catch (e) {
-        console.log(e)
-      }
+      } catch (e) {}
     }
 
     const readUserData = async (userUid, db) => {
-      // Tạo đường dẫn đến nút trong Realtime Database dạng 'users/uid'
       const dbPath = `users/${userUid}`
-      // Sử dụng hàm onValue để lắng nghe sự thay đổi dữ liệu tại đường dẫn đã chỉ định
       await onValue(sRef(db, dbPath), (snapshot) => {
-        // Lấy dữ liệu từ snapshot
         const data = snapshot.val()
-        console.log('data_name', data.name)
       })
     }
 

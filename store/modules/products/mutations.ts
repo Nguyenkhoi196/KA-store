@@ -18,17 +18,7 @@ const mutations: MutationTree<productState> = {
   },
   // FILTER_PRODUCTS(state, fields) {},
   SEARCH_PRODUCTS(state, keyword) {
-    console.log('muttation')
-
-    if (!keyword || keyword === '') {
-      state.searchKeyword = null
-    } else {
-      state.searchKeyword = keyword
-      state.filterState = state.products.filter((product) =>
-        product.name.toLowerCase().includes(keyword.toLowerCase())
-      )
-    }
-    console.log(state.filterState)
+    state.searchKeyword = keyword
   },
 }
 

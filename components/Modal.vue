@@ -17,63 +17,68 @@
         </div>
         <!-- Modal body -->
         <form @submit.prevent="addProduct">
-          <div class="modal-container">
-            <div>
-              <label for="name" class="modal-label">Tên mặt hàng</label>
-              <input
-                id="name"
-                v-model="product.name"
-                type="text"
-                class="form-input w-full"
-                style="padding: 4px"
-                required
-              />
-            </div>
-            <div>
-              <label for="brand" class="modal-label">Thương hiệu</label>
-              <input
-                id="brand"
-                v-model="product.brand"
-                type="text"
-                class="form-input w-full"
-                style="padding: 4px"
-                required
-              />
-            </div>
-            <div>
-              <label for="price" class="modal-label">Giá</label>
-              <input
-                id="price"
-                v-model="product.price"
-                type="number"
-                class="form-input w-full"
-                style="padding: 4px"
-                required
-              />
-            </div>
-            <div>
-              <label for="category" class="modal-label">Phân loại</label>
-              <input
-                id="category"
-                v-model="product.category"
-                type="text"
-                class="form-input w-full"
-                style="padding: 4px"
-                required
-              />
-            </div>
-            <div class="sm:col-span-2">
-              <label for="inventory" class="modal-label">Số lượng</label>
-              <input
-                id="inventory"
-                v-model="product.inventory"
-                class="form-input w-full"
-                style="padding: 4px"
-                required
-                type="number"
-              />
-            </div>
+          <div class="relative">
+            <input
+              id="nameInput"
+              v-model="product.name"
+              type="text"
+              autocomplete="off"
+              class="form-input peer"
+              style="padding: 4px; font-size: small; border: none"
+              placeholder=""
+              required
+            />
+            <label for="nameInput" class="form-label">Tên mặt hàng</label>
           </div>
+          <div class="relative">
+            <input
+              id="brand"
+              v-model="product.brand"
+              type="text"
+              autocomplete="off"
+              class="form-input peer"
+              style="padding: 4px; font-size: small; border: none"
+              required
+            />
+            <label for="brand" class="form-label">Thương hiệu</label>
+          </div>
+          <div class="relative">
+            <input
+              id="price"
+              v-model="product.price"
+              type="number"
+              autocomplete="off"
+              class="form-input peer"
+              style="padding: 4px; font-size: small; border: none"
+              required
+            />
+            <label for="price" class="form-label">Giá</label>
+          </div>
+          <div class="relative">
+            <input
+              id="category"
+              v-model="product.category"
+              type="text"
+              autocomplete="off"
+              class="form-input peer"
+              style="padding: 4px; font-size: small; border: none"
+              required
+            />
+            <label for="category" class="form-label">Phân loại</label>
+          </div>
+          <div class="relative">
+            <input
+              id="inventory"
+              v-model="product.inventory"
+              autocomplete="off"
+              class="form-input peer"
+              style="padding: 4px; font-size: small; border: none"
+              required
+              type="number"
+            />
+            <label for="inventory" class="form-label">Số lượng</label>
+          </div>
+
           <div class="flex justify-end">
             <button
               type="submit"
@@ -114,6 +119,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../assets/scss/components/_modal.scss';
+@import '../assets/scss/components/_form.scss';
 @import '../assets/scss/components/_button.scss';
 </style>

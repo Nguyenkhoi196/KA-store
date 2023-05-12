@@ -10,8 +10,9 @@
         v-if="isActive.showInput"
         v-model="searchKeyword"
         type="text"
-        class="form-input h-1/2 w-full placeholder-primary"
+        class="form-input"
         placeholder="Tìm kiếm"
+        style="border-bottom: 1px solid white; color: white"
         @input="searchedProduct"
       />
       <div class="flex flex-row gap-4 text-base pl-4">
@@ -45,7 +46,7 @@
         <select
           id="category"
           v-model="category"
-          class="form-input w-1/2"
+          class="modal-select w-1/2"
           style="padding: 4px"
         >
           <option disabled value="">Chọn loại hàng</option>
@@ -59,7 +60,7 @@
           </option>
         </select>
       </div>
-      <div>
+      <div class="block">
         <label for="inventory" class="modal-label"> Tồn kho </label>
         <div>
           <input
@@ -67,18 +68,18 @@
             v-model="stock"
             type="radio"
             value="inStock"
-            class="radio"
+            class="form-radio"
             checked
           />
-          <label for="">Còn hàng</label>
+          <label for="1">Còn hàng</label>
           <input
             id="2"
             v-model="stock"
             type="radio"
             value="outOfStock"
-            class="radio"
+            class="form-radio"
           />
-          <label for="">Hết hàng</label>
+          <label for="2">Hết hàng</label>
         </div>
         {{ stock }}
       </div>
@@ -124,7 +125,7 @@ export default {
   setup(props, { emit }) {
     const stock = ref()
     const category = ref()
-    const searchKeyword = ref<string>()
+    const searchKeyword = ref<string>('')
     const isActive = reactive({ showModal: 0, showInput: false })
 
     const setActive = (numberModal: any) => {
@@ -163,6 +164,10 @@ export default {
 
 <style lang="scss" scoped>
 @import '../assets/scss/components/button';
-@import '../assets/scss/components/searchBox';
+@import '../assets/scss/components/form';
 @import '../assets/scss/components/modal';
+
+::placeholder {
+  color: white;
+}
 </style>

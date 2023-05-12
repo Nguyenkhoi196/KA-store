@@ -5,4 +5,5 @@ export const state: productState = {
   product: {},
   searchKeyword: null,
   filterState: [],
+  totalQuantity: 0,
 }

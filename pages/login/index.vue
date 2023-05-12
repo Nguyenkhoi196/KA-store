@@ -2,34 +2,34 @@
   <div class="flex flex-col items-center justify-between h-full gap-10">
     <div class="container mx-auto px-8">
       <!-- ở đây -->
-      <form
-        class="flex flex-col space-y-6 justify-start"
-        @submit.prevent="onSubmit"
-      >
-        <div class="row">
-          <label class="flex flex-col" for="email">
-            <span class="font-semibold">Email</span>
-            <input v-model="email" class="form-input" type="email" />
-          </label>
+      <form class="flex flex-col gap-4" @submit.prevent="onSubmit">
+        <div class="relative">
+          <input
+            id="emailInput"
+            v-model="email"
+            autocomplete="off"
+            type="email"
+            class="form-input peer"
+            placeholder="Email"
+          />
+          <label for="emailInput" class="form-label">Email </label>
         </div>
-        <div class="row">
-          <label class="flex flex-col" for="password">
-            <span class="font-semibold">Mật khẩu</span>
-            <input v-model="password" class="form-input" type="password" />
-          </label>
+        <div class="relative">
+          <input
+            id="passwordInput"
+            v-model="password"
+            autocomplete="off"
+            type="password"
+            class="form-input peer"
+            placeholder="Mật khẩu"
+          />
+          <label for="passwordInput" class="form-label">Mật khẩu </label>
         </div>
-        <div class="row">
-          <button v-if="!isPending" type="submit" class="form-button w-full">
-            Đăng nhập
-          </button>
-          <button
-            v-else
-            type="button"
-            class="cursor-not-allowed font-semibold w-full px-4 py-3 rounded-lg border-[1px] ring-2 ring-secondary hover:border-tertiary text-yellow bg-secondary mt-1 text-center"
-            disabled
-          >
-            Loading...
-          </button>
+        <div class="flex flex-col gap-4 text-center">
+          <button class="form-button" type="submit">Đăng ký</button>
+
+          <!--Forgot password link-->
+          <a href="#!">Quên mật khẩu?</a>
         </div>
       </form>
       <!-- Start-err -->
@@ -101,5 +101,5 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import '../../assets/scss/components/pageTransition';
-@import '../../assets/scss/components/modal';
+@import '../../assets/scss/components/form';
 </style>

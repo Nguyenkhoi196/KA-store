@@ -1,61 +1,71 @@
 <template>
-  <div class="bg-primary h-screen p-2 gap-4">
-    <nuxt-link to="/market" class="button-icon text-tertiary">
+  <div class="bg-primary h-screen flex flex-col gap-4">
+    <nuxt-link
+      to="/market"
+      class="button-icon text-tertiary bg-secondary h-16 text-xl font-medium flex flex-row justify-start items-center gap-1"
+    >
       <fa :icon="['fas', 'angle-left']" />
-      {{ product.name }}
+      <p>
+        {{ productName.name }}
+      </p>
     </nuxt-link>
 
-    <form>
+    <form class="m-4">
       <div class="modal-container" style="color: black">
-        <div class="relative mb-4" data-te-input-wrapper-init>
+        <div class="relative">
           <input
             id="name"
             v-model="product.name"
             type="text"
             name="name"
             class="form-input peer"
+            style="border-bottom: 1px black solid"
             :placeholder="product.name"
           />
           <label for="name" class="form-label">Tên mặt hàng</label>
         </div>
-        <div class="relative mb-4" data-te-input-wrapper-init>
+        <div class="relative">
           <input
             id="brand"
             v-model="product.brand"
             type="text"
             name="brand"
             class="form-input peer"
+            style="border-bottom: 1px black solid"
             :placeholder="product.brand"
           />
           <label for="brand" class="form-label">Thương hiệu</label>
         </div>
-        <div class="relative mb-4" data-te-input-wrapper-init>
+        <div class="relative">
           <input
             id="price"
             v-model="product.price"
             type="number"
             name="price"
             class="form-input peer"
+            style="border-bottom: 1px black solid"
             :placeholder="product.price"
             oninvalid=""
           />
           <label for="price" class="form-label">Giá bán</label>
         </div>
-        <div class="relative mb-4" data-te-input-wrapper-init>
+        <div class="relative">
           <input
             id="category"
             v-model="product.category"
             class="form-input peer"
+            style="border-bottom: 1px black solid"
             :placeholder="product.category"
             type="text"
           />
           <label for="category" class="form-label">Phân loại</label>
         </div>
-        <div class="relative mb-4" data-te-input-wrapper-init>
+        <div class="relative">
           <input
             id="inventory"
             v-model="product.inventory"
             class="form-input peer"
+            style="border-bottom: 1px black solid"
             :placeholder="product.inventory"
             type="number"
           />
@@ -65,7 +75,8 @@
       <div class="w-full flex flex-row gap-4 justify-end">
         <button
           type="button"
-          class="form-button text-red-500"
+          class="form-button text-danger"
+          style="color: red"
           @click="deleteData"
         >
           Xóa mặt hàng
@@ -81,20 +92,21 @@
     </form>
   </div>
 </template>
-<script>
+<script lang="ts">
 import { ref } from 'vue'
 import { useRoute, useRouter } from '@nuxtjs/composition-api'
 import { getFirestore, getDoc, doc } from 'firebase/firestore'
 import { store } from '~/store'
+import { Product } from '~/types/Product'
 
 export default {
   layout: 'AuthLayout',
-  emits: ['delete'],
   setup() {
     const route = useRoute()
     const router = useRouter()
 
-    const product = ref('')
+    const productName = ref<Product>('')
+    const product = ref<Product>('')
     const productId = route.value.params.id
     const fs = getFirestore()
     const docRef = doc(fs, 'products', productId)
@@ -103,8 +115,13 @@ export default {
       const productSnapshot = await getDoc(docRef)
       const productData = productSnapshot.data()
       product.value = productData
+      return productData
     }
-
+    readData()
+      .then((params) => {
+        productName.value = params
+      })
+      .catch((e) => console.log(e))
     const updateData = async () => {
       try {
         await store.dispatch('updateProduct', {
@@ -118,7 +135,6 @@ export default {
     const deleteData = async () => {
       try {
         await store.dispatch('deleteProduct', docRef)
-        console.log('deleted', docRef)
         router.push('/market')
       } catch (e) {}
     }
@@ -128,6 +144,7 @@ export default {
       readData,
       updateData,
       deleteData,
+      productName,
       product,
     }
   },

@@ -5,6 +5,8 @@ import {
   deleteDoc,
   updateDoc,
   addDoc,
+  query,
+  where,
 } from 'firebase/firestore'
 
 import { ActionTree } from 'vuex'
@@ -39,16 +41,47 @@ const actions: ActionTree<productState, rootState> = {
       const fsProduct = collection(fs, 'products')
       await addDoc(fsProduct, product)
       commit('ADD_PRODUCT', product)
-      // dispatch('getAllProducts')
     } catch (e) {}
   },
   // filterProducts ({commit}, fields){
   //   commit('FILTER_PRODUCTS', fields)
   // },
-  searchProducts({ commit }, text) {
-    // commit('FILTER_PRODUCTS')
-    commit('SEARCH_PRODUCTS', text)
-    console.log('action')
+  async searchProducts({ commit }, text) {
+    const fs = getFirestore()
+    const fsProduct = collection(fs, 'products')
+    try {
+      const products: Array<Product> = []
+      if (text) {
+        await (
+          await getDocs(
+            query(
+              fsProduct,
+              where('name', '>=', text),
+              where('name', '<=', text + '\uF8FF')
+            )
+          )
+        ).forEach((doc) => {
+          const product = {
+            id: doc.id,
+            ...doc.data(),
+          }
+          products.push(product)
+        })
+      } else {
+        await (
+          await getDocs(fsProduct)
+        ).forEach((doc) => {
+          const product = {
+            id: doc.id,
+            ...doc.data(),
+          }
+          products.push(product)
+        })
+      }
+      console.log(products)
+      commit('LIST_PRODUCTS', products)
+      commit('SEARCH_PRODUCTS', text)
+    } catch (e) {}
   },
 
   async deleteProduct({ commit }, id) {
