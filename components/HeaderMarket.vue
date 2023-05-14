@@ -41,47 +41,58 @@
       v-if="isActive.showModal === 2"
       class="border-t-[1px] py-4 px-4 border-primary"
     >
-      <div>
-        <label for="category" class="modal-label">Loại hàng</label>
-        <select
-          id="category"
-          v-model="category"
-          class="modal-select w-1/2"
-          style="padding: 4px"
-        >
-          <option disabled value="">Chọn loại hàng</option>
-          <option
-            v-for="(product, index) in products"
+      <div class="flex flex-row gap-4">
+        <!-- category -->
+        <div class="flex flex-col gap-4">
+          <label for="category" class="modal-label">Loại hàng</label>
+          <select
             id="category"
-            :key="index"
-            :value="product.category"
+            v-model="category"
+            class="modal-select"
+            style="padding: 4px"
           >
-            {{ product.category }}
-          </option>
-        </select>
-      </div>
-      <div class="block">
-        <label for="inventory" class="modal-label"> Tồn kho </label>
-        <div>
-          <input
-            id="1"
-            v-model="stock"
-            type="radio"
-            value="inStock"
-            class="form-radio"
-            checked
-          />
-          <label for="1">Còn hàng</label>
-          <input
-            id="2"
-            v-model="stock"
-            type="radio"
-            value="outOfStock"
-            class="form-radio"
-          />
-          <label for="2">Hết hàng</label>
+            <option disabled value="">Chọn loại hàng</option>
+            <option
+              v-for="(product, index) in products"
+              id="category"
+              :key="index"
+              :value="product.category"
+            >
+              {{ product.category }}
+            </option>
+          </select>
         </div>
-        {{ stock }}
+        <!-- inventory -->
+        <div class="flex flex-col gap-4">
+          <label for="inventory"> Tồn kho </label>
+          <div>
+            <input
+              id="1"
+              v-model="stock"
+              type="radio"
+              value="inStock"
+              class="form-radio"
+              checked
+            />
+            <label for="1">Còn hàng</label>
+          </div>
+          <div>
+            <input
+              id="2"
+              v-model="stock"
+              type="radio"
+              value="outOfStock"
+              class="form-radio"
+            />
+            <label for="2">Hết hàng</label>
+          </div>
+        </div>
+        <!-- price -->
+        <div class="flex flex-col gap-4">
+          <!-- <label for="price" class="modal-label">Giá sản phẩm</label> -->
+          <!-- <p>Giá sản phẩm: <output id="price"></output></p>
+          <input id="price" type="range" min="0" max="10" /> -->
+        </div>
       </div>
       <div class="flex justify-end">
         <button
@@ -146,7 +157,8 @@ export default {
     }
 
     const filterChange = () => {
-      emit('filtered-product', stock.value, category.value)
+      emit('filtered-product', category.value, stock.value)
+      console.log('header', category.value, stock.value)
     }
 
     return {

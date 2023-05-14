@@ -11,7 +11,6 @@
             ><span class="icon-menu">
               <fa :icon="['fas', 'chart-simple']" />
             </span>
-            <span class="text-menu"> test </span>
           </nuxt-link>
         </li>
         <li class="nav-li">
@@ -19,7 +18,6 @@
             ><span class="icon-menu">
               <fa :icon="['fas', 'file-invoice']" />
             </span>
-            <span class="text-menu"> test </span>
           </nuxt-link>
         </li>
         <li class="nav-li">
@@ -27,7 +25,6 @@
             ><span class="icon-menu">
               <fa :icon="['fas', 'box-archive']" />
             </span>
-            <span class="text-menu"> test </span>
           </nuxt-link>
         </li>
         <li class="nav-li">
@@ -35,7 +32,6 @@
             ><span class="icon-menu">
               <fa :icon="['fas', 'circle-user']" />
             </span>
-            <span class="text-menu"> test </span>
           </nuxt-link>
         </li>
       </ul>
@@ -52,19 +48,17 @@ export default {
 @import '../assets/scss/components/_button.scss';
 
 .nav-li {
-  @apply list-none relative z-20
-  active:transform translate-y-7 text-primary;
+  @apply list-none relative z-20 transition ease-in-out duration-200
+  active:transform
+  focus:text-primary focus:transform
+  hover:-translate-y-1 hover:transform;
 }
 
 .nav-link {
-  @apply relative flex justify-center items-center flex-col text-center;
+  @apply flex justify-center items-center flex-col text-center h-full;
 }
 
 .icon-menu {
-  @apply relative block transition text-tertiary hover:-translate-y-7 transform;
-}
-
-.text-menu {
-  @apply absolute bg-secondary text-primary opacity-0 active:opacity-100 px-2 py-7 font-normal rounded-lg tracking-wide text-center;
+  @apply block text-tertiary;
 }
 </style>

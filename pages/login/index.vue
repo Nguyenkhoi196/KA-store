@@ -26,7 +26,7 @@
           <label for="passwordInput" class="form-label">Mật khẩu </label>
         </div>
         <div class="flex flex-col gap-4 text-center">
-          <button class="form-button" type="submit">Đăng ký</button>
+          <button class="form-button" type="submit">Đăng nhập</button>
 
           <!--Forgot password link-->
           <a href="#!">Quên mật khẩu?</a>

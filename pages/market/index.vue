@@ -5,6 +5,7 @@
       :products="productsList"
       :total-quantity="total"
       @searched-product="searchedProduct"
+      @filtered-product="filteredProduct"
     />
     <ul class="my-[100px]">
       <li v-for="product in productsList" :key="product.id">
@@ -41,16 +42,23 @@ export default {
       })
       total.value = totalInventory.value
     })
+
     const searchedProduct = async (searchKeyword: string) => {
       await store.dispatch('searchProducts', searchKeyword)
 
       console.log('page', searchKeyword)
     }
 
+    const filteredProduct = async (category: Product, stock: string) => {
+      console.log('filter')
+
+      await store.dispatch('filterProduct', category, stock)
+    }
     return {
       productsList,
       total,
       searchedProduct,
+      filteredProduct,
     }
   },
 }

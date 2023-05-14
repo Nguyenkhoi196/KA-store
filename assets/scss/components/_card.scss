@@ -1,9 +1,9 @@
 .card-container {
-  @apply rounded-md shadow-lg lg:hover:scale-105 transition duration-500 cursor-pointer w-screen;
+  @apply shadow-sm  cursor-pointer w-screen;
 }
 
 .card-bg {
-  @apply p-3 bg-primary flex flex-row gap-3 lg:px-14;
+  @apply p-3 bg-primary flex flex-row gap-3 lg:px-14 hover:bg-gray-200 mb-[1px];
 }
 
 .card-img {

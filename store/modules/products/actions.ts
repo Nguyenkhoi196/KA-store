@@ -13,6 +13,7 @@ import { ActionTree } from 'vuex'
 import { productState } from './type'
 import { rootState } from '~/store/type'
 import { Product } from '~/types/Product'
+import { filter } from 'vue/types/umd'
 
 const actions: ActionTree<productState, rootState> = {
   async getAllProducts({ commit }) {
@@ -43,9 +44,7 @@ const actions: ActionTree<productState, rootState> = {
       commit('ADD_PRODUCT', product)
     } catch (e) {}
   },
-  // filterProducts ({commit}, fields){
-  //   commit('FILTER_PRODUCTS', fields)
-  // },
+
   async searchProducts({ commit }, text) {
     const fs = getFirestore()
     const fsProduct = collection(fs, 'products')
@@ -84,6 +83,27 @@ const actions: ActionTree<productState, rootState> = {
     } catch (e) {}
   },
 
+  async filterProduct({ commit }, { category, stock }) {
+    const fs = getFirestore()
+    const fsProduct = collection(fs, 'products')
+    try {
+      const products: Array<Product> = []
+      await (
+        await getDocs(query(fsProduct, where('category', '==', `${category}`)))
+      ).forEach((doc) => {
+        const product = {
+          id: doc.id,
+          ...doc.data(),
+        }
+        products.push(product)
+      })
+      console.log(products)
+
+      commit('LIST_PRODUCTS', products)
+    } catch (e) {}
+    // commit('FILTER_PRODUCTS',)
+  },
+
   async deleteProduct({ commit }, id) {
     try {
       await deleteDoc(id)
@@ -96,6 +116,17 @@ const actions: ActionTree<productState, rootState> = {
     try {
       await updateDoc(docRef, value)
       commit('UPDATE_PRODUCT', value)
+    } catch (e) {}
+  },
+
+  async filterProducts({ commit }, stock, category) {
+    const fs = getFirestore()
+    const fsProduct = collection(fs, 'products')
+    try {
+      const products: Array<Product> = []
+      await await getDocs(
+        query(fsProduct, where('category', '==', category), where('inventory'))
+      )
     } catch (e) {}
   },
 }
