@@ -178,21 +178,19 @@
   </div>
 </template>
 
-<script lang="ts">
+<script>
 import { ref, onMounted } from 'vue'
 import { useRouter } from '@nuxtjs/composition-api'
 import { store } from '../../store'
-import { User } from '~/types/User'
 
 export default {
   layout: 'AuthLayout',
-  middleware: 'auth',
-  transition: 'slide-left',
+  // middleware: 'auth',
   setup() {
-    const userStr: any = ref('')
-    const user = ref<User>('')
+    const userStr = ref('')
+    const user = ref('')
     const router = useRouter()
-    const error = ref<any>('')
+    const error = ref('')
 
     onMounted(() => {
       if (process.client) {
@@ -203,7 +201,7 @@ export default {
     const logOut = () => {
       try {
         store.dispatch('logout')
-      } catch (e: any) {
+      } catch (e) {
         error.value = e.message
       }
       if (!error.value) {
@@ -219,7 +217,4 @@ export default {
   },
 }
 </script>
-<style lang="scss" scoped>
-@import '../../assets/scss/components/_pageTransition.scss';
-@import '../../assets/scss/components/_button.scss';
-</style>
+<style lang="scss" scoped></style>

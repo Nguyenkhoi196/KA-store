@@ -92,12 +92,11 @@
     </form>
   </div>
 </template>
-<script lang="ts">
+<script>
 import { ref } from 'vue'
 import { useRoute, useRouter } from '@nuxtjs/composition-api'
 import { getFirestore, getDoc, doc } from 'firebase/firestore'
 import { store } from '~/store'
-import { Product } from '~/types/Product'
 
 export default {
   layout: 'AuthLayout',
@@ -105,8 +104,8 @@ export default {
     const route = useRoute()
     const router = useRouter()
 
-    const productName = ref<Product>('')
-    const product = ref<Product>('')
+    const productName = ref('')
+    const product = ref('')
     const productId = route.value.params.id
     const fs = getFirestore()
     const docRef = doc(fs, 'products', productId)
@@ -121,7 +120,9 @@ export default {
       .then((params) => {
         productName.value = params
       })
-      .catch((e) => console.log(e))
+      .catch((e) => {
+        console.log(e)
+      })
     const updateData = async () => {
       try {
         await store.dispatch('updateProduct', {
@@ -151,8 +152,4 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-@import '../../../assets/scss/components/button';
-@import '../../../assets/scss/components/form';
-@import '../../../assets/scss/components/modal';
-</style>
+<style lang="scss" scoped></style>

@@ -175,10 +175,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../assets/scss/components/button';
-@import '../assets/scss/components/form';
-@import '../assets/scss/components/modal';
-
 ::placeholder {
   color: white;
 }

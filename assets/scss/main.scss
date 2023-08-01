@@ -2,4 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
-@import './index.scss';
+@layer components {
+  @import './components/form';
+  @import './components/button';
+  @import './components/card';
+  @import './components/modal';
+  @import './components/pageTransition';
+}

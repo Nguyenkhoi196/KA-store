@@ -54,21 +54,19 @@
     </div>
   </div>
 </template>
-<script lang="ts">
+<script>
 import { ref, watch } from 'vue'
 import { useRouter } from '@nuxtjs/composition-api'
 import { store } from '../../store'
-
-// import DefaultLayout from '~/layouts/DefaultLayout.vue';
 
 export default {
   layout: 'DefaultLayout',
   transition: 'slide-left',
   setup() {
-    const email = ref<any>(null)
-    const password = ref<any>(null)
-    const isPending = ref<boolean>(false)
-    const error = ref<any>('')
+    const email = ref(null)
+    const password = ref(null)
+    const isPending = ref(false)
+    const error = ref('')
     const router = useRouter()
 
     watch([email, password], () => {
@@ -81,7 +79,7 @@ export default {
           email: email.value,
           password: password.value,
         })
-      } catch (e: any) {
+      } catch (e) {
         error.value = e.message
       }
       if (!error.value) {
@@ -99,7 +97,4 @@ export default {
   },
 }
 </script>
-<style lang="scss" scoped>
-@import '../../assets/scss/components/pageTransition';
-@import '../../assets/scss/components/form';
-</style>
+<style lang="scss" scoped></style>

@@ -1,6 +1,6 @@
 <template>
   <div class="h-screen bg-primary p-2 sm:p-2">
-    <form @submit.prevent="submit">
+    <!-- <form @submit.prevent="submit">
       <div class="">
         <div class="border-b border-gray-900/10 pb-6">
           <h2
@@ -84,7 +84,7 @@
                 >Photo</label
               >
               <div class="mt-2 flex flex-col items-center gap-5">
-                <!-- <img v-if="photoUrl" :src="photoUrl" class="w-40" /> -->
+                <img v-if="photoUrl" :src="photoUrl" class="w-40" />
                 <fa :icon="['fas', 'user']" class="w-40" />
               </div>
             </div>
@@ -107,98 +107,92 @@
           Save
         </button>
       </div>
-    </form>
+    </form> -->
   </div>
 </template>
 
 <script lang="ts">
-import { getDatabase, ref as sRef, set, onValue } from 'firebase/database'
-import { getFirestore, collection, addDoc } from 'firebase/firestore'
+// import { getDatabase, ref as sRef, set, onValue } from 'firebase/database'
+// import { getFirestore, collection, addDoc } from 'firebase/firestore'
+// import { ref, onMounted } from 'vue'
+// import { User } from '~/types/User'
 
-import { ref, onMounted } from 'vue'
-import { User } from '~/types/User'
-import UploadPhoto from '~/components/UploadPhoto.vue'
+// export default {
+//   setup() {
+//     const user = ref<any>()
+//     const userStr = ref<any>()
+//     const name = ref<User>()
+//     const imageUrl = ref<User>()
+//     const userUid = ref<User>()
+//     const phoneNumber = ref<User>()
+//     const db = getDatabase()
+//     const fs = getFirestore()
 
-export default {
-  components: { UploadPhoto },
-  setup() {
-    const user = ref<any>()
-    const userStr = ref<any>()
-    const name = ref<User>()
-    const imageUrl = ref<User>()
-    const userUid = ref<User>()
-    const phoneNumber = ref<User>()
-    const db = getDatabase()
-    const fs = getFirestore()
+//     onMounted(() => {
+//       if (process.client) {
+//         userStr.value = localStorage.getItem('user')
+//         user.value = userStr.value ? JSON.parse(userStr.value) : {}
+//         userUid.value = user.value.uid
+//       }
+//     })
 
-    onMounted(() => {
-      if (process.client) {
-        userStr.value = localStorage.getItem('user')
-        user.value = userStr.value ? JSON.parse(userStr.value) : {}
-        userUid.value = user.value.uid
-      }
-    })
+//     const submit = async () => {
+//       try {
+//         const nameValue = name.value ? name.value : ''
+//         const phoneValue = phoneNumber.value ? phoneNumber.value : ''
 
-    const submit = async () => {
-      try {
-        const nameValue = name.value ? name.value : ''
-        const phoneValue = phoneNumber.value ? phoneNumber.value : ''
+//         const imageUrlValue = imageUrl.value ? imageUrl.value : ''
+//         await writeUserData(
+//           userUid.value,
+//           nameValue,
+//           phoneValue,
+//           imageUrlValue,
+//           db
+//         )
+//         await writeUserDataIntoDB(userUid.value, nameValue, phoneValue, fs)
+//         console.log('write userUid into DB', userUid.value, nameValue)
+//       } catch (error) {
+//         console.error('Error writing data: ', error)
+//       }
+//     }
 
-        const imageUrlValue = imageUrl.value ? imageUrl.value : ''
-        await writeUserData(
-          userUid.value,
-          nameValue,
-          phoneValue,
-          imageUrlValue,
-          db
-        )
-        await writeUserDataIntoDB(userUid.value, nameValue, phoneValue, fs)
-        console.log('write userUid into DB', userUid.value, nameValue)
-      } catch (error) {
-        console.error('Error writing data: ', error)
-      }
-    }
+//     const writeUserData = async (userUid, name, phoneNumber, imageUrl, db) => {
+//       const dbPath = `users/${userUid}`
+//       await set(sRef(db, dbPath), {
+//         userUid,
+//         name,
+//         phoneNumber,
+//         imageUrl,
+//       })
+//     }
 
-    const writeUserData = async (userUid, name, phoneNumber, imageUrl, db) => {
-      const dbPath = `users/${userUid}`
-      await set(sRef(db, dbPath), {
-        userUid,
-        name,
-        phoneNumber,
-        imageUrl,
-      })
-    }
+//     const writeUserDataIntoDB = async (userUid, name, phoneNumber, fs) => {
+//       try {
+//         const fsUser = collection(fs, 'user')
+//         console.log('collection', fsUser)
+//         const allUserInfor = await addDoc(fsUser, {
+//           userUid,
+//           name,
+//           phoneNumber,
+//         })
+//       } catch (e) {}
+//     }
 
-    const writeUserDataIntoDB = async (userUid, name, phoneNumber, fs) => {
-      try {
-        const fsUser = collection(fs, 'user')
-        console.log('collection', fsUser)
-        const allUserInfor = await addDoc(fsUser, {
-          userUid,
-          name,
-          phoneNumber,
-        })
-      } catch (e) {}
-    }
+//     const readUserData = async (userUid, db) => {
+//       const dbPath = `users/${userUid}`
+//       await onValue(sRef(db, dbPath), (snapshot) => {
+//         const data = snapshot.val()
+//       })
+//     }
 
-    const readUserData = async (userUid, db) => {
-      const dbPath = `users/${userUid}`
-      await onValue(sRef(db, dbPath), (snapshot) => {
-        const data = snapshot.val()
-      })
-    }
-
-    return {
-      user,
-      name,
-      phoneNumber,
-      imageUrl,
-      submit,
-    }
-  },
-}
+//     return {
+//       user,
+//       name,
+//       phoneNumber,
+//       imageUrl,
+//       submit,
+//     }
+//   },
+// }
 </script>
-<style lang="scss" scoped>
-@import '../../../assets/scss/components/button';
-@import '../../../assets/scss/components/modal';
-</style>
+<style lang="scss" scoped></style>

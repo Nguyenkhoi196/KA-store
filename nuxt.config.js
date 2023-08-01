@@ -10,8 +10,7 @@ export default {
       { hid: 'description', name: 'description', content: '' },
       { name: 'format-detection', content: 'telephone=no' },
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-
+    link: [{ rel: 'icon', type: 'image/x-icon', href: '/logo.png' },
     ],
   },
 
@@ -19,13 +18,26 @@ export default {
   css: [
     '~/assets/scss/main.scss'
   ],
+  styleResources: {
+    scss: [
+      '@/assets/scss/components/main.scss',
+    ]
+  },
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
-  components: true,
+  components: [
+    '~/components',
+    { path: '~/components/layout/', prefix: '' }
+  ],
+
+  pageTransition: 'page',
+  loading: {
+    color: '#fff'
+  },
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
@@ -41,9 +53,8 @@ export default {
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
     // https://go.nuxtjs.dev/pwa
-    '@nuxtjs/pwa',
+
     // https://go.nuxtjs.dev/content
-    '@nuxt/content',
     '@nuxtjs/firebase',
     '@nuxtjs/router',
     '@nuxtjs/strapi'
@@ -56,7 +67,7 @@ export default {
   },
 
   router: {
-    middleware: ['auth']
+    // middleware: ['auth']
   },
   // PWA module configuration: https://go.nuxtjs.dev/pwa
   pwa: {
@@ -66,7 +77,6 @@ export default {
   },
   dirs: [
     'composables',
-
   ],
 
   // Content module configuration: https://go.nuxtjs.dev/config-content
@@ -118,13 +128,13 @@ export default {
   },
 
 
-  router: {
-    extendRoutes(routes, resolve) {
-      routes.push({
-        name: 'product-detail',
-        path: '/market/:id',
-        component: resolve(__dirname, 'pages/market/_id.vue'), // Đường dẫn tới component chi tiết sản phẩm
-      });
-    },
-  },
+  // router: {
+  //   extendRoutes(routes, resolve) {
+  //     routes.push({
+  //       name: 'product-detail',
+  //       path: '/market/:id',
+  //       component: resolve(__dirname, 'pages/market/_id.vue'), // Đường dẫn tới component chi tiết sản phẩm
+  //     });
+  //   },
+  // },
 }

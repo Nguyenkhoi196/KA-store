@@ -1,16 +1,12 @@
 <template>
   <div class="bg-auth">
-    <navigation-brand />
+    <HeaderNavbar />
     <nuxt />
   </div>
 </template>
 
 <script>
-import NavigationBrand from '~/components/NavigationBrand.vue'
-export default {
-  name: 'DefaultLayout',
-  components: { NavigationBrand },
-}
+export default {}
 </script>
 
 <style lang="scss" scoped>

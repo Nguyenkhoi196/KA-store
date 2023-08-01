@@ -150,7 +150,4 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-@import '../../assets/scss/components/pageTransition';
-@import '../../assets/scss/components/form';
-</style>
+<style lang="scss" scoped></style>
