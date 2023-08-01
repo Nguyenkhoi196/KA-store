@@ -17,7 +17,7 @@ export default {
 
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
-    '@/assets/scss/main.scss',
+    '~/assets/scss/main.scss'
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
@@ -44,18 +44,9 @@ export default {
     '@nuxtjs/pwa',
     // https://go.nuxtjs.dev/content
     '@nuxt/content',
-    // '@nuxtjs/meta',
-    // firebase
     '@nuxtjs/firebase',
     '@nuxtjs/router',
-    // 'cookie-universal-nuxt',
-    // '@nuxtjs/auth-next',
-    // '@nuxtjs/moment',
-    // '@nuxtjs/toast',
-    // '@nuxtjs/proxy',
-    // '@nuxtjs/style-resources',
-    // '@nuxtjs/dotenv',
-    '@nuxtjs/universal-storage'
+    '@nuxtjs/strapi'
 
   ],
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
@@ -64,6 +55,9 @@ export default {
     baseURL: '/',
   },
 
+  router: {
+    middleware: ['auth']
+  },
   // PWA module configuration: https://go.nuxtjs.dev/pwa
   pwa: {
     manifest: {
@@ -71,7 +65,8 @@ export default {
     },
   },
   dirs: [
-    'composables'
+    'composables',
+
   ],
 
   // Content module configuration: https://go.nuxtjs.dev/config-content
@@ -114,6 +109,14 @@ export default {
       firestore: true,
     }
   },
+  strapi: {
+    url: process.env.STRAPI_URL || 'http://localhost:1337',
+    prefix: '/api',
+    version: 'v4',
+    cookie: {},
+    cookieName: 'strapi_jwt'
+  },
+
 
   router: {
     extendRoutes(routes, resolve) {

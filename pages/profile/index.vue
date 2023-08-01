@@ -186,6 +186,7 @@ import { User } from '~/types/User'
 
 export default {
   layout: 'AuthLayout',
+  middleware: 'auth',
   transition: 'slide-left',
   setup() {
     const userStr: any = ref('')

@@ -43,7 +43,7 @@
         <div class="relative">
           <input
             id="usernameInput"
-            v-model="username"
+            v-model="fullName"
             autocomplete="off"
             type="text"
             class="form-input peer"
