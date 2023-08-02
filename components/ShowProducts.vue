@@ -6,11 +6,11 @@
           <img src="~/assets/images/logo.png" alt="" class="card-img" />
           <div class="flex-1 min-w-0">
             <p class="card-name">
-              {{ product.name }}
+              {{ product.product }}
             </p>
-            <p class="card-category">
+            <!-- <p class="card-category">
               {{ product.category }}
-            </p>
+            </p> -->
           </div>
           <div class="flex text-end flex-col">
             <p class="card-price">{{ product.price }} &#8363;</p>
@@ -32,6 +32,4 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-@import '../assets/scss/components/card';
-</style>
+<style lang="scss" scoped></style>

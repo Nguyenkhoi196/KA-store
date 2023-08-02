@@ -3,8 +3,11 @@ import { userState } from './type'
 const mutations: MutationTree<userState> = {
   SET_LOGIN(state, payload) {
     state.user.login = true
-    state.user.data = payload.value
-    state.user.token = payload.token
+    state.user.data = payload.user
+    state.user.token = payload.jwt
+  },
+  SET_ROLE(state, payload) {
+    state.user.role = payload.role?.name
   },
   SET_LOGOUT(state) {
     state.user.login = false

@@ -1,4 +1,5 @@
 import * as auth from 'firebase/auth'
+import axios from 'axios'
 
 import { ActionTree } from 'vuex'
 import { userState } from './type'
@@ -38,24 +39,37 @@ const actions: ActionTree<userState, rootState> = {
     })
   },
 
-  login({ commit }, { email, password }) {
+  login({ commit }, { identifier, password }) {
     return new Promise((resolve, reject) => {
-      auth
-        .signInWithEmailAndPassword(auth.getAuth(), email, password)
-        .then((data) => {
-          console.log('data', data)
-
-          data.user.getIdToken().then((token) => {
-            localStorage.setItem('user', JSON.stringify(data.user))
-            localStorage.setItem('token', JSON.stringify(token))
-            commit('SET_LOGIN', data.user)
-            commit('SET_TOKEN', token)
-          })
-          const user: any = auth.getAuth().currentUser
-          resolve(user)
+      axios
+        .post('http://localhost:1337/api/auth/local', {
+          identifier,
+          password,
         })
-        .catch((error) => {
-          reject(error)
+        .then((res) => {
+          axios
+            .get('http://localhost:1337/api/users/me?populate=*', {
+              headers: {
+                authorization: `Bearer ${res.data.jwt}`,
+              },
+            })
+            .then((res) => {
+              commit('SET_ROLE', res.data)
+              localStorage.setItem(
+                'roles',
+
+                res.data.role
+                  ? `${JSON.stringify(res.data.role.name)}`
+                  : 'Client'
+              )
+            })
+          commit('SET_LOGIN', res.data)
+          localStorage.setItem('user', JSON.stringify(res.data.user))
+          localStorage.setItem('token', JSON.stringify(res.data.jwt))
+          resolve(res.data)
+        })
+        .catch((e) => {
+          reject(e)
         })
     })
   },

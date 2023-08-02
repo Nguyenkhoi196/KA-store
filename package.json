@@ -28,7 +28,7 @@
     "sass-loader": "^10.1.1",
     "tw-elements": "^1.0.0-beta2",
     "universal-cookie": "^4.0.4",
-    "vue": "^2.7.10",
+    "vue": "^3.1.0",
     "vue-server-renderer": "^2.7.10",
     "vue-template-compiler": "^2.7.10",
     "webpack": "^4.46.0"
@@ -42,7 +42,6 @@
     "@nuxtjs/eslint-config-typescript": "^11.0.0",
     "@nuxtjs/eslint-module": "^3.1.0",
     "@nuxtjs/fontawesome": "^1.1.2",
-    "@nuxtjs/strapi": "^1.9.3",
     "@nuxtjs/tailwindcss": "^6.6.5",
     "@types/vue-router": "^2.0.0",
     "autoprefixer": "^10.4.14",

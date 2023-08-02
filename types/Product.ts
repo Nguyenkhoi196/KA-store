@@ -1,9 +1,12 @@
-export interface Product {
-  id?: string
-  name?: string | null
-  brand?: string
-  price?: number
+export interface ProductAttributes {
+  name: string
+  brand: string
+  price: number
+  inventory: number
   description?: string
-  image?: any
-  inventory?: number
+  image?: string | null
+}
+export interface Product {
+  attributes: ProductAttributes
+  id: number | string
 }

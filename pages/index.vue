@@ -6,6 +6,11 @@
       <nuxt-link to="/login"> Đăng nhập </nuxt-link>
       <nuxt-link to="/signup"> Đăng ký </nuxt-link>
     </div>
+    <div>
+      <video autoplay loop playsinline class="object-cover w-[400px]">
+        <source src="../assets/images/video_login.mp4" type="video/mp4" />
+      </video>
+    </div>
   </div>
 </template>
 <script lang="ts">

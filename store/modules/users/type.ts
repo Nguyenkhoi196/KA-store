@@ -5,5 +5,6 @@ export interface userState {
     data: User | null
     login: boolean
     token: string | null
+    role: string | null
   }
 }

@@ -5,5 +5,6 @@ export const state: userState = {
     data: null,
     login: false,
     token: '',
+    role: '',
   },
 }

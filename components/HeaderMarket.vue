@@ -1,6 +1,6 @@
 <template>
   <div
-    class="fixed top-0 left-0 z-50 bg-secondary justify-between rounded-b-lg"
+    class="fixed top-0 z-10 left-0 bg-secondary justify-between rounded-b-lg"
   >
     <div
       class="flex flex-row items-center justify-between h-16 px-4 w-screen bg-secondary text-tertiary"
