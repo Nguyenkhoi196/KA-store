@@ -1,18 +1,13 @@
 <template>
   <div>
     <div
-      class="flex flex-row items-center justify-between h-screen gap-10 px-40 pt-20"
+      class="flex flex-row items-center justify-between gap-10 px-40 pt-20 bg-gradient-to-br from-teal-50 via-slate-50 to-green-50 to-50% via-40% from-10%"
     >
-      <!-- <video
-        autoplay
-        loop
-        playsinline
-        class="absolute block object-cover w-1/2 h-1/2"
-      >
-        <source src="../../assets/images/video_login.mp4" type="video/mp4" />
-      </video> -->
+      <div></div>
 
-      <div class="container mx-auto px-8">
+      <div
+        class="container p-8 bg-white rounded-xl max-w-[500px] backdrop-opacity-50 backdrop-blur-3xl bg-[url(https://i.pinimg.com/564x/99/bc/e4/99bce4097b1ba1424526db75560ed7eb.jpg)] bg-auto shadow-2xl shadow-white-300"
+      >
         <!-- ở đây -->
         <form class="flex flex-col gap-4" @submit.prevent="onSubmit">
           <div class="relative">
@@ -38,10 +33,19 @@
             <label for="passwordInput" class="form-label">Mật khẩu </label>
           </div>
           <div class="flex flex-col gap-4 text-center">
-            <button class="form-button" type="submit">Đăng nhập</button>
+            <button
+              class="form-button bg-secondary text-white hover:bg-secondary/70"
+              type="submit"
+            >
+              Đăng nhập
+            </button>
 
             <!--Forgot password link-->
-            <a href="#!">Quên mật khẩu?</a>
+            <a href="#!">
+              <span class="text-white/50 hover:text-white">
+                Quên mật khẩu?
+              </span></a
+            >
           </div>
         </form>
         <!-- Start-err -->
@@ -57,9 +61,9 @@
         </div>
         <!-- Star--direction -->
 
-        <div class="w-full text-center mt-6">
+        <div class="w-full text-center mt-6 text-white/50">
           <span class="font-semibold"> Bạn chưa có tài khoản ? </span>
-          <span class="ml-1 font-extrabold">
+          <span class="ml-1 font-extrabold hover:text-white">
             <nuxt-link to="/signup">Đăng ký</nuxt-link>
           </span>
         </div>
@@ -104,27 +108,6 @@ export default {
         }
       }
     }
-
-    // const onSubmit = async () => {
-    //   try {
-    //     const res = await axios.post('http://localhost:1337/api/auth/local', {
-    //       identifier: email.value,
-    //       password: password.value,
-    //     })
-    //     console.log(res)
-    //     return res.data
-    //   } catch (error) {
-    //     console.log(error.message)
-    //   }
-    //   if (!error.value) {
-    //     router.push('/market')
-    //   }
-    // }
-    // onSubmit().then((params) => {
-    //   res = await axios.post('http://localhost:1337/api/users/me')
-    //   console.log(params.jwt)
-    // })
-
     return {
       email,
       password,

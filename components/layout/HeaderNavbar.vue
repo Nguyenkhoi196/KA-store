@@ -11,9 +11,7 @@
           <form action="" class="flex flex-row">
             <input type="text" placeholder="Tìm kiếm" class="px-2 py-1" />
             <button class="">
-              <span class="h-3 w-3 block">
-                <i class="fa-solid fa-magnifying-glass"></i>
-              </span>
+              <span class="h-3 w-3 block"> </span>
             </button>
           </form>
         </div>
