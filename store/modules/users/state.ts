@@ -1,10 +1,10 @@
-import { userState } from './type'
+// import { userState } from './type'
 
-export const state: userState = {
+export const state = () => ({
   user: {
     data: null,
     login: false,
     token: '',
     role: '',
   },
-}
+})

@@ -4,15 +4,9 @@
     <nuxt class="pt-24" />
   </div>
 </template>
-<script>
-export default {
-  name: 'AuthLayout',
-}
-</script>
+<script></script>
 
 <style lang="scss" scoped>
-@import '../assets/scss/components/_button.scss';
-
 .nav-li {
   @apply list-none relative z-20 transition ease-in-out duration-200
   active:transform

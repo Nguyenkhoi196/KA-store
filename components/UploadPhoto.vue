@@ -52,7 +52,7 @@ import { User } from '~/types/User'
 export default {
   name: 'UploadPhoto',
   setup() {
-    const imageUrl = ref<User>('')
+    const imageUrl = ref<User>()
     const imageFile = ref<any>(null)
     const imagePreview = ref<any>(null)
 

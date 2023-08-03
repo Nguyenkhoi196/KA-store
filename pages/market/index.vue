@@ -7,6 +7,7 @@
       @searched-product="searchedProduct"
       @filtered-product="filteredProduct"
     /> -->
+    <header-market />
     <ul class="my-[100px]">
       <li v-for="product in products" :key="product.id">
         <show-products :product="product.attributes" />
@@ -16,10 +17,6 @@
 </template>
 
 <script setup lang="ts">
-// import { computed, ComputedRef, ref, watch } from 'vue'
-// import axios from 'axios'
-// import { store } from '../../store'
-
 import { ref } from 'vue'
 import axios from 'axios'
 import { Product } from '~/types/Product'
@@ -58,26 +55,6 @@ import { Product } from '~/types/Product'
 //       await store.dispatch('filterProduct', category, stock)
 //     }
 
-//     axios.get('http://localhost:1337/api/products').then((response) => {
-//       console.log(response)
-//     })
-//     const testApi = async () => {
-//       try {
-//         const response = await $strapi.$product.find()
-//         console.log(response)
-//       } catch (error) {}
-//     }
-//     testApi()
-
-//     return {
-//       productsList,
-//       total,
-//       searchedProduct,
-//       filteredProduct,
-//     }
-//   },
-// }
-//
 const products = ref<Product[]>()
 axios.get('http://localhost:1337/api/products').then((response) => {
   products.value = response.data.data

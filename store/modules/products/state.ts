@@ -1,9 +1,9 @@
-import { productState } from './type'
+// import { productState } from './type'
 
-export const state: productState = {
+export const state = () => ({
   products: [],
-  product: {},
+  product: null,
   searchKeyword: null,
   filterState: [],
   totalQuantity: 0,
-}
+})

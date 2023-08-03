@@ -1,6 +1,8 @@
 <template>
   <div>
-    <div class="flex flex-col justify-between gap-10 bg-primary pt-2 pb-20">
+    <div
+      class="container mx-auto flex flex-col justify-between gap-10 bg-primary pt-2 pb-20"
+    >
       <!-- header -->
       <div class="flex">
         <div class="mx-auto flex flex-col gap-3">
@@ -20,7 +22,7 @@
                   </span>
                   <div class="col-span-2">
                     <p v-if="user" class="font-mono">
-                      {{ user.providerData[0].uid }}
+                      {{ user.username }}
                     </p>
                   </div>
                 </div>
@@ -128,51 +130,49 @@
           </nuxt-link>
         </div>
         <!-- footer -->
-        <div
-          class="flex flex-col content-center mx-2 rounded-md text-base pt-2"
-        >
-          <nuxt-link to="">
-            <div
-              class="flex flex-row text-tertiary gap-2 px-4 py-2 hover:text-opacity-70"
-            >
-              <span>
-                <fa :icon="['fas', 'gear']" />
-              </span>
-              Cài Đặt
-            </div>
-          </nuxt-link>
-          <nuxt-link to="">
-            <div
-              class="flex flex-row text-tertiary gap-2 px-4 py-2 border-t border-secondary hover:text-opacity-70"
-            >
-              <span>
-                <fa :icon="['fas', 'phone']" />
-              </span>
-              Gọi <a class="text-blue-700">0915136016</a>
-            </div>
-          </nuxt-link>
-          <nuxt-link to="">
-            <div
-              class="flex flex-row text-tertiary gap-2 px-4 py-2 border-t border-secondary hover:text-opacity-70"
-            >
-              <span>
-                <fa :icon="['fas', 'circle-info']" />
-              </span>
-              Điều khoản
-            </div>
-          </nuxt-link>
-          <button @click="logOut">
-            <div
-              class="flex flex-row gap-2 px-4 py-2 text-red-500 border-t border-secondary hover:text-opacity-70"
-            >
-              <span>
-                <fa :icon="['fas', 'right-to-bracket']" />
-              </span>
-              Đăng xuất
-            </div>
-          </button>
-        </div>
       </div>
+    </div>
+    <div class="flex flex-col content-center mx-2 rounded-md text-base pt-2">
+      <nuxt-link to="">
+        <div
+          class="flex flex-row text-tertiary gap-2 px-4 py-2 hover:text-opacity-70"
+        >
+          <span>
+            <fa :icon="['fas', 'gear']" />
+          </span>
+          Cài Đặt
+        </div>
+      </nuxt-link>
+      <nuxt-link to="">
+        <div
+          class="flex flex-row text-tertiary gap-2 px-4 py-2 border-t border-secondary hover:text-opacity-70"
+        >
+          <span>
+            <fa :icon="['fas', 'phone']" />
+          </span>
+          Gọi <a class="text-blue-700">0915136016</a>
+        </div>
+      </nuxt-link>
+      <nuxt-link to="">
+        <div
+          class="flex flex-row text-tertiary gap-2 px-4 py-2 border-t border-secondary hover:text-opacity-70"
+        >
+          <span>
+            <fa :icon="['fas', 'circle-info']" />
+          </span>
+          Điều khoản
+        </div>
+      </nuxt-link>
+      <button @click="logOut">
+        <div
+          class="flex flex-row gap-2 px-4 py-2 text-red-500 border-t border-secondary hover:text-opacity-70"
+        >
+          <span>
+            <fa :icon="['fas', 'right-to-bracket']" />
+          </span>
+          Đăng xuất
+        </div>
+      </button>
     </div>
     <!-- layout -->
   </div>

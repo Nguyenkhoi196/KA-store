@@ -6,18 +6,22 @@ import { userState } from './type'
 import { rootState } from '~/store/type'
 
 const actions: ActionTree<userState, rootState> = {
-  signup({ commit }, { email, password }) {
+  signup({ commit }, { email, username, password }) {
     return new Promise((resolve, reject) => {
-      auth
-        .createUserWithEmailAndPassword(auth.getAuth(), email, password)
-        .then((data) => {
-          // dang ky mutations set_login = field data.user
-          commit('SET_LOGIN', data.user)
-          const user: any = auth.getAuth().currentUser
-          resolve(user)
+      axios
+        .post('http://localhost:1337/api/auth/local/register', {
+          email,
+          username,
+          password,
         })
-        .catch((error) => {
-          reject(error)
+        .then((res) => {
+          console.log(res)
+
+          commit('SET_SIGNUP', res.data)
+          resolve(res.data)
+        })
+        .catch((e) => {
+          reject(e)
         })
     })
   },
@@ -33,8 +37,8 @@ const actions: ActionTree<userState, rootState> = {
           commit('SET_LOGOUT') // Gọi mutation để đặt trạng thái logout
           resolve(user)
         })
-        .catch((error) => {
-          reject(error)
+        .catch((e) => {
+          reject(e)
         })
     })
   },
@@ -57,7 +61,6 @@ const actions: ActionTree<userState, rootState> = {
               commit('SET_ROLE', res.data)
               localStorage.setItem(
                 'roles',
-
                 res.data.role
                   ? `${JSON.stringify(res.data.role.name)}`
                   : 'Client'

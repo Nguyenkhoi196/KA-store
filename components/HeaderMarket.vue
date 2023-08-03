@@ -16,13 +16,13 @@
         @input="searchedProduct"
       />
       <div class="flex flex-row gap-4 text-base pl-4">
-        <button class="button-icon" @click="setActive(1, true)">
+        <button class="button-icon" @click="setActive(1)">
           <fa :icon="['fas', 'magnifying-glass']" />
         </button>
-        <button class="button-icon" @click="setActive(2, false)">
+        <button class="button-icon" @click="setActive(2)">
           <fa :icon="['fas', 'filter']" />
         </button>
-        <button class="button-icon" @click="setActive(3, false)">
+        <button class="button-icon" @click="setActive(3)">
           <fa :icon="['fas', 'ellipsis-vertical']" />
         </button>
       </div>
@@ -33,7 +33,7 @@
       <p class="text-gray-500">
         {{ totalProduct }} Hàng hóa - Tồn kho: {{ totalQuantity }}
       </p>
-      <button class="button-icon text-tertiary" @click="setActive(4, false)">
+      <button class="button-icon text-tertiary" @click="setActive(4)">
         <fa :icon="['fas', 'plus']" />
       </button>
     </div>
@@ -110,67 +110,50 @@
   </div>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import { reactive, ref } from 'vue'
 import ModalProduct from '~/components/Modal.vue'
-import { Product } from '~/types/Product'
-
-export default {
-  name: 'HeaderMarket',
-  components: { ModalProduct },
-  props: {
-    totalProduct: {
-      type: Number,
-      required: true,
-    },
-    products: {
-      type: Array as () => Product[],
-      required: true,
-    },
-    totalQuantity: {
-      type: Number,
-      required: true,
-    },
+import { ProductAttributes } from '~/types/Product'
+defineProps({
+  totalProduct: {
+    type: Number,
+    required: true,
   },
-  emits: ['searched-product', 'filtered-product'],
-  setup(props, { emit }) {
-    const stock = ref()
-    const category = ref()
-    const searchKeyword = ref<string>('')
-    const isActive = reactive({ showModal: 0, showInput: false })
-
-    const setActive = (numberModal: any) => {
-      if (isActive.showModal === numberModal) {
-        isActive.showModal = 0
-      } else {
-        isActive.showModal = numberModal
-      }
-      if (numberModal === 1) {
-        isActive.showInput = !isActive.showInput
-      } else {
-        isActive.showInput = false
-      }
-    }
-
-    const searchedProduct = () => {
-      emit('searched-product', searchKeyword.value)
-    }
-
-    const filterChange = () => {
-      emit('filtered-product', category.value, stock.value)
-      console.log('header', category.value, stock.value)
-    }
-
-    return {
-      isActive,
-      searchKeyword,
-      stock,
-      category,
-      searchedProduct,
-      setActive,
-      filterChange,
-    }
+  products: {
+    type: Array as () => ProductAttributes[],
+    required: true,
   },
+  totalQuantity: {
+    type: Number,
+    required: true,
+  },
+})
+const emit = defineEmits(['searched-product', 'filtered-product'])
+const stock = ref<number>()
+const category = ref<number>()
+const searchKeyword = ref<string>('')
+const isActive = reactive({ showModal: 0, showInput: false })
+
+const setActive = (numberModal: any) => {
+  if (isActive.showModal === numberModal) {
+    isActive.showModal = 0
+  } else {
+    isActive.showModal = numberModal
+  }
+  if (numberModal === 1) {
+    isActive.showInput = !isActive.showInput
+  } else {
+    isActive.showInput = false
+  }
+}
+
+const searchedProduct = () => {
+  emit('searched-product', searchKeyword.value)
+}
+
+const filterChange = () => {
+  emit('filtered-product', category.value, stock.value)
+  console.log('header', category.value, stock.value)
 }
 </script>
 

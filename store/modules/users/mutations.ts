@@ -9,6 +9,7 @@ const mutations: MutationTree<userState> = {
   SET_ROLE(state, payload) {
     state.user.role = payload.role?.name
   },
+  SET_SIGNUP() {},
   SET_LOGOUT(state) {
     state.user.login = false
     state.user.data = null

@@ -7,8 +7,19 @@
         <img class="h-auto" src="../../static/logoHeader.png" alt="" />
       </div>
       <div class="flex flex-row justify-between gap-6">
+        <div class="min-w-sm self-center">
+          <form action="" class="flex flex-row">
+            <input type="text" placeholder="Tìm kiếm" class="px-2 py-1" />
+            <button class="">
+              <span class="h-3 w-3 block">
+                <i class="fa-solid fa-magnifying-glass"></i>
+              </span>
+            </button>
+          </form>
+        </div>
+
         <div class="nav-item text-tertiary">
-          <nuxt-link to="">Về chúng tôi</nuxt-link>
+          <nuxt-link to="">Về chúng tôi </nuxt-link>
         </div>
         <div class="nav-item text-tertiary">
           <nuxt-link to="">Sản phẩm</nuxt-link>

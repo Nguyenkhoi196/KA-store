@@ -8,7 +8,7 @@
           <div class="relative">
             <input
               id="usernameInput"
-              v-model="fullName"
+              v-model="username"
               autocomplete="off"
               type="text"
               class="form-input peer"
@@ -78,7 +78,7 @@ export default {
     requireAuth: true,
   },
   setup() {
-    const fullName = ref<string>()
+    const username = ref<string>()
     const email = ref<string>()
     const password = ref<string>()
     const isPending = ref<boolean>(false)
@@ -92,8 +92,8 @@ export default {
     const onSubmit = async () => {
       try {
         await store.dispatch('signup', {
-          fullName: fullName.value,
           email: email.value,
+          username: username.value,
           password: password.value,
         })
       } catch (e: any) {
@@ -105,7 +105,7 @@ export default {
     }
 
     return {
-      fullName,
+      username,
       email,
       password,
       error,
