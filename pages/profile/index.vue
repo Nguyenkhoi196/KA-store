@@ -185,7 +185,7 @@ import { store } from '../../store'
 
 export default {
   layout: 'AuthLayout',
-  // middleware: 'auth',
+  middleware: 'auth',
   setup() {
     const userStr = ref('')
     const user = ref('')

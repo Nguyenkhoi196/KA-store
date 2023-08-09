@@ -1,9 +1,21 @@
 <template>
   <div>
     <div
-      class="flex flex-row items-center justify-between h-screen gap-10 pt-20 px-40"
+      class="flex flex-row items-center justify-between gap-10 px-40 py-20 bg-gradient-to-br from-teal-50 via-slate-50 to-green-50 to-50% via-40% from-10%"
     >
-      <div class="container mx-auto px-8">
+      <div></div>
+
+      <div
+        class="container p-8 bg-white rounded-xl max-w-[500px] backdrop-opacity-50 backdrop-blur-3xl bg-[url(https://i.pinimg.com/564x/0e/b4/df/0eb4df8338d5f7b1410d08b06bd6036e.jpg)] bg-center bottom-0 bg-cover shadow-2xl shadow-white-300"
+      >
+        <div class="grid gap-5">
+          <div class="text-center">
+            <span
+              class="text-4xl font-bold bg-clip-text text-transparent bg-[url(https://i.pinimg.com/564x/6c/48/e5/6c48e5ff0086a4958986de08cbea8571.jpg)] bg-cover"
+              >Đăng Ký</span
+            >
+          </div>
+        </div>
         <form class="flex flex-col gap-4" @submit.prevent="onSubmit">
           <div class="relative">
             <input
@@ -43,7 +55,12 @@
 
           <!--Submit button-->
           <div class="text-center">
-            <button class="form-button" type="submit">Đăng ký</button>
+            <button
+              class="form-button bg-secondary/20 text-current hover:bg-secondary/50"
+              type="submit"
+            >
+              Đăng ký
+            </button>
           </div>
         </form>
         <!-- Start-err -->
@@ -67,6 +84,7 @@
     </div>
   </div>
 </template>
+
 <script lang="ts">
 import { ref, watch } from 'vue'
 import { useRouter } from '@nuxtjs/composition-api'

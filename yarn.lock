@@ -9166,6 +9166,11 @@ nuxt-icons@^3.1.0:
   dependencies:
     "@nuxt/kit" "^3.0.0"
 
+nuxt-storage@^1.2.2:
+  version "1.2.2"
+  resolved "https://registry.npmjs.org/nuxt-storage/-/nuxt-storage-1.2.2.tgz"
+  integrity sha512-quJbZ87NO7QRCSp7YZolot6VwktciSLuTS/sRl8NPz5rAWA84U5Py0y9FmAsbKTiaqJtFcCKSaJGzky948jA3w==
+
 nuxt-vuex-localstorage-sync@^1.0.3:
   version "1.0.3"
   resolved "https://registry.npmjs.org/nuxt-vuex-localstorage-sync/-/nuxt-vuex-localstorage-sync-1.0.3.tgz"

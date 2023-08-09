@@ -63,7 +63,7 @@ const actions: ActionTree<userState, rootState> = {
                 'roles',
                 res.data.role
                   ? `${JSON.stringify(res.data.role.name)}`
-                  : 'Client'
+                  : JSON.stringify('Authenticated')
               )
             })
           commit('SET_LOGIN', res.data)

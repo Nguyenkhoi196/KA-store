@@ -1,11 +1,12 @@
 import { MutationTree } from 'vuex'
 import { userState } from './type'
-import { rootState } from '~/store/type'
+// import { rootState } from '~/store/type'
 const mutations: MutationTree<userState> = {
   SET_LOGIN(state, payload) {
     state.user.login = true
     state.user.data = payload.user
     state.user.token = payload.jwt
+    console.log(state)
   },
   SET_ROLE(state, payload) {
     state.user.role = payload.role?.name

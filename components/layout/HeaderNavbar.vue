@@ -25,7 +25,10 @@
         <div class="nav-item text-tertiary">
           <nuxt-link to="">Thông báo</nuxt-link>
         </div>
-        <div class="text-secondary nav-item">
+        <div v-if="user?.email" class="nav-item text-secondary">
+          <nuxt-link to="/profile"> {{ user.email }}</nuxt-link>
+        </div>
+        <div v-else class="text-secondary nav-item">
           <nuxt-link to="/login">Đăng nhập</nuxt-link>
         </div>
         <slot />
@@ -33,7 +36,17 @@
     </div>
   </div>
 </template>
-<script></script>
+<script setup lang="ts">
+import { ref, onMounted } from 'vue'
+const user = ref()
+const userStr = ref()
+onMounted(() => {
+  if (process.client) {
+    userStr.value = localStorage.getItem('user')
+    user.value = userStr.value ? JSON.parse(userStr.value) : {}
+  }
+})
+</script>
 <style scoped>
 .nav-item {
   @apply text-base font-medium items-center self-center py-4

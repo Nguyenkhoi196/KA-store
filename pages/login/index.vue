@@ -1,14 +1,22 @@
 <template>
   <div>
     <div
-      class="flex flex-row items-center justify-between gap-10 px-40 pt-20 bg-gradient-to-br from-teal-50 via-slate-50 to-green-50 to-50% via-40% from-10%"
+      class="flex flex-row items-center justify-between gap-10 px-40 py-20 bg-gradient-to-br from-teal-50 via-slate-50 to-green-50 to-50% via-40% from-10%"
     >
-      <div></div>
+      <div>A</div>
 
       <div
-        class="container p-8 bg-white rounded-xl max-w-[500px] backdrop-opacity-50 backdrop-blur-3xl bg-[url(https://i.pinimg.com/564x/99/bc/e4/99bce4097b1ba1424526db75560ed7eb.jpg)] bg-auto shadow-2xl shadow-white-300"
+        class="container p-8 bg-white rounded-xl max-w-[500px] backdrop-opacity-50 backdrop-blur-3xl bg-[url(https://i.pinimg.com/564x/f2/d4/7e/f2d47e97a1ab80a9843f7b96f984bb21.jpg)] bg-center bg-cover shadow-2xl shadow-white-300"
       >
         <!-- ở đây -->
+        <div class="grid gap-5">
+          <div class="text-center">
+            <span
+              class="text-4xl font-bold bg-clip-text text-transparent bg-[url(https://i.pinimg.com/564x/6c/48/e5/6c48e5ff0086a4958986de08cbea8571.jpg)] bg-cover"
+              >Đăng Nhập</span
+            >
+          </div>
+        </div>
         <form class="flex flex-col gap-4" @submit.prevent="onSubmit">
           <div class="relative">
             <input
@@ -34,7 +42,7 @@
           </div>
           <div class="flex flex-col gap-4 text-center">
             <button
-              class="form-button bg-secondary text-white hover:bg-secondary/70"
+              class="form-button bg-secondary/20 text-current hover:bg-secondary/50"
               type="submit"
             >
               Đăng nhập
@@ -42,7 +50,7 @@
 
             <!--Forgot password link-->
             <a href="#!">
-              <span class="text-white/50 hover:text-white">
+              <span class="text-current/50 hover:text-current">
                 Quên mật khẩu?
               </span></a
             >
@@ -61,9 +69,9 @@
         </div>
         <!-- Star--direction -->
 
-        <div class="w-full text-center mt-6 text-white/50">
+        <div class="w-full text-center mt-6 text-current/50">
           <span class="font-semibold"> Bạn chưa có tài khoản ? </span>
-          <span class="ml-1 font-extrabold hover:text-white">
+          <span class="ml-1 font-extrabold hover:text-current">
             <nuxt-link to="/signup">Đăng ký</nuxt-link>
           </span>
         </div>

@@ -60,13 +60,17 @@ export default {
 
   ],
   strapi: {
-    url: process.env.STRAPI_URL || 'http://localhost:1337/api',
+    url: process.env.STRAPI_URL || 'http://localhost:1337',
     entities: ['products'],
+    prefix: '/api',
+    version: 'v4',
+    cookie: {},
+    cookieName: 'strapi_jwt'
   },
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
     // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
-    baseURL: '/',
+    baseURL: '/http://localhost:1337/api/',
   },
 
   router: {
@@ -122,13 +126,7 @@ export default {
       firestore: true,
     }
   },
-  strapi: {
-    url: process.env.STRAPI_URL || 'http://localhost:1337',
-    prefix: '/api',
-    version: 'v4',
-    cookie: {},
-    cookieName: 'strapi_jwt'
-  },
+
 
 
   // router: {
