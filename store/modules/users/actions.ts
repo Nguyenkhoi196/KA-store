@@ -15,8 +15,6 @@ const actions: ActionTree<userState, rootState> = {
           password,
         })
         .then((res) => {
-          console.log(res)
-
           commit('SET_SIGNUP', res.data)
           resolve(res.data)
         })
@@ -59,15 +57,10 @@ const actions: ActionTree<userState, rootState> = {
             })
             .then((res) => {
               commit('SET_ROLE', res.data)
-              localStorage.setItem(
-                'roles',
-                res.data.role
-                  ? `${JSON.stringify(res.data.role.name)}`
-                  : JSON.stringify('Authenticated')
-              )
+              localStorage.setItem('user', JSON.stringify(res.data))
+              localStorage.setItem('role', JSON.stringify(res.data.role.name))
             })
           commit('SET_LOGIN', res.data)
-          localStorage.setItem('user', JSON.stringify(res.data.user))
           localStorage.setItem('token', JSON.stringify(res.data.jwt))
           resolve(res.data)
         })

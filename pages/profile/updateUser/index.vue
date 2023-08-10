@@ -130,7 +130,6 @@
 
 //     onMounted(() => {
 //       if (process.client) {
-//         userStr.value = localStorage.getItem('user')
 //         user.value = userStr.value ? JSON.parse(userStr.value) : {}
 //         userUid.value = user.value.uid
 //       }

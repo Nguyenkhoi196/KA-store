@@ -12,11 +12,11 @@
           <h1 class="text-4xl font-bold pb-6 items-center">
             <span> Hàng hóa </span>
           </h1>
-          <product-filter>
+          <section>
             <article class="relative bg-primary mb-4 p-3 shadow-md rounded-md">
               box1
             </article>
-          </product-filter>
+          </section>
         </section>
         <section class="grow min-w-[468px] min-h-[400px] relative mb-5">
           <div class="mt-6 min-h-[inherit] w-full bg-primary relative">
@@ -51,7 +51,7 @@
                 <aside class="flex self-end">
                   <div
                     data-dropdown-toggle="dropdown-add"
-                    data-dropdown-trigger="hover"
+                    data-dropdown-trigger="click"
                     class="button flex gap-1 text-primary bg-secondary"
                   >
                     <span>
@@ -91,7 +91,7 @@
                     </span>
                   </div>
                   <!-- dropdown-menu -->
-                  <div id="dropdown-add">
+                  <div id="dropdown-add" class="hidden">
                     <ul>
                       <li class="test">a</li>
                       <li class="test">a</li>
@@ -102,7 +102,7 @@
               </div>
             </article>
           </div>
-          List product
+          {{ products }}
         </section>
       </section>
     </section>
@@ -110,15 +110,24 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { ref } from 'vue'
 import axios from 'axios'
 import { Product } from '~/types/Product'
 
 const products = ref<Product[]>()
-// axios.get('http://localhost:1337/api/products').then((response) => {
-//   products.value = response.data.data
-//   console.log(products.value)
-// })
+if (process.client) {
+  const tokenStr = localStorage.getItem('token')
+  const token: string = tokenStr ? JSON.parse(tokenStr) : ''
+  axios
+    .get('http://localhost:1337/api/products')
+    .then((response) => {
+      products.value = response.data.data
+      console.log(products.value)
+    })
+    .catch((error) => {
+      console.log(error)
+    })
+}
 </script>
 <script lang="ts">
 export default {

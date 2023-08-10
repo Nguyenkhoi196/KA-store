@@ -27,7 +27,6 @@ export default {
 
     onMounted(() => {
       if (process.client) {
-        userStr.value = localStorage.getItem('user')
         user.value = userStr.value ? JSON.parse(userStr.value) : {}
         // Gán giá trị user.uid cho userUid
         userUid.value = user.value.uid

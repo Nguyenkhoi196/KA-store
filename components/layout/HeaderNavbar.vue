@@ -25,22 +25,27 @@
         <div class="nav-item text-tertiary">
           <nuxt-link to="">Thông báo</nuxt-link>
         </div>
-        <div
+        <a
           v-if="user?.email"
           data-dropdown-toggle="dropdown-profile"
           data-dropdown-trigger="click"
-          class="text-secondary self-center"
+          class="text-secondary self-center cursor-pointer"
         >
           <span>
             {{ user.email }}
           </span>
-        </div>
+        </a>
         <div v-else class="text-secondary nav-item">
           <nuxt-link to="/login">Đăng nhập</nuxt-link>
         </div>
-        <div id="dropdown-profile" class="z-20 absolute flex flex-col gap-4">
-          <nuxt-link to="/profile"> Hồ sơ</nuxt-link>
-          <button @click="logOut">Đăng xuất</button>
+        <div
+          id="dropdown-profile"
+          class="hidden z-20 absolute border-[1px] px-10 py-3 rounded bg-primary"
+        >
+          <div class="flex flex-col gap-4">
+            <nuxt-link to="/profile"> Hồ sơ</nuxt-link>
+            <button @click="logOut">Đăng xuất</button>
+          </div>
         </div>
         <slot />
       </div>
@@ -51,11 +56,12 @@
 import { useRouter } from '@nuxtjs/composition-api'
 import { ref, onMounted } from 'vue'
 import { store } from '../../store'
+import { User } from '~/types/User'
 
-const user = ref()
-const userStr = ref()
+const user = ref<User>()
 onMounted(() => {
   if (process.client) {
+    const userStr = ref<string | null>()
     userStr.value = localStorage.getItem('user')
     user.value = userStr.value ? JSON.parse(userStr.value) : {}
   }

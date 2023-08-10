@@ -21,6 +21,7 @@
     "@nuxtjs/router": "^1.7.0",
     "@nuxtjs/strapi": "^1.9.3",
     "@nuxtjs/universal-storage": "^0.5.9",
+    "apexcharts": "^3.41.1",
     "core-js": "^3.25.3",
     "firebase": "^9.19.1",
     "flowbite": "^1.8.1",

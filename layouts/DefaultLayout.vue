@@ -2,6 +2,7 @@
   <div class="bg-auth">
     <HeaderNavbar />
     <nuxt class="pt-24" />
+    <Footer />
   </div>
 </template>
 

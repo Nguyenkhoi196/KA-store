@@ -17,7 +17,6 @@ const actions: ActionTree<productState, rootState> = {
   //       products.push(product)
   //     })
   //     commit('LIST_PRODUCTS', products)
-  //     // localStorage.setItem('products', JSON.stringify(products))
   //   } catch (e) {
   //     console.log(e)
   //   }
@@ -95,7 +94,6 @@ const actions: ActionTree<productState, rootState> = {
   // async deleteProduct({ commit }, id) {
   //   try {
   //     await deleteDoc(id)
-  //     // localStorage.removeItem(`products/${id}`)
   //     commit('DELETE_PRODUCT', id)
   //   } catch (e) {}
   // },

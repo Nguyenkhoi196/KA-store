@@ -62,8 +62,8 @@
             class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
             role="alert"
           >
-            <strong class="font-bold">Error!</strong>
-            <span class="block sm:inline">{{ error }}</span>
+            <strong class="font-bold">{{ error?.status }} !</strong>
+            <span class="block sm:inline">{{ error?.message }}</span>
             <span class="absolute top-0 bottom-0 right-0 px-4 py-3"> </span>
           </div>
         </div>
@@ -79,51 +79,44 @@
     </div>
   </div>
 </template>
-<script>
-import { ref, watch } from 'vue'
+<script lang="ts">
+import { onMounted, ref, watch } from 'vue'
 import { useRouter } from '@nuxtjs/composition-api'
 import { store } from '../../store'
 
 export default {
   layout: 'DefaultLayout',
   transition: 'slide-left',
-  setup() {
-    const email = ref(null)
-    const password = ref(null)
-    const isPending = ref(false)
-    const error = ref('')
-    const router = useRouter()
+}
+</script>
+<script lang="ts" setup>
+const email = ref(null)
+const password = ref(null)
+const error = ref('')
+const router = useRouter()
 
-    watch([email, password], () => {
-      error.value = ''
+watch([email, password], () => {
+  error.value = ''
+})
+
+const onSubmit = async () => {
+  try {
+    await store.dispatch('login', {
+      identifier: email.value,
+      password: password.value,
     })
-
-    const onSubmit = async () => {
-      try {
-        await store.dispatch('login', {
-          identifier: email.value,
-          password: password.value,
-        })
-      } catch (e) {
-        error.value = e.message
-      }
-      if (!error.value) {
-        console.log(JSON.parse(localStorage.getItem('roles')))
-        if (JSON.parse(localStorage.getItem('roles')) === 'Admin') {
-          router.push('/market')
-        } else {
-          router.push('/profile')
-        }
-      }
+  } catch (e: any) {
+    error.value = e
+  }
+  if (!error.value) {
+    const role = ref<any>('')
+    role.value = localStorage.getItem('role')
+    if (JSON.parse(role.value) === 'Admin') {
+      router.push('/market')
+    } else {
+      router.push('/profile')
     }
-    return {
-      email,
-      password,
-      error,
-      onSubmit,
-      isPending,
-    }
-  },
+  }
 }
 </script>
 <style lang="scss" scoped></style>

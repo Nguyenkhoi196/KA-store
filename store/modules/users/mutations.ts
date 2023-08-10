@@ -6,7 +6,6 @@ const mutations: MutationTree<userState> = {
     state.user.login = true
     state.user.data = payload.user
     state.user.token = payload.jwt
-    console.log(state)
   },
   SET_ROLE(state, payload) {
     state.user.role = payload.role?.name
