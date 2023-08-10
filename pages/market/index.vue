@@ -23,16 +23,81 @@
             <article class="flex mt-0 items-baseline min-h-[54px]">
               <div class="grow shrink items-center flex">
                 <div
-                  class="max-w-[450px] min-w-[200px] mr-4 rounded border-[1px] border-solid border-tertiary bg-primary relative grow px-1 py-2 flex-wrap items-stretch flex focus:shadow-xl"
+                  class="max-w-[450px] min-w-[200px] mr-4 rounded relative grow py-1 px-2 flex-wrap items-stretch flex focus:shadow-xl"
                 >
+                  <span class="absolute self-center left-4">
+                    <svg
+                      class="w-6 h-6 text-gray-800 dark:text-white"
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 20 20"
+                    >
+                      <path
+                        stroke="currentColor"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
+                      />
+                    </svg>
+                  </span>
                   <input
                     type="text"
                     placeholder="Nhập mặt hàng"
-                    class="flex-auto relative float-left mb-0 z-[2] focus:outline-none ml-5"
+                    class="flex-auto relative float-left pl-10 mb-0 z-[2] focus:outline-dotted focus:ring-none border-none bg-transparent rounded-lg"
                   />
                 </div>
                 <aside class="flex self-end">
-                  <div class="button">Thêm mới</div>
+                  <div
+                    data-dropdown-toggle="dropdown-add"
+                    data-dropdown-trigger="hover"
+                    class="button flex gap-1 text-primary bg-secondary"
+                  >
+                    <span>
+                      <svg
+                        class="w-3 h-3 text-current dark:text-tertiary"
+                        aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 18 18"
+                      >
+                        <path
+                          stroke="currentColor"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="1.5"
+                          d="M9 1v16M1 9h16"
+                        />
+                      </svg>
+                    </span>
+                    <p class="pl-3">Thêm mới</p>
+                    <span>
+                      <svg
+                        class="w-3 h-3 text-current dark:text-tertiary"
+                        aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 10 6"
+                      >
+                        <path
+                          stroke="currentColor"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="1.5"
+                          d="m1 1 4 4 4-4"
+                        />
+                      </svg>
+                    </span>
+                  </div>
+                  <!-- dropdown-menu -->
+                  <div id="dropdown-add">
+                    <ul>
+                      <li class="test">a</li>
+                      <li class="test">a</li>
+                      <li class="test">a3</li>
+                    </ul>
+                  </div>
                 </aside>
               </div>
             </article>
@@ -45,7 +110,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import axios from 'axios'
 import { Product } from '~/types/Product'
 

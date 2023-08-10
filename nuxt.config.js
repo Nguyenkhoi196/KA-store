@@ -11,7 +11,11 @@ export default {
       { name: 'format-detection', content: 'telephone=no' },
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/logo.png' },
+    { rel: "stylesheet", href: "https://unpkg.com/flowbite@1.8.1/dist/flowbite.min.css" },
     ],
+    script: [
+      { src: 'https://unpkg.com/flowbite@1.8.1/dist/flowbite.js' }
+    ]
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
@@ -26,6 +30,7 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
+    // { src: '~plugins/flowbite.client.ts', ssr: false }
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components

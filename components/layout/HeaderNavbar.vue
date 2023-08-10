@@ -7,7 +7,7 @@
         <img class="h-auto" src="../../static/logoHeader.png" alt="" />
       </div>
       <div class="flex flex-row justify-between gap-6">
-        <div class="min-w-sm self-center">
+        <div v-if="!user?.email" class="min-w-sm self-center">
           <form action="" class="flex flex-row">
             <input type="text" placeholder="Tìm kiếm" class="px-2 py-1" />
             <button class="">
@@ -25,11 +25,22 @@
         <div class="nav-item text-tertiary">
           <nuxt-link to="">Thông báo</nuxt-link>
         </div>
-        <div v-if="user?.email" class="nav-item text-secondary">
-          <nuxt-link to="/profile"> {{ user.email }}</nuxt-link>
+        <div
+          v-if="user?.email"
+          data-dropdown-toggle="dropdown-profile"
+          data-dropdown-trigger="click"
+          class="text-secondary self-center"
+        >
+          <span>
+            {{ user.email }}
+          </span>
         </div>
         <div v-else class="text-secondary nav-item">
           <nuxt-link to="/login">Đăng nhập</nuxt-link>
+        </div>
+        <div id="dropdown-profile" class="z-20 absolute flex flex-col gap-4">
+          <nuxt-link to="/profile"> Hồ sơ</nuxt-link>
+          <button @click="logOut">Đăng xuất</button>
         </div>
         <slot />
       </div>
@@ -37,7 +48,10 @@
   </div>
 </template>
 <script setup lang="ts">
+import { useRouter } from '@nuxtjs/composition-api'
 import { ref, onMounted } from 'vue'
+import { store } from '../../store'
+
 const user = ref()
 const userStr = ref()
 onMounted(() => {
@@ -46,6 +60,19 @@ onMounted(() => {
     user.value = userStr.value ? JSON.parse(userStr.value) : {}
   }
 })
+
+const router = useRouter()
+const error = ref()
+const logOut = () => {
+  try {
+    store.dispatch('logout')
+  } catch (e: any) {
+    error.value = e.message
+  }
+  if (!error.value) {
+    router.push('/login')
+  }
+}
 </script>
 <style scoped>
 .nav-item {

@@ -9,10 +9,10 @@
         class="container p-8 bg-white rounded-xl max-w-[500px] backdrop-opacity-50 backdrop-blur-3xl bg-[url(https://i.pinimg.com/564x/f2/d4/7e/f2d47e97a1ab80a9843f7b96f984bb21.jpg)] bg-center bg-cover shadow-2xl shadow-white-300"
       >
         <!-- ở đây -->
-        <div class="grid gap-5">
+        <div class="grid gap-5 pb-10">
           <div class="text-center">
             <span
-              class="text-4xl font-bold bg-clip-text text-transparent bg-[url(https://i.pinimg.com/564x/6c/48/e5/6c48e5ff0086a4958986de08cbea8571.jpg)] bg-cover"
+              class="text-4xl font-bold bg-clip-text text-transparent bg-[url(https://i.pinimg.com/564x/d9/55/b3/d955b35830e6af077dbbe09087e316fa.jpg)] bg-cover"
               >Đăng Nhập</span
             >
           </div>

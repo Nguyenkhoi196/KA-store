@@ -21,7 +21,7 @@ const actions: ActionTree<userState, rootState> = {
           resolve(res.data)
         })
         .catch((e) => {
-          reject(e)
+          reject(e.response.data.error)
         })
     })
   },
