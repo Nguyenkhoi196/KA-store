@@ -80,7 +80,7 @@
   </div>
 </template>
 <script lang="ts">
-import { onMounted, ref, watch } from 'vue'
+import { ref, watch } from 'vue'
 import { useRouter } from '@nuxtjs/composition-api'
 import { store } from '../../store'
 
@@ -101,21 +101,26 @@ watch([email, password], () => {
 
 const onSubmit = async () => {
   try {
-    await store.dispatch('login', {
-      identifier: email.value,
-      password: password.value,
-    })
+    await store
+      .dispatch('login', {
+        identifier: email.value,
+        password: password.value,
+      })
+      .then(() => {
+        const role = store.state.users.user.role
+        console.log(role)
+        if (role === 'Admin') {
+          console.log('admin')
+
+          router.push('/market')
+        } else {
+          console.log('auth')
+
+          router.push('/profile')
+        }
+      })
   } catch (e: any) {
     error.value = e
-  }
-  if (!error.value) {
-    const role = ref<any>('')
-    role.value = localStorage.getItem('role')
-    if (JSON.parse(role.value) === 'Admin') {
-      router.push('/market')
-    } else {
-      router.push('/profile')
-    }
   }
 }
 </script>

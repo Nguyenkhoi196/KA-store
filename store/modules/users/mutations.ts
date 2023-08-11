@@ -1,6 +1,6 @@
 import { MutationTree } from 'vuex'
 import { userState } from './type'
-// import { rootState } from '~/store/type'
+
 const mutations: MutationTree<userState> = {
   SET_LOGIN(state, payload) {
     state.user.login = true

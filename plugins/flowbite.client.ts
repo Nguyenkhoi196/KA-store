@@ -1,3 +1,7 @@
 import Vue from 'vue'
 import { initFlowbite } from 'flowbite'
-Vue.use(initFlowbite)
+export function useFlowbite() {
+  console.log('a')
+
+  Vue.use(initFlowbite)
+}

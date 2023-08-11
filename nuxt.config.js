@@ -22,6 +22,10 @@ export default {
   css: [
     '~/assets/scss/main.scss'
   ],
+  loading: {
+    color: '#9ae29b',
+    height: '2px',
+  },
   styleResources: {
     scss: [
       '@/assets/scss/components/main.scss',
@@ -41,9 +45,7 @@ export default {
   ],
 
   pageTransition: 'page',
-  loading: {
-    color: '#fff'
-  },
+
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [

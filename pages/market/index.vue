@@ -1,11 +1,5 @@
 <template>
-  <div>
-    <!-- <header-market />
-    <ul class="my-[100px]">
-      <li v-for="product in products" :key="product.id">
-        <show-products :product="product.attributes" />
-      </li>
-    </ul> -->
+  <div class>
     <section class="container mx-auto">
       <section class="w-full flex">
         <section class="max-w-[234px] min-w-[200px] h-auto mr-8 mb-8 mt-6">
@@ -115,9 +109,8 @@ import axios from 'axios'
 import { Product } from '~/types/Product'
 
 const products = ref<Product[]>()
+
 if (process.client) {
-  const tokenStr = localStorage.getItem('token')
-  const token: string = tokenStr ? JSON.parse(tokenStr) : ''
   axios
     .get('http://localhost:1337/api/products')
     .then((response) => {

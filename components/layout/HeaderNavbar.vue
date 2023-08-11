@@ -29,10 +29,27 @@
           v-if="user?.email"
           data-dropdown-toggle="dropdown-profile"
           data-dropdown-trigger="click"
-          class="text-secondary self-center cursor-pointer"
+          class="text-secondary self-center cursor-pointer flex items-center"
         >
-          <span>
+          <span class="pr-2">
             {{ user.email }}
+          </span>
+          <span>
+            <svg
+              class="w-3 h-3 text-current dark:text-tertiary"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 10 6"
+            >
+              <path
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="1.5"
+                d="m1 1 4 4 4-4"
+              />
+            </svg>
           </span>
         </a>
         <div v-else class="text-secondary nav-item">
@@ -53,20 +70,21 @@
   </div>
 </template>
 <script setup lang="ts">
-import { useRouter } from '@nuxtjs/composition-api'
-import { ref, onMounted } from 'vue'
+import { useRouter, useRoute } from '@nuxtjs/composition-api'
+import { ref, watch } from 'vue'
 import { store } from '../../store'
 import { User } from '~/types/User'
 
-const user = ref<User>()
-onMounted(() => {
-  if (process.client) {
-    const userStr = ref<string | null>()
-    userStr.value = localStorage.getItem('user')
-    user.value = userStr.value ? JSON.parse(userStr.value) : {}
-  }
-})
+const user = ref<User | any>()
 
+const route = useRoute()
+watch(route, () => {
+  const userStr = ref<any>()
+  userStr.value = localStorage.getItem('user')
+  user.value = userStr.value
+    ? JSON.parse(userStr.value)
+    : store.state.users.user.data?.email
+})
 const router = useRouter()
 const error = ref()
 const logOut = () => {

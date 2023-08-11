@@ -2,8 +2,10 @@ import axios from 'axios'
 function tokenHandler(config: any) {
   if (process.client) {
     const tokenStr = localStorage.getItem('token')
-    const token: string = tokenStr ? JSON.parse(tokenStr) : ''
-    config.headers.common.Authorization = `Bearer ${token}`
+    if (tokenStr) {
+      const token: string = tokenStr ? JSON.parse(tokenStr) : ''
+      config.headers.common.Authorization = `Bearer ${token}`
+    }
   }
   return config
 }

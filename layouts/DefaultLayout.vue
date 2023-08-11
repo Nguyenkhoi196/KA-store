@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-auth">
+  <div>
     <HeaderNavbar />
     <nuxt class="pt-24" />
     <Footer />

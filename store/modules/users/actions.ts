@@ -32,6 +32,7 @@ const actions: ActionTree<userState, rootState> = {
           // Xóa token từ localStorage
           localStorage.removeItem('user')
           localStorage.removeItem('token')
+          localStorage.removeItem('role')
           commit('SET_LOGOUT') // Gọi mutation để đặt trạng thái logout
           resolve(user)
         })
@@ -50,19 +51,17 @@ const actions: ActionTree<userState, rootState> = {
         })
         .then((res) => {
           axios
-            .get('http://localhost:1337/api/users/me?populate=*', {
-              headers: {
-                authorization: `Bearer ${res.data.jwt}`,
-              },
-            })
+            .get('http://localhost:1337/api/users/me?populate=*')
             .then((res) => {
+              console.log('me', res)
               commit('SET_ROLE', res.data)
               localStorage.setItem('user', JSON.stringify(res.data))
               localStorage.setItem('role', JSON.stringify(res.data.role.name))
+              resolve(res.data)
             })
           commit('SET_LOGIN', res.data)
           localStorage.setItem('token', JSON.stringify(res.data.jwt))
-          resolve(res.data)
+          return res.data.jwt
         })
         .catch((e) => {
           reject(e)
