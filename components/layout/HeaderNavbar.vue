@@ -75,16 +75,22 @@ import { ref, watch } from 'vue'
 import { store } from '../../store'
 import { User } from '~/types/User'
 
-const user = ref<User | any>()
-
 const route = useRoute()
-watch(route, () => {
-  const userStr = ref<any>()
-  userStr.value = localStorage.getItem('user')
-  user.value = userStr.value
-    ? JSON.parse(userStr.value)
-    : store.state.users.user.data?.email
-})
+
+const user = ref<User | any>()
+if (process.client) {
+  watch(
+    () => route.value.path,
+    () => {
+      const userStr = ref<any>()
+      userStr.value = localStorage.getItem('user')
+      user.value = userStr.value
+        ? JSON.parse(userStr.value)
+        : store.state.users.user.data?.email
+    },
+    { deep: true, immediate: true }
+  )
+}
 const router = useRouter()
 const error = ref()
 const logOut = () => {

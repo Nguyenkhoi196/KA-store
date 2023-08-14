@@ -11,10 +11,10 @@ export default {
       { name: 'format-detection', content: 'telephone=no' },
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/logo.png' },
-    { rel: "stylesheet", href: "https://unpkg.com/flowbite@1.8.1/dist/flowbite.min.css" },
+    { rel: "stylesheet", href: "https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.css" },
     ],
     script: [
-      { src: 'https://unpkg.com/flowbite@1.8.1/dist/flowbite.js' }
+      { src: 'https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.js' }
     ]
   },
 
@@ -34,7 +34,7 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
-    { src: '~plugins/flowbite.client.ts', ssr: false },
+    { src: '~plugins/flowbite.client.ts' },
     { src: '~plugins/axios.ts' }
   ],
 

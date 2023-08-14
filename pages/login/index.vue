@@ -90,9 +90,9 @@ export default {
 }
 </script>
 <script lang="ts" setup>
-const email = ref(null)
-const password = ref(null)
-const error = ref('')
+const email = ref<string | null>(null)
+const password = ref<string | null>(null)
+const error = ref<string>('')
 const router = useRouter()
 
 watch([email, password], () => {
@@ -108,14 +108,9 @@ const onSubmit = async () => {
       })
       .then(() => {
         const role = store.state.users.user.role
-        console.log(role)
         if (role === 'Admin') {
-          console.log('admin')
-
           router.push('/market')
         } else {
-          console.log('auth')
-
           router.push('/profile')
         }
       })
