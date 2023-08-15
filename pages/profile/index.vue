@@ -18,7 +18,7 @@
               <div class="flex flex-row items-center gap-5 text-base">
                 <div class="flex flex-row gap-1 text-center">
                   <span class="col-span-1">
-                    <!-- <fa :icon="['fas', 'shop']" /> -->
+                    <fa :icon="['fas', 'shop']" />
                   </span>
                   <div class="col-span-2">
                     <p v-if="user" class="font-mono">
@@ -27,7 +27,7 @@
                   </div>
                 </div>
                 <span class="col-span-2">
-                  <!-- <fa :icon="['fas', 'chevron-right']" /> -->
+                  <fa :icon="['fas', 'chevron-right']" />
                 </span>
               </div>
             </nuxt-link>
@@ -35,7 +35,7 @@
         </div>
       </div>
       <!-- page -->
-      <div class="mx-2">
+      <div class="mx-auto">
         <!-- option -->
         <div
           class="grid grid-cols-2 grid-flow-row justify-between gap-3 content-center mx-2"
@@ -43,7 +43,7 @@
           <nuxt-link to="/market">
             <div class="button-menu">
               <div class="flex flex-row items-center gap-2 text-secondary">
-                <!-- <fa :icon="['fas', 'bag-shopping']" /> -->
+                <fa :icon="['fas', 'bag-shopping']" />
                 <h3 class="font-bold">Bán Hàng</h3>
               </div>
             </div>
@@ -51,7 +51,7 @@
           <nuxt-link to="/oder">
             <div class="button-menu">
               <div class="flex flex-row items-center gap-2 text-secondary">
-                <!-- <fa :icon="['fas', 'cart-shopping']" /> -->
+                <fa :icon="['fas', 'cart-shopping']" />
                 <h3 class="font-bold">Đặt Hàng</h3>
               </div>
             </div>
@@ -59,7 +59,7 @@
           <nuxt-link to="/returnOder">
             <div class="button-menu">
               <div class="flex flex-row items-center gap-2 text-secondary">
-                <!-- <fa :icon="['fas', 'arrow-right']" /> -->
+                <fa :icon="['fas', 'arrow-right']" />
                 <h3 class="font-bold">Trả hàng</h3>
               </div>
             </div>
@@ -67,7 +67,7 @@
           <nuxt-link to="/update">
             <div class="button-menu">
               <div class="flex flex-row items-center gap-2 text-secondary">
-                <!-- <fa :icon="['fas', 'turn-down']" /> -->
+                <fa :icon="['fas', 'turn-down']" />
                 <h3 class="font-bold">Nhập hàng</h3>
               </div>
             </div>
@@ -75,7 +75,7 @@
           <nuxt-link to="/update">
             <div class="button-menu">
               <div class="flex flex-row items-center gap-2 text-secondary">
-                <!-- <fa :icon="['fas', 'turn-up']" /> -->
+                <fa :icon="['fas', 'turn-up']" />
                 <h3 class="font-bold">Trả hàng nhập</h3>
               </div>
             </div>
@@ -83,7 +83,7 @@
           <nuxt-link to="/update">
             <div class="button-menu">
               <div class="flex flex-row items-center gap-2 text-secondary">
-                <!-- <fa :icon="['fas', 'truck-fast']" /> -->
+                <fa :icon="['fas', 'truck-fast']" />
                 <h3 class="font-bold">Chuyển hàng</h3>
               </div>
             </div>
@@ -91,7 +91,7 @@
           <nuxt-link to="/warehouse">
             <div class="button-menu">
               <div class="flex flex-row items-center gap-2 text-secondary">
-                <!-- <fa :icon="['fas', 'check-to-slot']" /> -->
+                <fa :icon="['fas', 'check-to-slot']" />
                 <h3 class="font-bold">Kiểm kho</h3>
               </div>
             </div>
@@ -99,7 +99,7 @@
           <nuxt-link to="/update">
             <div class="button-menu">
               <div class="flex flex-row items-center gap-2 text-secondary">
-                <!-- <fa :icon="['fas', 'right-to-bracket']" /> -->
+                <fa :icon="['fas', 'right-to-bracket']" />
                 <h3 class="font-bold">Xuất hủy</h3>
               </div>
             </div>
@@ -107,7 +107,7 @@
           <nuxt-link to="/update">
             <div class="button-menu">
               <div class="flex flex-row items-center gap-2 text-secondary">
-                <!-- <fa :icon="['fas', 'user-group']" /> -->
+                <fa :icon="['fas', 'user-group']" />
                 <h3 class="font-bold">Khách hàng</h3>
               </div>
             </div>
@@ -115,7 +115,7 @@
           <nuxt-link to="/update">
             <div class="button-menu">
               <div class="flex flex-row items-center gap-2 text-secondary">
-                <!-- <fa :icon="['fas', 'users']" /> -->
+                <fa :icon="['fas', 'users']" />
                 <h3 class="font-bold">Nhà cung cấp</h3>
               </div>
             </div>
@@ -123,7 +123,7 @@
           <nuxt-link to="/update">
             <div class="button-menu">
               <div class="flex flex-row items-center gap-2 text-secondary">
-                <!-- <fa :icon="['fas', 'person']" /> -->
+                <fa :icon="['fas', 'person']" />
                 <h3 class="font-bold">Nhân viên</h3>
               </div>
             </div>
@@ -138,7 +138,7 @@
           class="flex flex-row text-tertiary gap-2 px-4 py-2 hover:text-opacity-70"
         >
           <span>
-            <!-- <fa :icon="['fas', 'gear']" /> -->
+            <fa :icon="['fas', 'gear']" />
           </span>
           Cài Đặt
         </div>
@@ -148,7 +148,7 @@
           class="flex flex-row text-tertiary gap-2 px-4 py-2 border-t border-secondary hover:text-opacity-70"
         >
           <span>
-            <!-- <fa :icon="['fas', 'phone']" /> -->
+            <fa :icon="['fas', 'phone']" />
           </span>
           Gọi <a class="text-blue-700">0915136016</a>
         </div>
@@ -158,7 +158,7 @@
           class="flex flex-row text-tertiary gap-2 px-4 py-2 border-t border-secondary hover:text-opacity-70"
         >
           <span>
-            <!-- <fa :icon="['fas', 'circle-info']" /> -->
+            <fa :icon="['fas', 'circle-info']" />
           </span>
           Điều khoản
         </div>
@@ -168,7 +168,7 @@
           class="flex flex-row gap-2 px-4 py-2 text-red-500 border-t border-secondary hover:text-opacity-70"
         >
           <span>
-            <!-- <fa :icon="['fas', 'right-to-bracket']" /> -->
+            <fa :icon="['fas', 'right-to-bracket']" />
           </span>
           Đăng xuất
         </div>

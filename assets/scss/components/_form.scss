@@ -1,5 +1,5 @@
 .form-input {
-  @apply placeholder-transparent bg-transparent h-10 w-full border-b-2  border-transparent text-current focus:outline-none focus:border-secondary hover:border-secondary/50 focus:ring-0;
+  @apply cursor-pointer placeholder-transparent bg-transparent h-10 w-full text-current focus:outline-none focus:ring-0;
 }
 .form-label {
   @apply absolute left-0 -top-3 text-current text-sm peer-placeholder-shown:text-base peer-placeholder-shown:top-2 transition-all peer-focus:-top-3 peer-focus:text-current peer-focus:text-sm;

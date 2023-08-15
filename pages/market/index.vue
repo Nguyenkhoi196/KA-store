@@ -42,7 +42,7 @@
                     class="flex-auto relative float-left pl-10 mb-0 z-[2] focus:outline-dotted focus:ring-none border-none bg-transparent rounded-lg"
                   />
                 </div>
-                <aside class="flex self-end">
+                <aside class="flex self-center">
                   <div
                     data-dropdown-toggle="dropdown-add"
                     data-dropdown-trigger="click"
@@ -85,39 +85,86 @@
                     </span>
                   </div>
                   <!-- dropdown-menu -->
-                  <div id="dropdown-add" class="hidden">
-                    <ul>
-                      <li class="test">a</li>
-                      <li class="test">a</li>
-                      <li class="test">a3</li>
+                  <div
+                    id="dropdown-add"
+                    class="hidden divide-y divide-gray-100 bg-secondary/70 text-sm z-10 rounded-lg"
+                  >
+                    <ul class="py-2">
+                      <li
+                        data-modal-toggle="modal-1"
+                        data-modal-backdrop="false"
+                        class="cursor-pointer flex items-center gap-1 px-3 py-1 text-primary hover:bg-secondary"
+                      >
+                        <span>
+                          <svg
+                            class="w-3 h-3 text-current dark:text-tertiary"
+                            aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 18 18"
+                          >
+                            <path
+                              stroke="currentColor"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="1.5"
+                              d="M9 1v16M1 9h16"
+                            />
+                          </svg>
+                        </span>
+                        <span class="pl-3"> Thêm hàng hóa </span>
+                      </li>
+                      <li
+                        class="cursor-pointer flex items-center gap-1 px-3 py-1 text-primary hover:bg-secondary"
+                      >
+                        <span>
+                          <svg
+                            class="w-3 h-3 text-current dark:text-tertiary"
+                            aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 18 18"
+                          >
+                            <path
+                              stroke="currentColor"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="1.5"
+                              d="M9 1v16M1 9h16"
+                            />
+                          </svg>
+                        </span>
+                        <span class="pl-3"> Thêm Dịch vụ </span>
+                      </li>
                     </ul>
                   </div>
                 </aside>
               </div>
             </article>
           </div>
-          {{ products }}
         </section>
       </section>
     </section>
+    <Modal :id="1" />
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue'
 import axios from 'axios'
-import { Product } from '~/types/Product'
+// import { Product } from '~/types/Product'
+import repositories from '~/plugins/repositories'
 
-const products = ref<Product[]>()
+// const products = ref<Product[]>()
 
 if (process.client) {
-  axios
-    .get('http://localhost:1337/api/products')
-    .then((response) => {
-      products.value = response.data.data
-      console.log(products.value)
+  repositories.user
+    .all()
+    .then((response: any) => {
+      // products.value = response.data.data
+      console.log(response)
     })
-    .catch((error) => {
+    .catch((error: any) => {
       console.log(error)
     })
 }

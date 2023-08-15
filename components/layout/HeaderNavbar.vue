@@ -28,7 +28,7 @@
         <a
           v-if="user?.email"
           data-dropdown-toggle="dropdown-profile"
-          data-dropdown-trigger="click"
+          data-dropdown-trigger="hover"
           class="text-secondary self-center cursor-pointer flex items-center"
         >
           <span class="pr-2">

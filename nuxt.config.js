@@ -35,13 +35,15 @@ export default {
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
     { src: '~plugins/flowbite.client.ts', ssr: "false" },
-    { src: '~plugins/axios.ts' }
+    { src: '~plugins/axios.ts' },
+    { src: '~plugins/repositories.ts' }
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: [
     '~/components',
-    { path: '~/components/layout/', prefix: '' }
+    { path: '~/components/layout/', prefix: '' },
+    { path: '~/components/global/', prefix: '' }
   ],
 
   pageTransition: 'page',
@@ -52,6 +54,7 @@ export default {
     // https://go.nuxtjs.dev/typescript
     '@nuxt/typescript-build',
     '@nuxtjs/tailwindcss',
+    '@nuxtjs/fontawesome'
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -64,7 +67,8 @@ export default {
     // https://go.nuxtjs.dev/content
     '@nuxtjs/firebase',
     '@nuxtjs/router',
-    '@nuxtjs/strapi'
+    '@nuxtjs/strapi',
+    '@nuxt/content'
 
   ],
   strapi: {

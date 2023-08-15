@@ -1,5 +1,5 @@
 export interface ProductAttributes {
-  id: string
+  id?: string
   name: string
   brand: string
   price: number
