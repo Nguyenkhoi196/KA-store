@@ -90,7 +90,7 @@
                     class="hidden divide-y divide-gray-100 bg-secondary/70 text-sm z-10 rounded-lg"
                   >
                     <ul class="py-2">
-                      <li
+                      <!-- <li
                         data-modal-toggle="modal-1"
                         data-modal-backdrop="false"
                         class="cursor-pointer flex items-center gap-1 px-3 py-1 text-primary hover:bg-secondary"
@@ -113,27 +113,32 @@
                           </svg>
                         </span>
                         <span class="pl-3"> Thêm hàng hóa </span>
-                      </li>
+                      </li> -->
+                      <Modal modal="modal-1">
+                        <template #button>
+                          <span>
+                            <svg
+                              class="w-3 h-3 text-current dark:text-tertiary"
+                              aria-hidden="true"
+                              xmlns="http://www.w3.org/2000/svg"
+                              fill="none"
+                              viewBox="0 0 18 18"
+                            >
+                              <path
+                                stroke="currentColor"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="1.5"
+                                d="M9 1v16M1 9h16"
+                              />
+                            </svg>
+                          </span>
+                          <span class="pl-3"> Thêm hàng hóa </span>
+                        </template>
+                      </Modal>
                       <li
                         class="cursor-pointer flex items-center gap-1 px-3 py-1 text-primary hover:bg-secondary"
                       >
-                        <span>
-                          <svg
-                            class="w-3 h-3 text-current dark:text-tertiary"
-                            aria-hidden="true"
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 18 18"
-                          >
-                            <path
-                              stroke="currentColor"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              stroke-width="1.5"
-                              d="M9 1v16M1 9h16"
-                            />
-                          </svg>
-                        </span>
                         <span class="pl-3"> Thêm Dịch vụ </span>
                       </li>
                     </ul>
@@ -141,12 +146,13 @@
                 </aside>
               </div>
             </article>
+            <div>
+              {{ product }}
+            </div>
           </div>
         </section>
       </section>
-      {{ product }}
     </section>
-    <Modal :id="1" />
   </div>
 </template>
 
@@ -154,7 +160,7 @@
 import { onMounted, ref } from 'vue'
 import { getAllProducts } from '~/api/Product'
 import { Product } from '~/types/Product'
-const product = ref<Product[]>()
+const product = ref<Product[]>([])
 onMounted(() => {
   getAllProducts().then((res) => {
     product.value = res.data
@@ -164,6 +170,12 @@ onMounted(() => {
 <script lang="ts">
 export default {
   layout: 'DefaultLayout',
+  // asyncData() {
+  //   getAllProducts().then((res) => {
+  //     console.log(res)
+  //     product.value = res.data
+  //   })
+  // },
 }
 </script>
 <style lang="scss" scoped></style>
