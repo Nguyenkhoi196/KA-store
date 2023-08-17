@@ -1,5 +1,5 @@
-import User from './UserRepository'
+// import User from './UserRepository'
 
-export const repositories = ($axios: any) => ({
-  user: User($axios),
-})
+// export const repositories = ($axios: any) => ({
+//   user: User($axios),
+// })

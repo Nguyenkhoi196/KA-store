@@ -144,30 +144,22 @@
           </div>
         </section>
       </section>
+      {{ product }}
     </section>
     <Modal :id="1" />
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-import axios from 'axios'
-// import { Product } from '~/types/Product'
-import repositories from '~/plugins/repositories'
-
-// const products = ref<Product[]>()
-
-if (process.client) {
-  repositories.user
-    .all()
-    .then((response: any) => {
-      // products.value = response.data.data
-      console.log(response)
-    })
-    .catch((error: any) => {
-      console.log(error)
-    })
-}
+import { onMounted, ref } from 'vue'
+import { getAllProducts } from '~/api/Product'
+import { Product } from '~/types/Product'
+const product = ref<Product[]>()
+onMounted(() => {
+  getAllProducts().then((res) => {
+    product.value = res.data
+  })
+})
 </script>
 <script lang="ts">
 export default {

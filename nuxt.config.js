@@ -36,7 +36,7 @@ export default {
   plugins: [
     { src: '~plugins/flowbite.client.ts', ssr: "false" },
     { src: '~plugins/axios.ts' },
-    { src: '~plugins/repositories.ts' }
+    { src: '~plugins/repository.ts' }
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
