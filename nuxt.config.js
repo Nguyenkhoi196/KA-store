@@ -43,7 +43,8 @@ export default {
   components: [
     '~/components',
     { path: '~/components/layout/', prefix: '' },
-    { path: '~/components/global/', prefix: '' }
+    { path: '~/components/global/', prefix: '' },
+    { path: '~/components/global/Modals/', prefix: 'Modal' },
   ],
 
   pageTransition: 'page',

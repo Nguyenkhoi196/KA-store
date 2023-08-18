@@ -1,12 +1,7 @@
 <template>
   <div>
     <!-- Main modal -->
-    <div
-      :id="'button-' + props.modal"
-      class="cursor-pointer flex items-center gap-1 px-3 py-1 text-primary hover:bg-secondary"
-    >
-      <slot name="button" />
-    </div>
+
     <div
       :id="props.modal"
       tabindex="-1"
@@ -46,7 +41,7 @@
               Sản Phẩm
             </h3>
           </div>
-          <form action="#" class="px-6" @submit.prevent="handleAddProduct()">
+          <form action="#" class="px-6">
             <div class="grid gap-4 m-4 sm:grid-cols-2">
               <div class="relative">
                 <input
@@ -112,6 +107,7 @@
               <button
                 type="submit"
                 class="text-secondary hover:text-green-700 active:text-green-400 inline-flex items-center bg-primary-700 hover:bg-primary-800 font-medium rounded-lg text-sm px-5 text-center"
+                @click="handleAddProduct()"
               >
                 <svg
                   class="mr-1 -ml-1 w-6 h-6"
@@ -153,25 +149,22 @@ const product: Partial<ProductAttributes> = reactive({
   brand: '',
   inventory: 0,
 })
+
+let modal: ModalInterface
 const handleAddProduct = () => {
   const data = { data: { ...product } }
   addProduct(data)
     .then((res) => {
       if (res.status === 200) {
         console.log('Product added successfully')
-        hideModal()
+        if (modal) {
+          modal.hide()
+        }
       }
     })
     .catch((err) => {
       console.log(err)
     })
-}
-
-const hideModal = () => {
-  new Modal(document.getElementById(`${props.modal}`)).hide()
-}
-const openModal = () => {
-  new Modal(document.getElementById(`${props.modal}`)).show()
 }
 
 onMounted(() => {
@@ -187,8 +180,7 @@ onMounted(() => {
   }
 
   if ($modalElement) {
-    const modal: ModalInterface = new Modal($modalElement, modalOptions)
-
+    modal = new Modal($modalElement, modalOptions)
     $buttonElement.addEventListener('click', () => modal.show())
     $closeElement.addEventListener('click', () => modal.hide())
   }

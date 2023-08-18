@@ -46,7 +46,7 @@
                   <div
                     data-dropdown-toggle="dropdown-add"
                     data-dropdown-trigger="click"
-                    class="button flex gap-1 text-primary bg-secondary"
+                    class="button flex gap-1 text-primary bg-secondary hover:bg-secondaryDark"
                   >
                     <span>
                       <svg
@@ -87,13 +87,12 @@
                   <!-- dropdown-menu -->
                   <div
                     id="dropdown-add"
-                    class="hidden divide-y divide-gray-100 bg-secondary/70 text-sm z-10 rounded-lg"
+                    class="hidden divide-y divide-gray-100 bg-secondary text-sm z-10 rounded-lg"
                   >
                     <ul class="py-2">
-                      <!-- <li
-                        data-modal-toggle="modal-1"
-                        data-modal-backdrop="false"
-                        class="cursor-pointer flex items-center gap-1 px-3 py-1 text-primary hover:bg-secondary"
+                      <li
+                        id="button-modal-1"
+                        class="cursor-pointer flex items-center gap-1 px-3 py-1 text-primary hover:bg-secondaryDark"
                       >
                         <span>
                           <svg
@@ -113,31 +112,9 @@
                           </svg>
                         </span>
                         <span class="pl-3"> Thêm hàng hóa </span>
-                      </li> -->
-                      <Modal modal="modal-1">
-                        <template #button>
-                          <span>
-                            <svg
-                              class="w-3 h-3 text-current dark:text-tertiary"
-                              aria-hidden="true"
-                              xmlns="http://www.w3.org/2000/svg"
-                              fill="none"
-                              viewBox="0 0 18 18"
-                            >
-                              <path
-                                stroke="currentColor"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                stroke-width="1.5"
-                                d="M9 1v16M1 9h16"
-                              />
-                            </svg>
-                          </span>
-                          <span class="pl-3"> Thêm hàng hóa </span>
-                        </template>
-                      </Modal>
+                      </li>
                       <li
-                        class="cursor-pointer flex items-center gap-1 px-3 py-1 text-primary hover:bg-secondary"
+                        class="cursor-pointer flex items-center gap-1 px-3 py-1 text-primary hover:bg-secondaryDark"
                       >
                         <span class="pl-3"> Thêm Dịch vụ </span>
                       </li>
@@ -153,6 +130,7 @@
         </section>
       </section>
     </section>
+    <ModalAddProduct :modal="'modal-1'" />
   </div>
 </template>
 
@@ -170,12 +148,6 @@ onMounted(() => {
 <script lang="ts">
 export default {
   layout: 'DefaultLayout',
-  // asyncData() {
-  //   getAllProducts().then((res) => {
-  //     console.log(res)
-  //     product.value = res.data
-  //   })
-  // },
 }
 </script>
 <style lang="scss" scoped></style>
