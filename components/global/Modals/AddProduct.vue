@@ -41,7 +41,7 @@
               Sản Phẩm
             </h3>
           </div>
-          <form action="#" class="px-6">
+          <form action="#" class="px-6" @submit.prevent="handleAddProduct()">
             <div class="grid gap-4 m-4 sm:grid-cols-2">
               <div class="relative">
                 <input
@@ -107,7 +107,6 @@
               <button
                 type="submit"
                 class="text-secondary hover:text-green-700 active:text-green-400 inline-flex items-center bg-primary-700 hover:bg-primary-800 font-medium rounded-lg text-sm px-5 text-center"
-                @click="handleAddProduct()"
               >
                 <svg
                   class="mr-1 -ml-1 w-6 h-6"
@@ -181,7 +180,7 @@ onMounted(() => {
 
   if ($modalElement) {
     modal = new Modal($modalElement, modalOptions)
-    $buttonElement.addEventListener('click', () => modal.show())
+    $buttonElement.addEventListener('click', () => modal.toggle())
     $closeElement.addEventListener('click', () => modal.hide())
   }
 })
