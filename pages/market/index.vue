@@ -1,23 +1,152 @@
 <template>
   <div class>
-    <section class="container mx-auto">
+    <section class="container mx-auto min-h-screen h-full">
       <section class="w-full flex">
         <section class="max-w-[234px] min-w-[200px] h-auto mr-8 mb-8 mt-6">
           <h1 class="text-4xl font-bold pb-6 items-center">
             <span> Hàng hóa </span>
           </h1>
           <section>
-            <article class="relative bg-primary mb-4 p-3 shadow-md rounded-md">
-              box1
+            <article class="relative bg-primary mb-4 p-3 shadow-xl rounded-md">
+              <button
+                type="button"
+                class="w-full p-1"
+                aria-controls="dropdown-product-classification"
+                data-collapse-toggle="dropdown-product-classification"
+              >
+                <span> Loại hàng </span>
+              </button>
+              <ul id="dropdown-product-classification" class="hidden pt-4">
+                <div class="pb-2">
+                  <input
+                    id="hanghoa"
+                    v-model="checkTypeProduct"
+                    class="focus:ring-0 ring-0 border-[1px] border-solid border-black rounded-full"
+                    type="checkbox"
+                    value="hanghoa"
+                    checked
+                  />
+
+                  <label for="hanghoa" class="pl-1 text-xs">Hàng hóa</label>
+                </div>
+                <div class="pb-2">
+                  <input
+                    id="dichvu"
+                    v-model="checkTypeProduct"
+                    class="focus:ring-0 ring-0 border-[1px] border-solid border-black rounded-full"
+                    type="checkbox"
+                    value="dichvu"
+                  />
+
+                  <label for="dichvu" class="pl-1 text-xs">Dịch vụ</label>
+                </div>
+              </ul>
+            </article>
+            <article class="relative bg-primary mb-4 p-3 shadow-xl rounded-md">
+              <button
+                type="button"
+                class="w-full p-1"
+                aria-controls="dropdown-product-supplier"
+                data-collapse-toggle="dropdown-product-supplier"
+              >
+                <span>Nhà cung cấp</span>
+              </button>
+              <div id="dropdown-product-supplier" class="hidden pt-4">
+                <div class="relative max-w-[175px]">
+                  <input
+                    v-model="checkSupplier"
+                    type="text"
+                    placeholder="Nhà cung cấp"
+                    class="flex-auto border-[1px] border-solid w-full border-black pl-2 p-0 mb-0 focus:outline-dotted focus:shadow-inner focus:ring-none bg-transparent rounded"
+                  />
+                  <button
+                    class="absolute self-center right-1 top-[-8px] p-2"
+                    data-collapse-toggle="dropdown-supplier"
+                    aria-controls="dropdown-supplier"
+                  >
+                    <span>
+                      <fa icon="sort-down" />
+                    </span>
+                  </button>
+                </div>
+                <div
+                  id="dropdown-supplier"
+                  class="hidden over-flow-hidden pt-3"
+                >
+                  <ul class="overflow-y-scroll max-h-32">
+                    <li
+                      v-for="product in products"
+                      :key="product.id"
+                      class="py-1 px-2 cursor-pointer hover:bg-secondaryLight rounded"
+                      @click="setSupplierFilter(product.attributes.brand)"
+                    >
+                      {{ product.attributes.brand }}
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </article>
+            <article class="relative bg-primary mb-4 p-3 shadow-xl rounded-md">
+              <button
+                type="button"
+                class="w-full p-1"
+                aria-controls="dropdown-product-inventory"
+                data-collapse-toggle="dropdown-product-inventory"
+              >
+                <span>Tình trạnh trong kho</span>
+              </button>
+              <ul id="dropdown-product-inventory" class="hidden pt-4">
+                <div class="pb-2">
+                  <input
+                    id="overall-inventory"
+                    v-model="checkStockProduct"
+                    class="focus:ring-0 ring-0 border-[1px] border-solid border-black rounded-full"
+                    type="radio"
+                    name="inventory-status"
+                    @change="setStockFilter('overAll')"
+                  />
+
+                  <label for="overall-inventory" class="pl-1 text-xs"
+                    >Tất cả</label
+                  >
+                </div>
+                <div class="pb-2">
+                  <input
+                    id="outstock-inventory"
+                    v-model="checkStockProduct"
+                    class="focus:ring-0 ring-0 border-[1px] border-solid border-black rounded-full"
+                    type="radio"
+                    name="inventory-status"
+                    @change="setStockFilter('outStock')"
+                  />
+                  <label for="outstock-inventory" class="pl-1 text-xs"
+                    >Hết hàng
+                  </label>
+                </div>
+                <div class="pb-2">
+                  <input
+                    id="instock-inventory"
+                    v-model="checkStockProduct"
+                    class="focus:ring-0 ring-0 border-[1px] border-solid border-black rounded-full"
+                    type="radio"
+                    name="inventory-status"
+                    @change="setStockFilter('inStock')"
+                  />
+
+                  <label for="instock-inventory" class="pl-1 text-xs"
+                    >Còn hàng</label
+                  >
+                </div>
+              </ul>
             </article>
           </section>
         </section>
         <section class="grow min-w-[468px] min-h-[400px] relative mb-5">
-          <div class="mt-6 min-h-[inherit] w-full bg-primary relative">
+          <div class="mt-6 min-h-[inherit] w-full relative">
             <article class="flex mt-0 items-baseline min-h-[54px]">
               <div class="grow shrink items-center flex min-h-[40px]">
                 <div
-                  class="max-w-[450px] min-w-[200px] mr-4 rounded relative grow flex-wrap items-stretch flex focus:shadow-xl"
+                  class="max-w-[450px] min-w-[200px] mr-4 rounded relative grow flex-wrap items-stretch flex bg-transparent"
                 >
                   <span class="absolute self-center left-4">
                     <fa icon="magnifying-glass" />
@@ -25,7 +154,7 @@
                   <input
                     type="text"
                     placeholder="Nhập mặt hàng"
-                    class="flex-auto border-[1px] border-solid border-black relative float-left pl-10 mb-0 z-[2] focus:outline-dotted focus:ring-none bg-transparent rounded-lg"
+                    class="flex-auto border-[1px] border-solid border-black relative float-left pl-10 mb-0 z-[2] focus:outline-dotted focus:shadow-inner focus:ring-none bg-transparent rounded-lg"
                   />
                 </div>
               </div>
@@ -145,13 +274,13 @@
                             <span class="box-content">Tên Mặt Hàng</span>
                           </th>
                           <th class="p-3 min-w-[112px] text-end">
-                            <span class="box-content">Giá Bán</span>
-                          </th>
-                          <th class="p-3 min-w-[112px] text-end">
                             <span class="box-content">Tồn Kho</span>
                           </th>
-                          <th class="p-3 min-w-[112px]">
+                          <th class="p-3 min-w-[112px] text-end">
                             <span class="box-content">Thương Hiệu</span>
+                          </th>
+                          <th class="p-3 min-w-[112px] text-end">
+                            <span class="box-content">Giá Bán</span>
                           </th>
                         </tr>
                       </thead>
@@ -164,7 +293,7 @@
               >
                 <table class="table-fixed max-w-none w-auto min-w-full">
                   <thead class="">
-                    <tr class="box-content bg-gray-400">
+                    <tr class="box-content bg-gray-200">
                       <th
                         class="p-3 min-w-[140px] max-w-[140px] w-[140px] break-normal"
                       >
@@ -174,12 +303,12 @@
                         <span class="box-content"></span>
                       </th>
                       <th class="p-3 min-w-[112px] text-end">
-                        <span class="box-content"></span>
+                        <span class="box-content">{{ totalInventory }}</span>
                       </th>
                       <th class="p-3 min-w-[112px] text-end">
                         <span class="box-content"></span>
                       </th>
-                      <th class="p-3 min-w-[112px]">
+                      <th class="p-3 min-w-[112px] text-end">
                         <span class="box-content"></span>
                       </th>
                     </tr>
@@ -201,17 +330,17 @@
                       </th>
                       <th class="p-3 min-w-[112px] text-end">
                         <span class="box-content">{{
-                          product.attributes.price.toLocaleString('de-DE')
+                          product.attributes.inventory
                         }}</span>
                       </th>
                       <th class="p-3 min-w-[112px] text-end">
                         <span class="box-content">{{
-                          product.attributes.inventory
+                          product.attributes.brand
                         }}</span>
                       </th>
-                      <th class="p-3 min-w-[112px]">
+                      <th class="p-3 min-w-[112px] text-end">
                         <span class="box-content">{{
-                          product.attributes.brand
+                          product.attributes.price.toLocaleString('de-DE')
                         }}</span>
                       </th>
                     </tr>
@@ -238,34 +367,27 @@ import { Product } from '~/types/Product'
 
 const router = useRouter()
 const products = ref<Product[]>([])
-let totalInventory = 0
-// console.log(totalInventory)
+const totalInventory = ref<number>()
+const checkTypeProduct = ref<string[]>([])
+const checkSupplier = ref<string>()
+const checkStockProduct = ref<string>()
 
 onMounted(() => {
   getAllProducts().then((res) => {
     products.value = res.data
+    totalInventory.value = res.meta.totalInventory
   })
 })
 
 const handleProductDetails = (params: string) => {
   router.push('/market/' + params)
 }
-const getTotalInventory = () => {
-  console.log(
-    products.value.reduce(
-      (totalInventory, product) =>
-        totalInventory + product.attributes.inventory,
-      0
-    )
-  )
-  // products.value.forEach((product: Product) => {
-  //   const inventory = product.attributes.inventory
-  //   console.log(inventory)
-  //   totalInventory += Number(inventory)
-  //   return totalInventory
-  // })
+const setSupplierFilter = (param: string) => {
+  checkSupplier.value = param
 }
-getTotalInventory()
+const setStockFilter = (param: string) => {
+  checkStockProduct.value = param
+}
 </script>
 <script lang="ts">
 export default {
