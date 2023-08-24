@@ -21,7 +21,7 @@
                   <input
                     id="hanghoa"
                     v-model="checkTypeProduct"
-                    class="focus:ring-0 ring-0 border-[1px] border-solid border-black rounded-full"
+                    class="focus:ring-0 text-secondary ring-0 border-[1px] border-solid border-black rounded"
                     type="checkbox"
                     value="hanghoa"
                     checked
@@ -33,7 +33,7 @@
                   <input
                     id="dichvu"
                     v-model="checkTypeProduct"
-                    class="focus:ring-0 ring-0 border-[1px] border-solid border-black rounded-full"
+                    class="focus:ring-0 text-secondary ring-0 border-[1px] border-solid border-black rounded"
                     type="checkbox"
                     value="dichvu"
                   />
@@ -51,7 +51,7 @@
               >
                 <span>Nhà cung cấp</span>
               </button>
-              <div id="dropdown-product-supplier" class="hidden pt-4">
+              <div id="dropdown-product-supplier" class="hidden pt-4 transition-transform duration-1000">
                 <div class="relative max-w-[175px]">
                   <input
                     v-model="checkSupplier"
@@ -86,7 +86,7 @@
                 </div>
               </div>
             </article>
-            <article class="relative bg-primary mb-4 p-3 shadow-xl rounded-md">
+            <article class="relative bg-primary mb-4 p-3 shadow-xl rounded-md transition-all duration-1000">
               <button
                 type="button"
                 class="w-full p-1"
@@ -95,12 +95,12 @@
               >
                 <span>Tình trạnh trong kho</span>
               </button>
-              <ul id="dropdown-product-inventory" class="hidden pt-4">
+              <ul id="dropdown-product-inventory" class="hidden pt-4 ">
                 <div class="pb-2">
                   <input
                     id="overall-inventory"
                     v-model="checkStockProduct"
-                    class="focus:ring-0 ring-0 border-[1px] border-solid border-black rounded-full"
+                    class="focus:ring-0 text-secondary ring-0 border-[1px] border-solid border-black rounded-full"
                     type="radio"
                     name="inventory-status"
                     @change="setStockFilter('overAll')"
@@ -114,7 +114,7 @@
                   <input
                     id="outstock-inventory"
                     v-model="checkStockProduct"
-                    class="focus:ring-0 ring-0 border-[1px] border-solid border-black rounded-full"
+                    class="focus:ring-0 text-secondary ring-0 border-[1px] border-solid border-black rounded-full"
                     type="radio"
                     name="inventory-status"
                     @change="setStockFilter('outStock')"
@@ -127,7 +127,7 @@
                   <input
                     id="instock-inventory"
                     v-model="checkStockProduct"
-                    class="focus:ring-0 ring-0 border-[1px] border-solid border-black rounded-full"
+                    class="focus:ring-0 text-secondary ring-0 border-[1px] border-solid border-black rounded-full"
                     type="radio"
                     name="inventory-status"
                     @change="setStockFilter('inStock')"
@@ -162,48 +162,19 @@
                 <div
                   data-dropdown-toggle="dropdown-add"
                   data-dropdown-trigger="click"
+                  data-dropdown-delay="500"
                   data-dropdown-placement="bottom-start"
                   class="button flex gap-1 text-primary bg-secondary hover:bg-secondaryDark"
                 >
-                  <span>
-                    <svg
-                      class="w-3 h-3 text-current dark:text-tertiary"
-                      aria-hidden="true"
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 18 18"
-                    >
-                      <path
-                        stroke="currentColor"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="1.5"
-                        d="M9 1v16M1 9h16"
-                      />
-                    </svg>
-                  </span>
+
+                <fa icon="plus" />
                   <p class="pl-3">Thêm mới</p>
-                  <span>
-                    <svg
-                      class="w-3 h-3 text-current dark:text-tertiary"
-                      aria-hidden="true"
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 10 6"
-                    >
-                      <path
-                        stroke="currentColor"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="1.5"
-                        d="m1 1 4 4 4-4"
-                      />
-                    </svg>
-                  </span>
+                  <fa icon="angle-down" />
                 </div>
                 <div
                   data-dropdown-toggle="dropdown-more"
                   data-dropdown-trigger="click"
+                  data-dropdown-delay="500"
                   data-dropdown-placement="bottom-end"
                   class="button flex gap-1 text-primary bg-secondary hover:bg-secondaryDark"
                 >
@@ -219,23 +190,7 @@
                       id="button-modal-1"
                       class="cursor-pointer flex items-center gap-1 px-3 py-1 text-primary hover:bg-secondaryDark"
                     >
-                      <span>
-                        <svg
-                          class="w-3 h-3 text-current dark:text-tertiary"
-                          aria-hidden="true"
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 18 18"
-                        >
-                          <path
-                            stroke="currentColor"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="1.5"
-                            d="M9 1v16M1 9h16"
-                          />
-                        </svg>
-                      </span>
+                    <fa icon="plus" />
                       <span class="pl-3"> Thêm hàng hóa </span>
                     </li>
                     <li
@@ -249,9 +204,27 @@
                   id="dropdown-more"
                   class="hidden divide-y divide-gray-100 bg-secondary text-sm z-10 rounded-lg"
                 >
-                  <ul>
-                    <li>a</li>
-                    <li>b</li>
+                  <ul class="py-2">
+                    <li class="px-3 py-1 text-primary ">
+                      <input type="checkbox" id="checkbox-show-id-product" class="cursor-pointer focus:ring-0 text-secondaryDark ring-0 border-[1px] border-solid border-black rounded" >
+                      <label for="checkbox-show-id-product" class="pl-1 text-xs cursor-pointer">Tên sản phẩm</label>
+                    </li>
+                    <li class="px-3 py-1 text-primary ">
+                      <input type="checkbox" id="checkbox-show-name-product" class="cursor-pointer focus:ring-0 text-secondaryDark ring-0 border-[1px] border-solid border-black rounded" >
+                      <label for="checkbox-show-name-product" class="pl-1 text-xs cursor-pointer">Tên mặt hàng</label>
+                    </li>
+                    <li class="px-3 py-1 text-primary ">
+                      <input type="checkbox" id="checkbox-show-inventory-product" class="cursor-pointer focus:ring-0 text-secondaryDark ring-0 border-[1px] border-solid border-black rounded" >
+                      <label for="checkbox-show-inventory-product" class="pl-1 text-xs cursor-pointer">Tồn kho</label>
+                    </li>
+                    <li class="px-3 py-1 text-primary ">
+                      <input type="checkbox" id="checkbox-show-brand-product" class="cursor-pointer focus:ring-0 text-secondaryDark ring-0 border-[1px] border-solid border-black rounded" >
+                      <label for="checkbox-show-brand-product" class="pl-1 text-xs cursor-pointer">Thương hiệu</label>
+                    </li>
+                    <li class="px-3 py-1 text-primary ">
+                      <input type="checkbox" id="checkbox-show-price-product" class="cursor-pointer focus:ring-0 text-secondaryDark ring-0 border-[1px] border-solid border-black rounded" >
+                      <label for="checkbox-show-price-product" class="pl-1 text-xs cursor-pointer">Giá bán</label>
+                    </li>
                   </ul>
                 </div>
               </aside>

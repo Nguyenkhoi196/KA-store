@@ -25,14 +25,8 @@
               <span>Upload a file</span>
 
               <nuxt-img :src="imageUrl" alt="" @load="previewImage" />
-              <input
-                id="file-upload"
-                name="file-upload"
-                type="file"
-                class="sr-only"
-                accept="image/*"
-                @change="readFile"
-              />
+              <!-- <input id="file-upload" name="file-upload" type="file" class="sr-only" accept="image/*"
+                @change="readFile" /> -->
             </label>
             <p class="pl-1">or drag and drop</p>
           </div>
