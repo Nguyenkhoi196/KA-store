@@ -36,8 +36,7 @@ export default {
   plugins: [
     { src: '~plugins/flowbite.client.ts', ssr: "false" },
     { src: '~plugins/axios.ts' },
-    { src: '~plugins/repository.ts' }
-  ],
+    { src: '~plugins/repository.ts' }],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: [
@@ -52,7 +51,6 @@ export default {
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
-    // https://go.nuxtjs.dev/typescript
     '@nuxt/typescript-build',
     '@nuxtjs/tailwindcss',
     '@nuxtjs/fontawesome'
@@ -61,11 +59,7 @@ export default {
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     '@nuxtjs/composition-api/module',
-    // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
-    // https://go.nuxtjs.dev/pwa
-
-    // https://go.nuxtjs.dev/content
     '@nuxtjs/firebase',
     '@nuxtjs/router',
     '@nuxtjs/strapi',

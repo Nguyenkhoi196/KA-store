@@ -9,12 +9,16 @@
           <section>
             <article class="relative bg-primary mb-4 p-3 shadow-xl rounded-md">
               <button
+                id="button-dropdown-product-classification"
                 type="button"
-                class="w-full p-1"
+                class="w-full p-1 flex justify-between"
                 aria-controls="dropdown-product-classification"
                 data-collapse-toggle="dropdown-product-classification"
+                aria-expanded="false"
+                @click="showClassFilter()"
               >
                 <span> Loại hàng </span>
+                <fa :icon="classFilter === false ? 'caret-down' : 'caret-up'" />
               </button>
               <ul id="dropdown-product-classification" class="hidden pt-4">
                 <div class="pb-2">
@@ -44,14 +48,23 @@
             </article>
             <article class="relative bg-primary mb-4 p-3 shadow-xl rounded-md">
               <button
+                id="button-dropdown-product-supplier"
                 type="button"
-                class="w-full p-1"
+                class="w-full p-1 flex justify-between"
                 aria-controls="dropdown-product-supplier"
                 data-collapse-toggle="dropdown-product-supplier"
+                aria-expanded="false"
+                @click="showSupplierFilter()"
               >
                 <span>Nhà cung cấp</span>
+                <fa
+                  :icon="supplierFilter === false ? 'caret-down' : 'caret-up'"
+                />
               </button>
-              <div id="dropdown-product-supplier" class="hidden pt-4 transition-transform duration-1000">
+              <div
+                id="dropdown-product-supplier"
+                class="hidden pt-4 transition-transform duration-1000"
+              >
                 <div class="relative max-w-[175px]">
                   <input
                     v-model="checkSupplier"
@@ -78,7 +91,9 @@
                       v-for="product in products"
                       :key="product.id"
                       class="py-1 px-2 cursor-pointer hover:bg-secondaryLight rounded"
-                      @click="setSupplierFilter(product.attributes.brand)"
+                      @click="
+                        showSelectSupplierFilter(product.attributes.brand)
+                      "
                     >
                       {{ product.attributes.brand }}
                     </li>
@@ -86,16 +101,21 @@
                 </div>
               </div>
             </article>
-            <article class="relative bg-primary mb-4 p-3 shadow-xl rounded-md transition-all duration-1000">
+            <article
+              class="relative bg-primary mb-4 p-3 shadow-xl rounded-md transition-all duration-1000"
+            >
               <button
                 type="button"
-                class="w-full p-1"
+                class="w-full p-1 flex justify-between"
                 aria-controls="dropdown-product-inventory"
                 data-collapse-toggle="dropdown-product-inventory"
+                aria-expanded="false"
+                @click="showStockFilter()"
               >
                 <span>Tình trạnh trong kho</span>
+                <fa :icon="stockFilter === false ? 'caret-down' : 'caret-up'" />
               </button>
-              <ul id="dropdown-product-inventory" class="hidden pt-4 ">
+              <ul id="dropdown-product-inventory" class="hidden pt-4">
                 <div class="pb-2">
                   <input
                     id="overall-inventory"
@@ -103,7 +123,7 @@
                     class="focus:ring-0 text-secondary ring-0 border-[1px] border-solid border-black rounded-full"
                     type="radio"
                     name="inventory-status"
-                    @change="setStockFilter('overAll')"
+                    @change="handleStockFilter('overAll')"
                   />
 
                   <label for="overall-inventory" class="pl-1 text-xs"
@@ -117,7 +137,7 @@
                     class="focus:ring-0 text-secondary ring-0 border-[1px] border-solid border-black rounded-full"
                     type="radio"
                     name="inventory-status"
-                    @change="setStockFilter('outStock')"
+                    @change="handleStockFilter('outStock')"
                   />
                   <label for="outstock-inventory" class="pl-1 text-xs"
                     >Hết hàng
@@ -130,7 +150,7 @@
                     class="focus:ring-0 text-secondary ring-0 border-[1px] border-solid border-black rounded-full"
                     type="radio"
                     name="inventory-status"
-                    @change="setStockFilter('inStock')"
+                    @change="handleStockFilter('inStock')"
                   />
 
                   <label for="instock-inventory" class="pl-1 text-xs"
@@ -166,8 +186,7 @@
                   data-dropdown-placement="bottom-start"
                   class="button flex gap-1 text-primary bg-secondary hover:bg-secondaryDark"
                 >
-
-                <fa icon="plus" />
+                  <fa icon="plus" />
                   <p class="pl-3">Thêm mới</p>
                   <fa icon="angle-down" />
                 </div>
@@ -190,7 +209,7 @@
                       id="button-modal-1"
                       class="cursor-pointer flex items-center gap-1 px-3 py-1 text-primary hover:bg-secondaryDark"
                     >
-                    <fa icon="plus" />
+                      <fa icon="plus" />
                       <span class="pl-3"> Thêm hàng hóa </span>
                     </li>
                     <li
@@ -205,25 +224,65 @@
                   class="hidden divide-y divide-gray-100 bg-secondary text-sm z-10 rounded-lg"
                 >
                   <ul class="py-2">
-                    <li class="px-3 py-1 text-primary ">
-                      <input type="checkbox" id="checkbox-show-id-product" class="cursor-pointer focus:ring-0 text-secondaryDark ring-0 border-[1px] border-solid border-black rounded" >
-                      <label for="checkbox-show-id-product" class="pl-1 text-xs cursor-pointer">Tên sản phẩm</label>
+                    <li class="px-3 py-1 text-primary">
+                      <input
+                        id="checkbox-show-id-product"
+                        type="checkbox"
+                        class="cursor-pointer focus:ring-0 text-secondaryDark ring-0 border-[1px] border-solid border-black rounded"
+                      />
+                      <label
+                        for="checkbox-show-id-product"
+                        class="pl-1 text-xs cursor-pointer"
+                        >Tên sản phẩm</label
+                      >
                     </li>
-                    <li class="px-3 py-1 text-primary ">
-                      <input type="checkbox" id="checkbox-show-name-product" class="cursor-pointer focus:ring-0 text-secondaryDark ring-0 border-[1px] border-solid border-black rounded" >
-                      <label for="checkbox-show-name-product" class="pl-1 text-xs cursor-pointer">Tên mặt hàng</label>
+                    <li class="px-3 py-1 text-primary">
+                      <input
+                        id="checkbox-show-name-product"
+                        type="checkbox"
+                        class="cursor-pointer focus:ring-0 text-secondaryDark ring-0 border-[1px] border-solid border-black rounded"
+                      />
+                      <label
+                        for="checkbox-show-name-product"
+                        class="pl-1 text-xs cursor-pointer"
+                        >Tên mặt hàng</label
+                      >
                     </li>
-                    <li class="px-3 py-1 text-primary ">
-                      <input type="checkbox" id="checkbox-show-inventory-product" class="cursor-pointer focus:ring-0 text-secondaryDark ring-0 border-[1px] border-solid border-black rounded" >
-                      <label for="checkbox-show-inventory-product" class="pl-1 text-xs cursor-pointer">Tồn kho</label>
+                    <li class="px-3 py-1 text-primary">
+                      <input
+                        id="checkbox-show-inventory-product"
+                        type="checkbox"
+                        class="cursor-pointer focus:ring-0 text-secondaryDark ring-0 border-[1px] border-solid border-black rounded"
+                      />
+                      <label
+                        for="checkbox-show-inventory-product"
+                        class="pl-1 text-xs cursor-pointer"
+                        >Tồn kho</label
+                      >
                     </li>
-                    <li class="px-3 py-1 text-primary ">
-                      <input type="checkbox" id="checkbox-show-brand-product" class="cursor-pointer focus:ring-0 text-secondaryDark ring-0 border-[1px] border-solid border-black rounded" >
-                      <label for="checkbox-show-brand-product" class="pl-1 text-xs cursor-pointer">Thương hiệu</label>
+                    <li class="px-3 py-1 text-primary">
+                      <input
+                        id="checkbox-show-brand-product"
+                        type="checkbox"
+                        class="cursor-pointer focus:ring-0 text-secondaryDark ring-0 border-[1px] border-solid border-black rounded"
+                      />
+                      <label
+                        for="checkbox-show-brand-product"
+                        class="pl-1 text-xs cursor-pointer"
+                        >Thương hiệu</label
+                      >
                     </li>
-                    <li class="px-3 py-1 text-primary ">
-                      <input type="checkbox" id="checkbox-show-price-product" class="cursor-pointer focus:ring-0 text-secondaryDark ring-0 border-[1px] border-solid border-black rounded" >
-                      <label for="checkbox-show-price-product" class="pl-1 text-xs cursor-pointer">Giá bán</label>
+                    <li class="px-3 py-1 text-primary">
+                      <input
+                        id="checkbox-show-price-product"
+                        type="checkbox"
+                        class="cursor-pointer focus:ring-0 text-secondaryDark ring-0 border-[1px] border-solid border-black rounded"
+                      />
+                      <label
+                        for="checkbox-show-price-product"
+                        class="pl-1 text-xs cursor-pointer"
+                        >Giá bán</label
+                      >
                     </li>
                   </ul>
                 </div>
@@ -321,9 +380,6 @@
                 </table>
               </div>
             </article>
-            <!-- <div>
-              {{ product }}
-            </div> -->
           </div>
         </section>
       </section>
@@ -335,7 +391,7 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
 import { useRouter } from '@nuxtjs/composition-api'
-import { getAllProducts } from '~/api/Product'
+import { findProducts, getAllProducts } from '~/api/Product'
 import { Product } from '~/types/Product'
 
 const router = useRouter()
@@ -350,16 +406,52 @@ onMounted(() => {
     products.value = res.data
     totalInventory.value = res.meta.totalInventory
   })
+  findProducts({
+    params: {
+      filters: {
+        $and: [
+          {
+            inventory: {
+              $gt: 20,
+            },
+          },
+          {
+            price: {
+              $gt: 100,
+            },
+          },
+        ],
+      },
+    },
+  }).then((res) => {
+    console.log('filter', res.data)
+  })
 })
-
 const handleProductDetails = (params: string) => {
   router.push('/market/' + params)
 }
-const setSupplierFilter = (param: string) => {
+
+const handleStockFilter = (param: string) => {
+  checkStockProduct.value = param
+}
+
+const showSelectSupplierFilter = (param: string) => {
   checkSupplier.value = param
 }
-const setStockFilter = (param: string) => {
-  checkStockProduct.value = param
+
+const classFilter = ref<boolean>(false)
+const showClassFilter = () => {
+  classFilter.value = !classFilter.value
+}
+
+const supplierFilter = ref<boolean>(false)
+const showSupplierFilter = () => {
+  supplierFilter.value = !supplierFilter.value
+}
+
+const stockFilter = ref<boolean>(false)
+const showStockFilter = () => {
+  stockFilter.value = !stockFilter.value
 }
 </script>
 <script lang="ts">
