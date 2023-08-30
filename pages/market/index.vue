@@ -387,6 +387,17 @@
                 </div>
               </div>
               <div
+                v-show="loading === true"
+                class="z-50 absolute top-1/2 left-1/2"
+              >
+                <fa
+                  icon="spinner"
+                  spin
+                  style="height: 50px; width: 50px; color: #777d88"
+                />
+              </div>
+              <div
+                :style="{ background: loading === true ? '#cbcbcb' : '' }"
                 class="overflow-y-scroll min-h-[200px] max-h-[70vh] w-auto static overflow-auto border-[1px] border-solid border-tertiary"
               >
                 <table class="table-fixed w-auto min-w-full max-w-none">
@@ -447,52 +458,20 @@
                   </thead>
                 </table>
               </div>
-              <div class="flex items-center py-5">
-                <ul class="flex items-center -space-x-px h-8 text-sm">
-                  <li>
-                    <a
-                      href="#"
-                      class="flex items-center justify-center px-3 h-8 ml-0 leading-tight text-tertiary bg-white border border-gray-300 rounded-l-lg hover:bg-secondary hover:text-primary"
-                    >
-                      <span class="sr-only">Previous</span>
-                      <fa icon="angle-left" />
-                    </a>
-                  </li>
-                  <li
-                    v-for="(value, index) in new Array(pagination.pageCount)"
-                    :key="index"
-                  >
-                    <a
-                      href="#"
-                      class="flex items-center justify-center px-3 h-8 leading-tight text-tertiary bg-white border border-gray-300 hover:bg-secondary hover:text-primary"
-                      :style="{
-                        background:
-                          +(index + 1) === +pagination.page ? '#9ae29b' : '',
-                      }"
-                      @click="setPage(index + 1), handleFindProducts()"
-                      >{{ index + 1 }}</a
-                    >
-                  </li>
-                  <li>
-                    <a
-                      href="#"
-                      class="flex items-center justify-center px-3 h-8 leading-tight text-tertiary bg-white border border-gray-300 rounded-r-lg hover:bg-secondary hover:text-primary"
-                    >
-                      <span class="sr-only">Next</span>
-                      <fa icon="angle-right" />
-                    </a>
-                  </li>
-                </ul>
-                <span class="pl-5 text-gray-600">
-                  Hiển thị
-                  {{ pagination.pageSize * (pagination.page - 1) + 1 }} -
-                  {{
-                    pagination.pageSize * (pagination.page - 1) +
-                    products.length
-                  }}
-                  / trong tổng số {{ pagination.total }} mã hàng
-                </span>
-              </div>
+              <PaginationPageControls
+                :pagination="pagination"
+                @set-page="(param) => (pagination.page = param)"
+                @find="handleFindProducts()"
+              />
+
+              <span class="pl-5 text-gray-600">
+                Hiển thị
+                {{ pagination.pageSize * (pagination.page - 1) + 1 }} -
+                {{
+                  pagination.pageSize * (pagination.page - 1) + products.length
+                }}
+                / trong tổng số {{ pagination.total }} mã hàng
+              </span>
             </article>
           </div>
         </section>
@@ -507,16 +486,12 @@ import { onMounted, reactive, ref } from 'vue'
 import { useRouter } from '@nuxtjs/composition-api'
 import { findProducts } from '~/api/Product'
 import { Product } from '~/types/Product'
-type Pagination<T> = {
-  page: T
-  pageSize: T
-  pageCount: any
-  total: any
-}
+import { Pagination } from '~/types/Response'
 
 const router = useRouter()
 const products = ref<Product[]>([])
 const totalInventory = ref<number>()
+const loading = ref<boolean>(false)
 const inputFilter = ref<string | undefined>(undefined)
 const pagination: Pagination<number> = reactive({
   page: 1,
@@ -556,15 +531,24 @@ onMounted(() => {
 })
 
 const handleFindProducts = () => {
-  findProducts(query).then((res) => {
-    if (inputFilter.value === null || inputFilter.value === '') {
-      inputFilter.value = undefined
-    }
-    products.value = res.data
-    totalInventory.value = res.totalInventory
-    pagination.pageCount = res.meta.pagination.pageCount
-    pagination.total = res.meta.pagination.total
-  })
+  loading.value = true
+  findProducts(query)
+    .then((res) => {
+      if (inputFilter.value === null || inputFilter.value === '') {
+        inputFilter.value = undefined
+      }
+
+      products.value = res.data
+      totalInventory.value = res.totalInventory
+      pagination.pageCount = res.meta.pagination.pageCount
+      pagination.total = res.meta.pagination.total
+    })
+    .catch((err) => {
+      throw err
+    })
+    .finally(() => {
+      loading.value = false
+    })
 }
 
 const handleProductDetails = (params: string) => {
@@ -588,10 +572,6 @@ const showSupplierFilter = () => {
 const stockFilter = ref<boolean>(true)
 const showStockFilter = () => {
   stockFilter.value = !stockFilter.value
-}
-
-const setPage = (param: number) => {
-  pagination.page = param
 }
 </script>
 <script lang="ts">

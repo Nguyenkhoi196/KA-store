@@ -16,8 +16,6 @@ export async function findProducts(payload: any) {
   const query = qs.stringify(payload)
   const result = await axios.get(`${resource}?${query}`)
   if (result.status === 200) {
-    console.log(result.data)
-
     return result.data
   } else return result
 }

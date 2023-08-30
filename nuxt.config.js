@@ -44,6 +44,7 @@ export default {
     { path: '~/components/layout/', prefix: '' },
     { path: '~/components/global/', prefix: '' },
     { path: '~/components/global/Modals/', prefix: 'Modal' },
+    { path: '~/components/global/Paginations/', prefix: 'Pagination' },
   ],
 
   pageTransition: 'page',
