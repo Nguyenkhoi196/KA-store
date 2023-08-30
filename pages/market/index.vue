@@ -14,13 +14,13 @@
                 class="w-full p-1 flex justify-between"
                 aria-controls="dropdown-product-classification"
                 data-collapse-toggle="dropdown-product-classification"
-                aria-expanded="false"
+                aria-expanded="true"
                 @click="showClassFilter()"
               >
                 <span> Loại hàng </span>
                 <fa :icon="classFilter === false ? 'caret-down' : 'caret-up'" />
               </button>
-              <ul id="dropdown-product-classification" class="hidden pt-4">
+              <ul id="dropdown-product-classification" class="pt-4">
                 <div class="pb-2">
                   <input
                     id="hanghoa"
@@ -53,7 +53,7 @@
                 class="w-full p-1 flex justify-between"
                 aria-controls="dropdown-product-supplier"
                 data-collapse-toggle="dropdown-product-supplier"
-                aria-expanded="false"
+                aria-expanded="true"
                 @click="showSupplierFilter()"
               >
                 <span>Nhà cung cấp</span>
@@ -63,7 +63,7 @@
               </button>
               <div
                 id="dropdown-product-supplier"
-                class="hidden pt-4 transition-transform duration-1000"
+                class="pt-4 transition-transform duration-1000"
               >
                 <div class="relative max-w-[175px]">
                   <input
@@ -109,13 +109,13 @@
                 class="w-full p-1 flex justify-between"
                 aria-controls="dropdown-product-inventory"
                 data-collapse-toggle="dropdown-product-inventory"
-                aria-expanded="false"
+                aria-expanded="true"
                 @click="showStockFilter()"
               >
                 <span>Tình trạnh trong kho</span>
                 <fa :icon="stockFilter === false ? 'caret-down' : 'caret-up'" />
               </button>
-              <ul id="dropdown-product-inventory" class="hidden pt-4">
+              <ul id="dropdown-product-inventory" class="pt-4">
                 <div class="pb-2">
                   <input
                     id="overall-inventory"
@@ -123,9 +123,10 @@
                     class="focus:ring-0 text-secondary ring-0 border-[1px] border-solid border-black rounded-full"
                     type="radio"
                     name="inventory-status"
-                    @change="handleStockFilter('overAll')"
+                    :value="{ $gte: 0 }"
+                    checked
+                    @change="handleFindProducts()"
                   />
-
                   <label for="overall-inventory" class="pl-1 text-xs"
                     >Tất cả</label
                   >
@@ -137,7 +138,8 @@
                     class="focus:ring-0 text-secondary ring-0 border-[1px] border-solid border-black rounded-full"
                     type="radio"
                     name="inventory-status"
-                    @change="handleStockFilter('outStock')"
+                    :value="{ $eq: 0 }"
+                    @change="handleFindProducts()"
                   />
                   <label for="outstock-inventory" class="pl-1 text-xs"
                     >Hết hàng
@@ -150,7 +152,8 @@
                     class="focus:ring-0 text-secondary ring-0 border-[1px] border-solid border-black rounded-full"
                     type="radio"
                     name="inventory-status"
-                    @change="handleStockFilter('inStock')"
+                    :value="{ $gt: 0 }"
+                    @change="handleFindProducts()"
                   />
 
                   <label for="instock-inventory" class="pl-1 text-xs"
@@ -159,6 +162,67 @@
                 </div>
               </ul>
             </article>
+            <aside class="pr-0 pt-3 pl-3 items-center flex justify-end">
+              <div
+                class="cursor-pointer flex items-baseline gap-1"
+                data-dropdown-toggle="dropdown-pageSize"
+                data-dropdown-trigger="click"
+                data-dropdown-placement="bottom-end"
+              >
+                <span for="pageSize" class="pr-2"> Số bản ghi </span>
+                <span>
+                  {{ pagination.pageSize }}
+                </span>
+                <fa icon="sort-down" />
+              </div>
+              <div
+                id="dropdown-pageSize"
+                class="hidden cursor-pointer divide-y divide-gray-100 bg-secondary shadow-lg text-primary text-base z-10 rounded-lg"
+              >
+                <ul class="py-2">
+                  <li
+                    class="hover:bg-secondaryDark"
+                    @change="handleFindProducts()"
+                  >
+                    <input
+                      id="pageSize-10"
+                      v-model="pagination.pageSize"
+                      class="hidden"
+                      type="radio"
+                      name="pageSize"
+                      value="10"
+                    />
+                    <label for="pageSize-10" class="px-3 py-1">10</label>
+                  </li>
+                  <li
+                    class="hover:bg-secondaryDark"
+                    @change="handleFindProducts()"
+                  >
+                    <input
+                      id="pageSize-20"
+                      v-model="pagination.pageSize"
+                      class="hidden"
+                      type="radio"
+                      name="pageSize"
+                      value="20"
+                    />
+                    <label for="pageSize-20" class="px-3 py-1">20</label>
+                  </li>
+                  <li class="hover:bg-secondaryDark">
+                    <input
+                      id="pageSize-50"
+                      v-model="pagination.pageSize"
+                      class="hidden"
+                      type="radio"
+                      name="pageSize"
+                      value="50"
+                      @change="handleFindProducts()"
+                    />
+                    <label for="pageSize-50" class="px-3 py-1">50</label>
+                  </li>
+                </ul>
+              </div>
+            </aside>
           </section>
         </section>
         <section class="grow min-w-[468px] min-h-[400px] relative mb-5">
@@ -172,9 +236,11 @@
                     <fa icon="magnifying-glass" />
                   </span>
                   <input
+                    v-model="inputFilter"
                     type="text"
                     placeholder="Nhập mặt hàng"
                     class="flex-auto border-[1px] border-solid border-black relative float-left pl-10 mb-0 z-[2] focus:outline-dotted focus:shadow-inner focus:ring-none bg-transparent rounded-lg"
+                    @keyup.enter="handleFindProducts()"
                   />
                 </div>
               </div>
@@ -321,11 +387,13 @@
                 </div>
               </div>
               <div
-                class="overflow-y-scroll min-h-[400px] w-auto static overflow-auto border-l-[1px] border-r-[1px] border-solid border-tertiary"
+                class="overflow-y-scroll min-h-[200px] max-h-[70vh] w-auto static overflow-auto border-[1px] border-solid border-tertiary"
               >
-                <table class="table-fixed max-w-none w-auto min-w-full">
+                <table class="table-fixed w-auto min-w-full max-w-none">
                   <thead class="">
-                    <tr class="box-content bg-gray-200">
+                    <tr
+                      class="box-content bg-gray-200 border-b-[1px] border-solid border-gray-500"
+                    >
                       <th
                         class="p-3 min-w-[140px] max-w-[140px] w-[140px] break-normal"
                       >
@@ -379,6 +447,52 @@
                   </thead>
                 </table>
               </div>
+              <div class="flex items-center py-5">
+                <ul class="flex items-center -space-x-px h-8 text-sm">
+                  <li>
+                    <a
+                      href="#"
+                      class="flex items-center justify-center px-3 h-8 ml-0 leading-tight text-tertiary bg-white border border-gray-300 rounded-l-lg hover:bg-secondary hover:text-primary"
+                    >
+                      <span class="sr-only">Previous</span>
+                      <fa icon="angle-left" />
+                    </a>
+                  </li>
+                  <li
+                    v-for="(value, index) in new Array(pagination.pageCount)"
+                    :key="index"
+                  >
+                    <a
+                      href="#"
+                      class="flex items-center justify-center px-3 h-8 leading-tight text-tertiary bg-white border border-gray-300 hover:bg-secondary hover:text-primary"
+                      :style="{
+                        background:
+                          +(index + 1) === +pagination.page ? '#9ae29b' : '',
+                      }"
+                      @click="setPage(index + 1), handleFindProducts()"
+                      >{{ index + 1 }}</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      href="#"
+                      class="flex items-center justify-center px-3 h-8 leading-tight text-tertiary bg-white border border-gray-300 rounded-r-lg hover:bg-secondary hover:text-primary"
+                    >
+                      <span class="sr-only">Next</span>
+                      <fa icon="angle-right" />
+                    </a>
+                  </li>
+                </ul>
+                <span class="pl-5 text-gray-600">
+                  Hiển thị
+                  {{ pagination.pageSize * (pagination.page - 1) + 1 }} -
+                  {{
+                    pagination.pageSize * (pagination.page - 1) +
+                    products.length
+                  }}
+                  / trong tổng số {{ pagination.total }} mã hàng
+                </span>
+              </div>
             </article>
           </div>
         </section>
@@ -389,69 +503,95 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { onMounted, reactive, ref } from 'vue'
 import { useRouter } from '@nuxtjs/composition-api'
-import { findProducts, getAllProducts } from '~/api/Product'
+import { findProducts } from '~/api/Product'
 import { Product } from '~/types/Product'
+type Pagination<T> = {
+  page: T
+  pageSize: T
+  pageCount: any
+  total: any
+}
 
 const router = useRouter()
 const products = ref<Product[]>([])
 const totalInventory = ref<number>()
+const inputFilter = ref<string | undefined>(undefined)
+const pagination: Pagination<number> = reactive({
+  page: 1,
+  pageSize: 10,
+  pageCount: '',
+  total: '',
+})
+
 const checkTypeProduct = ref<string[]>([])
 const checkSupplier = ref<string>()
-const checkStockProduct = ref<string>()
+const checkStockProduct = ref<string | null>()
+type Query = {
+  sort: Array<string>
+  filters: {
+    $and: Array<{}> | null
+    // $or: Array<{}> | null
+  }
+  pagination: Pagination<number>
+}
+const query: Query = reactive({
+  sort: ['id:desc'],
+  filters: {
+    $and: [
+      {
+        name: {
+          $eqi: inputFilter,
+        },
+        inventory: checkStockProduct,
+      },
+    ],
+  },
+  pagination,
+})
 
 onMounted(() => {
-  getAllProducts().then((res) => {
-    products.value = res.data
-    totalInventory.value = res.meta.totalInventory
-  })
-  findProducts({
-    params: {
-      filters: {
-        $and: [
-          {
-            inventory: {
-              $gt: 20,
-            },
-          },
-          {
-            price: {
-              $gt: 100,
-            },
-          },
-        ],
-      },
-    },
-  }).then((res) => {
-    console.log('filter', res.data)
-  })
+  handleFindProducts()
 })
-const handleProductDetails = (params: string) => {
-  router.push('/market/' + params)
+
+const handleFindProducts = () => {
+  findProducts(query).then((res) => {
+    if (inputFilter.value === null || inputFilter.value === '') {
+      inputFilter.value = undefined
+    }
+    products.value = res.data
+    totalInventory.value = res.totalInventory
+    pagination.pageCount = res.meta.pagination.pageCount
+    pagination.total = res.meta.pagination.total
+  })
 }
 
-const handleStockFilter = (param: string) => {
-  checkStockProduct.value = param
+const handleProductDetails = (params: string) => {
+  router.push('/market/' + params)
 }
 
 const showSelectSupplierFilter = (param: string) => {
   checkSupplier.value = param
 }
 
-const classFilter = ref<boolean>(false)
+const classFilter = ref<boolean>(true)
 const showClassFilter = () => {
   classFilter.value = !classFilter.value
 }
 
-const supplierFilter = ref<boolean>(false)
+const supplierFilter = ref<boolean>(true)
 const showSupplierFilter = () => {
   supplierFilter.value = !supplierFilter.value
 }
 
-const stockFilter = ref<boolean>(false)
+const stockFilter = ref<boolean>(true)
 const showStockFilter = () => {
   stockFilter.value = !stockFilter.value
+}
+
+const setPage = (param: number) => {
+  pagination.page = param
 }
 </script>
 <script lang="ts">

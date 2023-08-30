@@ -1,8 +1,11 @@
 import axios from 'axios'
 const resource = 'http://localhost:1337/api/products'
+const qs = require('qs')
 export async function getAllProducts() {
-  const result = await axios.get(`${resource}/find-all-info`)
-  return result.data
+  const result = await axios.get(`${resource}`)
+  if (result.status === 200) {
+    return result.data
+  } else return result
 }
 export async function addProduct(payload: any) {
   const result = await axios.post(`${resource}`, payload)
@@ -10,8 +13,11 @@ export async function addProduct(payload: any) {
 }
 
 export async function findProducts(payload: any) {
-  const result = await axios.get(`${resource}`, payload)
-  console.log(payload)
+  const query = qs.stringify(payload)
+  const result = await axios.get(`${resource}?${query}`)
+  if (result.status === 200) {
+    console.log(result.data)
 
-  return result
+    return result.data
+  } else return result
 }
