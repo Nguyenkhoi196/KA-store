@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="flex items-center py-5">
+    <!-- <div class="flex items-center py-5">
       <ul class="flex items-center -space-x-px h-8 text-sm">
         <li>
           <a
@@ -36,25 +36,40 @@
           </a>
         </li>
       </ul>
-    </div>
+    </div> -->
+    <t-pagination
+      v-model="currentPage"
+      variant="rounded"
+      :total-items="pagination.total"
+      :per-page="pagination.pageSize"
+      :limit="5"
+      @change="setPage()"
+    />
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 
-defineProps({
+const props = defineProps({
   pagination: {
     type: Object,
     required: true,
   },
 })
-const pageNumber = ref<number>()
+const currentPage = ref<number>(1)
+watch(
+  () => props.pagination.pageSize,
+  (pre, next) => {
+    if (pre !== next) {
+      currentPage.value = 1
+    }
+  }
+)
 const emit = defineEmits(['set-page', 'find'])
-const setPage = (param: number) => {
-  emit('set-page', pageNumber.value)
+const setPage = () => {
+  emit('set-page', currentPage.value)
   emit('find')
-  return param
 }
 </script>
 <style scoped></style>

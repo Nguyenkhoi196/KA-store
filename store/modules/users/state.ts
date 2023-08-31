@@ -1,5 +1,3 @@
-// import { userState } from './type'
-
 export const state = () => ({
   user: {
     data: null,

@@ -177,36 +177,36 @@
               </div>
               <div
                 id="dropdown-pageSize"
-                class="hidden cursor-pointer divide-y divide-gray-100 bg-secondary shadow-lg text-primary text-base z-10 rounded-lg"
+                class="hidden divide-y divide-gray-100 bg-secondary shadow-lg text-primary text-base z-10 rounded-lg"
               >
                 <ul class="py-2">
-                  <li
-                    class="hover:bg-secondaryDark"
-                    @change="handleFindProducts()"
-                  >
+                  <li class="hover:bg-secondaryDark">
                     <input
                       id="pageSize-10"
                       v-model="pagination.pageSize"
                       class="hidden"
                       type="radio"
                       name="pageSize"
-                      value="10"
+                      :value="10"
+                      @change="handleFindProducts()"
                     />
-                    <label for="pageSize-10" class="px-3 py-1">10</label>
+                    <label for="pageSize-10" class="cursor-pointer px-3 py-1"
+                      >10</label
+                    >
                   </li>
-                  <li
-                    class="hover:bg-secondaryDark"
-                    @change="handleFindProducts()"
-                  >
+                  <li class="hover:bg-secondaryDark">
                     <input
                       id="pageSize-20"
                       v-model="pagination.pageSize"
                       class="hidden"
                       type="radio"
                       name="pageSize"
-                      value="20"
+                      :value="20"
+                      @change="handleFindProducts()"
                     />
-                    <label for="pageSize-20" class="px-3 py-1">20</label>
+                    <label for="pageSize-20" class="cursor-pointer px-3 py-1"
+                      >20</label
+                    >
                   </li>
                   <li class="hover:bg-secondaryDark">
                     <input
@@ -215,10 +215,12 @@
                       class="hidden"
                       type="radio"
                       name="pageSize"
-                      value="50"
+                      :value="50"
                       @change="handleFindProducts()"
                     />
-                    <label for="pageSize-50" class="px-3 py-1">50</label>
+                    <label for="pageSize-50" class="cursor-pointer px-3 py-1"
+                      >50</label
+                    >
                   </li>
                 </ul>
               </div>
@@ -458,20 +460,22 @@
                   </thead>
                 </table>
               </div>
-              <PaginationPageControls
-                :pagination="pagination"
-                @set-page="(param) => (pagination.page = param)"
-                @find="handleFindProducts()"
-              />
-
-              <span class="pl-5 text-gray-600">
-                Hiển thị
-                {{ pagination.pageSize * (pagination.page - 1) + 1 }} -
-                {{
-                  pagination.pageSize * (pagination.page - 1) + products.length
-                }}
-                / trong tổng số {{ pagination.total }} mã hàng
-              </span>
+              <div class="flex py-5 items-baseline">
+                <PaginationPageControls
+                  :pagination="pagination"
+                  @set-page="(param) => (pagination.page = param)"
+                  @find="handleFindProducts()"
+                />
+                <span class="pl-5 text-gray-600">
+                  Hiển thị
+                  {{ pagination.pageSize * (pagination.page - 1) + 1 }} -
+                  {{
+                    pagination.pageSize * (pagination.page - 1) +
+                    products.length
+                  }}
+                  / trong tổng số {{ pagination.total }} mã hàng
+                </span>
+              </div>
             </article>
           </div>
         </section>
@@ -512,7 +516,7 @@ type Query = {
   pagination: Pagination<number>
 }
 const query: Query = reactive({
-  sort: ['id:desc'],
+  sort: ['updateAt:asc'],
   filters: {
     $and: [
       {
@@ -537,11 +541,11 @@ const handleFindProducts = () => {
       if (inputFilter.value === null || inputFilter.value === '') {
         inputFilter.value = undefined
       }
-
       products.value = res.data
       totalInventory.value = res.totalInventory
       pagination.pageCount = res.meta.pagination.pageCount
       pagination.total = res.meta.pagination.total
+      console.log(pagination)
     })
     .catch((err) => {
       throw err
@@ -556,6 +560,7 @@ const handleProductDetails = (params: string) => {
 }
 
 const showSelectSupplierFilter = (param: string) => {
+  supplierFilter.value = false
   checkSupplier.value = param
 }
 
@@ -567,6 +572,7 @@ const showClassFilter = () => {
 const supplierFilter = ref<boolean>(true)
 const showSupplierFilter = () => {
   supplierFilter.value = !supplierFilter.value
+  console.log('a')
 }
 
 const stockFilter = ref<boolean>(true)
