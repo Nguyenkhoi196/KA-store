@@ -6,6 +6,7 @@
           <a
             href="#"
             class="flex items-center justify-center px-3 h-8 ml-0 leading-tight text-tertiary bg-white border border-gray-300 rounded-l-lg hover:bg-secondary hover:text-primary"
+            @click="setPage(pageNumber)"
           >
             <span class="sr-only">Previous</span>
             <fa icon="angle-left" />
@@ -51,9 +52,9 @@ defineProps({
 const pageNumber = ref<number>()
 const emit = defineEmits(['set-page', 'find'])
 const setPage = (param: number) => {
-  pageNumber.value = param
   emit('set-page', pageNumber.value)
   emit('find')
+  return param
 }
 </script>
 <style scoped></style>
