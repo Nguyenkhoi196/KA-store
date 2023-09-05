@@ -357,109 +357,94 @@
               </aside>
             </article>
             <article class="w-full left">
-              <div>
-                <div
-                  class="bg-secondary text-tertiary border-[1px] border-solid border-secondaryDark rounded-t-md"
-                >
-                  <div class="touch-pan-y border-none">
-                    <table class="table-fixed max-w-none w-auto min-w-full">
-                      <thead>
-                        <tr class="box-content">
-                          <th
-                            class="p-3 min-w-[140px] max-w-[140px] w-[140px] break-normal"
-                          >
-                            <span class="box-content">Mã Sản Phẩm</span>
-                          </th>
-                          <th class="p-3 min-w-[200px]">
-                            <span class="box-content">Tên Mặt Hàng</span>
-                          </th>
-                          <th class="p-3 min-w-[112px] text-end">
-                            <span class="box-content">Tồn Kho</span>
-                          </th>
-                          <th class="p-3 min-w-[112px] text-end">
-                            <span class="box-content">Thương Hiệu</span>
-                          </th>
-                          <th class="p-3 min-w-[112px] text-end">
-                            <span class="box-content">Giá Bán</span>
-                          </th>
-                        </tr>
-                      </thead>
-                    </table>
-                  </div>
-                </div>
-              </div>
-              <div
-                v-show="loading === true"
-                class="z-50 absolute top-1/2 left-1/2"
+              <TableViewerGrid
+                :loading="loading"
+                :totals="totalInventory"
+                :products="products"
               >
-                <fa
-                  icon="spinner"
-                  spin
-                  style="height: 50px; width: 50px; color: #777d88"
-                />
-              </div>
-              <div
-                :style="{ background: loading === true ? '#cbcbcb' : '' }"
-                class="overflow-y-scroll min-h-[200px] max-h-[70vh] w-auto static overflow-auto border-[1px] border-solid border-tertiary"
-              >
-                <table class="table-fixed w-auto min-w-full max-w-none">
-                  <thead class="">
-                    <tr
-                      class="box-content bg-gray-200 border-b-[1px] border-solid border-gray-500"
-                    >
+                <template #header>
+                  <thead>
+                    <tr class="box-content">
                       <th
                         class="p-3 min-w-[140px] max-w-[140px] w-[140px] break-normal"
                       >
-                        <span class="box-content"></span>
+                        <span class="box-content">Mã Sản Phẩm</span>
                       </th>
                       <th class="p-3 min-w-[200px]">
-                        <span class="box-content"></span>
+                        <span class="box-content">Tên Mặt Hàng</span>
                       </th>
                       <th class="p-3 min-w-[112px] text-end">
-                        <span class="box-content">{{ totalInventory }}</span>
+                        <span class="box-content">Tồn Kho</span>
                       </th>
                       <th class="p-3 min-w-[112px] text-end">
-                        <span class="box-content"></span>
+                        <span class="box-content">Thương Hiệu</span>
                       </th>
                       <th class="p-3 min-w-[112px] text-end">
-                        <span class="box-content"></span>
-                      </th>
-                    </tr>
-                    <tr
-                      v-for="product in products"
-                      :key="product.id"
-                      class="cursor-pointer box-content border-b-[1px] border-solid border-gray-500 even:bg-secondary/20 hover:bg-secondary"
-                      @click="handleProductDetails(product.id)"
-                    >
-                      <th
-                        class="p-3 min-w-[140px] max-w-[140px] w-[140px] break-normal"
-                      >
-                        <span class="box-content">{{ product.id }}</span>
-                      </th>
-                      <th class="p-3 min-w-[200px]">
-                        <span class="box-content">{{
-                          product.attributes.name
-                        }}</span>
-                      </th>
-                      <th class="p-3 min-w-[112px] text-end">
-                        <span class="box-content">{{
-                          product.attributes.inventory
-                        }}</span>
-                      </th>
-                      <th class="p-3 min-w-[112px] text-end">
-                        <span class="box-content">{{
-                          product.attributes.brand
-                        }}</span>
-                      </th>
-                      <th class="p-3 min-w-[112px] text-end">
-                        <span class="box-content">{{
-                          product.attributes.price.toLocaleString('de-DE')
-                        }}</span>
+                        <span class="box-content">Giá Bán</span>
                       </th>
                     </tr>
                   </thead>
-                </table>
-              </div>
+                </template>
+                <template #body="{ totals, products }">
+                  <table class="table-fixed w-auto min-w-full max-w-none">
+                    <thead class="">
+                      <tr
+                        class="box-content bg-gray-200 border-b-[1px] border-solid border-gray-500"
+                      >
+                        <th
+                          class="p-3 min-w-[140px] max-w-[140px] w-[140px] break-normal"
+                        >
+                          <span class="box-content"></span>
+                        </th>
+                        <th class="p-3 min-w-[200px]">
+                          <span class="box-content"></span>
+                        </th>
+                        <th class="p-3 min-w-[112px] text-end">
+                          <span class="box-content">{{ totals }}</span>
+                        </th>
+                        <th class="p-3 min-w-[112px] text-end">
+                          <span class="box-content"></span>
+                        </th>
+                        <th class="p-3 min-w-[112px] text-end">
+                          <span class="box-content"></span>
+                        </th>
+                      </tr>
+                      <tr
+                        v-for="product in products"
+                        :key="product.id"
+                        class="cursor-pointer box-content border-b-[1px] border-solid border-gray-500 even:bg-secondary/20 hover:bg-secondary"
+                        @click="handleProductDetails(product.id)"
+                      >
+                        <th
+                          class="p-3 min-w-[140px] max-w-[140px] w-[140px] break-normal"
+                        >
+                          <span class="box-content">{{ product.id }}</span>
+                        </th>
+                        <th class="p-3 min-w-[200px]">
+                          <span class="box-content">{{
+                            product.attributes.name
+                          }}</span>
+                        </th>
+                        <th class="p-3 min-w-[112px] text-end">
+                          <span class="box-content">{{
+                            product.attributes.inventory
+                          }}</span>
+                        </th>
+                        <th class="p-3 min-w-[112px] text-end">
+                          <span class="box-content">{{
+                            product.attributes.brand
+                          }}</span>
+                        </th>
+                        <th class="p-3 min-w-[112px] text-end">
+                          <span class="box-content">{{
+                            product.attributes.price.toLocaleString('de-DE')
+                          }}</span>
+                        </th>
+                      </tr>
+                    </thead>
+                  </table>
+                </template>
+              </TableViewerGrid>
               <div class="flex py-5 items-baseline">
                 <PaginationPageControls
                   :pagination="pagination"
@@ -505,7 +490,6 @@ const pagination: Pagination<number> = reactive({
 })
 
 const checkTypeProduct = ref<string[]>([])
-const checkSupplier = ref<string>()
 const checkStockProduct = ref<string | null>()
 type Query = {
   sort: Array<string>
@@ -545,7 +529,6 @@ const handleFindProducts = () => {
       totalInventory.value = res.totalInventory
       pagination.pageCount = res.meta.pagination.pageCount
       pagination.total = res.meta.pagination.total
-      console.log(pagination)
     })
     .catch((err) => {
       throw err
@@ -559,6 +542,7 @@ const handleProductDetails = (params: string) => {
   router.push('/market/' + params)
 }
 
+const checkSupplier = ref<string>()
 const showSelectSupplierFilter = (param: string) => {
   supplierFilter.value = false
   checkSupplier.value = param
@@ -572,17 +556,11 @@ const showClassFilter = () => {
 const supplierFilter = ref<boolean>(true)
 const showSupplierFilter = () => {
   supplierFilter.value = !supplierFilter.value
-  console.log('a')
 }
 
 const stockFilter = ref<boolean>(true)
 const showStockFilter = () => {
   stockFilter.value = !stockFilter.value
-}
-</script>
-<script lang="ts">
-export default {
-  layout: 'DefaultLayout',
 }
 </script>
 <style lang="scss" scoped></style>
