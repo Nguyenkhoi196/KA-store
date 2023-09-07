@@ -12,6 +12,13 @@ export async function addProduct(payload: any) {
   return result
 }
 
+export async function productDetails(id: any) {
+  const result = await axios.get(`${resource}/${id}`)
+  if (result.status === 200) {
+    return result.data
+  } else return result
+}
+
 export async function findProducts(payload: any) {
   const query = qs.stringify(payload)
   const result = await axios.get(`${resource}?${query}`)

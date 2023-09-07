@@ -1,11 +1,28 @@
 <template>
-  <div class>
+  <div>
+    <!-- <div class="text-center">
+      <button
+        id="button-sidebar"
+        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+        type="button"
+      >
+        Show navigation
+      </button>
+    </div> -->
     <section class="container mx-auto min-h-screen h-full">
       <section class="w-full flex">
         <section class="max-w-[234px] min-w-[200px] h-auto mr-8 mb-8 mt-6">
-          <h1 class="text-4xl font-bold pb-6 items-center">
+          <button
+            id="button-sidebar"
+            type="button"
+            class="text-4xl font-bold pb-6 items-center"
+          >
+            <fa
+              class="icon absolute text-base left-[28px] top-[36px]"
+              icon="angles-left"
+            />
             <span> Hàng hóa </span>
-          </h1>
+          </button>
           <section>
             <article class="relative bg-primary mb-4 p-3 shadow-xl rounded-md">
               <button
@@ -91,11 +108,9 @@
                       v-for="product in products"
                       :key="product.id"
                       class="py-1 px-2 cursor-pointer hover:bg-secondaryLight rounded"
-                      @click="
-                        showSelectSupplierFilter(product.attributes.brand)
-                      "
+                      @click="showSelectSupplierFilter(product.brand)"
                     >
-                      {{ product.attributes.brand }}
+                      {{ product.brand }}
                     </li>
                   </ul>
                 </div>
@@ -357,11 +372,7 @@
               </aside>
             </article>
             <article class="w-full left">
-              <TableViewerGrid
-                :loading="loading"
-                :totals="totalInventory"
-                :products="products"
-              >
+              <TableViewerGrid :loading="loading">
                 <template #header>
                   <thead>
                     <tr class="box-content">
@@ -385,7 +396,7 @@
                     </tr>
                   </thead>
                 </template>
-                <template #body="{ totals, products }">
+                <template #body>
                   <table class="table-fixed w-auto min-w-full max-w-none">
                     <thead class="">
                       <tr
@@ -400,7 +411,7 @@
                           <span class="box-content"></span>
                         </th>
                         <th class="p-3 min-w-[112px] text-end">
-                          <span class="box-content">{{ totals }}</span>
+                          <span class="box-content">{{ totalInventory }}</span>
                         </th>
                         <th class="p-3 min-w-[112px] text-end">
                           <span class="box-content"></span>
@@ -421,23 +432,19 @@
                           <span class="box-content">{{ product.id }}</span>
                         </th>
                         <th class="p-3 min-w-[200px]">
-                          <span class="box-content">{{
-                            product.attributes.name
-                          }}</span>
+                          <span class="box-content">{{ product.name }}</span>
                         </th>
                         <th class="p-3 min-w-[112px] text-end">
                           <span class="box-content">{{
-                            product.attributes.inventory
+                            product.inventory
                           }}</span>
                         </th>
                         <th class="p-3 min-w-[112px] text-end">
-                          <span class="box-content">{{
-                            product.attributes.brand
-                          }}</span>
+                          <span class="box-content">{{ product.brand }}</span>
                         </th>
                         <th class="p-3 min-w-[112px] text-end">
                           <span class="box-content">{{
-                            product.attributes.price.toLocaleString('de-DE')
+                            product.price.toLocaleString('de-DE')
                           }}</span>
                         </th>
                       </tr>
@@ -466,18 +473,22 @@
         </section>
       </section>
     </section>
+    <SidebarLeftDrawer :sidebar="'sidebar'" />
     <ModalAddProduct :modal="'modal-1'" />
   </div>
 </template>
 
 <script setup lang="ts">
 import { onMounted, reactive, ref } from 'vue'
-import { useRouter } from '@nuxtjs/composition-api'
+import { useRoute, useRouter } from '@nuxtjs/composition-api'
 import { findProducts } from '~/api/Product'
 import { Product } from '~/types/Product'
 import { Pagination } from '~/types/Response'
 
 const router = useRouter()
+const route = useRoute()
+console.log('route', route.value.path)
+
 const products = ref<Product[]>([])
 const totalInventory = ref<number>()
 const loading = ref<boolean>(false)
@@ -495,7 +506,6 @@ type Query = {
   sort: Array<string>
   filters: {
     $and: Array<{}> | null
-    // $or: Array<{}> | null
   }
   pagination: Pagination<number>
 }
@@ -563,4 +573,16 @@ const showStockFilter = () => {
   stockFilter.value = !stockFilter.value
 }
 </script>
-<style lang="scss" scoped></style>
+
+<style lang="scss" scoped>
+#button-sidebar {
+  .icon {
+    transition: all 0.2s ease-in-out;
+  }
+  &:hover {
+    .icon {
+      transform: translateX(-4px);
+    }
+  }
+}
+</style>

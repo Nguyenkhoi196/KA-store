@@ -22,33 +22,19 @@
       :style="{ background: loading === true ? '#cbcbcb' : '' }"
       class="overflow-y-scroll min-h-[200px] max-h-[70vh] w-auto static overflow-auto border-[1px] border-solid border-tertiary"
     >
-      <slot name="body" :products="props.products" :totals="props.totals" />
+      <slot name="body" />
       <slot />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-const props = defineProps({
+defineProps({
   loading: {
     type: Boolean,
     required: true,
   },
-  products: {
-    type: Array,
-    required: true,
-  },
-  totals: {
-    type: Number,
-    required: true,
-  },
 })
-console.log(props)
-
-// const emit = defineEmits(['view-product-details'])
-// const viewProductDetails = () => {
-//   emit('view-product-details')
-// }
 </script>
 
 <style scoped></style>

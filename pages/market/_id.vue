@@ -1,20 +1,20 @@
 <template>
   <div>
-    {{ route.params }}
+    {{ product }}
   </div>
 </template>
-<script>
-import { useRoute } from '@nuxtjs/composition-api'
+<script setup lang="ts">
+import { ref, useRoute } from '@nuxtjs/composition-api'
+import { productDetails } from '~/api/Product'
+import { Product } from '~/types/Product'
 
-export default {
-  setup() {
-    const route = useRoute()
-
-    return {
-      route,
-    }
-  },
-}
+const product = ref<Product>()
+const route: any = useRoute()
+const id = route.value.params.id
+productDetails(id).then((res) => {
+  product.value = res.data
+})
 </script>
+sc
 
 <style lang="scss" scoped></style>

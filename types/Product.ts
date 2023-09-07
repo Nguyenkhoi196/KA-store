@@ -1,5 +1,5 @@
-export interface ProductAttributes {
-  id?: string
+export interface Product {
+  id: string
   name: string
   brand: string
   price: number
@@ -7,8 +7,4 @@ export interface ProductAttributes {
   description?: string
   image?: string | null
   category?: number | string
-}
-export interface Product {
-  attributes: ProductAttributes
-  id: string
 }
