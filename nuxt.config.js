@@ -49,7 +49,7 @@ export default {
     { path: '~/components/global/', prefix: '' },
     { path: '~/components/global/Modals/', prefix: 'Modal' },
     { path: '~/components/global/Paginations/', prefix: 'Pagination' },
-    { path: '~/components/global/Sidebars/', prefix: 'Sidebar' },
+    { path: '~/components/global/SideBars/', prefix: 'Sidebar' },
     { path: '~/components/global/Tables/', prefix: 'Table' },
   ],
 
