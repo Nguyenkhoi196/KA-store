@@ -166,7 +166,7 @@ onMounted(() => {
     backdrop: true,
     bodyScrolling: true,
     backdropClasses:
-      'bg-gray-200 bg-opacity-50 dark:bg-opacity-80 fixed inset-0 z-30',
+      'bg-gray-500 bg-opacity-50 dark:bg-opacity-80 fixed inset-0 z-30',
   }
   if ($sideBarElement) {
     sidebar = new Drawer($sideBarElement, options)

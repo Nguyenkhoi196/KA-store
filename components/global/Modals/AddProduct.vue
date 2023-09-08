@@ -135,14 +135,14 @@
 import { onMounted, reactive } from 'vue'
 import { Modal, ModalInterface, ModalOptions } from 'flowbite'
 import { addProduct } from '~/api/Product'
-import { ProductAttributes } from '~/types/Product'
+import { Product } from '~/types/Product'
 
 interface Props {
   modal: string
 }
 const props = defineProps<Props>()
 
-const product: Partial<ProductAttributes> = reactive({
+const product: Partial<Product> = reactive({
   name: '',
   price: 0,
   brand: '',
@@ -155,7 +155,6 @@ const handleAddProduct = () => {
   addProduct(data)
     .then((res) => {
       if (res.status === 200) {
-        console.log('Product added successfully')
         if (modal) {
           modal.hide()
         }

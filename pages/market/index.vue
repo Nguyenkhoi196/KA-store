@@ -1,27 +1,15 @@
 <template>
   <div>
-    <!-- <div class="text-center">
-      <button
-        id="button-sidebar"
-        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-        type="button"
-      >
-        Show navigation
-      </button>
-    </div> -->
     <section class="container mx-auto min-h-screen h-full">
-      <section class="w-full flex">
+      <section class="w-auto mx-8 flex">
         <section class="max-w-[234px] min-w-[200px] h-auto mr-8 mb-8 mt-6">
           <button
             id="button-sidebar"
             type="button"
-            class="text-4xl font-bold pb-6 items-center"
+            class="text-4xl font-bold pb-6 items-center flex -translate-x-[10%]"
           >
-            <fa
-              class="icon absolute text-base left-[28px] top-[36px]"
-              icon="angles-left"
-            />
-            <span> Hàng hóa </span>
+            <fa class="icon text-base self-center" icon="angles-left" />
+            <span class="pl-2"> Hàng hóa </span>
           </button>
           <section>
             <article class="relative bg-primary mb-4 p-3 shadow-xl rounded-md">
@@ -42,24 +30,28 @@
                   <input
                     id="hanghoa"
                     v-model="checkTypeProduct"
-                    class="focus:ring-0 text-secondary ring-0 border-[1px] border-solid border-black rounded"
+                    class="cursor-pointer focus:ring-0 text-secondary ring-0 border-[1px] border-solid border-black rounded"
                     type="checkbox"
                     value="hanghoa"
-                    checked
+                    :checked="checked"
                   />
 
-                  <label for="hanghoa" class="pl-1 text-xs">Hàng hóa</label>
+                  <label for="hanghoa" class="pl-1 text-xs cursor-pointer"
+                    >Hàng hóa</label
+                  >
                 </div>
                 <div class="pb-2">
                   <input
                     id="dichvu"
                     v-model="checkTypeProduct"
-                    class="focus:ring-0 text-secondary ring-0 border-[1px] border-solid border-black rounded"
+                    class="cursor-pointer focus:ring-0 text-secondary ring-0 border-[1px] border-solid border-black rounded"
                     type="checkbox"
                     value="dichvu"
                   />
 
-                  <label for="dichvu" class="pl-1 text-xs">Dịch vụ</label>
+                  <label for="dichvu" class="pl-1 text-xs cursor-pointer"
+                    >Dịch vụ</label
+                  >
                 </div>
               </ul>
             </article>
@@ -135,14 +127,16 @@
                   <input
                     id="overall-inventory"
                     v-model="checkStockProduct"
-                    class="focus:ring-0 text-secondary ring-0 border-[1px] border-solid border-black rounded-full"
+                    class="cursor-pointer focus:ring-0 text-secondary ring-0 border-[1px] border-solid border-black rounded-full"
                     type="radio"
                     name="inventory-status"
                     :value="{ $gte: 0 }"
                     checked
                     @change="handleFindProducts()"
                   />
-                  <label for="overall-inventory" class="pl-1 text-xs"
+                  <label
+                    for="overall-inventory"
+                    class="pl-1 text-xs cursor-pointer"
                     >Tất cả</label
                   >
                 </div>
@@ -150,13 +144,15 @@
                   <input
                     id="outstock-inventory"
                     v-model="checkStockProduct"
-                    class="focus:ring-0 text-secondary ring-0 border-[1px] border-solid border-black rounded-full"
+                    class="cursor-pointer focus:ring-0 text-secondary ring-0 border-[1px] border-solid border-black rounded-full"
                     type="radio"
                     name="inventory-status"
                     :value="{ $eq: 0 }"
                     @change="handleFindProducts()"
                   />
-                  <label for="outstock-inventory" class="pl-1 text-xs"
+                  <label
+                    for="outstock-inventory"
+                    class="pl-1 text-xs cursor-pointer"
                     >Hết hàng
                   </label>
                 </div>
@@ -164,14 +160,16 @@
                   <input
                     id="instock-inventory"
                     v-model="checkStockProduct"
-                    class="focus:ring-0 text-secondary ring-0 border-[1px] border-solid border-black rounded-full"
+                    class="cursor-pointer focus:ring-0 text-secondary ring-0 border-[1px] border-solid border-black rounded-full"
                     type="radio"
                     name="inventory-status"
                     :value="{ $gt: 0 }"
                     @change="handleFindProducts()"
                   />
 
-                  <label for="instock-inventory" class="pl-1 text-xs"
+                  <label
+                    for="instock-inventory"
+                    class="pl-1 text-xs cursor-pointer"
                     >Còn hàng</label
                   >
                 </div>
@@ -267,7 +265,7 @@
                   data-dropdown-trigger="click"
                   data-dropdown-delay="500"
                   data-dropdown-placement="bottom-start"
-                  class="button flex gap-1 text-primary bg-secondary hover:bg-secondaryDark"
+                  class="button shadow-xl flex gap-1 text-primary bg-secondary hover:bg-secondaryDark"
                 >
                   <fa icon="plus" />
                   <p class="pl-3">Thêm mới</p>
@@ -278,14 +276,14 @@
                   data-dropdown-trigger="click"
                   data-dropdown-delay="500"
                   data-dropdown-placement="bottom-end"
-                  class="button flex gap-1 text-primary bg-secondary hover:bg-secondaryDark"
+                  class="button shadow-xl flex gap-1 text-primary bg-secondary hover:bg-secondaryDark"
                 >
                   <fa icon="table-list" />
                 </div>
                 <!-- dropdown-menu -->
                 <div
                   id="dropdown-add"
-                  class="hidden divide-y divide-gray-100 bg-secondary text-sm z-10 rounded-lg"
+                  class="hidden shadow-xl divide-y divide-gray-100 bg-secondary text-sm z-10 rounded-lg"
                 >
                   <ul class="py-2">
                     <li
@@ -304,7 +302,7 @@
                 </div>
                 <div
                   id="dropdown-more"
-                  class="hidden divide-y divide-gray-100 bg-secondary text-sm z-10 rounded-lg"
+                  class="hidden shadow-xl divide-y divide-gray-100 bg-secondary text-sm z-10 rounded-lg"
                 >
                   <ul class="py-2">
                     <li class="px-3 py-1 text-primary">
@@ -384,13 +382,19 @@
                       <th class="p-3 min-w-[200px]">
                         <span class="box-content">Tên Mặt Hàng</span>
                       </th>
-                      <th class="p-3 min-w-[112px] text-end">
+                      <th
+                        class="p-3 min-w-[112px] max-w-[112px] w-[112px] text-end"
+                      >
                         <span class="box-content">Tồn Kho</span>
                       </th>
-                      <th class="p-3 min-w-[112px] text-end">
+                      <th
+                        class="p-3 min-w-[112px] max-w-[112px] w-[112px] text-end"
+                      >
                         <span class="box-content">Thương Hiệu</span>
                       </th>
-                      <th class="p-3 min-w-[112px] text-end">
+                      <th
+                        class="p-3 min-w-[112px] max-w-[112px] w-[112px] text-end"
+                      >
                         <span class="box-content">Giá Bán</span>
                       </th>
                     </tr>
@@ -410,13 +414,19 @@
                         <th class="p-3 min-w-[200px]">
                           <span class="box-content"></span>
                         </th>
-                        <th class="p-3 min-w-[112px] text-end">
+                        <th
+                          class="p-3 min-w-[112px] max-w-[112px] w-[112px] text-end"
+                        >
                           <span class="box-content">{{ totalInventory }}</span>
                         </th>
-                        <th class="p-3 min-w-[112px] text-end">
+                        <th
+                          class="p-3 min-w-[112px] max-w-[112px] w-[112px] text-end"
+                        >
                           <span class="box-content"></span>
                         </th>
-                        <th class="p-3 min-w-[112px] text-end">
+                        <th
+                          class="p-3 min-w-[112px] max-w-[112px] w-[112px] text-end"
+                        >
                           <span class="box-content"></span>
                         </th>
                       </tr>
@@ -434,15 +444,21 @@
                         <th class="p-3 min-w-[200px]">
                           <span class="box-content">{{ product.name }}</span>
                         </th>
-                        <th class="p-3 min-w-[112px] text-end">
+                        <th
+                          class="p-3 min-w-[112px] max-w-[112px] w-[112px] text-end"
+                        >
                           <span class="box-content">{{
                             product.inventory
                           }}</span>
                         </th>
-                        <th class="p-3 min-w-[112px] text-end">
+                        <th
+                          class="p-3 min-w-[112px] max-w-[112px] w-[112px] text-end"
+                        >
                           <span class="box-content">{{ product.brand }}</span>
                         </th>
-                        <th class="p-3 min-w-[112px] text-end">
+                        <th
+                          class="p-3 min-w-[112px] max-w-[112px] w-[112px] text-end"
+                        >
                           <span class="box-content">{{
                             product.price.toLocaleString('de-DE')
                           }}</span>

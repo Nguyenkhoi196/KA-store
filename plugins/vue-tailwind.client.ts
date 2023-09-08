@@ -414,22 +414,22 @@ const settings = {
         disabledButton:
           'opacity-25 w-full h-full cursor-not-allowed transition duration-100 ease-in-out',
         button:
-          'hover:bg-green-100 w-full h-full transition duration-100 ease-in-out focus:ring-2 focus:ring-green-500 focus:outline-none focus:ring-opacity-50',
+          'hover:bg-green-100  w-full h-full transition duration-100 ease-in-out focus:ring-2 focus:ring-green-500 focus:outline-none focus:ring-opacity-50',
         ellipsis: '',
       },
       variants: {
         rounded: {
           wrapper: 'bg-white mx-auto text-center flex space-x-2',
           element: 'w-8 h-8 rounded-full',
-          activeElement: 'w-8 h-8 rounded-full',
+          activeElement: 'w-8 h-8 rounded-full ',
           disabledElement: 'w-8 h-8 rounded-full',
           ellipsisElement: 'w-8 h-8 rounded-full hidden md:inline',
           activeButton:
-            'border border-secondary bg-secondary w-full h-full rounded-full text-white hover:bg-secondaryLight transition duration-100 ease-in-out focus:ring-2 focus:ring-secondary focus:outline-none focus:ring-opacity-50',
+            'border border-secondary shadow-inner bg-secondary w-full h-full rounded-full text-white hover:bg-secondaryLight transition duration-100 ease-in-out focus:ring-2 focus:ring-secondary focus:outline-none focus:ring-opacity-50',
           disabledButton:
             'border border-gray-200  opacity-25 w-full h-full rounded-full cursor-not-allowed transition duration-100 ease-in-out',
           button:
-            'border border-gray-200 hover:bg-secondary/30 hover:border-secondary rounded-full w-full h-full transition duration-100 ease-in-out focus:ring-2 focus:ring-secondary focus:outline-none focus:ring-opacity-50',
+            'border border-gray-200 shadow-sm hover:bg-secondary/30 hover:border-secondary rounded-full w-full h-full transition duration-100 ease-in-out focus:ring-2 focus:ring-secondary focus:outline-none focus:ring-opacity-50',
           ellipsis: '',
         },
       },

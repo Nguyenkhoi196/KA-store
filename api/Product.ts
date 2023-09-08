@@ -1,5 +1,5 @@
 import axios from 'axios'
-const resource = 'http://localhost:1337/api/products'
+const resource = 'https://khoianh-strapi.onrender.com/api/products'
 const qs = require('qs')
 export async function getAllProducts() {
   const result = await axios.get(`${resource}`)
