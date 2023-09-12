@@ -135,14 +135,14 @@
 import { onMounted, reactive } from 'vue'
 import { Modal, ModalInterface, ModalOptions } from 'flowbite'
 import { addProduct } from '~/api/Product'
-import { Product } from '~/types/Product'
+import { ProductAtrributes } from '~/types/Product'
 
 interface Props {
   modal: string
 }
 const props = defineProps<Props>()
 
-const product: Partial<Product> = reactive({
+const product: Partial<ProductAtrributes> = reactive({
   name: '',
   price: 0,
   brand: '',

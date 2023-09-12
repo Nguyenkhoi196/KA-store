@@ -33,7 +33,6 @@
                     class="cursor-pointer focus:ring-0 text-secondary ring-0 border-[1px] border-solid border-black rounded"
                     type="checkbox"
                     value="hanghoa"
-                    :checked="checked"
                   />
 
                   <label for="hanghoa" class="pl-1 text-xs cursor-pointer"
@@ -100,9 +99,11 @@
                       v-for="product in products"
                       :key="product.id"
                       class="py-1 px-2 cursor-pointer hover:bg-secondaryLight rounded"
-                      @click="showSelectSupplierFilter(product.brand)"
+                      @click="
+                        showSelectSupplierFilter(product.attributes.brand)
+                      "
                     >
-                      {{ product.brand }}
+                      {{ product.attributes.brand }}
                     </li>
                   </ul>
                 </div>
@@ -131,9 +132,9 @@
                     type="radio"
                     name="inventory-status"
                     :value="{ $gte: 0 }"
-                    checked
                     @change="handleFindProducts()"
                   />
+                  {{ checkStockProduct }}
                   <label
                     for="overall-inventory"
                     class="pl-1 text-xs cursor-pointer"
@@ -305,64 +306,23 @@
                   class="hidden shadow-xl divide-y divide-gray-100 bg-secondary text-sm z-10 rounded-lg"
                 >
                   <ul class="py-2">
-                    <li class="px-3 py-1 text-primary">
+                    <li
+                      v-for="(dataCol, index) in dataTable"
+                      :key="index"
+                      class="px-3 py-1 text-primary"
+                    >
                       <input
-                        id="checkbox-show-id-product"
+                        :id="`checkbox-show-${dataCol.label}`"
+                        v-model="dataCol.checked"
                         type="checkbox"
-                        class="cursor-pointer focus:ring-0 text-secondaryDark ring-0 border-[1px] border-solid border-black rounded"
+                        :checked="dataCol.checked"
+                        :disabled="dataCol?.disable"
+                        class="cursor-pointer focus:ring-0 disabled:cursor-not-allowed text-secondaryDark ring-0 border-[1px] border-solid border-black rounded"
                       />
                       <label
-                        for="checkbox-show-id-product"
+                        :for="`checkbox-show-${dataCol.label}`"
                         class="pl-1 text-xs cursor-pointer"
-                        >Tên sản phẩm</label
-                      >
-                    </li>
-                    <li class="px-3 py-1 text-primary">
-                      <input
-                        id="checkbox-show-name-product"
-                        type="checkbox"
-                        class="cursor-pointer focus:ring-0 text-secondaryDark ring-0 border-[1px] border-solid border-black rounded"
-                      />
-                      <label
-                        for="checkbox-show-name-product"
-                        class="pl-1 text-xs cursor-pointer"
-                        >Tên mặt hàng</label
-                      >
-                    </li>
-                    <li class="px-3 py-1 text-primary">
-                      <input
-                        id="checkbox-show-inventory-product"
-                        type="checkbox"
-                        class="cursor-pointer focus:ring-0 text-secondaryDark ring-0 border-[1px] border-solid border-black rounded"
-                      />
-                      <label
-                        for="checkbox-show-inventory-product"
-                        class="pl-1 text-xs cursor-pointer"
-                        >Tồn kho</label
-                      >
-                    </li>
-                    <li class="px-3 py-1 text-primary">
-                      <input
-                        id="checkbox-show-brand-product"
-                        type="checkbox"
-                        class="cursor-pointer focus:ring-0 text-secondaryDark ring-0 border-[1px] border-solid border-black rounded"
-                      />
-                      <label
-                        for="checkbox-show-brand-product"
-                        class="pl-1 text-xs cursor-pointer"
-                        >Thương hiệu</label
-                      >
-                    </li>
-                    <li class="px-3 py-1 text-primary">
-                      <input
-                        id="checkbox-show-price-product"
-                        type="checkbox"
-                        class="cursor-pointer focus:ring-0 text-secondaryDark ring-0 border-[1px] border-solid border-black rounded"
-                      />
-                      <label
-                        for="checkbox-show-price-product"
-                        class="pl-1 text-xs cursor-pointer"
-                        >Giá bán</label
+                        >{{ dataCol.label }}</label
                       >
                     </li>
                   </ul>
@@ -383,11 +343,19 @@
                         <span class="box-content">Tên Mặt Hàng</span>
                       </th>
                       <th
+                        v-if="dataTable[1].checked"
+                        class="p-3 min-w-[112px] max-w-[112px] w-[112px] text-end"
+                      >
+                        <span class="box-content">Ngày Cập Nhật</span>
+                      </th>
+                      <th
+                        v-if="dataTable[2].checked"
                         class="p-3 min-w-[112px] max-w-[112px] w-[112px] text-end"
                       >
                         <span class="box-content">Tồn Kho</span>
                       </th>
                       <th
+                        v-if="dataTable[3].checked"
                         class="p-3 min-w-[112px] max-w-[112px] w-[112px] text-end"
                       >
                         <span class="box-content">Thương Hiệu</span>
@@ -415,11 +383,19 @@
                           <span class="box-content"></span>
                         </th>
                         <th
+                          v-if="dataTable[1].checked"
+                          class="p-3 min-w-[112px] max-w-[112px] w-[112px] text-end"
+                        >
+                          <span class="box-content"></span>
+                        </th>
+                        <th
+                          v-if="dataTable[2].checked"
                           class="p-3 min-w-[112px] max-w-[112px] w-[112px] text-end"
                         >
                           <span class="box-content">{{ totalInventory }}</span>
                         </th>
                         <th
+                          v-if="dataTable[3].checked"
                           class="p-3 min-w-[112px] max-w-[112px] w-[112px] text-end"
                         >
                           <span class="box-content"></span>
@@ -442,25 +418,39 @@
                           <span class="box-content">{{ product.id }}</span>
                         </th>
                         <th class="p-3 min-w-[200px]">
-                          <span class="box-content">{{ product.name }}</span>
+                          <span class="box-content">{{
+                            product.attributes.name
+                          }}</span>
                         </th>
                         <th
+                          v-if="dataTable[1].checked"
                           class="p-3 min-w-[112px] max-w-[112px] w-[112px] text-end"
                         >
                           <span class="box-content">{{
-                            product.inventory
+                            convertDate(product.attributes.updatedAt)
+                          }}</span>
+                        </th>
+                        <th
+                          v-if="dataTable[2].checked"
+                          class="p-3 min-w-[112px] max-w-[112px] w-[112px] text-end"
+                        >
+                          <span class="box-content">{{
+                            product.attributes.inventory
+                          }}</span>
+                        </th>
+                        <th
+                          v-if="dataTable[3].checked"
+                          class="p-3 min-w-[112px] max-w-[112px] w-[112px] text-end"
+                        >
+                          <span class="box-content">{{
+                            product.attributes.brand
                           }}</span>
                         </th>
                         <th
                           class="p-3 min-w-[112px] max-w-[112px] w-[112px] text-end"
                         >
-                          <span class="box-content">{{ product.brand }}</span>
-                        </th>
-                        <th
-                          class="p-3 min-w-[112px] max-w-[112px] w-[112px] text-end"
-                        >
                           <span class="box-content">{{
-                            product.price.toLocaleString('de-DE')
+                            product.attributes.price.toLocaleString('de-DE')
                           }}</span>
                         </th>
                       </tr>
@@ -568,6 +558,32 @@ const handleProductDetails = (params: string) => {
   router.push('/market/' + params)
 }
 
+const dataTable = reactive([
+  {
+    label: 'Tên mặt hàng',
+    checked: true,
+    disable: true,
+  },
+  {
+    label: 'Ngày cập nhật',
+    checked: false,
+  },
+  {
+    label: 'Tồn kho',
+    checked: true,
+  },
+  {
+    label: 'Thương hiệu',
+    checked: true,
+  },
+  {
+    label: 'Giá bán',
+    checked: true,
+    disable: true,
+  },
+])
+console.log(dataTable)
+
 const checkSupplier = ref<string>()
 const showSelectSupplierFilter = (param: string) => {
   supplierFilter.value = false
@@ -587,6 +603,11 @@ const showSupplierFilter = () => {
 const stockFilter = ref<boolean>(true)
 const showStockFilter = () => {
   stockFilter.value = !stockFilter.value
+}
+
+const convertDate = (date: any) => {
+  const newDate = new Date(date)
+  return `${newDate.getDate()}-${newDate.getMonth()}-${newDate.getFullYear()}`
 }
 </script>
 
