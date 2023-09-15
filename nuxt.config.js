@@ -82,7 +82,20 @@ export default {
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
     // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
-    baseURL: '/http://localhost:1337/api/',
+    baseURL: process.env.BASE_URL || 'http://localhost:1337/api/',
+    browserBaseURL: 'http://localhost:1337/api/',
+  },
+
+  publicRuntimeConfig: {
+    axios: {
+      browserBaseURL: process.env.BROWSER_BASE_URL,
+    },
+  },
+
+  privateRuntimeConfig: {
+    axios: {
+      baseURL: process.env.BASE_URL,
+    },
   },
 
   router: {
@@ -109,6 +122,9 @@ export default {
         },
       },
     },
+  },
+  env: {
+    baseUrl: process.env.BASE_URL || 'localhost',
   },
   // fontawesome
   fontawesome: {
@@ -137,14 +153,4 @@ export default {
       firestore: true,
     },
   },
-
-  // router: {
-  //   extendRoutes(routes, resolve) {
-  //     routes.push({
-  //       name: 'product-detail',
-  //       path: '/market/:id',
-  //       component: resolve(__dirname, 'pages/market/_id.vue'), // Đường dẫn tới component chi tiết sản phẩm
-  //     });
-  //   },
-  // },
 }

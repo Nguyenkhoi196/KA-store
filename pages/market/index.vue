@@ -100,10 +100,10 @@
                       :key="product.id"
                       class="py-1 px-2 cursor-pointer hover:bg-secondaryLight rounded"
                       @click="
-                        showSelectSupplierFilter(product.attributes.brand)
+                        showSelectSupplierFilter(product.attributes?.brand)
                       "
                     >
-                      {{ product.attributes.brand }}
+                      {{ product.attributes?.brand }}
                     </li>
                   </ul>
                 </div>
@@ -486,14 +486,12 @@
 
 <script setup lang="ts">
 import { onMounted, reactive, ref } from 'vue'
-import { useRoute, useRouter } from '@nuxtjs/composition-api'
+import { useRouter } from '@nuxtjs/composition-api'
 import { findProducts } from '~/api/Product'
 import { Product } from '~/types/Product'
 import { Pagination } from '~/types/Response'
 
 const router = useRouter()
-const route = useRoute()
-console.log('route', route.value.path)
 
 const products = ref<Product[]>([])
 const totalInventory = ref<number>()
@@ -558,7 +556,7 @@ const handleProductDetails = (params: string) => {
   router.push('/market/' + params)
 }
 
-const dataTable = reactive([
+const dataTable = ref([
   {
     label: 'Tên mặt hàng',
     checked: true,

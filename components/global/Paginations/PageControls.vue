@@ -3,7 +3,7 @@
     <t-pagination
       v-model="currentPage"
       variant="rounded"
-      :total-items="pagination.total"
+      :total-items="Number(pagination.total)"
       :per-page="pagination.pageSize"
       :limit="5"
       @change="setPage()"

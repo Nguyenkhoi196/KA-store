@@ -10,11 +10,17 @@ function tokenHandler(config: any) {
   return config
 }
 
-export default () => {
-  axios.interceptors.request.use(
-    (config) => tokenHandler(config),
-    function (error) {
-      return Promise.reject(error)
-    }
-  )
-}
+const api = axios.create({
+  baseURL:
+    process.env.NODE_ENV === 'development'
+      ? 'http://localhost:1337/api'
+      : 'https://khoianh-store.onrender.com/api',
+})
+
+// Thêm interceptor vào Axios instance
+api.interceptors.request.use(
+  (config) => tokenHandler(config),
+  (error) => Promise.reject(error)
+)
+
+export { api }

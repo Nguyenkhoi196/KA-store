@@ -1,19 +1,14 @@
-import axios from 'axios'
-const resource = 'https://khoianh-strapi.onrender.com/api/products'
+// import axios from 'axios'
+import { api } from '../plugins/axios'
 const qs = require('qs')
-export async function getAllProducts() {
-  const result = await axios.get(`${resource}`)
-  if (result.status === 200) {
-    return result.data
-  } else return result
-}
+
 export async function addProduct(payload: any) {
-  const result = await axios.post(`${resource}`, payload)
+  const result = await api.post('product/', payload)
   return result
 }
 
 export async function productDetails(id: any) {
-  const result = await axios.get(`${resource}/${id}`)
+  const result = await api.get(`products/${id}`)
   if (result.status === 200) {
     return result.data
   } else return result
@@ -21,7 +16,9 @@ export async function productDetails(id: any) {
 
 export async function findProducts(payload: any) {
   const query = qs.stringify(payload)
-  const result = await axios.get(`${resource}?${query}`)
+  const result = await api.get(`/products?${query}`)
+  console.log(api)
+
   if (result.status === 200) {
     return result.data
   } else return result
