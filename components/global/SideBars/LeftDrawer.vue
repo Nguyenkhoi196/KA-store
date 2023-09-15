@@ -102,24 +102,24 @@
           </li>
 
           <li>
-            <a
-              href="/market"
-              class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-secondary/30 group"
+            <nuxt-link
+              to="/market"
+              class="active:text-primary flex items-center p-2 text-gray-900 rounded-lg hover:bg-secondary/30 group"
             >
               <fa icon="bag-shopping" />
-              <span class="flex-1 ml-3 whitespace-nowrap">Sản phẩm</span>
-            </a>
+              <span class="flex-1 ml-3 whitespace-nowrap">Hàng hóa</span>
+            </nuxt-link>
           </li>
           <li>
-            <a
-              href="/profile"
+            <nuxt-link
+              to="/profile"
               class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-secondary/30 group"
             >
               <fa icon="house-user" />
               <span class="flex-1 ml-3 whitespace-nowrap"
                 >Thông tin cửa hàng</span
               >
-            </a>
+            </nuxt-link>
           </li>
         </ul>
       </div>
@@ -176,5 +176,8 @@ onMounted(() => {
 })
 </script>
 
-<style scoped></style>
-
+<style lang="scss" scoped>
+a.nuxt-link-active {
+  background-color: #9ae29b;
+}
+</style>
