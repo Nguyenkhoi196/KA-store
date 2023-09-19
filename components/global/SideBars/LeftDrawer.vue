@@ -2,7 +2,7 @@
   <div>
     <div
       :id="props.sidebar"
-      class="fixed top-0 left-0 z-40 h-screen p-4 overflow-y-auto transition-transform -translate-x-full bg-white w-64"
+      class="fixed shadow-xl top-0 left-0 z-40 h-screen p-4 overflow-y-auto transition-transform -translate-x-full bg-emerald-50 w-64"
       tabindex="-1"
     >
       <div class="flex">
@@ -15,7 +15,7 @@
         <button
           :id="'button-close-' + props.sidebar"
           type="button"
-          class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 inline-flex items-center justify-center dark:hover:bg-gray-600 dark:hover:text-white"
+          class="text-gray-400 bg-transparent hover:bg-secondary/60 hover:text-gray-900 rounded-lg text-sm w-8 h-8 inline-flex items-center justify-center dark:hover:bg-gray-600 dark:hover:text-white"
         >
           <fa icon="x" />
           <span class="sr-only">Close menu</span>
@@ -163,7 +163,7 @@ onMounted(() => {
   )
   const options: DrawerOptions = {
     placement: 'left',
-    backdrop: true,
+    backdrop: false,
     bodyScrolling: true,
     backdropClasses:
       'bg-gray-500 bg-opacity-50 dark:bg-opacity-80 fixed inset-0 z-30',

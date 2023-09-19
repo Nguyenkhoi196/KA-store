@@ -1,5 +1,4 @@
 import * as auth from 'firebase/auth'
-// import axios from 'axios'
 import { ActionTree } from 'vuex'
 import { axios } from '../../../plugins/axios'
 
@@ -10,7 +9,7 @@ const actions: ActionTree<userState, rootState> = {
   signup({ commit }, { email, username, password }) {
     return new Promise((resolve, reject) => {
       axios
-        .post('/auth/local/register', {
+        .post('/api/auth/local/register', {
           email,
           username,
           password,
@@ -46,13 +45,12 @@ const actions: ActionTree<userState, rootState> = {
   login({ commit }, { identifier, password }) {
     return new Promise((resolve, reject) => {
       axios
-        .post('/auth/local', {
+        .post('/api/auth/local', {
           identifier,
           password,
         })
         .then((res: any) => {
-          axios.get('/users/me?populate=*').then((res: any) => {
-            console.log('me', res)
+          axios.get('/api/users/me?populate=*').then((res: any) => {
             commit('SET_ROLE', res.data)
             localStorage.setItem('user', JSON.stringify(res.data))
             localStorage.setItem('role', JSON.stringify(res.data.role.name))

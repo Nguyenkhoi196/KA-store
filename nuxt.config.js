@@ -47,6 +47,7 @@ export default {
     '~/components',
     { path: '~/components/layout/', prefix: '' },
     { path: '~/components/global/', prefix: '' },
+    { path: '~/components/global/Alerts/', prefix: 'Alert' },
     { path: '~/components/global/Modals/', prefix: 'Modal' },
     { path: '~/components/global/Paginations/', prefix: 'Pagination' },
     { path: '~/components/global/SideBars/', prefix: 'Sidebar' },
@@ -85,6 +86,13 @@ export default {
     baseURL: process.env.BASE_URL || 'http://localhost:1337/api/',
     browserBaseURL: 'http://localhost:1337/api/',
   },
+  proxy: {
+    '/api': {
+      target: process.env.BASEURL,
+      pathRewrite: { '^/api': '/api' },
+      changeOrigin: true,
+    },
+  },
 
   publicRuntimeConfig: {
     axios: {
@@ -122,6 +130,7 @@ export default {
         },
       },
     },
+    cache: false,
   },
   env: {
     baseUrl: process.env.BASE_URL || 'localhost',

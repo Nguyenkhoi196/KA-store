@@ -13,11 +13,10 @@ function tokenHandler(config: any) {
 const api = axios.create({
   baseURL:
     process.env.NODE_ENV === 'development'
-      ? 'http://localhost:1337/api'
-      : 'https://khoianh-store.onrender.com/api',
+      ? 'http://localhost:1337'
+      : process.env.BASE_URL,
 })
 
-// Thêm interceptor vào Axios instance
 api.interceptors.request.use(
   (config) => tokenHandler(config),
   (error) => Promise.reject(error)

@@ -34,136 +34,51 @@
             <span class="sr-only">Close modal</span>
           </button>
           <!-- Modal header -->
-          <div class="px-6 py-4 border-b rounded-t dark:border-gray-600">
-            <h3
-              class="text-base font-semibold text-gray-900 lg:text-xl dark:text-white"
-            >
-              Sản Phẩm
-            </h3>
-          </div>
-          <form action="#" class="px-6" @submit.prevent="handleAddProduct()">
-            <div class="grid gap-4 m-4 sm:grid-cols-2">
-              <div class="relative">
-                <input
-                  id="product-name"
-                  v-model="product.name"
-                  required
-                  autocomplete="off"
-                  type="text"
-                  class="form-input peer"
-                />
-                <label for="product-name" class="form-label"
-                  >Tên sản phẩm
-                </label>
-              </div>
-              <div class="relative">
-                <input
-                  id="price"
-                  v-model="product.price"
-                  required
-                  autocomplete="off"
-                  type="number"
-                  class="form-input peer"
-                />
-                <label for="price" class="form-label">Giá </label>
-              </div>
-              <div class="relative">
-                <input
-                  id="inventory"
-                  v-model="product.inventory"
-                  required
-                  autocomplete="off"
-                  type="number"
-                  class="form-input peer"
-                />
-                <label for="inventory" class="form-label">Số lượng </label>
-              </div>
-              <div class="relative">
-                <input
-                  id="brand"
-                  v-model="product.brand"
-                  required
-                  autocomplete="off"
-                  type="text"
-                  class="form-input peer"
-                />
-                <label for="brand" class="form-label">Thương hiệu </label>
-              </div>
-
-              <div class="sm:col-span-2">
-                <label
-                  for="description"
-                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                  >Mô tả</label
-                >
-                <textarea
-                  id="description"
-                  rows="4"
-                  class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 max-h-40"
-                ></textarea>
-              </div>
-            </div>
-            <div class="border-t py-4 flex justify-end">
-              <button
-                type="submit"
-                class="text-secondary hover:text-green-700 active:text-green-400 inline-flex items-center bg-primary-700 hover:bg-primary-800 font-medium rounded-lg text-sm px-5 text-center"
-              >
-                <svg
-                  class="mr-1 -ml-1 w-6 h-6"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
-                    clip-rule="evenodd"
-                  ></path>
-                </svg>
-                Thêm sản phẩm
-              </button>
-            </div>
-          </form>
-          <!-- form-footer -->
+          <slot name="body" />
         </div>
       </div>
     </div>
+    <div class="relative">
+      <input
+        id="brand"
+        v-model="product.brand"
+        required
+        autocomplete="off"
+        type="text"
+        class="form-input peer"
+      />
+      <label for="brand" class="form-label">Thương hiệu </label>
+    </div>
+    <div class="relative">
+      <input
+        id="brand"
+        v-model="product.brand"
+        required
+        autocomplete="off"
+        type="text"
+        class="form-input peer"
+      />
+      <label for="brand" class="form-label">Thương hiệu </label>
+    </div>
+    <AlertPopUp :type="errType" :message="notification"></AlertPopUp>
   </div>
 </template>
 
 <script setup lang="ts">
-import { onMounted, reactive } from 'vue'
+import { onMounted, reactive, ref } from 'vue'
 import { Modal, ModalInterface, ModalOptions } from 'flowbite'
-import { addProduct } from '~/api/Product'
 import { ProductAtrributes } from '~/types/Product'
+import { addProduct } from '~/api/Product'
 
-interface Props {
+type Props = {
   modal: string
 }
 const props = defineProps<Props>()
 
-const product: Partial<ProductAtrributes> = reactive({
-  name: '',
-  price: 0,
-  brand: '',
-  inventory: 0,
-})
+const notification = ref<string>()
+const errType = ref<string | undefined>()
 
 let modal: ModalInterface
-const handleAddProduct = () => {
-  const data = { data: { ...product } }
-  addProduct(data)
-    .then((res) => {
-      if (res.status === 200) {
-        if (modal) {
-          modal.hide()
-        }
-      }
-    })
-    .catch((err) => {
-      console.log(err)
-    })
-}
 
 onMounted(() => {
   const $buttonElement: any = document.getElementById(`button-${props.modal}`)
@@ -180,7 +95,9 @@ onMounted(() => {
   if ($modalElement) {
     modal = new Modal($modalElement, modalOptions)
     $buttonElement.addEventListener('click', () => modal.toggle())
-    $closeElement.addEventListener('click', () => modal.hide())
+    $closeElement.addEventListener('click', () => {
+      modal.hide()
+    })
   }
 })
 </script>

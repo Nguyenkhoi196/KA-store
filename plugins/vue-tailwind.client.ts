@@ -290,6 +290,11 @@ const settings = {
           body: 'text-green-700',
           close: 'text-green-500 hover:bg-green-200',
         },
+        warning: {
+          wrapper: 'bg-yellow-50 border-yellow-500',
+          body: 'text-yellow-700',
+          close: 'text-yellow-500 hover:bg-yellow-200',
+        },
       },
     },
   },
