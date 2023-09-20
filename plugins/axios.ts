@@ -14,7 +14,7 @@ const api = axios.create({
   baseURL:
     process.env.NODE_ENV === 'development'
       ? 'http://localhost:1337'
-      : process.env.BASE_URL,
+      : 'https://khoianh-strapi.onrender.com',
 })
 
 api.interceptors.request.use(
