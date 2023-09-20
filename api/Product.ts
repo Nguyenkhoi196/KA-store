@@ -22,3 +22,9 @@ export async function findProducts(payload: any) {
     return result.data
   } else return result
 }
+export async function deleteProduct(id: string) {
+  const result = await axios.delete(`/api/products/${id}`)
+  if (result.status === 200) {
+    return result
+  } else return result
+}

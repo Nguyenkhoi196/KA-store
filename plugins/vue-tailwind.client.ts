@@ -295,6 +295,11 @@ const settings = {
           body: 'text-yellow-700',
           close: 'text-yellow-500 hover:bg-yellow-200',
         },
+        info: {
+          wrapper: 'bg-blue-50 border-blue-500',
+          body: 'text-blue-700',
+          close: 'text-blue-500 hover:bg-blue-200',
+        },
       },
     },
   },

@@ -143,13 +143,6 @@ const props = defineProps<Props>()
 const user = ref<User | any>()
 const userStr = ref<any>()
 if (process.client) {
-  const linkElements = document.getElementsByTagName('a')
-  console.log(linkElements)
-
-  for (let i = 0; i < linkElements.length; i++) {
-    const hrefValue = linkElements[i].href
-    console.log(hrefValue)
-  }
   userStr.value = localStorage.getItem('user')
   user.value = userStr.value
     ? JSON.parse(userStr.value)
@@ -165,8 +158,6 @@ onMounted(() => {
     placement: 'left',
     backdrop: false,
     bodyScrolling: true,
-    backdropClasses:
-      'bg-gray-500 bg-opacity-50 dark:bg-opacity-80 fixed inset-0 z-30',
   }
   if ($sideBarElement) {
     sidebar = new Drawer($sideBarElement, options)

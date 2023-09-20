@@ -460,7 +460,7 @@
               <div class="flex py-5 items-baseline">
                 <PaginationPageControls
                   :pagination="pagination"
-                  @set-page="(param) => (pagination.page = param)"
+                  @set-page="setPage"
                   @find="handleFindProducts()"
                 />
                 <span class="pl-5 text-gray-600">
@@ -477,10 +477,102 @@
           </div>
         </section>
       </section>
-      <!-- <AlertPopUp :type="errType" :message="notification" /> -->
     </section>
     <SidebarLeftDrawer :sidebar="'sidebar'" />
-    <ModalAddProduct :modal="'modal-1'"> </ModalAddProduct>
+    <Modal-KAModal
+      :modal="'modal-1'"
+      :close="!!alert.type"
+      @close-modal="(modal) => modal.hide()"
+    >
+      <template #header>
+        <div>
+          <div class="px-6 py-4 border-b rounded-t dark:border-gray-600">
+            <h3
+              class="text-base font-semibold text-gray-900 lg:text-xl dark:text-white"
+            >
+              Sản Phẩm
+            </h3>
+          </div>
+        </div>
+      </template>
+      <template #body>
+        <div>
+          <form class="px-6" @submit.prevent="handleAddProduct">
+            <div class="grid gap-4 m-4 sm:grid-cols-2">
+              <div class="relative">
+                <input
+                  id="product-name"
+                  v-model="productAtrributes.name"
+                  required
+                  autocomplete="off"
+                  type="text"
+                  class="form-input peer"
+                />
+                <label for="productAtrributes-name" class="form-label"
+                  >Tên sản phẩm
+                </label>
+              </div>
+              <div class="relative">
+                <input
+                  id="price"
+                  v-model="productAtrributes.price"
+                  required
+                  autocomplete="off"
+                  type="number"
+                  class="form-input peer"
+                />
+                <label for="price" class="form-label">Giá </label>
+              </div>
+              <div class="relative">
+                <input
+                  id="inventory"
+                  v-model="productAtrributes.inventory"
+                  required
+                  autocomplete="off"
+                  type="number"
+                  class="form-input peer"
+                />
+                <label for="inventory" class="form-label">Số lượng </label>
+              </div>
+              <div class="relative">
+                <input
+                  id="brand"
+                  v-model="productAtrributes.brand"
+                  required
+                  autocomplete="off"
+                  type="text"
+                  class="form-input peer"
+                />
+                <label for="brand" class="form-label">Thương hiệu </label>
+              </div>
+
+              <div class="sm:col-span-2">
+                <label
+                  for="description"
+                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  >Mô tả</label
+                >
+                <textarea
+                  id="description"
+                  rows="4"
+                  class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 max-h-40"
+                ></textarea>
+              </div>
+            </div>
+            <div class="border-t py-4 flex justify-end">
+              <button
+                type="submit"
+                class="text-secondary hover:text-green-700 active:text-green-400 inline-flex items-center bg-primary-700 hover:bg-primary-800 font-medium rounded-lg text-sm px-5 text-center"
+              >
+                <fa icon="plus" />
+                <span class="pl-2"> Thêm sản phẩm </span>
+              </button>
+            </div>
+          </form>
+        </div>
+      </template>
+    </Modal-KAModal>
+    <AlertPopUp :alert="alert" />
   </div>
 </template>
 
@@ -490,6 +582,7 @@ import { useRouter } from '@nuxtjs/composition-api'
 import { addProduct, findProducts } from '~/api/Product'
 import { Product, ProductAtrributes } from '~/types/Product'
 import { Pagination } from '~/types/Response'
+import { Alert } from '~/components/global/Alerts/Alert'
 
 const router = useRouter()
 
@@ -551,26 +644,30 @@ const handleFindProducts = () => {
       loading.value = false
     })
 }
-// const product: Partial<ProductAtrributes> = reactive({
-//   name: '',
-//   price: 0,
-//   brand: '',
-//   inventory: 0,
-// })
-// const handleAddProduct = () => {
-//   const data = { data: { ...product } }
-//   addProduct(data)
-//     .then((res) => {
-//       if (res.status === 200) {
-//         if (modal) {
-//           modal.hide()
-//         }
-//       }
-//     })
-//     .catch((err) => {
-//       console.log(err)
-//     })
-// }
+const alert = reactive<Alert>({
+  message: undefined,
+  type: undefined,
+})
+const productAtrributes: Partial<ProductAtrributes> = reactive({
+  name: '',
+  price: 0,
+  brand: '',
+  inventory: 0,
+})
+const handleAddProduct = () => {
+  const data = { data: { ...productAtrributes } }
+  addProduct(data)
+    .then((res) => {
+      if (res.status === 200) {
+        alert.message = `Thêm sản phẩm ${res.data.data.attributes?.name} thành công`
+        alert.type = 'success'
+      }
+    })
+    .catch((err) => {
+      alert.message = err.message
+      alert.type = 'danger'
+    })
+}
 
 const handleProductDetails = (params: string) => {
   router.push('/market/' + params)
@@ -622,9 +719,12 @@ const showStockFilter = () => {
   stockFilter.value = !stockFilter.value
 }
 
-const convertDate = (date: any) => {
+const convertDate = (date: any): string => {
   const newDate = new Date(date)
   return `${newDate.getDate()}-${newDate.getMonth()}-${newDate.getFullYear()}`
+}
+const setPage = (param: number): void => {
+  pagination.page = param
 }
 </script>
 

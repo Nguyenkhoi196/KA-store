@@ -30,6 +30,11 @@ watch(
   }
 )
 const emit = defineEmits(['set-page', 'find'])
+// const emit = defineEmits<{
+//   (e: 'set-page', page: number): void
+//   (e: 'find'): void
+// }>()
+
 const setPage = () => {
   emit('set-page', currentPage.value)
   emit('find')
