@@ -7,6 +7,7 @@ export interface ProductAtrributes {
   updatedAt: string
   image?: string | null
   category?: number | string
+  state?: boolean
 }
 export interface Product {
   id: string

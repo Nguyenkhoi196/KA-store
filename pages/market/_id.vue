@@ -118,30 +118,38 @@
               </div>
 
               <div class="self-end pt-5 flex gap-5 float-right">
-                <div
+                <button
                   id="button-modal-accept"
                   class="button shadow-xl flex gap-3 text-primary bg-red-500 hover:bg-red-700"
                 >
                   <fa icon="trash-can" />
                   <span> Xóa </span>
-                </div>
-                <div
+                </button>
+                <button
+                  id="button-modal-lock"
                   class="button shadow-xl flex gap-3 text-primary bg-red-500 hover:bg-red-700"
                 >
-                  <fa icon="ban" /> <span> Ngừng kinh doanh </span>
-                </div>
-                <div
+                  <div v-if="product?.attributes.state === true">
+                    <fa icon="ban" /> <span> Ngừng kinh doanh </span>
+                  </div>
+                  <div v-else>
+                    <fa :icon="['fas', 'lock-open']" />
+                    <span>Tái bán</span>
+                  </div>
+                </button>
+                <button
+                  :disabled="!product?.attributes.state"
                   class="button shadow-xl flex gap-3 text-primary bg-secondary hover:bg-secondaryDark"
                 >
                   <fa icon="copy" />
                   <span> Sao chép </span>
-                </div>
-                <div
+                </button>
+                <button
                   class="button shadow-xl flex gap-3 text-primary bg-secondary hover:bg-secondaryDark"
                 >
-                  <fa icon="pen-to-square" />
+                  <fa icon="gear" />
                   <span> Cập nhật </span>
-                </div>
+                </button>
               </div>
             </div>
           </div>
@@ -175,7 +183,13 @@
             <span class="text-red-500 text-xl font-semibold"
               >Xác nhận xóa Sản phẩm</span
             >
-            <p class="pt-2">Hành động này không thể hoàn tác</p>
+            <p class="pt-2">
+              Bạn muốn xóa sản phẩm
+              <span class="text-secondaryDark font-medium">
+                {{ product?.attributes.name }}
+              </span>
+              trên hệ thống. Bạn có chắc chắn muốn xóa
+            </p>
           </div>
         </div>
       </template>
@@ -183,13 +197,14 @@
         <div>
           <div class="self-end pt-5 flex gap-5 float-right">
             <button
-              class="button shadow-xl flex gap-3 text-tertiary hover:bg-red-200"
+              class="button shadow-xl flex gap-3 text-red-500 hover:bg-red-700 hover:text-primary"
               @click="handleDeleteProduct"
             >
               <fa icon="trash" />
               <span> Xóa </span>
             </button>
             <div
+              id="button-close-modal-accept"
               class="button shadow-xl flex gap-3 text-primary bg-secondary hover:bg-secondaryDark"
             >
               <fa icon="hand" />
@@ -199,6 +214,51 @@
         </div>
       </template>
     </Modal-KAModal>
+    <Modal-KAModal
+      :modal="'modal-lock'"
+      :close="!!alert.type"
+      @close-modal="(modal) => modal.hide()"
+    >
+      <template #header>
+        <div>
+          <div class="px-6 py-4 border-b rounded-t dark:border-gray-600">
+            <span class="text-orange-500 text-xl font-semibold"
+              >Xác nhận cập nhật Sản phẩm</span
+            >
+            <p class="pt-2">
+              Bạn muốn cập nhật sản phẩm
+              <span class="text-secondaryDark font-medium">
+                {{ product?.attributes.name }}
+              </span>
+              trên hệ thống?
+            </p>
+          </div>
+        </div>
+      </template>
+      <template #body>
+        <div>
+          <div class="self-end pt-5 flex gap-5 float-right">
+            <button
+              class="button shadow-xl flex gap-3 text-orange-500 hover:bg-orange-200 hover:text-primary"
+              @click="
+                handleUpdateProduct(),
+                  (productDetails.state = !productDetails.state)
+              "
+            >
+              <fa icon="gear" />
+              <span> Cập nhật </span>
+            </button>
+            <div
+              id="button-close-modal-lock"
+              class="button shadow-xl flex gap-3 text-primary bg-secondary hover:bg-secondaryDark"
+            >
+              <fa icon="hand" />
+              <span> Trở lại </span>
+            </div>
+          </div>
+        </div>
+      </template></Modal-KAModal
+    >
     <AlertPopUp :alert="alert" />
   </div>
 </template>
@@ -206,7 +266,7 @@
 import { useRoute, useRouter } from '@nuxtjs/composition-api'
 import { onMounted, reactive, ref } from 'vue'
 
-import { deleteProduct, productDetails } from '~/api/Product'
+import { deleteProduct, getProduct, updateProduct } from '~/api/Product'
 import { Alert } from '~/components/global/Alerts/Alert'
 import { Product } from '~/types/Product'
 
@@ -217,28 +277,52 @@ const alert = reactive<Alert>({
   message: undefined,
   type: undefined,
 })
+console.log('modal', alert)
 
 const id = route.value.params.id
 onMounted(() => {
-  productDetails(id).then((res) => {
+  getProduct(id).then((res) => {
     product.value = res.data
   })
 })
+
 const handleDeleteProduct = (): void => {
   deleteProduct(id)
     .then((res) => {
-      console.log(res)
       if (res.status === 200) {
         alert.message = `Xóa sản phẩm ${res.data.data.attributes?.name} thành công`
         alert.type = 'success'
+        setTimeout(() => router.push('/market'), 2000)
       }
     })
     .catch((err) => {
       alert.message = err.message
       alert.type = 'danger'
     })
-    .finally(() => {
-      setTimeout(() => router.push('/market'), 2000)
+    .finally(() => {})
+}
+
+const productDetails = reactive({
+  state: true || false,
+})
+
+const handleUpdateProduct = (): void => {
+  const data = { data: { ...productDetails } }
+  updateProduct(id, data)
+    .then((res) => {
+      product.value = res.data.data
+      if (res.status === 200) {
+        if (productDetails.state === true) {
+          alert.message = `Đã ngưng kinh doanh ${res.data.data.attributes.name} `
+        } else {
+          alert.message = `Đã tái kinh doanh ${res.data.data.attributes.name} `
+        }
+        alert.type = 'success'
+      }
+    })
+    .catch((err) => {
+      alert.message = err.message
+      alert.type = 'danger'
     })
 }
 </script>

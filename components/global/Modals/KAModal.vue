@@ -14,7 +14,7 @@
           class="relative flex flex-col p-4 bg-white rounded-lg shadow dark:bg-gray-700"
         >
           <button
-            :id="'button-close-' + props.modal"
+            :id="'button-x-' + props.modal"
             type="button"
             class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
           >
@@ -46,19 +46,29 @@ onMounted(() => {
   const $modalElement: HTMLElement | null = document.getElementById(
     `${props.modal}`
   )
-  const $closeElement: any = document.getElementById(
+  const $closeElement: any = document.getElementById(`button-x-${props.modal}`)
+  const $closeButton: any = document.getElementById(
     `button-close-${props.modal}`
   )
+    ? document.getElementById(`button-close-${props.modal}`)
+    : null
   const modalOptions: ModalOptions = {
     placement: 'center',
-    backdrop: 'static',
-    backdropClasses: 'bg-gray-900 bg-opacity-40 fixed inset-0 z-40',
   }
 
   if ($modalElement) {
     modal = new Modal($modalElement, modalOptions)
-    $buttonElement.addEventListener('click', () => modal.toggle())
+    console.log(modal)
+    $buttonElement.addEventListener('click', () => {
+      modal = new Modal($modalElement, modalOptions)
+      console.log('a', $modalElement)
+
+      modal.show()
+    })
     $closeElement.addEventListener('click', () => {
+      modal.hide()
+    })
+    $closeButton?.addEventListener('click', () => {
       modal.hide()
     })
   }
