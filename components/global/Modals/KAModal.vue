@@ -54,15 +54,17 @@ onMounted(() => {
     : null
   const modalOptions: ModalOptions = {
     placement: 'center',
+    backdrop: 'dynamic',
+    backdropClasses:
+      'bg-gray-400 bg-opacity-50 dark:bg-opacity-80 fixed inset-0 z-40',
+    closable: true,
   }
 
   if ($modalElement) {
     modal = new Modal($modalElement, modalOptions)
-    console.log(modal)
+    console.log(modal._isHidden)
     $buttonElement.addEventListener('click', () => {
-      modal = new Modal($modalElement, modalOptions)
-      console.log('a', $modalElement)
-
+      console.log('a', modal, modal._targetEl?.id)
       modal.show()
     })
     $closeElement.addEventListener('click', () => {
