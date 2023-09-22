@@ -1,5 +1,11 @@
-// import axios from 'axios'
-//  export async function login({identifier, password}) {
-//     const result = await axios.post('http://localhost:1337/api/auth/local',{identifier, password})
+import { axios } from '~/plugins/axios'
+const qs = require('qs')
 
-//  }
+export async function login(payload: object) {
+  return await axios.post('api/auth/local', payload)
+}
+
+export async function getUserDetails(payload: object) {
+  const query = qs.stringify(payload)
+  return await axios.get(`/api/users/me?${query}`)
+}

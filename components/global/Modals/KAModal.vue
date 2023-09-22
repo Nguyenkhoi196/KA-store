@@ -31,7 +31,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, watch } from 'vue'
+import { onMounted } from 'vue'
 import { Modal, ModalInterface, ModalOptions } from 'flowbite'
 
 type Props = {
@@ -62,9 +62,7 @@ onMounted(() => {
 
   if ($modalElement) {
     modal = new Modal($modalElement, modalOptions)
-    console.log(modal._isHidden)
     $buttonElement.addEventListener('click', () => {
-      console.log('a', modal, modal._targetEl?.id)
       modal.show()
     })
     $closeElement.addEventListener('click', () => {
@@ -75,16 +73,6 @@ onMounted(() => {
     })
   }
 })
-
-const emit = defineEmits(['close-modal'])
-watch(
-  () => props.close,
-  (isClose) => {
-    if (isClose) {
-      emit('close-modal', modal)
-    }
-  }
-)
 </script>
 
 <style scoped lang="scss">

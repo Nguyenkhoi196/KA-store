@@ -14,7 +14,7 @@
           <div
             class="font-semibold font-mono mx-auto border-2 p-2 bg-primary rounded-md text-tertiary"
           >
-            <nuxt-link to="/profile/updateUser">
+            <nuxt-link to="/profile/details">
               <div class="flex flex-row items-center gap-5 text-base">
                 <div class="flex flex-row gap-1 text-center">
                   <span class="col-span-1">
@@ -177,44 +177,39 @@
     <!-- layout -->
   </div>
 </template>
-
-<script>
+<script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import { useRouter } from '@nuxtjs/composition-api'
 import { store } from '../../store'
 
+const user = ref()
+const router = useRouter()
+const error = ref()
+
+onMounted(() => {
+  if (process.client) {
+    const userStr = ref<string | null>()
+    userStr.value = localStorage.getItem('user')
+    user.value = userStr.value
+      ? JSON.parse(userStr.value)
+      : store.state.users.user.data?.email
+  }
+})
+const logOut = () => {
+  try {
+    store.dispatch('logout')
+  } catch (e: any) {
+    error.value = e.message
+  }
+  if (!error.value) {
+    router.push('/login')
+  }
+}
+</script>
+<script lang="ts">
 export default {
   layout: 'AuthLayout',
-  middleware: 'auth',
-  setup() {
-    const userStr = ref('')
-    const user = ref('')
-    const router = useRouter()
-    const error = ref('')
-
-    onMounted(() => {
-      if (process.client) {
-        userStr.value = localStorage.getItem('user')
-        user.value = userStr.value ? JSON.parse(userStr.value) : {}
-      }
-    })
-    const logOut = () => {
-      try {
-        store.dispatch('logout')
-      } catch (e) {
-        error.value = e.message
-      }
-      if (!error.value) {
-        router.push('/login')
-      }
-    }
-
-    return {
-      user,
-      logOut,
-      error,
-    }
-  },
+  middleware: ['auth'],
 }
 </script>
 <style lang="scss" scoped></style>

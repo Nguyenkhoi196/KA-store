@@ -4,6 +4,7 @@ import { axios } from '../../../plugins/axios'
 
 import { userState } from './type'
 import { rootState } from '~/store/type'
+import { getUserDetails, login } from '~/api/User'
 
 const actions: ActionTree<userState, rootState> = {
   signup({ commit }, { email, username, password }) {
@@ -29,7 +30,6 @@ const actions: ActionTree<userState, rootState> = {
       auth
         .signOut(auth.getAuth())
         .then((user) => {
-          // Xóa token từ localStorage
           localStorage.removeItem('user')
           localStorage.removeItem('token')
           localStorage.removeItem('role')
@@ -44,13 +44,9 @@ const actions: ActionTree<userState, rootState> = {
 
   login({ commit }, { identifier, password }) {
     return new Promise((resolve, reject) => {
-      axios
-        .post('/api/auth/local', {
-          identifier,
-          password,
-        })
+      login({ identifier, password })
         .then((res: any) => {
-          axios.get('/api/users/me?populate=*').then((res: any) => {
+          getUserDetails({ populate: '*' }).then((res: any) => {
             commit('SET_ROLE', res.data)
             localStorage.setItem('user', JSON.stringify(res.data))
             localStorage.setItem('role', JSON.stringify(res.data.role.name))

@@ -20,7 +20,7 @@
                 aria-controls="dropdown-product-classification"
                 data-collapse-toggle="dropdown-product-classification"
                 aria-expanded="true"
-                @click="showClassFilter()"
+                @click="showClassFilter"
               >
                 <span> Loại hàng </span>
                 <fa :icon="classFilter === false ? 'caret-down' : 'caret-up'" />
@@ -62,7 +62,7 @@
                 aria-controls="dropdown-product-supplier"
                 data-collapse-toggle="dropdown-product-supplier"
                 aria-expanded="true"
-                @click="showSupplierFilter()"
+                @click="showSupplierFilter"
               >
                 <span>Nhà cung cấp</span>
                 <fa
@@ -118,7 +118,7 @@
                 aria-controls="dropdown-product-inventory"
                 data-collapse-toggle="dropdown-product-inventory"
                 aria-expanded="true"
-                @click="showStockFilter()"
+                @click="showStockFilter"
               >
                 <span>Tình trạnh trong kho</span>
                 <fa :icon="stockFilter === false ? 'caret-down' : 'caret-up'" />
@@ -132,7 +132,7 @@
                     type="radio"
                     name="inventory-status"
                     :value="{ $gte: 0 }"
-                    @change="handleFindProducts()"
+                    @change="handleFindProducts"
                   />
                   <label
                     for="overall-inventory"
@@ -148,7 +148,7 @@
                     type="radio"
                     name="inventory-status"
                     :value="{ $eq: 0 }"
-                    @change="handleFindProducts()"
+                    @change="handleFindProducts"
                   />
                   <label
                     for="outstock-inventory"
@@ -164,7 +164,7 @@
                     type="radio"
                     name="inventory-status"
                     :value="{ $gt: 0 }"
-                    @change="handleFindProducts()"
+                    @change="handleFindProducts"
                   />
 
                   <label
@@ -201,7 +201,7 @@
                       type="radio"
                       name="pageSize"
                       :value="10"
-                      @change="handleFindProducts()"
+                      @change="handleFindProducts"
                     />
                     <label for="pageSize-10" class="cursor-pointer px-3 py-1"
                       >10</label
@@ -479,11 +479,7 @@
       </section>
     </section>
     <SidebarLeftDrawer :sidebar="'sidebar'" />
-    <Modal-KAModal
-      :modal="'modal-1'"
-      :close="!!alert.type"
-      @close-modal="(modal) => modal.hide()"
-    >
+    <Modal-KAModal :modal="'modal-1'" :close="!!alert.type">
       <template #header>
         <div>
           <div class="px-6 py-4 border-b rounded-t dark:border-gray-600">
@@ -577,7 +573,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, reactive, ref } from 'vue'
+import { onMounted, reactive, ref, watchEffect } from 'vue'
 import { useRouter } from '@nuxtjs/composition-api'
 import { addProduct, findProducts } from '~/api/Product'
 import { Product, ProductAtrributes } from '~/types/Product'
@@ -647,6 +643,8 @@ const handleFindProducts = () => {
 const alert = reactive<Alert>({
   message: undefined,
   type: undefined,
+  show: false,
+  timeout: 2000,
 })
 const productAtrributes: Partial<ProductAtrributes> = reactive({
   name: '',
@@ -661,6 +659,15 @@ const handleAddProduct = () => {
       if (res.status === 200) {
         alert.message = `Thêm sản phẩm ${res.data.data.attributes?.name} thành công`
         alert.type = 'success'
+        const id = ref<number>(res.data.data.id)
+        watchEffect(() => {
+          if (id.value) {
+            alert.show = true
+            setTimeout(() => {
+              alert.show = false
+            }, alert.timeout)
+          }
+        })
       }
     })
     .catch((err) => {

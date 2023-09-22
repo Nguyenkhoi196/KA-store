@@ -4,8 +4,8 @@
   >
     <t-alert
       :variant="alert.type"
-      :show="showAlert"
-      :timeout="alert.timeout || Number(2000)"
+      :show="alert.show"
+      :timeout="alert.timeout"
       :dismissible="false"
       >{{ alert?.message }}</t-alert
     >
@@ -13,25 +13,14 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue'
+import { watchEffect } from 'vue'
 import { Alert } from './Alert'
 interface Props {
   alert: Alert
 }
-const prop = defineProps<Props>()
+defineProps<Props>()
 
-const showAlert = ref(false)
-
-watch(
-  () => prop.alert.message,
-  (newMessage, oldMessage) => {
-    showAlert.value = !!newMessage
-
-    setTimeout(() => {
-      showAlert.value = false
-    }, prop.alert.timeout || 2000)
-  }
-)
+watchEffect(() => {})
 </script>
 
 <style scoped lang="scss"></style>

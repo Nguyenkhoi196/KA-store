@@ -48,7 +48,7 @@
         <div id="TabDetails">
           <div
             id="details"
-            class="hidden px-16 py-10 border-[1px] solid border-gray-400 rounded-lg bg-gray-50 dark:bg-gray-800"
+            class="px-16 py-10 border-[1px] solid border-gray-400 rounded-lg bg-gray-50 dark:bg-gray-800"
             role="tabpanel"
             aria-labelledby="details-tab"
           >
@@ -71,7 +71,7 @@
                 <div class="w-1/3">
                   <div class="px-6">
                     <div
-                      class="flex pt-4 pb-2 min-h-[24px] border-b-[1px] solid border-gray-500"
+                      class="flex pt-4 pb-2 min-h-[24px] border-b-[1px] border-dashed border-gray-500"
                     >
                       <label class="w-28">Mã hàng :</label>
                       <div class="ml-14">{{ product?.id }}</div>
@@ -79,7 +79,7 @@
                   </div>
                   <div class="px-6">
                     <div
-                      class="flex pt-4 pb-2 min-h-[24px] border-b-[1px] solid border-gray-500"
+                      class="flex pt-4 pb-2 min-h-[24px] border-b-[1px] border-dashed border-gray-500"
                     >
                       <label class="w-28">Giá bán :</label>
                       <div class="ml-14">{{ product?.attributes.price }}</div>
@@ -87,7 +87,7 @@
                   </div>
                   <div class="px-6">
                     <div
-                      class="flex pt-4 pb-2 min-h-[24px] border-b-[1px] solid border-gray-500"
+                      class="flex pt-4 pb-2 min-h-[24px] border-b-[1px] border-dashed border-gray-500"
                     >
                       <label class="w-28">Giá nhập :</label>
                       <div class="ml-14">
@@ -97,7 +97,7 @@
                   </div>
                   <div class="px-6">
                     <div
-                      class="flex pt-4 pb-2 min-h-[24px] border-b-[1px] solid border-gray-500"
+                      class="flex pt-4 pb-2 min-h-[24px] border-b-[1px] border-dashed border-gray-500"
                     >
                       <label class="w-28">Thương hiệu :</label>
                       <div class="ml-14">{{ product?.attributes.brand }}</div>
@@ -105,7 +105,7 @@
                   </div>
                   <div class="px-6">
                     <div
-                      class="flex pt-4 pb-2 min-h-[24px] border-b-[1px] solid border-gray-500"
+                      class="flex pt-4 pb-2 min-h-[24px] border-b-[1px] border-dashed border-gray-500"
                     >
                       <label class="w-28">Tồn kho :</label>
                       <div class="ml-14">
@@ -172,11 +172,7 @@
         </div>
       </div>
     </section>
-    <Modal-KAModal
-      :modal="'modal-accept'"
-      :close="!!alert.type"
-      @close-modal="(modal) => modal.hide()"
-    >
+    <Modal-KAModal :modal="'modal-accept'" :close="!!alert.type">
       <template #header>
         <div>
           <div class="px-6 py-4 border-b rounded-t dark:border-gray-600">
@@ -214,11 +210,7 @@
         </div>
       </template>
     </Modal-KAModal>
-    <Modal-KAModal
-      :modal="'modal-lock'"
-      :close="!!alert.type"
-      @close-modal="(modal) => modal.hide()"
-    >
+    <Modal-KAModal :modal="'modal-lock'" :close="!!alert.type">
       <template #header>
         <div>
           <div class="px-6 py-4 border-b rounded-t dark:border-gray-600">
@@ -264,7 +256,7 @@
 </template>
 <script setup lang="ts">
 import { useRoute, useRouter } from '@nuxtjs/composition-api'
-import { onMounted, reactive, ref } from 'vue'
+import { onMounted, reactive, ref, watchEffect } from 'vue'
 
 import { deleteProduct, getProduct, updateProduct } from '~/api/Product'
 import { Alert } from '~/components/global/Alerts/Alert'
@@ -276,9 +268,9 @@ const router = useRouter()
 const alert = reactive<Alert>({
   message: undefined,
   type: undefined,
+  show: false,
+  timeout: 2000,
 })
-console.log('modal', alert)
-
 const id = route.value.params.id
 onMounted(() => {
   getProduct(id).then((res) => {
@@ -292,7 +284,11 @@ const handleDeleteProduct = (): void => {
       if (res.status === 200) {
         alert.message = `Xóa sản phẩm ${res.data.data.attributes?.name} thành công`
         alert.type = 'success'
-        setTimeout(() => router.push('/market'), 2000)
+        alert.show = true
+        setTimeout(() => {
+          alert.show = false
+          router.push('/market')
+        }, alert.timeout)
       }
     })
     .catch((err) => {
@@ -310,14 +306,23 @@ const handleUpdateProduct = (): void => {
   const data = { data: { ...productDetails } }
   updateProduct(id, data)
     .then((res) => {
-      product.value = res.data.data
       if (res.status === 200) {
-        if (productDetails.state === true) {
+        if (res.data.data.attributes.state === true) {
           alert.message = `Đã ngưng kinh doanh ${res.data.data.attributes.name} `
         } else {
           alert.message = `Đã tái kinh doanh ${res.data.data.attributes.name} `
         }
         alert.type = 'success'
+
+        product.value = res.data.data
+        watchEffect(() => {
+          if (product.value?.attributes.state) {
+            alert.show = true
+            setTimeout(() => {
+              alert.show = false
+            }, alert.timeout)
+          }
+        })
       }
     })
     .catch((err) => {
