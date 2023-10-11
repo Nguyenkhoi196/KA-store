@@ -120,6 +120,7 @@
               <div class="self-end pt-5 flex gap-5 float-right">
                 <button
                   id="button-modal-accept"
+                  :disabled="!permissions?.delete.enabled"
                   class="button shadow-xl flex gap-3 text-primary bg-red-500 hover:bg-red-700"
                 >
                   <fa icon="trash-can" />
@@ -127,6 +128,7 @@
                 </button>
                 <button
                   id="button-modal-lock"
+                  :disabled="!permissions?.update.enabled"
                   class="button shadow-xl flex gap-3 text-primary bg-red-500 hover:bg-red-700"
                 >
                   <div v-if="product?.attributes.state === true">
@@ -138,13 +140,16 @@
                   </div>
                 </button>
                 <button
-                  :disabled="!product?.attributes.state"
+                  :disabled="
+                    !product?.attributes.state || !permissions?.create.enabled
+                  "
                   class="button shadow-xl flex gap-3 text-primary bg-secondary hover:bg-secondaryDark"
                 >
                   <fa icon="copy" />
                   <span> Sao chép </span>
                 </button>
                 <button
+                  :disabled="!permissions?.update.enabled"
                   class="button shadow-xl flex gap-3 text-primary bg-secondary hover:bg-secondaryDark"
                 >
                   <fa icon="gear" />
@@ -259,6 +264,7 @@ import { useRoute, useRouter } from '@nuxtjs/composition-api'
 import { onMounted, reactive, ref, watchEffect } from 'vue'
 
 import { deleteProduct, getProduct, updateProduct } from '~/api/Product'
+import { getRoleDetails } from '~/api/User'
 import { Alert } from '~/components/global/Alerts/Alert'
 import { Product } from '~/types/Product'
 
@@ -274,9 +280,24 @@ const alert = reactive<Alert>({
 const id = route.value.params.id
 onMounted(() => {
   getProduct(id).then((res) => {
-    product.value = res.data
+    product.value = res.data.data
   })
+  handleGetRoleDetails()
 })
+
+const role = ref()
+if (process.client) {
+  const roleStr = ref()
+  roleStr.value = localStorage.getItem('role')
+  role.value = JSON.parse(roleStr.value)
+}
+
+const permissions = ref()
+const handleGetRoleDetails = async () => {
+  const response = await getRoleDetails(role.value.id)
+  permissions.value =
+    response.data.role.permissions['api::product'].controllers.product
+}
 
 const handleDeleteProduct = (): void => {
   deleteProduct(id)
@@ -289,6 +310,9 @@ const handleDeleteProduct = (): void => {
           alert.show = false
           router.push('/market')
         }, alert.timeout)
+      }
+      if (res.error.status === 403) {
+        throw new Error('deo co quyen')
       }
     })
     .catch((err) => {

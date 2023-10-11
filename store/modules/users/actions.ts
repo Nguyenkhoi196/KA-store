@@ -49,7 +49,7 @@ const actions: ActionTree<userState, rootState> = {
           getUserDetails({ populate: '*' }).then((res: any) => {
             commit('SET_ROLE', res.data)
             localStorage.setItem('user', JSON.stringify(res.data))
-            localStorage.setItem('role', JSON.stringify(res.data.role.name))
+            localStorage.setItem('role', JSON.stringify(res.data.role))
             resolve(res.data)
           })
           commit('SET_LOGIN', res.data)

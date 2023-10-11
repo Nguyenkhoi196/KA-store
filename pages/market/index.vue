@@ -14,7 +14,6 @@
           <section>
             <article class="relative bg-primary mb-4 p-3 shadow-xl rounded-md">
               <button
-                id="button-dropdown-product-classification"
                 type="button"
                 class="w-full p-1 flex justify-between"
                 aria-controls="dropdown-product-classification"
@@ -56,7 +55,6 @@
             </article>
             <article class="relative bg-primary mb-4 p-3 shadow-xl rounded-md">
               <button
-                id="button-dropdown-product-supplier"
                 type="button"
                 class="w-full p-1 flex justify-between"
                 aria-controls="dropdown-product-supplier"
@@ -621,24 +619,23 @@ onMounted(() => {
   handleFindProducts()
 })
 
-const handleFindProducts = () => {
+const handleFindProducts = async () => {
   loading.value = true
-  findProducts(query)
-    .then((res) => {
-      if (inputFilter.value === null || inputFilter.value === '') {
-        inputFilter.value = undefined
-      }
-      products.value = res.data
-      totalInventory.value = res.totalInventory
-      pagination.pageCount = res.meta.pagination.pageCount
-      pagination.total = res.meta.pagination.total
-    })
-    .catch((err) => {
-      throw err
-    })
-    .finally(() => {
-      loading.value = false
-    })
+  try {
+    const res = await findProducts(query)
+    if (!inputFilter.value) {
+      inputFilter.value = undefined
+    }
+    products.value = res.data.data
+    totalInventory.value = res.data.totalInventory
+    pagination.pageCount = res.data.meta.pagination.pageCount
+    pagination.total = res.data.meta.pagination.total
+  } catch (err: any) {
+    alert.message = err.message
+    alert.type = 'danger'
+  } finally {
+    loading.value = false
+  }
 }
 const alert = reactive<Alert>({
   message: undefined,
@@ -652,28 +649,28 @@ const productAtrributes: Partial<ProductAtrributes> = reactive({
   brand: '',
   inventory: 0,
 })
-const handleAddProduct = () => {
+const handleAddProduct = async () => {
   const data = { data: { ...productAtrributes } }
-  addProduct(data)
-    .then((res) => {
-      if (res.status === 200) {
-        alert.message = `Thêm sản phẩm ${res.data.data.attributes?.name} thành công`
-        alert.type = 'success'
-        const id = ref<number>(res.data.data.id)
-        watchEffect(() => {
-          if (id.value) {
-            alert.show = true
-            setTimeout(() => {
-              alert.show = false
-            }, alert.timeout)
-          }
-        })
-      }
-    })
-    .catch((err) => {
-      alert.message = err.message
-      alert.type = 'danger'
-    })
+  try {
+    const res = await addProduct(data)
+    if (res.status === 200) {
+      alert.message = `Thêm sản phẩm ${res.data.data.attributes?.name} thành công`
+      alert.type = 'success'
+      const id = ref<number>(res.data.data.id)
+      watchEffect(() => {
+        if (id.value) {
+          alert.show = true
+          setTimeout(() => {
+            alert.show = false
+            window.location.reload()
+          }, alert.timeout)
+        }
+      })
+    }
+  } catch (err: any) {
+    alert.message = err.message
+    alert.type = 'danger'
+  }
 }
 
 const handleProductDetails = (params: string) => {

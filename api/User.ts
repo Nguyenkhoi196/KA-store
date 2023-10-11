@@ -9,3 +9,6 @@ export async function getUserDetails(payload: object) {
   const query = qs.stringify(payload)
   return await axios.get(`/api/users/me?${query}`)
 }
+export async function getRoleDetails(id: number) {
+  return await axios.get(`/api/users-permissions/roles/${id}`)
+}

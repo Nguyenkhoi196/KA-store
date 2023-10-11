@@ -92,11 +92,11 @@ export default {
 <script lang="ts" setup>
 const email = ref<string | null>(null)
 const password = ref<string | null>(null)
-const error = ref<string>('')
+const error = ref()
 const router = useRouter()
 
 watch([email, password], () => {
-  error.value = ''
+  error.value = null
 })
 
 const onSubmit = async () => {

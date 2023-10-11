@@ -9,3 +9,12 @@ export interface User {
 export interface UserAuth extends User {
   role?: string
 }
+
+export interface userRole {
+  id: number
+  name: string
+  description: string
+  type: string
+  createdAt: string
+  updatedAt: string
+}

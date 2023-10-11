@@ -13,14 +13,11 @@
 </template>
 
 <script setup lang="ts">
-import { watchEffect } from 'vue'
 import { Alert } from './Alert'
 interface Props {
   alert: Alert
 }
 defineProps<Props>()
-
-watchEffect(() => {})
 </script>
 
 <style scoped lang="scss"></style>

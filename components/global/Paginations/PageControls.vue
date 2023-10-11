@@ -6,7 +6,7 @@
       :total-items="Number(pagination.total)"
       :per-page="pagination.pageSize"
       :limit="5"
-      @change="setPage()"
+      @change="handleNextButtonClick()"
     />
   </div>
 </template>
@@ -34,6 +34,17 @@ const emit = defineEmits(['set-page', 'find'])
 //   (e: 'set-page', page: number): void
 //   (e: 'find'): void
 // }>()
+let debounceTimer: ReturnType<typeof setTimeout> | null = null
+const debounceDelay = 500
+
+function handleNextButtonClick() {
+  if (debounceTimer) {
+    clearTimeout(debounceTimer)
+  }
+  debounceTimer = setTimeout(() => {
+    setPage()
+  }, debounceDelay)
+}
 
 const setPage = () => {
   emit('set-page', currentPage.value)
