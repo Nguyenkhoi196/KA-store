@@ -25,7 +25,7 @@
         <ul class="space-y-2 font-medium">
           <li>
             <a
-              href="#"
+              href="/dashboard"
               class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-secondary/30 group"
             >
               <fa icon="chart-pie" />
