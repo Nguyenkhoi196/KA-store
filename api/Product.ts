@@ -6,8 +6,9 @@ export async function addProduct(payload: object) {
   return await axios.post('/api/products', payload)
 }
 
-export async function getProduct(id: string) {
-  return await axios.get(`/api/products/${id}`)
+export async function getProduct(id: string, payload: object) {
+  const query = qs.stringify(payload)
+  return await axios.get(`/api/products/${id}?${query}`)
 }
 
 export async function findProducts(payload: any) {

@@ -16,79 +16,188 @@
       <section class="flex justify-evenly mx-5">
         <section class="w-auto hidden md:flex">
           <img
-            src="../../../assets/images/logo.png"
+            :src="
+              user?.avatar
+                ? user.avatar.url
+                : 'https://res.cloudinary.com/dat9zyjdy/image/upload/v1697077672/thumbnail_default_image_5d6945e204.png'
+            "
             class="max-h-[170px] w-full block h-auto mx-auto"
           />
         </section>
-        <section class="grid grid-cols-2 min-w-fit h-fit">
-          <div class="md:px-6 px-3">
-            <div
-              class="pt-4 block md:flex justify-between pb-2 min-h-[24px] border-b-[1px] border-dashed border-gray-500"
-            >
-              <label class="w-fit">Tên người dùng :</label>
-              <div class="pt-4 md:pt-0">{{ user?.username }}</div>
+        <div>
+          <section class="grid grid-cols-2 min-w-fit h-fit">
+            <div class="md:px-6 px-3">
+              <div
+                class="pt-4 block md:flex justify-between pb-2 min-h-[24px] border-b-[1px] border-dashed border-gray-500"
+              >
+                <label class="w-fit">Tên người dùng :</label>
+                <div class="pt-4 md:pt-0">{{ user?.username }}</div>
+              </div>
             </div>
-          </div>
-          <div class="md:px-6 px-3">
-            <div
-              class="pt-4 block md:flex justify-between pb-2 min-h-[24px] border-b-[1px] border-dashed border-gray-500"
-            >
-              <label class="w-fit">Tên đăng nhập :</label>
-              <div class="pt-4 md:pt-0">{{ user?.email }}</div>
+            <div class="md:px-6 px-3">
+              <div
+                class="pt-4 block md:flex justify-between pb-2 min-h-[24px] border-b-[1px] border-dashed border-gray-500"
+              >
+                <label class="w-fit">Tên đăng nhập :</label>
+                <div class="pt-4 md:pt-0">{{ user?.email }}</div>
+              </div>
             </div>
-          </div>
-          <div class="md:px-6 px-3">
-            <div
-              class="pt-4 block md:flex justify-between pb-2 min-h-[24px] border-b-[1px] border-dashed border-gray-500"
-            >
-              <label class="w-fit">Vai trò :</label>
-              <div class="pt-4 md:pt-0">{{ user?.role?.name }}</div>
+            <div class="md:px-6 px-3">
+              <div
+                class="pt-4 block md:flex justify-between pb-2 min-h-[24px] border-b-[1px] border-dashed border-gray-500"
+              >
+                <label class="w-fit">Vai trò :</label>
+                <div class="pt-4 md:pt-0">{{ user?.role?.name }}</div>
+              </div>
             </div>
-          </div>
-          <div class="md:px-6 px-3">
-            <div
-              class="pt-4 block md:flex justify-between pb-2 min-h-[24px] border-b-[1px] border-dashed border-gray-500"
-            >
-              <label class="w-fit">Điện thoại :</label>
-              <div class="pt-4 md:pt-0">{{ user?.info[0]?.phone }}</div>
+            <div class="md:px-6 px-3">
+              <div
+                class="pt-4 block md:flex justify-between pb-2 min-h-[24px] border-b-[1px] border-dashed border-gray-500"
+              >
+                <label class="w-fit">Điện thoại :</label>
+                <div class="pt-4 md:pt-0">
+                  {{ user?.info ? user.info[0].phone : 'Chưa cập nhật' }}
+                </div>
+              </div>
             </div>
-          </div>
-          <div class="md:px-6 px-3">
-            <div
-              class="pt-4 block md:flex justify-between pb-2 min-h-[24px] border-b-[1px] border-dashed border-gray-500"
-            >
-              <label class="w-fit">Email :</label>
-              <div class="pt-4 md:pt-0">{{ user?.info[0]?.email }}</div>
+            <div class="md:px-6 px-3">
+              <div
+                class="pt-4 block md:flex justify-between pb-2 min-h-[24px] border-b-[1px] border-dashed border-gray-500"
+              >
+                <label class="w-fit">Email :</label>
+                <div class="pt-4 md:pt-0">
+                  {{ user?.info ? user.info[0].email : 'Chưa cập nhật' }}
+                </div>
+              </div>
             </div>
-          </div>
-          <div class="md:px-6 px-3">
-            <div
-              class="pt-4 block md:flex justify-between pb-2 min-h-[24px] border-b-[1px] border-dashed border-gray-500"
-            >
-              <label class="w-fit">Địa chỉ :</label>
-              <div class="pt-4 md:pt-0">test</div>
+            <div class="md:px-6 px-3">
+              <div
+                class="pt-4 block md:flex justify-between pb-2 min-h-[24px] border-b-[1px] border-dashed border-gray-500"
+              >
+                <label class="w-fit">Địa chỉ :</label>
+                <div class="pt-4 md:pt-0">
+                  {{ user?.info ? user.info[1].address : 'Chưa cập nhật' }}
+                </div>
+              </div>
             </div>
-          </div>
-          <div class="md:px-6 px-3">
-            <div
-              class="pt-4 block md:flex justify-between pb-2 min-h-[24px] border-b-[1px] border-dashed border-gray-500"
-            >
-              <label class="w-fit">Phường xã :</label>
-              <div class="pt-4 md:pt-0">test</div>
+            <div class="md:px-6 px-3">
+              <div
+                class="pt-4 block md:flex justify-between pb-2 min-h-[24px] border-b-[1px] border-dashed border-gray-500"
+              >
+                <label class="w-fit">Tỉnh/Thành phố :</label>
+                <div class="pt-4 md:pt-0">
+                  {{ user?.info ? user.info[1].city : 'Chưa cập nhật' }}
+                </div>
+              </div>
             </div>
-          </div>
-          <div class="md:px-6 px-3">
-            <div
-              class="block md:flex pt-4 justify-between pb-2 min-h-[24px] border-b-[1px] border-dashed border-gray-500"
+          </section>
+          <div class="flex self-end pt-5 gap-5 float-right">
+            <button
+              id="button-modal-update"
+              class="button shadow-xl flex gap-3 text-primary bg-secondary hover:bg-secondaryDark"
             >
-              <label class="w-fit">Tỉnh, Thành phố :</label>
-              <div class="pt-4 md:pt-0">test</div>
-            </div>
+              <fa icon="gear" />
+              <span> Cập nhật </span>
+            </button>
           </div>
-        </section>
+        </div>
       </section>
     </section>
     <SidebarLeftDrawer :sidebar="'sidebar'" />
+    <Modal-KAModal :modal="'modal-update'">
+      <template #header>
+        <div class="py-4 border-b rounded-t dark:border-gray-600">
+          <span class="text-secondary text-xl font-semibold"
+            >Cập nhật thông tin</span
+          >
+        </div>
+      </template>
+      <template #body>
+        <div class="pt-6">
+          <form class="flex flex-col gap-4">
+            <div class="md:px-6 px-3">
+              <div
+                class="pt-4 block md:flex justify-between pb-2 min-h-[24px] border-b-[1px] border-dashed border-gray-500"
+              >
+                <label class="w-fit">Tên người dùng :</label>
+                <div class="pt-4 md:pt-0">{{ user?.username }}</div>
+              </div>
+            </div>
+            <div class="md:px-6 px-3">
+              <div
+                class="pt-4 block md:flex justify-between pb-2 min-h-[24px] border-b-[1px] border-dashed border-gray-500"
+              >
+                <label class="w-fit">Tên đăng nhập :</label>
+                <div class="pt-4 md:pt-0">{{ user?.email }}</div>
+              </div>
+            </div>
+            <div class="md:px-6 px-3">
+              <div
+                class="pt-4 block md:flex justify-between pb-2 min-h-[24px] border-b-[1px] border-dashed border-gray-500"
+              >
+                <label class="w-fit">Vai trò :</label>
+                <div class="pt-4 md:pt-0">{{ user?.role?.name }}</div>
+              </div>
+            </div>
+            <div class="md:px-6 px-3">
+              <div
+                class="pt-4 block md:flex justify-between pb-2 min-h-[24px] border-b-[1px] border-dashed border-gray-500"
+              >
+                <label class="w-fit">Điện thoại :</label>
+                <input
+                  class="pt-4 md:pt-0 hover:placeholder-secondary placeholder-shown:color-sencondary focus:border-b-[1px] focus:border-secondary"
+                  :placeholder="user?.info ? user.info[0].phone : ''"
+                />
+              </div>
+            </div>
+            <div class="md:px-6 px-3">
+              <div
+                class="pt-4 block md:flex justify-between pb-2 min-h-[24px] border-b-[1px] border-dashed border-gray-500"
+              >
+                <label class="w-fit">Địa chỉ :</label>
+                <input
+                  class="pt-4 md:pt-0 hover:placeholder-secondary placeholder-shown:color-sencondary focus:border-b-[1px] focus:border-secondary"
+                  :placeholder="user?.info[1].address"
+                />
+              </div>
+            </div>
+
+            <div class="md:px-6 px-3">
+              <div
+                class="pt-4 block md:flex justify-between pb-2 min-h-[24px] border-b-[1px] border-dashed border-gray-500"
+              >
+                <label class="w-fit">Tỉnh/Thành phố :</label>
+                <input
+                  class="pt-4 md:pt-0 hover:placeholder-secondary placeholder-shown:color-sencondary focus:border-b-[1px] focus:border-secondary"
+                  :placeholder="user?.info ? user.info[1].city : ''"
+                />
+              </div>
+            </div>
+            <div id="image-preview" class="px-3 md:px-6">
+              <img
+                :src="previewUrl"
+                class="w-full rounded-lg block h-auto mx-auto"
+              />
+              <input
+                id="button-image-preview"
+                class="absolute color-secondary hidden top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+                accept="image/*"
+                type="file"
+                @change="previewImage($event)"
+              />
+            </div>
+          </form>
+          <div class="self-end pt-5 flex gap-5 float-right">
+            <button
+              class="button shadow-xl flex gap-3 text-primary bg-secondary hover:bg-secondaryDark"
+            >
+              <fa icon="gear" />
+              <span> Cập nhật </span>
+            </button>
+          </div>
+        </div>
+      </template>
+    </Modal-KAModal>
   </div>
 </template>
 
@@ -110,8 +219,11 @@ type User = {
   email: string
   role?: userRole
   info?: (Contacts & Locations)[]
+  avatar?: any
 }
 const user = ref<User>()
+const selectedFile = ref<File | null>(null)
+const previewUrl = ref<string | ArrayBuffer>()
 onMounted(() => {
   handleGetUserDetails()
 })
@@ -119,7 +231,19 @@ const handleGetUserDetails = async () => {
   try {
     const result = await getUserDetails({ populate: '*' })
     user.value = result.data
+    previewUrl.value = result.data.avatar.url
   } catch (error) {}
+}
+const previewImage = (event: any) => {
+  const file = event.target.files[0]
+  if (file) {
+    const reader = new FileReader()
+    selectedFile.value = file
+    reader.onload = () => {
+      previewUrl.value = reader.result as string
+    }
+    reader.readAsDataURL(file)
+  }
 }
 </script>
 
@@ -131,6 +255,15 @@ const handleGetUserDetails = async () => {
   &:hover {
     .icon {
       transform: translateX(-4px);
+    }
+  }
+}
+#image-preview {
+  position: relative;
+  &:hover {
+    opacity: 0.5;
+    #button-image-preview {
+      display: block;
     }
   }
 }

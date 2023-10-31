@@ -11,7 +11,7 @@
       <div class="relative w-full max-w-md">
         <!-- Modal content -->
         <div
-          class="relative flex flex-col p-4 bg-white rounded-lg shadow dark:bg-gray-700"
+          class="relative flex flex-col p-6 bg-white rounded-lg shadow dark:bg-gray-700"
         >
           <button
             :id="'button-x-' + props.modal"

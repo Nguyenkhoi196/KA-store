@@ -97,11 +97,9 @@
                       v-for="product in products"
                       :key="product.id"
                       class="py-1 px-2 cursor-pointer hover:bg-secondaryLight rounded"
-                      @click="
-                        showSelectSupplierFilter(product.attributes?.brand)
-                      "
+                      @click="showSelectSupplierFilter(product?.brand)"
                     >
-                      {{ product.attributes?.brand }}
+                      {{ product?.brand }}
                     </li>
                   </ul>
                 </div>
@@ -415,16 +413,14 @@
                           <span class="box-content">{{ product.id }}</span>
                         </th>
                         <th class="p-3 min-w-[200px]">
-                          <span class="box-content">{{
-                            product.attributes.name
-                          }}</span>
+                          <span class="box-content">{{ product.name }}</span>
                         </th>
                         <th
                           v-if="dataTable[1].checked"
                           class="p-3 min-w-[112px] max-w-[112px] w-[112px] text-end"
                         >
                           <span class="box-content">{{
-                            convertDate(product.attributes.updatedAt)
+                            convertDate(product.updatedAt)
                           }}</span>
                         </th>
                         <th
@@ -432,22 +428,20 @@
                           class="p-3 min-w-[112px] max-w-[112px] w-[112px] text-end"
                         >
                           <span class="box-content">{{
-                            product.attributes.inventory
+                            product.inventory
                           }}</span>
                         </th>
                         <th
                           v-if="dataTable[3].checked"
                           class="p-3 min-w-[112px] max-w-[112px] w-[112px] text-end"
                         >
-                          <span class="box-content">{{
-                            product.attributes.brand
-                          }}</span>
+                          <span class="box-content">{{ product.brand }}</span>
                         </th>
                         <th
                           class="p-3 min-w-[112px] max-w-[112px] w-[112px] text-end"
                         >
                           <span class="box-content">{{
-                            product.attributes.price.toLocaleString('de-DE')
+                            product.price.toLocaleString('de-DE')
                           }}</span>
                         </th>
                       </tr>
@@ -574,7 +568,7 @@
 import { onMounted, reactive, ref, watchEffect } from 'vue'
 import { useRouter } from '@nuxtjs/composition-api'
 import { addProduct, findProducts } from '~/api/Product'
-import { Product, ProductAtrributes } from '~/types/Product'
+import { Product } from '~/types/Product'
 import { Pagination } from '~/types/Response'
 import { Alert } from '~/components/global/Alerts/Alert'
 
@@ -627,6 +621,8 @@ const handleFindProducts = async () => {
       inputFilter.value = undefined
     }
     products.value = res.data.data
+    console.log(products.value)
+
     totalInventory.value = res.data.totalInventory
     pagination.pageCount = res.data.meta.pagination.pageCount
     pagination.total = res.data.meta.pagination.total

@@ -54,7 +54,7 @@
           >
             <div class="flex flex-col">
               <h3 class="font-semibold text-secondaryDark text-3xl mb-5">
-                {{ product?.attributes.name }}
+                {{ product?.name }}
               </h3>
               <ul class="mb-4 flex gap-5">
                 <li>
@@ -67,7 +67,24 @@
                 </li>
               </ul>
               <div class="flex justify-between">
-                <div class="w-1/3">ảnh</div>
+                <div class="w-1/3">
+                  <div
+                    id="image-preview"
+                    class="p-2 border-2 rounded-xl border-secondary"
+                  >
+                    <img
+                      :src="product?.img ? product.img.url : previewUrl"
+                      class="w-full rounded-lg block h-auto mx-auto"
+                    />
+                    <input
+                      id="button-image-preview"
+                      class="absolute color-secondary hidden top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+                      accept="image/*"
+                      type="file"
+                      @change="previewImage($event)"
+                    />
+                  </div>
+                </div>
                 <div class="w-1/3">
                   <div class="px-6">
                     <div
@@ -82,7 +99,7 @@
                       class="flex pt-4 pb-2 min-h-[24px] border-b-[1px] border-dashed border-gray-500"
                     >
                       <label class="w-28">Giá bán :</label>
-                      <div class="ml-14">{{ product?.attributes.price }}</div>
+                      <div class="ml-14">{{ product?.price }}</div>
                     </div>
                   </div>
                   <div class="px-6">
@@ -91,7 +108,7 @@
                     >
                       <label class="w-28">Giá nhập :</label>
                       <div class="ml-14">
-                        {{ product?.attributes?.price }}
+                        {{ product?.price }}
                       </div>
                     </div>
                   </div>
@@ -100,17 +117,22 @@
                       class="flex pt-4 pb-2 min-h-[24px] border-b-[1px] border-dashed border-gray-500"
                     >
                       <label class="w-28">Thương hiệu :</label>
-                      <div class="ml-14">{{ product?.attributes.brand }}</div>
+                      <div class="ml-14">{{ product?.brand }}</div>
                     </div>
                   </div>
                   <div class="px-6">
                     <div
-                      class="flex pt-4 pb-2 min-h-[24px] border-b-[1px] border-dashed border-gray-500"
+                      class="flex pt-4 justify-between pb-2 min-h-[24px] border-b-[1px] border-dashed border-gray-500"
                     >
                       <label class="w-28">Tồn kho :</label>
-                      <div class="ml-14">
-                        {{ product?.attributes.inventory }}
-                      </div>
+                      <input
+                        v-model="productDetails.inventory"
+                        class="pt-4 md:pt-0 text-end bg-transparent rtl hover:placeholder-secondary placeholder-shown:color-sencondary focus:border-b-[1px] focus:border-secondary"
+                        :placeholder="product?.inventory"
+                      />
+                      <!-- <div class="ml-14">
+                        {{ product?.inventory }}
+                      </div> -->
                     </div>
                   </div>
                 </div>
@@ -131,7 +153,7 @@
                   :disabled="!permissions?.update.enabled"
                   class="button shadow-xl flex gap-3 text-primary bg-red-500 hover:bg-red-700"
                 >
-                  <div v-if="product?.attributes.state === true">
+                  <div v-if="product?.state === true">
                     <fa icon="ban" /> <span> Ngừng kinh doanh </span>
                   </div>
                   <div v-else>
@@ -140,9 +162,7 @@
                   </div>
                 </button>
                 <button
-                  :disabled="
-                    !product?.attributes.state || !permissions?.create.enabled
-                  "
+                  :disabled="!product?.state || !permissions?.create.enabled"
                   class="button shadow-xl flex gap-3 text-primary bg-secondary hover:bg-secondaryDark"
                 >
                   <fa icon="copy" />
@@ -151,6 +171,7 @@
                 <button
                   :disabled="!permissions?.update.enabled"
                   class="button shadow-xl flex gap-3 text-primary bg-secondary hover:bg-secondaryDark"
+                  @click="uploadImage()"
                 >
                   <fa icon="gear" />
                   <span> Cập nhật </span>
@@ -187,7 +208,7 @@
             <p class="pt-2">
               Bạn muốn xóa sản phẩm
               <span class="text-secondaryDark font-medium">
-                {{ product?.attributes.name }}
+                {{ product?.name }}
               </span>
               trên hệ thống. Bạn có chắc chắn muốn xóa
             </p>
@@ -225,7 +246,7 @@
             <p class="pt-2">
               Bạn muốn cập nhật sản phẩm
               <span class="text-secondaryDark font-medium">
-                {{ product?.attributes.name }}
+                {{ product?.name }}
               </span>
               trên hệ thống?
             </p>
@@ -266,6 +287,7 @@ import { onMounted, reactive, ref, watchEffect } from 'vue'
 import { deleteProduct, getProduct, updateProduct } from '~/api/Product'
 import { getRoleDetails } from '~/api/User'
 import { Alert } from '~/components/global/Alerts/Alert'
+import { axios } from '~/plugins/axios'
 import { Product } from '~/types/Product'
 
 const product = ref<Product>()
@@ -279,7 +301,8 @@ const alert = reactive<Alert>({
 })
 const id = route.value.params.id
 onMounted(() => {
-  getProduct(id).then((res) => {
+  const query = { populate: '*' }
+  getProduct(id, query).then((res) => {
     product.value = res.data.data
   })
   handleGetRoleDetails()
@@ -303,16 +326,13 @@ const handleDeleteProduct = (): void => {
   deleteProduct(id)
     .then((res) => {
       if (res.status === 200) {
-        alert.message = `Xóa sản phẩm ${res.data.data.attributes?.name} thành công`
+        alert.message = `Xóa sản phẩm ${res.data.data?.name} thành công`
         alert.type = 'success'
         alert.show = true
         setTimeout(() => {
           alert.show = false
           router.push('/market')
         }, alert.timeout)
-      }
-      if (res.error.status === 403) {
-        throw new Error('deo co quyen')
       }
     })
     .catch((err) => {
@@ -323,6 +343,7 @@ const handleDeleteProduct = (): void => {
 }
 
 const productDetails = reactive({
+  inventory: '',
   state: true || false,
 })
 
@@ -331,16 +352,15 @@ const handleUpdateProduct = (): void => {
   updateProduct(id, data)
     .then((res) => {
       if (res.status === 200) {
-        if (res.data.data.attributes.state === true) {
-          alert.message = `Đã ngưng kinh doanh ${res.data.data.attributes.name} `
+        if (res.data.data.state === true) {
+          alert.message = `Đã ngưng kinh doanh ${res.data.data.name} `
         } else {
-          alert.message = `Đã tái kinh doanh ${res.data.data.attributes.name} `
+          alert.message = `Đã tái kinh doanh ${res.data.data.name} `
         }
         alert.type = 'success'
-
         product.value = res.data.data
         watchEffect(() => {
-          if (product.value?.attributes.state) {
+          if (product.value?.state) {
             alert.show = true
             setTimeout(() => {
               alert.show = false
@@ -353,6 +373,34 @@ const handleUpdateProduct = (): void => {
       alert.message = err.message
       alert.type = 'danger'
     })
+}
+
+const selectedFile = ref<File | null>(null)
+const previewUrl = ref<string | null | ArrayBuffer>(
+  'https://res.cloudinary.com/dat9zyjdy/image/upload/v1697077672/thumbnail_default_image_5d6945e204.png'
+)
+
+const previewImage = (event: any) => {
+  const file = event.target.files[0]
+
+  if (file) {
+    const reader = new FileReader()
+    selectedFile.value = file
+    reader.onload = () => {
+      previewUrl.value = reader.result
+    }
+    reader.readAsDataURL(file)
+  }
+}
+const uploadImage = async () => {
+  try {
+    // if (!selectedFile.value) return
+
+    const formData = new FormData()
+    formData.append('files', selectedFile.value, selectedFile.value.name)
+    formData.append('data', productDetails)
+    await axios.post(`/api/product/${id}/update`, formData)
+  } catch (error) {}
 }
 </script>
 
@@ -368,6 +416,15 @@ const handleUpdateProduct = (): void => {
   &:hover {
     .icon {
       transform: translateX(-4px);
+    }
+  }
+}
+#image-preview {
+  position: relative;
+  &:hover {
+    opacity: 0.5;
+    #button-image-preview {
+      display: block;
     }
   }
 }
