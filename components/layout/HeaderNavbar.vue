@@ -40,7 +40,7 @@
           </span>
         </a>
         <div v-else class="text-secondary nav-item">
-          <nuxt-link to="/login">Đăng nhập</nuxt-link>
+          <nuxt-link to="/auth/login">Đăng nhập</nuxt-link>
         </div>
         <div
           id="dropdown-profile"
@@ -100,7 +100,7 @@ const logOut = () => {
     error.value = e.message
   }
   if (!error.value) {
-    router.push('/login')
+    router.push('/auth/login')
   }
 }
 </script>

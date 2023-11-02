@@ -16,6 +16,10 @@ export async function findProducts(payload: any) {
   return await axios.get(`/api/products?${query}`)
 }
 
+export async function getAllProducts() {
+  return await axios.get('api/products')
+}
+
 export async function deleteProduct(id: string) {
   return await axios.delete(`/api/products/${id}`)
 }
