@@ -72,7 +72,7 @@
         <div class="w-full text-center mt-6 text-current/50">
           <span class="font-semibold"> Bạn chưa có tài khoản ? </span>
           <span class="ml-1 font-extrabold hover:text-current">
-            <nuxt-link to="/signup">Đăng ký</nuxt-link>
+            <nuxt-link to="/auth/signup">Đăng ký</nuxt-link>
           </span>
         </div>
       </div>
@@ -82,7 +82,7 @@
 <script lang="ts">
 import { ref, watch } from 'vue'
 import { useRouter } from '@nuxtjs/composition-api'
-import { store } from '../../store'
+import { store } from '../../../store'
 
 export default {
   layout: 'DefaultLayout',
@@ -109,7 +109,7 @@ const onSubmit = async () => {
       .then(() => {
         const role = store.state.users.user.role
         if (role === 'Admin') {
-          router.push('/market')
+          router.push('/manager/market')
         } else {
           router.push('/profile')
         }

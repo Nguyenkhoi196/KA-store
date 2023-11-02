@@ -40,18 +40,28 @@
         <div
           class="grid grid-cols-2 grid-flow-row justify-between gap-3 content-center mx-2"
         >
-          <nuxt-link to="/market">
-            <div class="button-menu">
+          <nuxt-link to="/manager/market">
+            <div class="button button-menu">
               <div
                 class="flex flex-row items-center gap-2 text-secondary hover:text-secondaryDark"
               >
-                <fa :icon="['fas', 'bag-shopping']" />
-                <h3 class="font-bold">Bán Hàng</h3>
+                <fa :icon="['fas', 'box']" />
+                <h3 class="font-bold">Hàng hóa</h3>
               </div>
             </div>
           </nuxt-link>
-          <nuxt-link to="/oder">
-            <div class="button-menu">
+          <nuxt-link to="/sale">
+            <div class="button button-menu">
+              <div
+                class="flex flex-row items-center gap-2 text-secondary hover:text-secondaryDark"
+              >
+                <fa :icon="['fas', 'box-open']" />
+                <h3 class="font-bold">Bán hàng</h3>
+              </div>
+            </div>
+          </nuxt-link>
+          <nuxt-link to="#">
+            <div class="button button-menu">
               <div
                 class="flex flex-row items-center gap-2 text-secondary hover:text-secondaryDark"
               >
@@ -60,8 +70,8 @@
               </div>
             </div>
           </nuxt-link>
-          <nuxt-link to="/returnOder">
-            <div class="button-menu">
+          <nuxt-link to="#">
+            <div class="button button-menu">
               <div
                 class="flex flex-row items-center gap-2 text-secondary hover:text-secondaryDark"
               >
@@ -70,8 +80,8 @@
               </div>
             </div>
           </nuxt-link>
-          <nuxt-link to="/update">
-            <div class="button-menu">
+          <nuxt-link to="#">
+            <div class="button button-menu">
               <div
                 class="flex flex-row items-center gap-2 text-secondary hover:text-secondaryDark"
               >
@@ -80,8 +90,8 @@
               </div>
             </div>
           </nuxt-link>
-          <nuxt-link to="/update">
-            <div class="button-menu">
+          <nuxt-link to="#">
+            <div class="button button-menu">
               <div
                 class="flex flex-row items-center gap-2 text-secondary hover:text-secondaryDark"
               >
@@ -90,8 +100,8 @@
               </div>
             </div>
           </nuxt-link>
-          <nuxt-link to="/update">
-            <div class="button-menu">
+          <nuxt-link to="#">
+            <div class="button button-menu">
               <div
                 class="flex flex-row items-center gap-2 text-secondary hover:text-secondaryDark"
               >
@@ -100,8 +110,8 @@
               </div>
             </div>
           </nuxt-link>
-          <nuxt-link to="/warehouse">
-            <div class="button-menu">
+          <nuxt-link to="#">
+            <div class="button button-menu">
               <div
                 class="flex flex-row items-center gap-2 text-secondary hover:text-secondaryDark"
               >
@@ -110,8 +120,8 @@
               </div>
             </div>
           </nuxt-link>
-          <nuxt-link to="/update">
-            <div class="button-menu">
+          <nuxt-link to="#">
+            <div class="button button-menu">
               <div
                 class="flex flex-row items-center gap-2 text-secondary hover:text-secondaryDark"
               >
@@ -120,8 +130,8 @@
               </div>
             </div>
           </nuxt-link>
-          <nuxt-link to="/update">
-            <div class="button-menu">
+          <nuxt-link to="#">
+            <div class="button button-menu">
               <div
                 class="flex flex-row items-center gap-2 text-secondary hover:text-secondaryDark"
               >
@@ -130,8 +140,8 @@
               </div>
             </div>
           </nuxt-link>
-          <nuxt-link to="/update">
-            <div class="button-menu">
+          <nuxt-link to="#">
+            <div class="button button-menu">
               <div
                 class="flex flex-row items-center gap-2 text-secondary hover:text-secondaryDark"
               >
@@ -140,8 +150,8 @@
               </div>
             </div>
           </nuxt-link>
-          <nuxt-link to="/update">
-            <div class="button-menu">
+          <nuxt-link to="#">
+            <div class="button button-menu">
               <div
                 class="flex flex-row items-center gap-2 text-secondary hover:text-secondaryDark"
               >
@@ -224,7 +234,7 @@ const logOut = () => {
     error.value = e.message
   }
   if (!error.value) {
-    router.push('/login')
+    router.push('/auth/login')
   }
 }
 </script>

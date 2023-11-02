@@ -83,7 +83,7 @@
         <div class="w-full text-center mt-6">
           <span class="font-semibold"> Bạn đã có tài khoản ? </span>
           <span class="ml-1 font-extrabold">
-            <nuxt-link to="/login">Đăng nhập</nuxt-link>
+            <nuxt-link to="/auth/login">Đăng nhập</nuxt-link>
           </span>
         </div>
       </div>
@@ -94,7 +94,7 @@
 <script lang="ts">
 import { ref, watch } from 'vue'
 import { useRouter } from '@nuxtjs/composition-api'
-import { store } from '../../store'
+import { store } from '../../../store'
 export default {
   layout: 'DefaultLayout',
   transition: 'slide-right',
@@ -124,7 +124,7 @@ export default {
         error.value = e
       }
       if (!error.value) {
-        router.push('/login')
+        router.push('/auth/login')
       }
     }
 

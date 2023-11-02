@@ -25,9 +25,6 @@ export default {
       {
         src: 'https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.js',
       },
-      {
-        src: 'https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js',
-      },
     ],
   },
 
@@ -47,6 +44,7 @@ export default {
     { src: '~plugins/vue-tailwind.client.ts', ssr: 'false' },
     { src: '~plugins/axios.ts' },
     { src: '~plugins/repository.ts' },
+    { src: '~plugins/vue-chart.client.ts', ssr: 'false' },
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -59,6 +57,7 @@ export default {
     { path: '~/components/global/Paginations/', prefix: 'Pagination' },
     { path: '~/components/global/SideBars/', prefix: 'Sidebar' },
     { path: '~/components/global/Tables/', prefix: 'Table' },
+    { path: '~/components/global/Charts/', prefix: 'Chart' },
   ],
 
   pageTransition: 'page',
