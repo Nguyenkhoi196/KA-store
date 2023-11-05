@@ -4,7 +4,7 @@
       <div class="w-auto mx-8 mt-5">
         <nuxt-link
           id="button-back"
-          to="/manager/market"
+          to="/manage/market"
           class="hover:text-secondaryDark"
         >
           <fa icon="chevron-left" class="self-center text-base icon" />
@@ -331,7 +331,7 @@ const handleDeleteProduct = (): void => {
         alert.show = true
         setTimeout(() => {
           alert.show = false
-          router.push('/manager/market')
+          router.push('/manage/market')
         }, alert.timeout)
       }
     })

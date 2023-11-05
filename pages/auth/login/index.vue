@@ -109,7 +109,7 @@ const onSubmit = async () => {
       .then(() => {
         const role = store.state.users.user.role
         if (role === 'Admin') {
-          router.push('/manager/market')
+          router.push('/manage/market')
         } else {
           router.push('/profile')
         }

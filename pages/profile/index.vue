@@ -40,7 +40,7 @@
         <div
           class="grid grid-cols-2 grid-flow-row justify-between gap-3 content-center mx-2"
         >
-          <nuxt-link to="/manager/market">
+          <nuxt-link to="/manage/market">
             <div class="button button-menu">
               <div
                 class="flex flex-row items-center gap-2 text-secondary hover:text-secondaryDark"

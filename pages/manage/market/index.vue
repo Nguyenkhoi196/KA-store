@@ -670,7 +670,7 @@ const handleAddProduct = async () => {
 }
 
 const handleProductDetails = (params: string) => {
-  router.push('/manager/market/' + params)
+  router.push('/manage/market/' + params)
 }
 
 const dataTable = ref([

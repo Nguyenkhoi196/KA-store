@@ -5,7 +5,7 @@
     >
       <ul class="grid h-full max-w-lg grid-cols-4 mx-auto text-2xl">
         <li class="nav-li">
-          <nuxt-link class="nav-link" to="/manager/market"
+          <nuxt-link class="nav-link" to="/manage/market"
             ><span class="icon-menu">
               <fa :icon="['fas', 'chart-simple']" />
             </span>
