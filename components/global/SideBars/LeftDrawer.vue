@@ -112,6 +112,15 @@
           </li>
           <li>
             <nuxt-link
+              to="/sale"
+              class="active:text-primary flex items-center p-2 text-gray-900 rounded-lg hover:bg-secondary/30 group"
+            >
+              <fa icon="box-open" />
+              <span class="flex-1 ml-3 whitespace-nowrap">Bán hàng</span>
+            </nuxt-link>
+          </li>
+          <li>
+            <nuxt-link
               to="/profile"
               class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-secondary/30 group"
             >
