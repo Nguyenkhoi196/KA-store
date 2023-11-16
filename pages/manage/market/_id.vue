@@ -198,7 +198,7 @@
         </div>
       </div>
     </section>
-    <Modal-KAModal :modal="'modal-accept'" :close="!!alert.type">
+    <modal-ka-modal :modal="'modal-accept'" :close="!!alert.type">
       <template #header>
         <div>
           <div class="px-6 py-4 border-b rounded-t dark:border-gray-600">
@@ -235,8 +235,8 @@
           </div>
         </div>
       </template>
-    </Modal-KAModal>
-    <Modal-KAModal :modal="'modal-lock'" :close="!!alert.type">
+    </modal-ka-modal>
+    <modal-ka-modal :modal="'modal-lock'" :close="!!alert.type">
       <template #header>
         <div>
           <div class="px-6 py-4 border-b rounded-t dark:border-gray-600">
@@ -275,7 +275,7 @@
             </div>
           </div>
         </div>
-      </template></Modal-KAModal
+      </template></modal-ka-modal
     >
     <AlertPopUp :alert="alert" />
   </div>

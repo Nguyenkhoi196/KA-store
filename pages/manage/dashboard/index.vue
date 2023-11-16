@@ -108,16 +108,16 @@
             class="container grid grid-flow-row grid-cols-3 gap-5"
           >
             <client-only placeholder="Loading...">
-              <Chart-KABar
+              <chart-ka-bar
                 class="shadow-xl rounded-xl col-span-2 p-4 bg-white"
               />
 
-              <Chart-KALine class="shadow-xl rounded-xl p-4 bg-white" />
+              <chart-ka-line class="shadow-xl rounded-xl p-4 bg-white" />
             </client-only>
           </div>
         </section>
 
-        <SidebarLeftDrawer :sidebar="'sidebar'" />
+        <sidebar-left-drawer :sidebar="'sidebar'" />
       </section>
     </section>
   </div>

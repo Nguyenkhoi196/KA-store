@@ -450,7 +450,7 @@
                 </template>
               </TableViewerGrid>
               <div class="flex py-5 items-baseline">
-                <PaginationPageControls
+                <pagination-page-controls
                   :pagination="pagination"
                   @set-page="setPage"
                   @find="handleFindProducts()"
@@ -470,8 +470,8 @@
         </section>
       </section>
     </section>
-    <SidebarLeftDrawer :sidebar="'sidebar'" />
-    <Modal-KAModal :modal="'modal-1'" :close="!!alert.type">
+    <sidebar-left-drawer :sidebar="'sidebar'" />
+    <modal-ka-modal :modal="'modal-1'" :close="!!alert.type">
       <template #header>
         <div>
           <div class="px-6 py-4 border-b rounded-t dark:border-gray-600">
@@ -559,7 +559,7 @@
           </form>
         </div>
       </template>
-    </Modal-KAModal>
+    </modal-ka-modal>
     <AlertPopUp :alert="alert" />
   </div>
 </template>

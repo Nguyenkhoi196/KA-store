@@ -10,7 +10,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import { Bar } from 'vue-chartjs'
-import { getAllProducts } from './../../../api/Product'
+import { getAllProducts } from '../../../api/Product'
 
 const randomNum = () => Math.floor(Math.random() * (235 - 52 + 1) + 52)
 const randomRGB = () => `${randomNum()}, ${randomNum()}, ${randomNum()}`

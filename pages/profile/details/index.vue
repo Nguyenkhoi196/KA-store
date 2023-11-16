@@ -103,8 +103,8 @@
         </div>
       </section>
     </section>
-    <SidebarLeftDrawer :sidebar="'sidebar'" />
-    <Modal-KAModal :modal="'modal-update'">
+    <sidebar-left-drawer :sidebar="'sidebar'" />
+    <modal-ka-modal :modal="'modal-update'">
       <template #header>
         <div class="py-4 border-b rounded-t dark:border-gray-600">
           <span class="text-secondary text-xl font-semibold"
@@ -197,7 +197,7 @@
           </div>
         </div>
       </template>
-    </Modal-KAModal>
+    </modal-ka-modal>
   </div>
 </template>
 
