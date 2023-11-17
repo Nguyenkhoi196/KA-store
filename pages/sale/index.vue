@@ -5,16 +5,42 @@
         <div id="header-left" class="flex">
           <div
             id="search-box"
-            class="max-w-2xl min-w-[450px] mr-4 text-secondary/70 rounded relative grow flex-wrap items-stretch flex"
+            class="max-w-2xl min-w-max mr-4 text-secondary rounded relative grow flex-wrap items-stretch flex"
           >
             <span class="absolute self-center left-4 z-10">
               <fa icon="magnifying-glass" />
             </span>
-            <input
-              type="text"
-              placeholder="Nhập mặt hàng"
-              class="flex-auto border-[1px] border-solid border-black relative float-left pl-10 mb-0 z-[2] focus:outline-dotted focus:shadow-inner focus:ring-none bg-white rounded-lg"
-            />
+            <vue-autosuggest
+              v-model="query"
+              :suggestions="suggestions"
+              :get-suggestion-value="getSuggestionValue"
+              :input-props="inputProps"
+              :component-attr-class-autosuggest-results-container="'relative w-full'"
+              :component-attr-class-autosuggest-results="'suggest-list top-10 '"
+              :limit="10"
+              @input="fetchResults"
+              @selected="onSelected"
+            >
+              <template #default="{ suggestion }">
+                <div
+                  class="cursor-pointer hover:bg-emerald-100 p-2 py-3 rounded"
+                >
+                  <div class="flex justify-between text-black px-2">
+                    <div class="flex flex-col gap-1">
+                      <span class="text-lg">
+                        {{ suggestion.item.name }}
+                      </span>
+                      <span class="text-sm text-gray-800">
+                        Tồn: {{ suggestion.item.inventory }}
+                      </span>
+                    </div>
+                    <span class="text-lg text-secondaryDark">
+                      {{ suggestion.item.price }} <sup>đ</sup>
+                    </span>
+                  </div>
+                </div>
+              </template>
+            </vue-autosuggest>
           </div>
           <div id="tab-cart">
             <div class="">
@@ -129,18 +155,52 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-import { store } from '~/store'
-import { User } from '~/types/User'
+import { ref, onMounted } from 'vue'
+import { VueAutosuggest } from 'vue-autosuggest'
+import { getAllProducts } from '~/api/Product'
+import { Product } from '~/types/Product'
+const query = ref<string>('')
+const timeout = ref<any>(null)
+const debounce = 50
+type Suggestions = {
+  data: Product[]
+}
+const suggestions = ref<Suggestions[]>([])
+const inputProps = {
+  id: 'autosuggest__input',
+  placholder: 'Nhập mặt hàng',
+  class:
+    'flex-auto min-w-[384px] border-[1px] border-solid border-black relative float-left pl-10 mb-0 z-[2] focus:outline-dotted focus:shadow-inner focus:ring-none bg-white rounded-lg',
+}
+const selected = ref<Product>()
+const fetchResults = () => {
+  clearTimeout(timeout.value)
+  timeout.value = setTimeout(async () => {
+    try {
+      suggestions.value = []
+      const res = await getAllProducts()
+      const filteredData = filteredOptions(res.data.data, query.value)
+      suggestions.value.push({ data: filteredData })
+    } catch (error) {}
+  }, debounce)
+}
 
-// import { onMounted } from "vue";
-const user = ref<User | any>()
-const userStr = ref<any>()
-if (process.client) {
-  userStr.value = localStorage.getItem('user')
-  user.value = userStr.value
-    ? JSON.parse(userStr.value)
-    : store.state.users.user.data?.email
+const filteredOptions = (data: Product[], text: string) => {
+  return data
+    .filter((item: Product) => {
+      return item.name.toLowerCase().includes(text.toLowerCase())
+    })
+    .sort()
+}
+
+const getSuggestionValue = (suggestion) => {
+  console.log(suggestion.item.name)
+
+  return suggestion.item.name
+}
+
+const onSelected = (item) => {
+  selected.value = item.item
 }
 </script>
 

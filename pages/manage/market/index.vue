@@ -325,7 +325,7 @@
               </aside>
             </article>
             <article class="w-full left">
-              <TableViewerGrid :loading="loading">
+              <table-viewer-grid :loading="loading">
                 <template #header>
                   <thead>
                     <tr class="box-content">
@@ -448,9 +448,9 @@
                     </thead>
                   </table>
                 </template>
-              </TableViewerGrid>
+              </table-viewer-grid>
               <div class="flex py-5 items-baseline">
-                <pagination-page-controls
+                <pagination-page-control
                   :pagination="pagination"
                   @set-page="setPage"
                   @find="handleFindProducts()"
@@ -560,7 +560,7 @@
         </div>
       </template>
     </modal-ka-modal>
-    <AlertPopUp :alert="alert" />
+    <alert-pop-up :alert="alert" />
   </div>
 </template>
 
@@ -621,8 +621,6 @@ const handleFindProducts = async () => {
       inputFilter.value = undefined
     }
     products.value = res.data.data
-    console.log(products.value)
-
     totalInventory.value = res.data.totalInventory
     pagination.pageCount = res.data.meta.pagination.pageCount
     pagination.total = res.data.meta.pagination.total

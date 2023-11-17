@@ -277,7 +277,7 @@
         </div>
       </template></modal-ka-modal
     >
-    <AlertPopUp :alert="alert" />
+    <alert-pop-up :alert="alert" />
   </div>
 </template>
 <script setup lang="ts">

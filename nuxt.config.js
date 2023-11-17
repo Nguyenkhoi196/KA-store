@@ -45,6 +45,7 @@ export default {
     { src: '~plugins/axios.ts' },
     { src: '~plugins/repository.ts' },
     { src: '~plugins/vue-chart.client.ts', ssr: 'false' },
+    { src: '~plugins/vue-autosuggest.client.js', ssr: 'false' },
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
