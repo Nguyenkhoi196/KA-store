@@ -17,7 +17,6 @@
               :input-props="inputProps"
               :component-attr-class-autosuggest-results-container="'relative w-full'"
               :component-attr-class-autosuggest-results="'suggest-list top-10 '"
-              :limit="10"
               @input="fetchResults"
               @selected="onSelected"
             >
@@ -155,7 +154,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref } from 'vue'
 import { VueAutosuggest } from 'vue-autosuggest'
 import { getAllProducts } from '~/api/Product'
 import { Product } from '~/types/Product'
@@ -195,7 +194,6 @@ const filteredOptions = (data: Product[], text: string) => {
 
 const getSuggestionValue = (suggestion) => {
   console.log(suggestion.item.name)
-
   return suggestion.item.name
 }
 

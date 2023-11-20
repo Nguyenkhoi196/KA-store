@@ -377,7 +377,7 @@ const handleUpdateProduct = (): void => {
 
 const selectedFile = ref<File | null>(null)
 const previewUrl = ref<string | null | ArrayBuffer>(
-  'https://res.cloudinary.com/dat9zyjdy/image/upload/v1697077672/thumbnail_default_image_5d6945e204.png'
+  'https://res.cloudinary.com/dat9zyjdy/image/upload/v1700463925/KhoiAnh/empty.png'
 )
 
 const previewImage = (event: any) => {

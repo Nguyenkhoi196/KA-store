@@ -137,10 +137,9 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { onMounted } from 'vue'
 import { Drawer, DrawerInterface, DrawerOptions } from 'flowbite'
-import { User } from '../../../types/User'
-import { store } from '../../../store'
+import useUser from '~/composables/useUser'
 
 interface Props {
   sidebar: string
@@ -149,14 +148,8 @@ interface Props {
 let sidebar: DrawerInterface
 
 const props = defineProps<Props>()
-const user = ref<User | any>()
-const userStr = ref<any>()
-if (process.client) {
-  userStr.value = localStorage.getItem('user')
-  user.value = userStr.value
-    ? JSON.parse(userStr.value)
-    : store.state.users.user.data?.email
-}
+const user = useUser.getUserDetailsFromStorage()
+
 onMounted(() => {
   const $buttonElement: any = document.getElementById(`button-${props.sidebar}`)
   const $sideBarElement = document.getElementById(`${props.sidebar}`)

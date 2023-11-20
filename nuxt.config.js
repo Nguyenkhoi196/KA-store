@@ -40,12 +40,11 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
-    { src: '~plugins/flowbite.client.ts', ssr: 'false' },
-    { src: '~plugins/vue-tailwind.client.ts', ssr: 'false' },
+    { src: '~plugins/flowbite.client.ts' },
+    { src: '~plugins/vue-tailwind.client.ts' },
     { src: '~plugins/axios.ts' },
-    { src: '~plugins/repository.ts' },
-    { src: '~plugins/vue-chart.client.ts', ssr: 'false' },
-    { src: '~plugins/vue-autosuggest.client.js', ssr: 'false' },
+    { src: '~plugins/vue-chart.client.ts' },
+    { src: '~plugins/vue-autosuggest.client.js' },
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components

@@ -19,9 +19,9 @@
             :src="
               user?.avatar
                 ? user.avatar.url
-                : 'https://res.cloudinary.com/dat9zyjdy/image/upload/v1697077672/thumbnail_default_image_5d6945e204.png'
+                : 'https://res.cloudinary.com/dat9zyjdy/image/upload/v1700463925/KhoiAnh/empty.png'
             "
-            class="max-h-[170px] w-full block h-auto mx-auto"
+            class="max-h-[170px] w-full block h-fit mx-auto"
           />
         </section>
         <div>
@@ -222,7 +222,6 @@ type User = {
   avatar?: any
 }
 const user = ref<User>()
-const selectedFile = ref<File | null>(null)
 const previewUrl = ref<string | ArrayBuffer>()
 onMounted(() => {
   handleGetUserDetails()
@@ -238,7 +237,6 @@ const previewImage = (event: any) => {
   const file = event.target.files[0]
   if (file) {
     const reader = new FileReader()
-    selectedFile.value = file
     reader.onload = () => {
       previewUrl.value = reader.result as string
     }

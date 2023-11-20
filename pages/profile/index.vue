@@ -8,7 +8,14 @@
         <div class="mx-auto flex flex-col gap-3">
           <div class="text-center">
             <div class="w-24 h-24 overflow-hidden mx-auto border-2 rounded-md">
-              Avatar
+              <img
+                :src="
+                  user?.avatar
+                    ? user.avatar.url
+                    : 'https://res.cloudinary.com/dat9zyjdy/image/upload/v1697077672/thumbnail_default_image_5d6945e204.png'
+                "
+                class="w-full block h-fit mx-auto"
+              />
             </div>
           </div>
           <div
@@ -210,23 +217,16 @@
   </div>
 </template>
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref } from 'vue'
 import { useRouter } from '@nuxtjs/composition-api'
 import { store } from '../../store'
+import useUser from '~/composables/useUser'
 
-const user = ref()
+const user = useUser.getUserDetailsFromStorage()
+
 const router = useRouter()
 const error = ref()
 
-onMounted(() => {
-  if (process.client) {
-    const userStr = ref<string | null>()
-    userStr.value = localStorage.getItem('user')
-    user.value = userStr.value
-      ? JSON.parse(userStr.value)
-      : store.state.users.user.data?.email
-  }
-})
 const logOut = () => {
   try {
     store.dispatch('logout')
