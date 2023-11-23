@@ -16,6 +16,7 @@ export default {
         rel: 'stylesheet',
         href: 'https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.css',
       },
+ 
       {
         rel: 'stylesheet',
         href: 'https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css',
@@ -25,6 +26,9 @@ export default {
       {
         src: 'https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.js',
       },
+      {
+        src:"./node_modules/flowbite/dist/flowbite.min.js"
+      }
     ],
   },
 

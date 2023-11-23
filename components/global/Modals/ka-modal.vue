@@ -76,13 +76,4 @@ onMounted(() => {
 </script>
 
 <style scoped lang="scss">
-.form-input {
-  @apply relative z-10;
-}
-.form-label {
-  @apply peer-focus:text-secondary peer-checked:text-secondary;
-}
-.form-input:hover ~ .form-label {
-  @apply text-secondary;
-}
 </style>
