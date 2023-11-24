@@ -12,19 +12,26 @@
             <span class="pl-2"> Hàng hóa </span>
           </button>
           <section>
-            <article class="relative bg-primary mb-4 p-3 shadow-xl rounded-md">
+            <article
+              id="accordion-collapse-heading-classification"
+              data-accordion="collapse"
+              class="relative bg-primary mb-4 p-3 shadow-xl rounded-md"
+            >
               <button
                 type="button"
-                class="w-full p-1 flex justify-between"
-                aria-controls="dropdown-product-classification"
-                data-collapse-toggle="dropdown-product-classification"
-                aria-expanded="true"
-                @click="showClassFilter"
+                class="w-full p-1 bg-white flex justify-between"
+                data-accordion-target="#accordion-collapse-body-classification"
+                aria-expanded="false"
+                aria-controls="accordion-collapse-body-classification"
               >
                 <span> Loại hàng </span>
-                <fa :icon="classFilter === false ? 'caret-down' : 'caret-up'" />
+                <fa data-accordion-icon icon="caret-down" />
               </button>
-              <ul id="dropdown-product-classification" class="pt-4">
+              <ul
+                id="accordion-collapse-body-classification"
+                class="hidden pt-4"
+                aria-labelledby="accordion-collapse-heading-classification"
+              >
                 <div class="pb-2">
                   <input
                     id="hanghoa"
@@ -53,25 +60,31 @@
                 </div>
               </ul>
             </article>
-            <article class="relative bg-primary mb-4 p-3 shadow-xl rounded-md">
+            <article
+              id="accordion-collapse-heading-suplier"
+              data-accordion="collapse"
+              class="relative bg-primary mb-4 p-3 shadow-xl rounded-md"
+            >
               <button
                 type="button"
-                class="w-full p-1 flex justify-between"
-                aria-controls="dropdown-product-supplier"
-                data-collapse-toggle="dropdown-product-supplier"
-                aria-expanded="true"
-                @click="showSupplierFilter"
+                class="w-full p-1 bg-white flex justify-between"
+                data-accordion-target="#accordion-collapse-body-suplier"
+                aria-expanded="false"
+                aria-controls="accordion-collapse-body-suplier"
               >
                 <span>Nhà cung cấp</span>
-                <fa
-                  :icon="supplierFilter === false ? 'caret-down' : 'caret-up'"
-                />
+                <fa data-accordion-icon icon="caret-down" />
               </button>
               <div
-                id="dropdown-product-supplier"
-                class="pt-4 transition-transform duration-1000"
+                id="accordion-collapse-body-suplier"
+                aria-labelledby="accordion-collapse-heading-suplier"
+                class="hidden pt-4 transition-transform duration-1000"
               >
-                <div class="relative max-w-[175px]">
+                <div
+                  id="accordion-collapse-heading-stock-child"
+                  class="relative max-w-[175px]"
+                  data-accordion="collapse"
+                >
                   <input
                     v-model="checkSupplier"
                     type="text"
@@ -79,18 +92,18 @@
                     class="flex-auto border-[1px] border-solid w-full border-black pl-2 p-0 mb-0 focus:outline-dotted focus:shadow-inner focus:ring-none bg-transparent rounded"
                   />
                   <button
-                    class="absolute self-center right-1 top-[-8px] p-2"
-                    data-collapse-toggle="dropdown-supplier"
-                    aria-controls="dropdown-supplier"
+                    class="absolute self-center bg-transparent right-1 top-[-8px] p-2"
+                    data-accordion-target="#accordion-collapse-body-stock-child"
+                    aria-expanded="false"
+                    aria-controls="accordion-collapse-body-stock-child"
                   >
-                    <span>
-                      <fa icon="sort-down" />
-                    </span>
+                    <fa data-accordion-icon icon="caret-down" />
                   </button>
                 </div>
                 <div
-                  id="dropdown-supplier"
-                  class="hidden over-flow-hidden pt-3"
+                  id="accordion-collapse-body-stock-child"
+                  aria-labelledby="accordion-collapse-heading-stock-child"
+                  class="hidden pt-4 transition-transform duration-1000"
                 >
                   <ul class="overflow-y-scroll max-h-32">
                     <li
@@ -106,20 +119,25 @@
               </div>
             </article>
             <article
+              id="accordion-collapse-heading-suplier"
+              data-accordion="collapse"
               class="relative bg-primary mb-4 p-3 shadow-xl rounded-md transition-all duration-1000"
             >
               <button
                 type="button"
-                class="w-full p-1 flex justify-between"
-                aria-controls="dropdown-product-inventory"
-                data-collapse-toggle="dropdown-product-inventory"
-                aria-expanded="true"
-                @click="showStockFilter"
+                class="w-full bg-white p-1 flex justify-between"
+                data-accordion-target="#accordion-collapse-body-stock"
+                aria-expanded="false"
+                aria-controls="accordion-collapse-body-stock"
               >
                 <span>Tình trạnh trong kho</span>
-                <fa :icon="stockFilter === false ? 'caret-down' : 'caret-up'" />
+                <fa data-accordion-icon icon="caret-down" />
               </button>
-              <ul id="dropdown-product-inventory" class="pt-4">
+              <ul
+                id="accordion-collapse-body-stock"
+                aria-labelledby="accordion-collapse-heading-stock"
+                class="hidden pt-4 transition-transform duration-1000"
+              >
                 <div class="pb-2">
                   <input
                     id="overall-inventory"
@@ -616,6 +634,8 @@ onMounted(() => {
 const handleFindProducts = async () => {
   loading.value = true
   try {
+    console.log(query)
+
     const res = await findProducts(query)
     if (!inputFilter.value) {
       inputFilter.value = undefined
@@ -698,23 +718,7 @@ const dataTable = ref([
 
 const checkSupplier = ref<string>()
 const showSelectSupplierFilter = (param: string) => {
-  supplierFilter.value = false
   checkSupplier.value = param
-}
-
-const classFilter = ref<boolean>(true)
-const showClassFilter = () => {
-  classFilter.value = !classFilter.value
-}
-
-const supplierFilter = ref<boolean>(true)
-const showSupplierFilter = () => {
-  supplierFilter.value = !supplierFilter.value
-}
-
-const stockFilter = ref<boolean>(true)
-const showStockFilter = () => {
-  stockFilter.value = !stockFilter.value
 }
 
 const convertDate = (date: any): string => {
