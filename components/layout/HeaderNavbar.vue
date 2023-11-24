@@ -74,7 +74,7 @@ import { useRouter, useRoute } from '@nuxtjs/composition-api'
 import { ref, watch } from 'vue'
 import { store } from '../../store'
 import { User } from '~/types/User'
-import useUser from '~/composables/useUser'
+import useStorage from '~/composables/useStorage'
 
 const route = useRoute()
 
@@ -83,7 +83,7 @@ if (process.client) {
   watch(
     () => route.value.path,
     () => {
-      user.value =useUser.getUserDetailsFromStorage()
+      user.value = useStorage.getUserDetailsFromStorage()
     },
     { deep: true, immediate: true }
   )

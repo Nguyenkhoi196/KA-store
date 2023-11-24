@@ -289,6 +289,7 @@ import { getRoleDetails } from '~/api/User'
 import { Alert } from '~/components/global/Alerts/Alert'
 import { axios } from '~/plugins/axios'
 import { Product } from '~/types/Product'
+import useUser from '~/composables/useStorage'
 
 const product = ref<Product>()
 const route = useRoute()
@@ -307,72 +308,68 @@ onMounted(() => {
   })
   handleGetRoleDetails()
 })
-
-const role = ref()
-if (process.client) {
-  const roleStr = ref()
-  roleStr.value = localStorage.getItem('role')
-  role.value = JSON.parse(roleStr.value)
-}
+const role = useUser.getRoleFromStorage()
 
 const permissions = ref()
 const handleGetRoleDetails = async () => {
-  const response = await getRoleDetails(role.value.id)
+  const response = await getRoleDetails(role.id)
   permissions.value =
     response.data.role.permissions['api::product'].controllers.product
 }
 
-const handleDeleteProduct = (): void => {
-  deleteProduct(id)
-    .then((res) => {
-      if (res.status === 200) {
-        alert.message = `Xóa sản phẩm ${res.data.data?.name} thành công`
-        alert.type = 'success'
-        alert.show = true
-        setTimeout(() => {
-          alert.show = false
-          router.push('/manage/market')
-        }, alert.timeout)
-      }
-    })
-    .catch((err) => {
-      alert.message = err.message
-      alert.type = 'danger'
-    })
-    .finally(() => {})
+const handleDeleteProduct = async (): Promise<void> => {
+  try {
+    const res = await deleteProduct(id)
+
+    if (res.status === 200) {
+      alert.message = `Xóa sản phẩm ${res.data.data?.name} thành công`
+      alert.type = 'success'
+      alert.show = true
+
+      setTimeout(() => {
+        alert.show = false
+        router.push('/manage/market')
+      }, alert.timeout)
+    }
+  } catch (err: any) {
+    alert.message = err.message
+    alert.type = 'danger'
+  }
 }
 
 const productDetails = reactive({
-  inventory: '',
+  inventory: null,
   state: true || false,
 })
 
-const handleUpdateProduct = (): void => {
-  const data = { data: { ...productDetails } }
-  updateProduct(id, data)
-    .then((res) => {
-      if (res.status === 200) {
-        if (res.data.data.state === true) {
-          alert.message = `Đã ngưng kinh doanh ${res.data.data.name} `
-        } else {
-          alert.message = `Đã tái kinh doanh ${res.data.data.name} `
-        }
-        alert.type = 'success'
-        product.value = res.data.data
-        watchEffect(() => {
-          if (product.value?.state) {
-            alert.show = true
-            setTimeout(() => {
-              alert.show = false
-            }, alert.timeout)
-          }
-        })
+const handleUpdateProduct = async (): Promise<void> => {
+  try {
+    const data = { data: { ...productDetails } }
+    const res = await updateProduct(id, data)
+
+    if (res.status === 200) {
+      if (res.data.data.state === true) {
+        alert.message = `Đã ngưng kinh doanh ${res.data.data.name} `
+      } else {
+        alert.message = `Đã tái kinh doanh ${res.data.data.name} `
       }
-    })
-    .catch((err) => {
-      alert.message = err.message
-      alert.type = 'danger'
-    })
+      alert.type = 'success'
+      product.value = res.data.data
+
+      watchEffect(() => {
+        if (product.value?.state) {
+          alert.show = true
+          setTimeout(() => {
+            alert.show = false
+            window.location.reload()
+          }, alert.timeout)
+        }
+      })
+    }
+  } catch (err: any) {
+    alert.message = err.message
+    alert.type = 'danger'
+  }
 }
 
 const selectedFile = ref<File | null>(null)
@@ -392,7 +389,7 @@ const previewImage = (event: any) => {
     reader.readAsDataURL(file)
   }
 }
-const uploadImage = async () => {
+const uploadImage = async (): Promise<void> => {
   try {
     // if (!selectedFile.value) return
 

@@ -570,7 +570,7 @@ import { useRouter } from '@nuxtjs/composition-api'
 import { addProduct, findProducts } from '~/api/Product'
 import { Product } from '~/types/Product'
 import { Pagination } from '~/types/Response'
-import { Alert } from '~/components/global/Alerts/Alert'
+import Alert from '~/components/global/Alerts/Alert'
 
 const router = useRouter()
 
@@ -637,7 +637,7 @@ const alert = reactive<Alert>({
   show: false,
   timeout: 2000,
 })
-const productAtrributes: Partial<ProductAtrributes> = reactive({
+const productAtrributes = reactive({
   name: '',
   price: 0,
   brand: '',

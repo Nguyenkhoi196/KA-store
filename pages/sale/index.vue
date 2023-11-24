@@ -156,7 +156,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { VueAutosuggest } from 'vue-autosuggest'
-import { getAllProducts } from '~/api/Product'
+import { findProducts } from '~/api/Product'
 import { Product } from '~/types/Product'
 const query = ref<string>('')
 const timeout = ref<any>(null)
@@ -177,7 +177,7 @@ const fetchResults = () => {
   timeout.value = setTimeout(async () => {
     try {
       suggestions.value = []
-      const res = await getAllProducts()
+      const res = await findProducts({ pagination: { pageSize: 100 } })
       const filteredData = filteredOptions(res.data.data, query.value)
       suggestions.value.push({ data: filteredData })
     } catch (error) {}

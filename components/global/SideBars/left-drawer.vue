@@ -139,7 +139,7 @@
 <script setup lang="ts">
 import { onMounted } from 'vue'
 import { Drawer, DrawerInterface, DrawerOptions } from 'flowbite'
-import useUser from '~/composables/useUser'
+import useStorage from '~/composables/useStorage'
 
 interface Props {
   sidebar: string
@@ -148,7 +148,7 @@ interface Props {
 let sidebar: DrawerInterface
 
 const props = defineProps<Props>()
-const user = useUser.getUserDetailsFromStorage()
+const user = useStorage.getUserDetailsFromStorage()
 
 onMounted(() => {
   const $buttonElement: any = document.getElementById(`button-${props.sidebar}`)

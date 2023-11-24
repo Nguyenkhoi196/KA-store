@@ -220,9 +220,9 @@
 import { ref } from 'vue'
 import { useRouter } from '@nuxtjs/composition-api'
 import { store } from '../../store'
-import useUser from '~/composables/useUser'
+import useStorage from '~/composables/useStorage'
 
-const user = useUser.getUserDetailsFromStorage()
+const user = useStorage.getUserDetailsFromStorage()
 
 const router = useRouter()
 const error = ref()
