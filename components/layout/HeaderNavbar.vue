@@ -3,9 +3,9 @@
     <div
       class="absolute flex flex-row justify-between w-screen px-10 py-5 h-24 border-b-[1px] border-tertiary bg-primary/60"
     >
-      <div class="flex">
+      <a href="/#" class="flex">
         <img class="h-auto" src="../../static/logoHeader.png" alt="" />
-      </div>
+      </a>
       <div class="flex flex-row justify-between gap-6">
         <div v-if="!user?.email" class="min-w-sm self-center">
           <form action="" class="flex flex-row">

@@ -3,7 +3,18 @@
     <div
       class="flex flex-row items-center justify-between gap-10 px-40 py-20 bg-gradient-to-br from-teal-50 via-slate-50 to-green-50 to-50% via-40% from-10%"
     >
-      <div></div>
+      <div class="max-w-2xl">
+        <h3 class="text-4xl font-bold mb-3 text-secondary tracking-wide">
+          Uy tín, Tận tâm
+          <br />
+          Chất lượng, Chuyên nghiệp
+        </h3>
+        <hr />
+        <h2 class="text-2xl font-semibold text-gray-800 mt-3">
+          Đồng hành cùng Khởi Anh để xây dựng những ngôi nhà đi theo cùng năm
+          tháng
+        </h2>
+      </div>
 
       <div
         class="container p-8 bg-white text-primary rounded-xl max-w-[500px] backdrop-opacity-50 backdrop-blur-3xl bg-[url(https://i.pinimg.com/564x/78/21/93/782193d5caab6629183924c9fc1beacf.jpg)] bg-center bottom-0 bg-cover shadow-2xl shadow-white-300"

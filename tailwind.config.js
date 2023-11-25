@@ -22,6 +22,7 @@ module.exports = {
       },
       boxShadow: {
         inner: 'inset 1px 1px 5px 0 rgba(0,0,0,0.2)',
+        card: '0px 15px 35px rgba(13, 21, 55, 0.08)',
       },
     },
   },
