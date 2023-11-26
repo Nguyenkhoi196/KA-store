@@ -15,7 +15,7 @@
             <article
               id="accordion-collapse-heading-classification"
               data-accordion="collapse"
-              class="relative bg-primary mb-4 p-3 shadow-xl rounded-md"
+              class="relative bg-primary mb-4 p-3 shadow-xl rounded-md h-full transition-all duration-200"
             >
               <button
                 type="button"

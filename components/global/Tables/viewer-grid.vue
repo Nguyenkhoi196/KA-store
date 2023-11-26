@@ -12,11 +12,17 @@
       </div>
     </div>
     <div v-show="loading === true" class="z-50 absolute top-1/2 left-1/2">
-      <fa
-        icon="spinner"
-        spin
-        style="height: 50px; width: 50px; color: #777d88"
-      />
+      <div class="flex flex-row gap-2">
+        <div
+          class="w-4 h-4 rounded-full bg-secondaryDark animate-bounce [animation-delay:.5s]"
+        ></div>
+        <div
+          class="w-4 h-4 rounded-full bg-secondaryDark animate-bounce [animation-delay:.3s]"
+        ></div>
+        <div
+          class="w-4 h-4 rounded-full bg-secondaryDark animate-bounce [animation-delay:.5s]"
+        ></div>
+      </div>
     </div>
     <div
       :style="{ background: loading === true ? '#cbcbcb' : '' }"
