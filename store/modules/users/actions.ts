@@ -1,4 +1,3 @@
-import * as auth from 'firebase/auth'
 import { ActionTree } from 'vuex'
 import { axios } from '../../../plugins/axios'
 
@@ -25,23 +24,12 @@ const actions: ActionTree<userState, rootState> = {
     })
   },
 
-  logout({ commit }) {
-    return new Promise((resolve, reject) => {
-      auth
-        .signOut(auth.getAuth())
-        .then((user) => {
-          localStorage.removeItem('user')
-          localStorage.removeItem('token')
-          localStorage.removeItem('role')
-          commit('SET_LOGOUT') // Gọi mutation để đặt trạng thái logout
-          resolve(user)
-        })
-        .catch((e) => {
-          reject(e)
-        })
-    })
+  logout: ({ commit }) => {
+    localStorage.removeItem('user')
+    localStorage.removeItem('token')
+    localStorage.removeItem('role')
+    commit('SET_LOGOUT') // Gọi mutation để đặt trạng thái logout
   },
-
   login({ commit }, { identifier, password }) {
     return new Promise((resolve, reject) => {
       login({ identifier, password })

@@ -77,9 +77,9 @@ export default {
   modules: [
     '@nuxtjs/composition-api/module',
     '@nuxtjs/axios',
-    '@nuxtjs/firebase',
     '@nuxtjs/router',
     '@nuxtjs/strapi',
+    '@nuxt/image',
   ],
   strapi: {
     url: process.env.STRAPI_URL || 'http://localhost:1337',
@@ -148,21 +148,4 @@ export default {
     },
   },
   // firebase
-  firebase: {
-    config: {
-      apiKey: 'AIzaSyD_PnQ0ONY4hiKHtp7iGSwnxJfxFY4G3iI',
-      authDomain: 'pk21032023.firebaseapp.com',
-      databaseURL:
-        'https://pk21032023-default-rtdb.asia-southeast1.firebasedatabase.app',
-      projectId: 'pk21032023',
-      storageBucket: 'pk21032023.appspot.com',
-      messagingSenderId: '41324712247',
-      appId: '1:41324712247:web:1731838d313bed498b0ab2',
-      measurementId: 'G-FL6DDYPRW9',
-    },
-    services: {
-      auth: true,
-      firestore: true,
-    },
-  },
 }
