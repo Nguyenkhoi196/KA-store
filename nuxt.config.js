@@ -16,7 +16,7 @@ export default {
         rel: 'stylesheet',
         href: 'https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.css',
       },
- 
+
       {
         rel: 'stylesheet',
         href: 'https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css',
@@ -27,8 +27,8 @@ export default {
         src: 'https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.js',
       },
       {
-        src:"./node_modules/flowbite/dist/flowbite.min.js"
-      }
+        src: './node_modules/flowbite/dist/flowbite.min.js',
+      },
     ],
   },
 
@@ -80,7 +80,6 @@ export default {
     '@nuxtjs/firebase',
     '@nuxtjs/router',
     '@nuxtjs/strapi',
-    '@nuxt/content',
   ],
   strapi: {
     url: process.env.STRAPI_URL || 'http://localhost:1337',
@@ -120,12 +119,6 @@ export default {
     // middleware: ['auth']
   },
   // PWA module configuration: https://go.nuxtjs.dev/pwa
-  pwa: {
-    manifest: {
-      lang: 'en',
-    },
-  },
-  dirs: ['composables'],
 
   // Content module configuration: https://go.nuxtjs.dev/config-content
   content: {},
