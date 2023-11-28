@@ -97,7 +97,6 @@ import { store } from '../../../store'
 
 export default {
   layout: 'DefaultLayout',
-  transition: 'slide-left',
 }
 </script>
 <script lang="ts" setup>

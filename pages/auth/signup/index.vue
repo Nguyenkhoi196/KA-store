@@ -108,46 +108,32 @@ import { useRouter } from '@nuxtjs/composition-api'
 import { store } from '../../../store'
 export default {
   layout: 'DefaultLayout',
-  transition: 'slide-right',
-  meta: {
-    requireAuth: true,
-  },
-  setup() {
-    const username = ref<string>()
-    const email = ref<string>()
-    const password = ref<string>()
-    const isPending = ref<boolean>(false)
-    const error = ref<any>()
-    const router = useRouter()
+}
+</script>
+<script lang="ts" setup>
+const username = ref<string>()
+const email = ref<string>()
+const password = ref<string>()
+const error = ref<any>()
+const router = useRouter()
 
-    watch([email, password], () => {
-      error.value = ''
+watch([email, password], () => {
+  error.value = ''
+})
+
+const onSubmit = async () => {
+  try {
+    await store.dispatch('signup', {
+      email: email.value,
+      username: username.value,
+      password: password.value,
     })
-
-    const onSubmit = async () => {
-      try {
-        await store.dispatch('signup', {
-          email: email.value,
-          username: username.value,
-          password: password.value,
-        })
-      } catch (e: any) {
-        error.value = e
-      }
-      if (!error.value) {
-        router.push('/auth/login')
-      }
-    }
-
-    return {
-      username,
-      email,
-      password,
-      error,
-      onSubmit,
-      isPending,
-    }
-  },
+  } catch (e: any) {
+    error.value = e
+  }
+  if (!error.value) {
+    router.push('/auth/login')
+  }
 }
 </script>
 
