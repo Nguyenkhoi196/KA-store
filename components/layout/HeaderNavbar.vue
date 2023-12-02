@@ -44,7 +44,7 @@
         </div>
         <div
           id="dropdown-profile"
-          class="hidden divide-y divide-gray-100 bg-secondary text-sm z-10 rounded-lg"
+          class="hidden divide-y divide-gray-100 bg-secondary text-sm z-50 rounded-lg"
         >
           <ul class="py-2">
             <nuxt-link

@@ -14,6 +14,9 @@
   .suggest-list {
     @apply absolute z-[100] w-full border-2 border-solid rounded bg-white max-h-[250px] p-2 overflow-y-scroll;
   }
+  .head-icon {
+    @apply rounded-full;
+  }
 }
 
 @layer utilities {

@@ -3,15 +3,24 @@ export default {
   target: 'server',
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'KhoiAnh',
+    title: 'Khởi Anh - Trang Chủ',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: '' },
+      {
+        hid: 'description',
+        name: 'description',
+        content:
+          'Xưởng cán tôn Khởi Anh - cung cấp tôn sắt giá rẻ nhất thị trường',
+      },
       { name: 'format-detection', content: 'telephone=no' },
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/logo.png' },
+      {
+        rel: 'icon',
+        type: 'image/x-icon',
+        href: '/logo.jpg',
+      },
       {
         rel: 'stylesheet',
         href: 'https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.css',
@@ -80,6 +89,7 @@ export default {
     '@nuxtjs/router',
     '@nuxtjs/strapi',
     '@nuxt/image',
+    'cookie-universal-nuxt',
   ],
   strapi: {
     url: process.env.STRAPI_URL || 'http://localhost:1337',
@@ -147,5 +157,4 @@ export default {
       brands: true,
     },
   },
-  // firebase
 }

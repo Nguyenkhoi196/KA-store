@@ -91,10 +91,10 @@
         data-carousel-prev
       >
         <span
-          class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none"
+          class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-secondary/40 dark:bg-gray-800/30 group-hover:bg-secondary/70 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none"
         >
           <svg
-            class="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180"
+            class="w-4 h-4 text-secondary dark:text-gray-800 rtl:rotate-180 group-hover:text-white"
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -117,10 +117,10 @@
         data-carousel-next
       >
         <span
-          class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none"
+          class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-secondary/40 dark:bg-gray-800/30 group-hover:bg-secondary/70 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none"
         >
           <svg
-            class="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180"
+            class="w-4 h-4 text-secondary dark:text-gray-800 rtl:rotate-180 group-hover:text-white"
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -138,287 +138,295 @@
         </span>
       </button>
     </div>
-    <section class="container mx-auto grid grid-cols-2 py-20">
-      <div class="max-w-xl">
-        <div class="flex h-full flex-col justify-center text-justify">
-          <h2 class="text-4xl font-semibold text-secondary uppercase pb-4">
-            Giới thiệu về Khởi Anh
-          </h2>
-          <hr />
-          <p class="text-base text-gray-800 pt-4">
-            Công ty TNHH Khởi Anh được thành lập tháng 4/2016 tiền thân là xưởng
-            cơ khí Duy Mạnh(hoạt động từ năm 2000) chuyên sản xuất và phân phối
-            chính thức sản phẩm tôn liên doanh Việt Nhật, tôn Hoa Sen, tôn SSSC,
-            tôn Vitek, tôn Nam Kim. Kinh doanh Sắt U-I-V, ống hộp mạ kẽm,
-            inox,... . Ngoài ra Khởi Anh còn cung cấp tới khách hàng những sản
-            phẩm như Cửa cuốn, cửa xếp; nhôm kính và tôn trần các loại.
-          </p>
-        </div>
-      </div>
-      <div class="mx-auto">
-        <picture>
-          <img
-            src="https://res.cloudinary.com/dat9zyjdy/image/upload/v1699417503/hoola/home-page/hero-banner.png"
-            alt=""
-            class="max-w-xl h-auto"
-          />
-        </picture>
-      </div>
-    </section>
-    <section class="container mx-auto grid grid-cols-2 py-20">
-      <div class="max-w-xl order-last">
-        <div class="flex flex-col h-full justify-center text-justify">
-          <h2 class="text-4xl font-semibold text-secondary pb-4">
-            Xây dựng những công trình tường tồn
-          </h2>
-          <hr />
-          <p class="text-base text-gray-800 pt-4">
-            Với hơn 20 năm kinh nghiệm, trong suốt quá trình hoạt động kinh
-            doanh, chúng tôi đã liên tục xây dựng xưởng với máy móc thiết bị sản
-            xuất tôn lợp với công nghệ tiên tiến. Mở rộng liên kết với hãng tôn
-            có tiếng trên thị trường để đưa ra các sản phẩm tôn chất lượng hàng
-            đầu Việt Nam. Cam kết sản phẩm đến tay khách hàng với chất lượng bền
-            bỉ nhất
-          </p>
-        </div>
-      </div>
-      <div class="mx-auto">
-        <picture>
-          <img
-            src="https://res.cloudinary.com/dat9zyjdy/image/upload/v1699417503/hoola/home-page/hero-banner.png"
-            alt=""
-            class="max-w-xl h-auto"
-          />
-        </picture>
-      </div>
-    </section>
-    <section class="container mx-auto grid grid-flow-row py-20 gap-20">
-      <div class="flex justify-center h-auto">
-        <h2 class="text-4xl text-secondary font-semibold text-center">
-          Sản phẩm nổi bật
-        </h2>
-      </div>
-      <div class="container grid grid-cols-3 pt-10 gap-10 w-fit mx-auto">
-        <div
-          class="product-card relative group cursor-pointer overflow-hidden duration-500 w-64 h-[20rem] bg-white shadow-card hover:shadow-lg text-gray-50 p-5 rounded"
-        >
-          <div class="">
-            <div
-              class="group-hover:scale-110 w-full h-60 bg-inherit duration-500"
-            >
-              <img
-                class="w-full h-auto overflow-hidden rounded"
-                src="https://res.cloudinary.com/dat9zyjdy/image/upload/v1700934899/KhoiAnh/img-page/hltjyyp2sxsckhzeaesv.jpg"
-                alt=""
-              />
-            </div>
-            <div
-              class="absolute bottom-3 pb-2 w-64 left-0 text-gray/800 group-hover:hidden text-3xl font-semibold flex justify-center text-gray-800 duration-100"
-            >
-              Tôn Việt Nhật
-            </div>
-            <div
-              class="absolute flex flex-col w-56 left-0 p-5 -bottom-[76px] duration-500 group-hover:-translate-y-16"
-            >
-              <div
-                class="absolute -z-10 left-0 w-64 h-28 opacity-0 duration-500 group-hover:opacity-50 group-hover:bg-blue-900"
-              ></div>
-              <span class="text-xl text-secondary font-bold"
-                >Tôn Việt Nhật</span
-              >
-              <a
-                class="group-hover:opacity-100 w-56 duration-500 opacity-0 py-2 hover:text-secondary underline"
-              >
-                Xem chi tiết
-              </a>
+    <template v-if="$fetchState.pending">loading page</template>
+    <template v-else>
+      <div>
+        <section class="container mx-auto grid grid-cols-2 py-20">
+          <div class="max-w-xl">
+            <div class="flex h-full flex-col justify-center text-justify">
+              <h2 class="text-4xl font-semibold text-secondary uppercase pb-4">
+                {{ homepage?.hero_banner?.heading }}
+              </h2>
+              <hr />
+              <p class="text-base text-gray-800 pt-4">
+                {{ homepage?.hero_banner?.description }}
+              </p>
             </div>
           </div>
-        </div>
-        <div
-          class="product-card relative group cursor-pointer overflow-hidden duration-500 w-64 h-[20rem] bg-white shadow-card hover:shadow-lg text-gray-50 p-5 rounded"
-        >
-          <div class="">
-            <div
-              class="group-hover:scale-110 w-full h-60 bg-inherit duration-500"
-            >
+          <div class="mx-auto">
+            <picture>
               <img
-                class="w-full h-auto overflow-hidden rounded"
-                src="https://res.cloudinary.com/dat9zyjdy/image/upload/v1700935643/KhoiAnh/img-page/xqvpwotba2qmc6jrxltn.png"
+                :src="homepage?.hero_banner?.image.url"
                 alt=""
+                class="max-w-xl h-auto"
               />
-            </div>
-            <div
-              class="absolute bottom-3 pb-2 w-64 left-0 text-gray/800 group-hover:hidden text-3xl font-semibold flex justify-center text-gray-800 duration-100"
-            >
-              Tôn Vitek
-            </div>
-            <div
-              class="absolute flex flex-col w-56 left-0 p-5 -bottom-[76px] duration-500 group-hover:-translate-y-16"
-            >
-              <div
-                class="absolute -z-10 left-0 w-64 h-28 opacity-0 duration-500 group-hover:opacity-50 group-hover:bg-blue-900"
-              ></div>
-              <span class="text-xl text-secondary font-bold">Tôn Vitek</span>
-              <a
-                class="group-hover:opacity-100 w-56 duration-500 opacity-0 py-2 hover:text-secondary underline"
-              >
-                Xem chi tiết
-              </a>
+            </picture>
+          </div>
+        </section>
+        <section class="container mx-auto grid grid-cols-2 py-20">
+          <div class="max-w-xl order-last">
+            <div class="flex flex-col h-full justify-center text-justify">
+              <h2 class="text-4xl font-semibold text-secondary pb-4">
+                {{ homepage?.section_1?.heading }}
+              </h2>
+              <hr />
+              <p class="text-base text-gray-800 pt-4">
+                {{ homepage?.section_1?.description }}
+              </p>
             </div>
           </div>
-        </div>
-        <div
-          class="product-card relative group cursor-pointer overflow-hidden duration-500 w-64 h-[20rem] bg-white shadow-card hover:shadow-lg text-gray-50 p-5 rounded"
-        >
-          <div class="">
-            <div
-              class="group-hover:scale-110 w-full h-60 bg-inherit duration-500"
-            >
+          <div class="mx-auto">
+            <picture>
               <img
-                class="w-full h-auto overflow-hidden rounded"
-                src="https://res.cloudinary.com/dat9zyjdy/image/upload/v1700935753/KhoiAnh/img-page/lyxj4kotehzsqjw48fhg.png"
+                :src="homepage?.section_1?.image.url"
                 alt=""
+                class="max-w-xl h-auto"
               />
+            </picture>
+          </div>
+        </section>
+        <section class="container mx-auto grid grid-flow-row py-20 gap-20">
+          <div class="flex justify-center h-auto">
+            <h2 class="text-4xl text-secondary font-semibold text-center">
+              Sản phẩm nổi bật
+            </h2>
+          </div>
+          <div class="container grid grid-cols-3 pt-10 gap-10 w-fit mx-auto">
+            <div
+              class="product-card relative group cursor-pointer overflow-hidden duration-500 w-64 h-[20rem] bg-white shadow-card hover:shadow-lg text-gray-50 p-5 rounded"
+            >
+              <div class="">
+                <div
+                  class="group-hover:scale-110 w-full h-60 bg-inherit duration-500"
+                >
+                  <img
+                    class="w-full h-auto overflow-hidden rounded"
+                    src="https://res.cloudinary.com/dat9zyjdy/image/upload/v1700934899/KhoiAnh/img-page/hltjyyp2sxsckhzeaesv.jpg"
+                    alt=""
+                  />
+                </div>
+                <div
+                  class="absolute bottom-3 pb-2 w-64 left-0 text-gray/800 group-hover:hidden text-3xl font-semibold flex justify-center text-gray-800 duration-100"
+                >
+                  Tôn Việt Nhật
+                </div>
+                <div
+                  class="absolute flex flex-col w-56 left-0 p-5 -bottom-[76px] duration-500 group-hover:-translate-y-16"
+                >
+                  <div
+                    class="absolute -z-10 left-0 w-64 h-28 opacity-0 duration-500 group-hover:opacity-50 group-hover:bg-blue-900"
+                  ></div>
+                  <span class="text-xl text-secondary font-bold"
+                    >Tôn Việt Nhật</span
+                  >
+                  <a
+                    class="group-hover:opacity-100 w-56 duration-500 opacity-0 py-2 hover:text-secondary underline"
+                  >
+                    Xem chi tiết
+                  </a>
+                </div>
+              </div>
             </div>
+            <div
+              class="product-card relative group cursor-pointer overflow-hidden duration-500 w-64 h-[20rem] bg-white shadow-card hover:shadow-lg text-gray-50 p-5 rounded"
+            >
+              <div class="">
+                <div
+                  class="group-hover:scale-110 w-full h-60 bg-inherit duration-500"
+                >
+                  <img
+                    class="w-full h-auto overflow-hidden rounded"
+                    src="https://res.cloudinary.com/dat9zyjdy/image/upload/v1700935643/KhoiAnh/img-page/xqvpwotba2qmc6jrxltn.png"
+                    alt=""
+                  />
+                </div>
+                <div
+                  class="absolute bottom-3 pb-2 w-64 left-0 text-gray/800 group-hover:hidden text-3xl font-semibold flex justify-center text-gray-800 duration-100"
+                >
+                  Tôn Vitek
+                </div>
+                <div
+                  class="absolute flex flex-col w-56 left-0 p-5 -bottom-[76px] duration-500 group-hover:-translate-y-16"
+                >
+                  <div
+                    class="absolute -z-10 left-0 w-64 h-28 opacity-0 duration-500 group-hover:opacity-50 group-hover:bg-blue-900"
+                  ></div>
+                  <span class="text-xl text-secondary font-bold"
+                    >Tôn Vitek</span
+                  >
+                  <a
+                    class="group-hover:opacity-100 w-56 duration-500 opacity-0 py-2 hover:text-secondary underline"
+                  >
+                    Xem chi tiết
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div
+              class="product-card relative group cursor-pointer overflow-hidden duration-500 w-64 h-[20rem] bg-white shadow-card hover:shadow-lg text-gray-50 p-5 rounded"
+            >
+              <div class="">
+                <div
+                  class="group-hover:scale-110 w-full h-60 bg-inherit duration-500"
+                >
+                  <img
+                    class="w-full h-auto overflow-hidden rounded"
+                    src="https://res.cloudinary.com/dat9zyjdy/image/upload/v1700935753/KhoiAnh/img-page/lyxj4kotehzsqjw48fhg.png"
+                    alt=""
+                  />
+                </div>
 
-            <div
-              class="absolute bottom-3 pb-2 w-64 left-0 text-gray/800 group-hover:hidden text-3xl font-semibold flex justify-center text-gray-800 duration-100"
-            >
-              Tôn Nam Kim
+                <div
+                  class="absolute bottom-3 pb-2 w-64 left-0 text-gray/800 group-hover:hidden text-3xl font-semibold flex justify-center text-gray-800 duration-100"
+                >
+                  Tôn Nam Kim
+                </div>
+                <div
+                  class="absolute flex flex-col w-56 left-0 p-5 -bottom-[76px] duration-500 group-hover:-translate-y-16"
+                >
+                  <div
+                    class="absolute -z-10 left-0 w-64 h-28 opacity-0 duration-500 group-hover:opacity-50 group-hover:bg-blue-900"
+                  ></div>
+                  <span class="text-xl text-secondary font-bold"
+                    >Tôn Nam Kim</span
+                  >
+                  <a
+                    class="group-hover:opacity-100 w-56 duration-500 opacity-0 py-2 hover:text-secondary underline"
+                  >
+                    Xem chi tiết
+                  </a>
+                </div>
+              </div>
             </div>
             <div
-              class="absolute flex flex-col w-56 left-0 p-5 -bottom-[76px] duration-500 group-hover:-translate-y-16"
+              class="product-card relative group cursor-pointer overflow-hidden duration-500 w-64 h-[20rem] bg-white shadow-card hover:shadow-lg text-gray-50 p-5 rounded"
             >
-              <div
-                class="absolute -z-10 left-0 w-64 h-28 opacity-0 duration-500 group-hover:opacity-50 group-hover:bg-blue-900"
-              ></div>
-              <span class="text-xl text-secondary font-bold">Tôn Nam Kim</span>
-              <a
-                class="group-hover:opacity-100 w-56 duration-500 opacity-0 py-2 hover:text-secondary underline"
-              >
-                Xem chi tiết
-              </a>
-            </div>
-          </div>
-        </div>
-        <div
-          class="product-card relative group cursor-pointer overflow-hidden duration-500 w-64 h-[20rem] bg-white shadow-card hover:shadow-lg text-gray-50 p-5 rounded"
-        >
-          <div class="">
-            <div
-              class="group-hover:scale-110 w-full h-60 bg-inherit duration-500"
-            >
-              <img
-                class="w-full h-auto overflow-hidden rounded"
-                src="https://res.cloudinary.com/dat9zyjdy/image/upload/v1700936799/KhoiAnh/img-page/yt9mkhumr5ap6xqkpxsf.jpg"
-                alt=""
-              />
-            </div>
+              <div class="">
+                <div
+                  class="group-hover:scale-110 w-full h-60 bg-inherit duration-500"
+                >
+                  <img
+                    class="w-full h-auto overflow-hidden rounded"
+                    src="https://res.cloudinary.com/dat9zyjdy/image/upload/v1700936799/KhoiAnh/img-page/yt9mkhumr5ap6xqkpxsf.jpg"
+                    alt=""
+                  />
+                </div>
 
-            <div
-              class="absolute bottom-3 pb-2 w-64 left-0 text-gray/800 group-hover:hidden text-3xl font-semibold flex justify-center text-gray-800 duration-100"
-            >
-              Ống hộp mạ kẽm
+                <div
+                  class="absolute bottom-3 pb-2 w-64 left-0 text-gray/800 group-hover:hidden text-3xl font-semibold flex justify-center text-gray-800 duration-100"
+                >
+                  Ống hộp mạ kẽm
+                </div>
+                <div
+                  class="absolute flex flex-col w-56 left-0 p-5 -bottom-[76px] duration-500 group-hover:-translate-y-16"
+                >
+                  <div
+                    class="absolute -z-10 left-0 w-64 h-28 opacity-0 duration-500 group-hover:opacity-50 group-hover:bg-blue-900"
+                  ></div>
+                  <span class="text-xl text-secondary font-bold"
+                    >Ống hộp mạ kẽm</span
+                  >
+                  <a
+                    class="group-hover:opacity-100 w-56 duration-500 opacity-0 py-2 hover:text-secondary underline"
+                  >
+                    Xem chi tiết
+                  </a>
+                </div>
+              </div>
             </div>
             <div
-              class="absolute flex flex-col w-56 left-0 p-5 -bottom-[76px] duration-500 group-hover:-translate-y-16"
+              class="product-card relative group cursor-pointer overflow-hidden duration-500 w-64 h-[20rem] bg-white shadow-card hover:shadow-lg text-gray-50 p-5 rounded"
             >
-              <div
-                class="absolute -z-10 left-0 w-64 h-28 opacity-0 duration-500 group-hover:opacity-50 group-hover:bg-blue-900"
-              ></div>
-              <span class="text-xl text-secondary font-bold"
-                >Ống hộp mạ kẽm</span
-              >
-              <a
-                class="group-hover:opacity-100 w-56 duration-500 opacity-0 py-2 hover:text-secondary underline"
-              >
-                Xem chi tiết
-              </a>
-            </div>
-          </div>
-        </div>
-        <div
-          class="product-card relative group cursor-pointer overflow-hidden duration-500 w-64 h-[20rem] bg-white shadow-card hover:shadow-lg text-gray-50 p-5 rounded"
-        >
-          <div class="">
-            <div
-              class="group-hover:scale-110 w-full h-60 bg-inherit duration-500"
-            >
-              <img
-                class="w-full h-auto overflow-hidden rounded"
-                src="https://res.cloudinary.com/dat9zyjdy/image/upload/v1700936870/KhoiAnh/img-page/g29zuxg77mfefbb3jnpt.jpg"
-                alt=""
-              />
-            </div>
+              <div class="">
+                <div
+                  class="group-hover:scale-110 w-full h-60 bg-inherit duration-500"
+                >
+                  <img
+                    class="w-full h-auto overflow-hidden rounded"
+                    src="https://res.cloudinary.com/dat9zyjdy/image/upload/v1700936870/KhoiAnh/img-page/g29zuxg77mfefbb3jnpt.jpg"
+                    alt=""
+                  />
+                </div>
 
-            <div
-              class="absolute bottom-3 pb-2 w-64 left-0 text-gray/800 group-hover:hidden text-3xl font-semibold flex justify-center text-gray-800 duration-100"
-            >
-              Ống trụ mạ kẽm
+                <div
+                  class="absolute bottom-3 pb-2 w-64 left-0 text-gray/800 group-hover:hidden text-3xl font-semibold flex justify-center text-gray-800 duration-100"
+                >
+                  Ống trụ mạ kẽm
+                </div>
+                <div
+                  class="absolute flex flex-col w-56 left-0 p-5 -bottom-[76px] duration-500 group-hover:-translate-y-16"
+                >
+                  <div
+                    class="absolute -z-10 left-0 w-64 h-28 opacity-0 duration-500 group-hover:opacity-50 group-hover:bg-blue-900"
+                  ></div>
+                  <span class="text-xl text-secondary font-bold"
+                    >Ống trụ mạ kẽm</span
+                  >
+                  <a
+                    class="group-hover:opacity-100 w-56 duration-500 opacity-0 py-2 hover:text-secondary underline"
+                  >
+                    Xem chi tiết
+                  </a>
+                </div>
+              </div>
             </div>
             <div
-              class="absolute flex flex-col w-56 left-0 p-5 -bottom-[76px] duration-500 group-hover:-translate-y-16"
+              class="product-card relative group cursor-pointer overflow-hidden duration-500 w-64 h-[20rem] bg-white shadow-card hover:shadow-lg text-gray-50 p-5 rounded"
             >
-              <div
-                class="absolute -z-10 left-0 w-64 h-28 opacity-0 duration-500 group-hover:opacity-50 group-hover:bg-blue-900"
-              ></div>
-              <span class="text-xl text-secondary font-bold"
-                >Ống trụ mạ kẽm</span
-              >
-              <a
-                class="group-hover:opacity-100 w-56 duration-500 opacity-0 py-2 hover:text-secondary underline"
-              >
-                Xem chi tiết
-              </a>
-            </div>
-          </div>
-        </div>
-        <div
-          class="product-card relative group cursor-pointer overflow-hidden duration-500 w-64 h-[20rem] bg-white shadow-card hover:shadow-lg text-gray-50 p-5 rounded"
-        >
-          <div class="">
-            <div
-              class="group-hover:scale-110 w-full h-60 bg-inherit duration-500"
-            >
-              <img
-                class="w-full h-auto overflow-hidden rounded"
-                src="https://res.cloudinary.com/dat9zyjdy/image/upload/v1700936882/KhoiAnh/img-page/dtztq6zztoimxobcjrq7.jpg"
-                alt=""
-              />
-            </div>
+              <div class="">
+                <div
+                  class="group-hover:scale-110 w-full h-60 bg-inherit duration-500"
+                >
+                  <img
+                    class="w-full h-auto overflow-hidden rounded"
+                    src="https://res.cloudinary.com/dat9zyjdy/image/upload/v1700936882/KhoiAnh/img-page/dtztq6zztoimxobcjrq7.jpg"
+                    alt=""
+                  />
+                </div>
 
-            <div
-              class="absolute bottom-3 pb-2 w-64 left-0 text-gray/800 group-hover:hidden text-3xl font-semibold flex justify-center text-gray-800 duration-100"
-            >
-              Thép V mạ
-            </div>
-            <div
-              class="absolute flex flex-col w-56 left-0 p-5 -bottom-[76px] duration-500 group-hover:-translate-y-16"
-            >
-              <div
-                class="absolute -z-10 left-0 w-64 h-28 opacity-0 duration-500 group-hover:opacity-50 group-hover:bg-blue-900"
-              ></div>
-              <span class="text-xl text-secondary font-bold">Sắt U-I-V</span>
-              <a
-                class="group-hover:opacity-100 w-56 duration-500 opacity-0 py-2 hover:text-secondary underline"
-              >
-                Xem chi tiết
-              </a>
+                <div
+                  class="absolute bottom-3 pb-2 w-64 left-0 text-gray/800 group-hover:hidden text-3xl font-semibold flex justify-center text-gray-800 duration-100"
+                >
+                  Thép V mạ
+                </div>
+                <div
+                  class="absolute flex flex-col w-56 left-0 p-5 -bottom-[76px] duration-500 group-hover:-translate-y-16"
+                >
+                  <div
+                    class="absolute -z-10 left-0 w-64 h-28 opacity-0 duration-500 group-hover:opacity-50 group-hover:bg-blue-900"
+                  ></div>
+                  <span class="text-xl text-secondary font-bold"
+                    >Sắt U-I-V</span
+                  >
+                  <a
+                    class="group-hover:opacity-100 w-56 duration-500 opacity-0 py-2 hover:text-secondary underline"
+                  >
+                    Xem chi tiết
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
+        </section>
       </div>
-    </section>
+    </template>
   </div>
 </template>
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import { useFetch } from '@nuxtjs/composition-api'
+import { ref } from 'vue'
+import { getHomepage } from '~/api/Page'
+// import { axios } from '~/plugins/axios'
+const homepage = ref()
+
+useFetch(async () => {
+  const res = await getHomepage()
+  homepage.value = res.data.data
+})
+</script>
 <script lang="ts">
 export default {
   layout: 'DefaultLayout',
+  loading: true,
 }
 </script>
-<style lang="scss" scoped>
-.card {
-  width: 100%; /* Đảm bảo rằng mỗi card chiếm hết độ rộng của ô grid */
-}
-</style>
