@@ -414,15 +414,35 @@
 </template>
 <script lang="ts" setup>
 import { useFetch } from '@nuxtjs/composition-api'
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
+import socketIOClient from 'socket.io-client'
 import { getHomepage } from '~/api/Page'
+import useStorage from '~/composables/useStorage'
+
 // import { axios } from '~/plugins/axios'
 const homepage = ref()
-
 useFetch(async () => {
   const res = await getHomepage()
   homepage.value = res.data.data
 })
+onMounted(() => {
+  socket.emit('connection', socket)
+})
+const socket = socketIOClient('http://localhost:1337', {
+  query: {
+    token: useStorage.getTokenFromStorage(),
+  },
+})
+socket.on('text', (abc) => {
+  console.log('text', abc)
+})
+// socket.on('ping', () => {
+//   socket.emit('pong', JSON.stringify({ msg: 'pong' }))
+// })
+
+// const handleGetHomapage = async () => {
+//   await getHomepage()
+// }
 </script>
 <script lang="ts">
 export default {

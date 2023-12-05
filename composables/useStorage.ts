@@ -12,5 +12,16 @@ const getRoleFromStorage = () => {
   }
   return null
 }
+const getTokenFromStorage = () => {
+  if (process.client) {
+    const role = localStorage.getItem('token')
+    return role ? JSON.parse(role) : null
+  }
+  return null
+}
 
-export default { getUserDetailsFromStorage, getRoleFromStorage }
+export default {
+  getUserDetailsFromStorage,
+  getRoleFromStorage,
+  getTokenFromStorage,
+}

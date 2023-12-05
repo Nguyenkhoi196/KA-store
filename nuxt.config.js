@@ -91,6 +91,16 @@ export default {
     '@nuxt/image',
     'cookie-universal-nuxt',
   ],
+  // io: {
+  //   sockets: [
+  //     // Required
+  //     {
+  //       // At least one entry is required
+  //       name: 'main',
+  //       url: 'http://localhost:1337',
+  //     },
+  //   ],
+  // },
   strapi: {
     url: process.env.STRAPI_URL || 'http://localhost:1337',
     entities: ['products'],
