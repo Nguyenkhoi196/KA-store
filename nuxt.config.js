@@ -57,7 +57,8 @@ export default {
     { src: '~plugins/vue-tailwind.client.ts' },
     { src: '~plugins/axios.ts' },
     { src: '~plugins/vue-chart.client.ts' },
-    { src: '~plugins/vue-autosuggest.client.js' },
+    { src: '~plugins/vue-autosuggest.client.ts' },
+    { src: '~plugins/socket.io.ts' },
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -90,6 +91,7 @@ export default {
     '@nuxtjs/strapi',
     '@nuxt/image',
     'cookie-universal-nuxt',
+    // 'nuxt-socket-io',
   ],
   // io: {
   //   sockets: [
