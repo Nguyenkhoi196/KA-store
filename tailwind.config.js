@@ -11,6 +11,11 @@ module.exports = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        'fira-sans': ['Fira Sans', 'sans-serif'],
+        'space-mono': ['Space Mono', 'sans-serif'],
+        roboto:['Roboto', 'sans-serif']
+      },
       colors: {
         primary: '#ffffff',
         secondary: '#9ae29b',

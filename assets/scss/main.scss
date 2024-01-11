@@ -1,8 +1,12 @@
+@import './font.scss';
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 @layer base {
   @import './reset';
+  html{
+    font-family: Roboto
+  }
 }
 
 @layer components {
