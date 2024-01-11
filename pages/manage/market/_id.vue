@@ -288,7 +288,7 @@ import { deleteProduct, getProduct, updateProduct } from '~/api/Product'
 import { getRoleDetails } from '~/api/User'
 import { Alert } from '~/components/global/Alerts/Alert'
 import { axios } from '~/plugins/axios'
-import { Product } from '~/types/Product'
+import type { Product } from '@/types/Product'
 import useUser from '~/composables/useStorage'
 
 const product = ref<Product>()

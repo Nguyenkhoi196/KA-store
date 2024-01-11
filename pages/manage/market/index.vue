@@ -585,10 +585,10 @@
 <script setup lang="ts">
 import { onMounted, reactive, ref, watchEffect } from 'vue'
 import { useRouter } from '@nuxtjs/composition-api'
-import { addProduct, findProducts } from '~/api/Product'
-import { Product } from '~/types/Product'
-import { Pagination } from '~/types/Response'
-import Alert from '~/components/global/Alerts/Alert'
+import type { Product } from '@/types/Product'
+import type { Pagination } from '@/types/Response'
+import { addProduct, findProducts } from '@/api/Product'
+import Alert from '@/components/global/Alerts/Alert'
 
 const router = useRouter()
 
@@ -634,8 +634,6 @@ onMounted(() => {
 const handleFindProducts = async () => {
   loading.value = true
   try {
-    console.log(query)
-
     const res = await findProducts(query)
     if (!inputFilter.value) {
       inputFilter.value = undefined

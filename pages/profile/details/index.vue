@@ -204,7 +204,7 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
 import { getUserDetails } from '~/api/User'
-import { userRole } from '~/types/User'
+import { userRole } from '@/types/User'
 
 type Contacts = {
   phone?: string
