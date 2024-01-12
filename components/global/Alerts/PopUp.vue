@@ -13,7 +13,7 @@
 </template>
 
 <script setup lang="ts">
-import Alert from './Alert'
+import type Alert from './Alert'
 interface Props {
   alert: Alert
 }

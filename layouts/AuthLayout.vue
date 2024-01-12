@@ -1,8 +1,8 @@
 <template>
   <div>
-    <HeaderNavbar />
-    <nuxt class="pt-24" />
-    <Footer />
+    <ka-header />
+    <nuxt />
+    <ka-footer />
   </div>
 </template>
 <script></script>

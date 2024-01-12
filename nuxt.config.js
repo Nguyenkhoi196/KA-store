@@ -72,6 +72,7 @@ export default {
     { path: '~/components/global/SideBars/', prefix: 'Sidebar' },
     { path: '~/components/global/Tables/', prefix: 'Table' },
     { path: '~/components/global/Charts/', prefix: 'Chart' },
+    { path: '~/components/global/Carousels/', prefix: 'Carousel' },
   ],
 
   pageTransition: 'page',
