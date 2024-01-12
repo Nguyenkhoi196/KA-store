@@ -1,7 +1,7 @@
 <template>
   <div>
     <HeaderNavbar />
-    <nuxt class="pt-24" />
+    <nuxt />
     <Footer />
   </div>
 </template>

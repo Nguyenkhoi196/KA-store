@@ -1,6 +1,6 @@
 <template>
   <div>
-    <section class="container mx-auto min-h-screen h-full">
+    <section class="w-screen h-full">
       <section class="w-auto mx-8 flex">
         <section class="max-w-[234px] min-w-[200px] h-auto mr-8 mb-8 mt-6">
           <button

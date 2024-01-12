@@ -1,8 +1,6 @@
 <template>
-  <div>
-    <div
-      class="absolute flex flex-row justify-between w-screen px-10 py-5 h-24 border-b-[1px] border-tertiary bg-primary/60"
-    >
+  <div class="w-screen relative border-b-[1px] border-tertiary bg-primary/60">
+    <div class="w-full flex flex-row h-20 justify-between container px-10 py-5">
       <a href="/#" class="flex">
         <img class="h-auto" src="../../static/logoHeader.png" alt="" />
       </a>
@@ -52,8 +50,8 @@
               class="cursor-pointer flex items-center gap-3 px-5 py-1 text-primary hover:bg-secondaryDark"
             >
               <fa :icon="['fas', 'user']" />
-              <span>Hồ sơ</span></nuxt-link
-            >
+              <span>Hồ sơ</span>
+            </nuxt-link>
             <button
               class="cursor-pointer flex items-center gap-3 px-5 py-1 text-primary hover:bg-secondaryDark"
               @click="logOut"
@@ -103,7 +101,6 @@ const logOut = () => {
 </script>
 <style scoped>
 .nav-item {
-  @apply text-base font-medium items-center self-center py-4
-  hover:scale-105;
+  @apply text-base font-medium items-center self-center py-4 hover:scale-105;
 }
 </style>
