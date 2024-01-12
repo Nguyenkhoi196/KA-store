@@ -1,8 +1,6 @@
 <template>
-  <div>
-    <div
-      class="absolute flex flex-row justify-between w-screen px-10 py-5 h-24 border-b-[1px] border-tertiary bg-primary/60"
-    >
+  <div class="w-screen relative  border-b-[1px] border-tertiary bg-primary/60">
+    <div class=" w-full flex flex-row h-24 justify-between container px-10 py-5 ">
       <a href="/#" class="flex">
         <img class="h-auto" src="../../static/logoHeader.png" alt="" />
       </a>
@@ -25,13 +23,9 @@
         <div class="nav-item text-tertiary">
           <nuxt-link to="">Thông báo</nuxt-link>
         </div>
-        <a
-          v-if="user?.email"
-          data-dropdown-toggle="dropdown-profile"
-          data-dropdown-trigger="hover"
+        <a v-if="user?.email" data-dropdown-toggle="dropdown-profile" data-dropdown-trigger="hover"
           data-dropdown-placement="bottom-end"
-          class="text-secondary hover:text-secondaryDark self-center cursor-pointer flex items-center"
-        >
+          class="text-secondary hover:text-secondaryDark self-center cursor-pointer flex items-center">
           <span class="pr-2">
             {{ user.email }}
           </span>
@@ -42,22 +36,15 @@
         <div v-else class="text-secondary nav-item">
           <nuxt-link to="/auth/login">Đăng nhập</nuxt-link>
         </div>
-        <div
-          id="dropdown-profile"
-          class="hidden divide-y divide-gray-100 bg-secondary text-sm z-50 rounded-lg"
-        >
+        <div id="dropdown-profile" class="hidden divide-y divide-gray-100 bg-secondary text-sm z-50 rounded-lg">
           <ul class="py-2">
-            <nuxt-link
-              to="/profile"
-              class="cursor-pointer flex items-center gap-3 px-5 py-1 text-primary hover:bg-secondaryDark"
-            >
+            <nuxt-link to="/profile"
+              class="cursor-pointer flex items-center gap-3 px-5 py-1 text-primary hover:bg-secondaryDark">
               <fa :icon="['fas', 'user']" />
-              <span>Hồ sơ</span></nuxt-link
-            >
-            <button
-              class="cursor-pointer flex items-center gap-3 px-5 py-1 text-primary hover:bg-secondaryDark"
-              @click="logOut"
-            >
+              <span>Hồ sơ</span>
+            </nuxt-link>
+            <button class="cursor-pointer flex items-center gap-3 px-5 py-1 text-primary hover:bg-secondaryDark"
+              @click="logOut">
               <fa icon="right-from-bracket" />
               <span>Đăng xuất</span>
             </button>
@@ -103,7 +90,6 @@ const logOut = () => {
 </script>
 <style scoped>
 .nav-item {
-  @apply text-base font-medium items-center self-center py-4
-  hover:scale-105;
+  @apply text-base font-medium items-center self-center py-4 hover:scale-105;
 }
 </style>
