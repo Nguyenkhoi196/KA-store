@@ -59,6 +59,7 @@ export default {
     { src: '~plugins/vue-chart.client.ts' },
     { src: '~plugins/vue-autosuggest.client.ts' },
     { src: '~plugins/socket.io.ts' },
+    { src: '~plugins/debug.ts' },
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -105,7 +106,7 @@ export default {
   //   ],
   // },
   strapi: {
-    url: process.env.STRAPI_URL || 'http://localhost:1337',
+    url: process.env.NODE_ENV ===  'development' ? process.env.DEV_STRAPI_URL : process.env.PROD_STRAPI_URL,
     entities: ['products'],
     prefix: '/api',
     version: 'v4',
@@ -115,21 +116,16 @@ export default {
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
     // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
-    baseURL: process.env.BASE_URL || 'http://localhost:1337/api/',
-    browserBaseURL: 'http://localhost:1337/api/',
-  },
-  proxy: {
-    '/api': {
-      target: process.env.BASEURL,
-      pathRewrite: { '^/api': '/api' },
-      changeOrigin: true,
-    },
+    baseURL:process.env.NODE_ENV ===  'development' ? process.env.DEV_STRAPI_URL : process.env.PROD_STRAPI_URL,
+    browserBaseURL: 'http://localhost:1337',
   },
 
   publicRuntimeConfig: {
     axios: {
-      browserBaseURL: process.env.BROWSER_BASE_URL,
+      browserBaseURL:process.env.NODE_ENV ===  'development' ? process.env.DEV_STRAPI_URL : process.env.PROD_STRAPI_URL,
     },
+    DEV_STRAPI_URL:process.env.DEV_STRAPI_URL,
+    PROD_STRAPI_URL:process.env.PROD_STRAPI_URL
   },
 
   privateRuntimeConfig: {
@@ -137,7 +133,6 @@ export default {
       baseURL: process.env.BASE_URL,
     },
   },
-
   router: {
     // middleware: ['auth']
   },
@@ -159,7 +154,7 @@ export default {
     cache: false,
   },
   env: {
-    baseUrl: process.env.BASE_URL || 'localhost',
+    baseUrl: process.env.NODE_ENV ===  'development' ? process.env.DEV_STRAPI_URL : process.env.PROD_STRAPI_URL || 'http://localhost:3000',
   },
   // fontawesome
   fontawesome: {
