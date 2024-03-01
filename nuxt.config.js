@@ -93,6 +93,7 @@ export default {
     '@nuxtjs/strapi',
     '@nuxt/image',
     'cookie-universal-nuxt',
+    '@nuxtjs/apollo'
     // 'nuxt-socket-io',
   ],
   // io: {
@@ -105,6 +106,15 @@ export default {
   //     },
   //   ],
   // },
+  apollo: {
+    clientConfigs: {
+      default: '~/plugins/apollo.config.ts',
+      alternativeClient: {
+        httpEndpoint: process.env.NODE_ENV ===  'development' ? process.env.DEV_STRAPI_URL : process.env.PROD_STRAPI_URL,
+        browserHttpEndpoint: '/graphql',
+      },
+    }
+  },
   strapi: {
     url: process.env.NODE_ENV ===  'development' ? process.env.DEV_STRAPI_URL : process.env.PROD_STRAPI_URL,
     entities: ['products'],

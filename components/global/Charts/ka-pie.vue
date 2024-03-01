@@ -1,10 +1,5 @@
 <template>
-  <Pie
-    :chart-options="chartOptions"
-    :chart-data="chartData"
-    :width="400"
-    :height="400"
-  />
+  <Pie :chart-options="chartOptions" :chart-data="chartData" :width="400" :height="400" class="overflow-visible" />
 </template>
 
 <script setup>
@@ -20,17 +15,14 @@ const chartData = {
         'rgb(54, 162, 235)',
         'rgb(255, 205, 86)',
       ],
-      hoverOffset: 20,
+      hoverOffset: 4,
       borderAlign: 'center',
       borderColor: '#43k345',
-      borderWidth: 4,
-      offset: [5, 10, 15],
-
-      hoverBorderDashOffset: 6,
+      borderWidth: 2,
+      hoverBorderDashOffset: 2,
     },
   ],
 }
-console.log(chartData)
 const chartOptions = {
   responsive: true,
   maintainAspectRatio: false,
